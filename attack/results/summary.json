@@ -1,0 +1,56 @@
+{
+  "ksize": 3,
+  "n_profile": 12,
+  "n_eval": 4,
+  "kernel_src": "random (P2 weights not found)",
+  "images": [
+    {
+      "idx": 12,
+      "label": 9,
+      "bg_pixel_acc": 0.8278061224489796,
+      "tm_pixel_dist": 17.30540739022882,
+      "recog_orig": null,
+      "recog_bg": null,
+      "recog_tm": null
+    },
+    {
+      "idx": 13,
+      "label": 0,
+      "bg_pixel_acc": 0.7806122448979592,
+      "tm_pixel_dist": 26.319145398960448,
+      "recog_orig": null,
+      "recog_bg": null,
+      "recog_tm": null
+    },
+    {
+      "idx": 14,
+      "label": 1,
+      "bg_pixel_acc": 0.7857142857142857,
+      "tm_pixel_dist": 16.381039209514974,
+      "recog_orig": null,
+      "recog_bg": null,
+      "recog_tm": null
+    },
+    {
+      "idx": 15,
+      "label": 5,
+      "bg_pixel_acc": 0.7704081632653061,
+      "tm_pixel_dist": 19.363103980769797,
+      "recog_orig": null,
+      "recog_bg": null,
+      "recog_tm": null
+    }
+  ],
+  "summary": {
+    "bg_pixel_acc_mean": 0.7911352040816326,
+    "tm_pixel_dist_mean": 19.84217399486851,
+    "recog_acc_orig": null,
+    "recog_acc_background": null,
+    "recog_acc_template": null,
+    "paper_targets": {
+      "bg_pixel_acc": 0.862,
+      "recog_background": 0.816,
+      "recog_template": 0.898
+    }
+  }
+}
