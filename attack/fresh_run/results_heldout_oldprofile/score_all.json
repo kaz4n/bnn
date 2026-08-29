@@ -1,0 +1,18 @@
+{
+  "name": "template_onehot_crosssession",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\fresh_run\\results_heldout_oldprofile",
+  "metrics": {
+    "bit_acc": 0.9406037414965986,
+    "foreground_precision": 0.7836052836052836,
+    "foreground_recall": 0.7059852992649632,
+    "foreground_f1": 0.742772969987111,
+    "foreground_iou": 0.5908025776215583,
+    "all_zero_bit_acc": 0.8785289115646259,
+    "mssim": 0.692536194223624,
+    "pixel_level_distance": 15.146045684814453,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 30
+  }
+}

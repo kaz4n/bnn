@@ -1,0 +1,36 @@
+{
+  "kind": "cw305_active_power_template_recognition_score",
+  "created_utc": "2026-08-27T03:44:13Z",
+  "n": 3,
+  "orig_recognition_acc": 1.0,
+  "recovered_recognition_acc": 1.0,
+  "rows": [
+    {
+      "file": "recovered_0062.npz",
+      "attack_file": "img0062.npz",
+      "label": 9,
+      "orig_pred": 9,
+      "recovered_pred": 9,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0063.npz",
+      "attack_file": "img0063.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0064.npz",
+      "attack_file": "img0064.npz",
+      "label": 7,
+      "orig_pred": 7,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": true
+    }
+  ]
+}

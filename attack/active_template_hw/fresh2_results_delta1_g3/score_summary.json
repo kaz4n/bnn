@@ -1,0 +1,58 @@
+{
+  "kind": "cw305_active_power_template_score",
+  "created_utc": "2026-08-27T03:44:05Z",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\active_template_hw\\fresh2_results_delta1_g3",
+  "truth": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\active_template_hw\\fresh2_truth.json",
+  "images": [
+    {
+      "bit_acc": 0.9681122448979592,
+      "foreground_precision": 0.75,
+      "foreground_recall": 0.8181818181818182,
+      "foreground_f1": 0.7826086956521738,
+      "foreground_iou": 0.6428571428571429,
+      "all_zero_bit_acc": 0.9298469387755102,
+      "patch_exact": 0.8180473372781065,
+      "label": 9,
+      "file": "img0062.npz",
+      "mean_candidates": 31.9896449704142,
+      "fallback_windows": 2
+    },
+    {
+      "bit_acc": 0.9604591836734694,
+      "foreground_precision": 0.9,
+      "foreground_recall": 0.7241379310344828,
+      "foreground_f1": 0.8025477707006369,
+      "foreground_iou": 0.6702127659574468,
+      "all_zero_bit_acc": 0.889030612244898,
+      "patch_exact": 0.7662721893491125,
+      "label": 3,
+      "file": "img0063.npz",
+      "mean_candidates": 35.05917159763314,
+      "fallback_windows": 0
+    },
+    {
+      "bit_acc": 0.8979591836734694,
+      "foreground_precision": 0.664,
+      "foreground_recall": 0.6859504132231405,
+      "foreground_f1": 0.6747967479674797,
+      "foreground_iou": 0.50920245398773,
+      "all_zero_bit_acc": 0.8456632653061225,
+      "patch_exact": 0.6242603550295858,
+      "label": 7,
+      "file": "img0064.npz",
+      "mean_candidates": 37.710059171597635,
+      "fallback_windows": 0
+    }
+  ],
+  "summary": {
+    "bit_acc": 0.9421768707482993,
+    "foreground_precision": 0.7713333333333333,
+    "foreground_recall": 0.7427567208131473,
+    "foreground_f1": 0.7533177381067634,
+    "foreground_iou": 0.6074241209341066,
+    "all_zero_bit_acc": 0.8881802721088435,
+    "patch_exact": 0.7361932938856016,
+    "mean_candidates": 34.91962524654833,
+    "fallback_windows": 0.6666666666666666
+  }
+}

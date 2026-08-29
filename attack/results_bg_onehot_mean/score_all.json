@@ -1,0 +1,18 @@
+{
+  "name": "background_detection_mean9",
+  "kind": "bgdetect",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\results_bg_onehot_mean",
+  "metrics": {
+    "bit_acc": 0.8753826530612245,
+    "foreground_precision": 0.4869901547116737,
+    "foreground_recall": 0.4847742387119356,
+    "foreground_f1": 0.48587967023329237,
+    "foreground_iou": 0.32089898053753474,
+    "all_zero_bit_acc": 0.8785289115646259,
+    "mssim": 0.381915991401457,
+    "pixel_level_distance": 31.777423858642578,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.8666666666666667,
+    "n_images": 30
+  }
+}

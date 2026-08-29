@@ -1,0 +1,6 @@
+{
+  "template": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\fresh_run\\profile_template_cycle.npz",
+  "entries": 20280,
+  "unique_patch_codes": 200,
+  "profile_count": 30
+}

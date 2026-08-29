@@ -1,0 +1,137 @@
+train=8000 val=500 test=500 in_dim=5408 params=3.30M feature=clock_abs
+C:\Users\narut\OneDrive\Desktop\Project\bnn\attack\p2p_generator.py:236: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:823.)
+  total += float(loss) * len(idx)
+epoch   0 train=0.35097 val_mse=0.10817 val_bit_acc=0.8554 t=42s
+epoch   1 train=0.20584 val_mse=0.06634 val_bit_acc=0.9041 t=84s
+epoch   2 train=0.16336 val_mse=0.04789 val_bit_acc=0.9341 t=128s
+epoch   3 train=0.13815 val_mse=0.03852 val_bit_acc=0.9474 t=170s
+epoch   4 train=0.11965 val_mse=0.03209 val_bit_acc=0.9566 t=211s
+epoch   5 train=0.10545 val_mse=0.02814 val_bit_acc=0.9618 t=244s
+epoch   6 train=0.09503 val_mse=0.02592 val_bit_acc=0.9646 t=274s
+epoch   7 train=0.08727 val_mse=0.02516 val_bit_acc=0.9656 t=304s
+epoch   8 train=0.08150 val_mse=0.02433 val_bit_acc=0.9666 t=319s
+epoch   9 train=0.07564 val_mse=0.02323 val_bit_acc=0.9684 t=331s
+epoch  10 train=0.07043 val_mse=0.02190 val_bit_acc=0.9701 t=343s
+epoch  11 train=0.06648 val_mse=0.02167 val_bit_acc=0.9706 t=356s
+epoch  12 train=0.06237 val_mse=0.02125 val_bit_acc=0.9712 t=368s
+epoch  13 train=0.05969 val_mse=0.02116 val_bit_acc=0.9714 t=382s
+epoch  14 train=0.05600 val_mse=0.02146 val_bit_acc=0.9712 t=395s
+epoch  15 train=0.05364 val_mse=0.02077 val_bit_acc=0.9721 t=413s
+epoch  16 train=0.05068 val_mse=0.02064 val_bit_acc=0.9724 t=428s
+epoch  17 train=0.04898 val_mse=0.02070 val_bit_acc=0.9725 t=444s
+epoch  18 train=0.04647 val_mse=0.02080 val_bit_acc=0.9723 t=457s
+epoch  19 train=0.04433 val_mse=0.02054 val_bit_acc=0.9729 t=474s
+epoch  20 train=0.04275 val_mse=0.02067 val_bit_acc=0.9727 t=490s
+epoch  21 train=0.04033 val_mse=0.02026 val_bit_acc=0.9734 t=506s
+epoch  22 train=0.03807 val_mse=0.02013 val_bit_acc=0.9734 t=523s
+epoch  23 train=0.03697 val_mse=0.02012 val_bit_acc=0.9734 t=542s
+epoch  24 train=0.03469 val_mse=0.02040 val_bit_acc=0.9733 t=559s
+epoch  25 train=0.03369 val_mse=0.02103 val_bit_acc=0.9727 t=574s
+epoch  26 train=0.03303 val_mse=0.02113 val_bit_acc=0.9726 t=595s
+epoch  27 train=0.03146 val_mse=0.02043 val_bit_acc=0.9734 t=617s
+epoch  28 train=0.02972 val_mse=0.02001 val_bit_acc=0.9740 t=646s
+epoch  29 train=0.02781 val_mse=0.02014 val_bit_acc=0.9739 t=678s
+epoch  30 train=0.02678 val_mse=0.02059 val_bit_acc=0.9735 t=713s
+epoch  31 train=0.02528 val_mse=0.02023 val_bit_acc=0.9741 t=750s
+epoch  32 train=0.02444 val_mse=0.02092 val_bit_acc=0.9731 t=789s
+epoch  33 train=0.02378 val_mse=0.02056 val_bit_acc=0.9737 t=857s
+epoch  34 train=0.02217 val_mse=0.02031 val_bit_acc=0.9739 t=923s
+epoch  35 train=0.02025 val_mse=0.02029 val_bit_acc=0.9741 t=966s
+epoch  36 train=0.01983 val_mse=0.02082 val_bit_acc=0.9738 t=1002s
+epoch  37 train=0.01933 val_mse=0.02086 val_bit_acc=0.9737 t=1022s
+epoch  38 train=0.01881 val_mse=0.02104 val_bit_acc=0.9736 t=1050s
+epoch  39 train=0.01854 val_mse=0.02085 val_bit_acc=0.9738 t=1080s
+epoch  40 train=0.01826 val_mse=0.02087 val_bit_acc=0.9739 t=1109s
+epoch  41 train=0.01680 val_mse=0.02110 val_bit_acc=0.9736 t=1136s
+epoch  42 train=0.01670 val_mse=0.02170 val_bit_acc=0.9730 t=1161s
+epoch  43 train=0.01715 val_mse=0.02049 val_bit_acc=0.9744 t=1185s
+epoch  44 train=0.01578 val_mse=0.02076 val_bit_acc=0.9742 t=1211s
+epoch  45 train=0.01465 val_mse=0.02079 val_bit_acc=0.9740 t=1234s
+epoch  46 train=0.01426 val_mse=0.02059 val_bit_acc=0.9745 t=1257s
+epoch  47 train=0.01444 val_mse=0.02073 val_bit_acc=0.9743 t=1285s
+epoch  48 train=0.01349 val_mse=0.02102 val_bit_acc=0.9740 t=1338s
+epoch  49 train=0.01310 val_mse=0.02156 val_bit_acc=0.9734 t=1362s
+epoch  50 train=0.01229 val_mse=0.02112 val_bit_acc=0.9740 t=1377s
+epoch  51 train=0.01314 val_mse=0.02052 val_bit_acc=0.9746 t=1390s
+epoch  52 train=0.01308 val_mse=0.02102 val_bit_acc=0.9740 t=1402s
+epoch  53 train=0.01192 val_mse=0.02092 val_bit_acc=0.9743 t=1418s
+epoch  54 train=0.01128 val_mse=0.02116 val_bit_acc=0.9739 t=1430s
+epoch  55 train=0.01158 val_mse=0.02081 val_bit_acc=0.9744 t=1446s
+epoch  56 train=0.01156 val_mse=0.02099 val_bit_acc=0.9742 t=1459s
+epoch  57 train=0.01084 val_mse=0.02067 val_bit_acc=0.9748 t=1476s
+epoch  58 train=0.01053 val_mse=0.02092 val_bit_acc=0.9744 t=1495s
+epoch  59 train=0.01027 val_mse=0.02109 val_bit_acc=0.9744 t=1514s
+epoch  60 train=0.00982 val_mse=0.02088 val_bit_acc=0.9745 t=1530s
+epoch  61 train=0.01001 val_mse=0.02136 val_bit_acc=0.9740 t=1549s
+epoch  62 train=0.01030 val_mse=0.02165 val_bit_acc=0.9738 t=1577s
+epoch  63 train=0.00988 val_mse=0.02122 val_bit_acc=0.9740 t=1606s
+epoch  64 train=0.00961 val_mse=0.02102 val_bit_acc=0.9743 t=1637s
+epoch  65 train=0.00895 val_mse=0.02181 val_bit_acc=0.9737 t=1665s
+epoch  66 train=0.00911 val_mse=0.02134 val_bit_acc=0.9741 t=1697s
+epoch  67 train=0.00903 val_mse=0.02141 val_bit_acc=0.9742 t=1723s
+epoch  68 train=0.00881 val_mse=0.02133 val_bit_acc=0.9741 t=1751s
+epoch  69 train=0.00964 val_mse=0.02119 val_bit_acc=0.9743 t=1777s
+epoch  70 train=0.00856 val_mse=0.02125 val_bit_acc=0.9743 t=1803s
+epoch  71 train=0.00840 val_mse=0.02126 val_bit_acc=0.9745 t=1832s
+epoch  72 train=0.00849 val_mse=0.02133 val_bit_acc=0.9742 t=1858s
+epoch  73 train=0.00896 val_mse=0.02144 val_bit_acc=0.9741 t=1884s
+epoch  74 train=0.00871 val_mse=0.02141 val_bit_acc=0.9742 t=1910s
+epoch  75 train=0.00832 val_mse=0.02153 val_bit_acc=0.9740 t=1937s
+epoch  76 train=0.00863 val_mse=0.02145 val_bit_acc=0.9741 t=1960s
+epoch  77 train=0.00931 val_mse=0.02178 val_bit_acc=0.9740 t=1982s
+epoch  78 train=0.00857 val_mse=0.02138 val_bit_acc=0.9743 t=2005s
+epoch  79 train=0.00752 val_mse=0.02128 val_bit_acc=0.9745 t=2026s
+epoch  80 train=0.00690 val_mse=0.02137 val_bit_acc=0.9742 t=2048s
+epoch  81 train=0.00835 val_mse=0.02127 val_bit_acc=0.9745 t=2068s
+epoch  82 train=0.00762 val_mse=0.02123 val_bit_acc=0.9745 t=2088s
+epoch  83 train=0.00679 val_mse=0.02132 val_bit_acc=0.9745 t=2109s
+epoch  84 train=0.00744 val_mse=0.02147 val_bit_acc=0.9742 t=2130s
+epoch  85 train=0.00769 val_mse=0.02143 val_bit_acc=0.9744 t=2149s
+epoch  86 train=0.00732 val_mse=0.02133 val_bit_acc=0.9745 t=2169s
+epoch  87 train=0.00782 val_mse=0.02155 val_bit_acc=0.9742 t=2188s
+epoch  88 train=0.00765 val_mse=0.02161 val_bit_acc=0.9740 t=2208s
+epoch  89 train=0.00701 val_mse=0.02144 val_bit_acc=0.9745 t=2228s
+epoch  90 train=0.00726 val_mse=0.02142 val_bit_acc=0.9745 t=2248s
+epoch  91 train=0.00795 val_mse=0.02138 val_bit_acc=0.9745 t=2270s
+epoch  92 train=0.00826 val_mse=0.02153 val_bit_acc=0.9743 t=2291s
+epoch  93 train=0.00737 val_mse=0.02191 val_bit_acc=0.9738 t=2313s
+epoch  94 train=0.00711 val_mse=0.02152 val_bit_acc=0.9744 t=2333s
+epoch  95 train=0.00689 val_mse=0.02189 val_bit_acc=0.9739 t=2355s
+epoch  96 train=0.00653 val_mse=0.02147 val_bit_acc=0.9746 t=2375s
+epoch  97 train=0.00613 val_mse=0.02154 val_bit_acc=0.9744 t=2398s
+epoch  98 train=0.00635 val_mse=0.02156 val_bit_acc=0.9744 t=2421s
+epoch  99 train=0.00590 val_mse=0.02147 val_bit_acc=0.9746 t=2442s
+epoch 100 train=0.00664 val_mse=0.02156 val_bit_acc=0.9745 t=2467s
+epoch 101 train=0.00612 val_mse=0.02140 val_bit_acc=0.9745 t=2507s
+epoch 102 train=0.00630 val_mse=0.02142 val_bit_acc=0.9746 t=2566s
+epoch 103 train=0.00679 val_mse=0.02138 val_bit_acc=0.9747 t=2633s
+epoch 104 train=0.00665 val_mse=0.02171 val_bit_acc=0.9741 t=2690s
+epoch 105 train=0.00608 val_mse=0.02174 val_bit_acc=0.9744 t=2757s
+epoch 106 train=0.00642 val_mse=0.02167 val_bit_acc=0.9743 t=2806s
+epoch 107 train=0.00646 val_mse=0.02158 val_bit_acc=0.9744 t=2846s
+epoch 108 train=0.00680 val_mse=0.02172 val_bit_acc=0.9744 t=2893s
+epoch 109 train=0.00693 val_mse=0.02176 val_bit_acc=0.9743 t=2930s
+epoch 110 train=0.00690 val_mse=0.02192 val_bit_acc=0.9741 t=2969s
+epoch 111 train=0.00655 val_mse=0.02190 val_bit_acc=0.9743 t=3002s
+epoch 112 train=0.00643 val_mse=0.02177 val_bit_acc=0.9744 t=3018s
+epoch 113 train=0.00583 val_mse=0.02163 val_bit_acc=0.9745 t=3034s
+epoch 114 train=0.00593 val_mse=0.02142 val_bit_acc=0.9747 t=3050s
+epoch 115 train=0.00584 val_mse=0.02139 val_bit_acc=0.9748 t=3077s
+epoch 116 train=0.00606 val_mse=0.02156 val_bit_acc=0.9745 t=3104s
+epoch 117 train=0.00613 val_mse=0.02169 val_bit_acc=0.9745 t=3130s
+epoch 118 train=0.00648 val_mse=0.02158 val_bit_acc=0.9746 t=3156s
+epoch 119 train=0.00597 val_mse=0.02184 val_bit_acc=0.9743 t=3184s
+{
+  "bit_acc": 0.972125,
+  "foreground_precision": 0.8972312146864255,
+  "foreground_recall": 0.8846901145961378,
+  "foreground_f1": 0.8909165327290334,
+  "foreground_iou": 0.8032907883130209,
+  "all_zero_bit_acc": 0.8713316326530612,
+  "mssim": 0.80264905671963,
+  "pixel_level_distance": 8.818780899047852,
+  "recognition_accuracy_original": 0.974,
+  "recognition_accuracy_recovered": 0.946,
+  "recognition_accuracy_recovered_gray": 0.942
+}

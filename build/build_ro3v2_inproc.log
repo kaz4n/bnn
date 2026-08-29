@@ -1,0 +1,2769 @@
+
+****** Vivado v2016.4 (64-bit)
+  **** SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+  **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source build_ro3v2_inproc.tcl
+# set K 3;
+# if {[info exists ::env(KSIZE)]}  { set K $::env(KSIZE) }
+# set FANOUT 16;
+# if {[info exists ::env(FANOUT)]} { set FANOUT $::env(FANOUT) }
+# set part xc7a100tftg256-2
+# set HLS_RTL_DIR bnn_conv1_hls_${K}_f${FANOUT}/sol1/impl/verilog
+# if {![file isdirectory $HLS_RTL_DIR]} { error "Missing HLS RTL dir '$HLS_RTL_DIR'" }
+# set CWHDL "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl"
+# set CWXDC "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc"
+# if {[info exists ::env(CW305_SRC)]} { set CWHDL $::env(CW305_SRC) }
+# read_verilog "$CWHDL/cw305_usb_reg_fe.v"
+# read_verilog "$CWHDL/clocks.v"
+# read_verilog ../cw305/cdc_pulse.v
+# read_verilog ../cw305/ro_counter_sensor.v      ;
+# read_verilog ../cw305/cw305_reg_bnn.v
+# read_verilog ../cw305/cw305_bnn_top.v
+# foreach f [glob -nocomplain ${HLS_RTL_DIR}/*.v] { read_verilog $f }
+# read_xdc $CWXDC
+# read_xdc ../cw305/cw305_bnn.xdc
+# synth_design -top cw305_bnn_top -part $part -generic KSIZE=$K
+Command: synth_design -top cw305_bnn_top -part xc7a100tftg256-2 -generic KSIZE=3
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 24400 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 290.574 ; gain = 80.922
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'cw305_bnn_top' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn_top.v:9]
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter KSIZE bound to: 3 - type: integer 
+	Parameter BPK bound to: 2 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'cw305_usb_reg_fe' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter pREG_RDDLY_LEN bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'cw305_usb_reg_fe' (1#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
+INFO: [Synth 8-638] synthesizing module 'cw305_reg_bnn' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_bnn.v:30]
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter KSIZE bound to: 3 - type: integer 
+	Parameter BPK bound to: 2 - type: integer 
+	Parameter IMG bound to: 784 - type: integer 
+	Parameter OUT_BASE bound to: 21'b000000000100000000000 
+	Parameter KRN_BASE bound to: 21'b000000001000000000000 
+	Parameter SNS_BASE bound to: 21'b000000001100000000000 
+	Parameter GO_ADDR bound to: 33 - type: integer 
+	Parameter STAT_ADDR bound to: 34 - type: integer 
+	Parameter SENSOR_CTRL_ADDR bound to: 35 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_bnn.v:113]
+INFO: [Synth 8-5534] Detected attribute (* DONT_TOUCH = "true" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_bnn.v:151]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_bnn.v:217]
+INFO: [Synth 8-638] synthesizing module 'cdc_pulse' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:17]
+INFO: [Synth 8-256] done synthesizing module 'cdc_pulse' (2#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
+INFO: [Synth 8-638] synthesizing module 'bnn_conv1' [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:12]
+	Parameter ap_ST_fsm_state1 bound to: 33'b000000000000000000000000000000001 
+	Parameter ap_ST_fsm_state2 bound to: 33'b000000000000000000000000000000010 
+	Parameter ap_ST_fsm_state3 bound to: 33'b000000000000000000000000000000100 
+	Parameter ap_ST_fsm_state4 bound to: 33'b000000000000000000000000000001000 
+	Parameter ap_ST_fsm_state5 bound to: 33'b000000000000000000000000000010000 
+	Parameter ap_ST_fsm_state6 bound to: 33'b000000000000000000000000000100000 
+	Parameter ap_ST_fsm_state7 bound to: 33'b000000000000000000000000001000000 
+	Parameter ap_ST_fsm_state8 bound to: 33'b000000000000000000000000010000000 
+	Parameter ap_ST_fsm_state9 bound to: 33'b000000000000000000000000100000000 
+	Parameter ap_ST_fsm_state10 bound to: 33'b000000000000000000000001000000000 
+	Parameter ap_ST_fsm_state11 bound to: 33'b000000000000000000000010000000000 
+	Parameter ap_ST_fsm_state12 bound to: 33'b000000000000000000000100000000000 
+	Parameter ap_ST_fsm_state13 bound to: 33'b000000000000000000001000000000000 
+	Parameter ap_ST_fsm_state14 bound to: 33'b000000000000000000010000000000000 
+	Parameter ap_ST_fsm_state15 bound to: 33'b000000000000000000100000000000000 
+	Parameter ap_ST_fsm_state16 bound to: 33'b000000000000000001000000000000000 
+	Parameter ap_ST_fsm_state17 bound to: 33'b000000000000000010000000000000000 
+	Parameter ap_ST_fsm_state18 bound to: 33'b000000000000000100000000000000000 
+	Parameter ap_ST_fsm_state19 bound to: 33'b000000000000001000000000000000000 
+	Parameter ap_ST_fsm_state20 bound to: 33'b000000000000010000000000000000000 
+	Parameter ap_ST_fsm_state21 bound to: 33'b000000000000100000000000000000000 
+	Parameter ap_ST_fsm_state22 bound to: 33'b000000000001000000000000000000000 
+	Parameter ap_ST_fsm_state23 bound to: 33'b000000000010000000000000000000000 
+	Parameter ap_ST_fsm_state24 bound to: 33'b000000000100000000000000000000000 
+	Parameter ap_ST_fsm_state25 bound to: 33'b000000001000000000000000000000000 
+	Parameter ap_ST_fsm_pp0_stage0 bound to: 33'b000000010000000000000000000000000 
+	Parameter ap_ST_fsm_state28 bound to: 33'b000000100000000000000000000000000 
+	Parameter ap_ST_fsm_state29 bound to: 33'b000001000000000000000000000000000 
+	Parameter ap_ST_fsm_state30 bound to: 33'b000010000000000000000000000000000 
+	Parameter ap_ST_fsm_state31 bound to: 33'b000100000000000000000000000000000 
+	Parameter ap_ST_fsm_state32 bound to: 33'b001000000000000000000000000000000 
+	Parameter ap_ST_fsm_state33 bound to: 33'b010000000000000000000000000000000 
+	Parameter ap_ST_fsm_state34 bound to: 33'b100000000000000000000000000000000 
+	Parameter ap_const_lv32_0 bound to: 0 - type: integer 
+	Parameter ap_const_lv8_0 bound to: 8'b00000000 
+	Parameter ap_const_lv32_1 bound to: 1 - type: integer 
+	Parameter ap_const_lv32_2 bound to: 2 - type: integer 
+	Parameter ap_const_lv32_3 bound to: 3 - type: integer 
+	Parameter ap_const_lv32_4 bound to: 4 - type: integer 
+	Parameter ap_const_lv32_16 bound to: 22 - type: integer 
+	Parameter ap_const_lv32_17 bound to: 23 - type: integer 
+	Parameter ap_const_lv32_19 bound to: 25 - type: integer 
+	Parameter ap_const_lv32_1B bound to: 27 - type: integer 
+	Parameter ap_const_lv32_1C bound to: 28 - type: integer 
+	Parameter ap_const_lv32_1D bound to: 29 - type: integer 
+	Parameter ap_const_lv32_1E bound to: 30 - type: integer 
+	Parameter ap_const_lv32_1F bound to: 31 - type: integer 
+	Parameter ap_const_lv32_20 bound to: 32 - type: integer 
+	Parameter ap_const_lv5_0 bound to: 5'b00000 
+	Parameter ap_const_lv2_0 bound to: 2'b00 
+	Parameter ap_const_lv32_15 bound to: 21 - type: integer 
+	Parameter ap_const_lv32_18 bound to: 24 - type: integer 
+	Parameter ap_const_lv10_0 bound to: 10'b0000000000 
+	Parameter ap_const_lv32_1A bound to: 26 - type: integer 
+	Parameter ap_const_lv4_0 bound to: 4'b0000 
+	Parameter ap_const_lv5_1D bound to: 5'b11101 
+	Parameter ap_const_lv5_1E bound to: 5'b11110 
+	Parameter ap_const_lv5_1F bound to: 5'b11111 
+	Parameter ap_const_lv5_1C bound to: 5'b11100 
+	Parameter ap_const_lv5_1B bound to: 5'b11011 
+	Parameter ap_const_lv5_1A bound to: 5'b11010 
+	Parameter ap_const_lv5_19 bound to: 5'b11001 
+	Parameter ap_const_lv5_18 bound to: 5'b11000 
+	Parameter ap_const_lv5_17 bound to: 5'b10111 
+	Parameter ap_const_lv5_16 bound to: 5'b10110 
+	Parameter ap_const_lv5_15 bound to: 5'b10101 
+	Parameter ap_const_lv5_14 bound to: 5'b10100 
+	Parameter ap_const_lv5_13 bound to: 5'b10011 
+	Parameter ap_const_lv5_12 bound to: 5'b10010 
+	Parameter ap_const_lv5_11 bound to: 5'b10001 
+	Parameter ap_const_lv5_10 bound to: 5'b10000 
+	Parameter ap_const_lv5_F bound to: 5'b01111 
+	Parameter ap_const_lv5_E bound to: 5'b01110 
+	Parameter ap_const_lv5_D bound to: 5'b01101 
+	Parameter ap_const_lv5_C bound to: 5'b01100 
+	Parameter ap_const_lv5_B bound to: 5'b01011 
+	Parameter ap_const_lv5_A bound to: 5'b01010 
+	Parameter ap_const_lv5_9 bound to: 5'b01001 
+	Parameter ap_const_lv5_8 bound to: 5'b01000 
+	Parameter ap_const_lv5_7 bound to: 5'b00111 
+	Parameter ap_const_lv5_6 bound to: 5'b00110 
+	Parameter ap_const_lv5_5 bound to: 5'b00101 
+	Parameter ap_const_lv5_4 bound to: 5'b00100 
+	Parameter ap_const_lv5_3 bound to: 5'b00011 
+	Parameter ap_const_lv5_2 bound to: 5'b00010 
+	Parameter ap_const_lv5_1 bound to: 5'b00001 
+	Parameter ap_const_lv4_1 bound to: 4'b0001 
+	Parameter ap_const_lv4_2 bound to: 4'b0010 
+	Parameter ap_const_lv4_3 bound to: 4'b0011 
+	Parameter ap_const_lv4_4 bound to: 4'b0100 
+	Parameter ap_const_lv4_5 bound to: 4'b0101 
+	Parameter ap_const_lv4_6 bound to: 4'b0110 
+	Parameter ap_const_lv4_7 bound to: 4'b0111 
+	Parameter ap_const_lv4_8 bound to: 4'b1000 
+	Parameter ap_const_lv4_9 bound to: 4'b1001 
+	Parameter ap_const_lv4_A bound to: 4'b1010 
+	Parameter ap_const_lv4_B bound to: 4'b1011 
+	Parameter ap_const_lv4_C bound to: 4'b1100 
+	Parameter ap_const_lv4_D bound to: 4'b1101 
+	Parameter ap_const_lv4_E bound to: 4'b1110 
+	Parameter ap_const_lv4_F bound to: 4'b1111 
+	Parameter ap_const_lv2_3 bound to: 2'b11 
+	Parameter ap_const_lv8_1 bound to: 8'b00000001 
+	Parameter ap_const_lv2_2 bound to: 2'b10 
+	Parameter ap_const_lv2_1 bound to: 2'b01 
+	Parameter ap_const_lv10_384 bound to: 10'b1110000100 
+	Parameter ap_const_lv10_1 bound to: 10'b0000000001 
+	Parameter ap_const_lv6_23 bound to: 6'b100011 
+	Parameter ap_const_lv7_46 bound to: 7'b1000110 
+	Parameter ap_const_lv8_DB bound to: 8'b11011011 
+	Parameter ap_const_lv8_79 bound to: 8'b01111001 
+	Parameter ap_const_lv8_17 bound to: 8'b00010111 
+	Parameter ap_const_lv8_B5 bound to: 8'b10110101 
+	Parameter ap_const_lv8_53 bound to: 8'b01010011 
+	Parameter ap_const_lv8_F1 bound to: 8'b11110001 
+	Parameter ap_const_lv8_8F bound to: 8'b10001111 
+	Parameter ap_const_lv8_2D bound to: 8'b00101101 
+	Parameter ap_const_lv8_CB bound to: 8'b11001011 
+	Parameter ap_const_lv8_69 bound to: 8'b01101001 
+	Parameter ap_const_lv8_7 bound to: 8'b00000111 
+	Parameter ap_const_lv8_A5 bound to: 8'b10100101 
+	Parameter ap_const_lv8_43 bound to: 8'b01000011 
+	Parameter ap_const_lv8_E1 bound to: 8'b11100001 
+	Parameter ap_const_lv8_7F bound to: 8'b01111111 
+	Parameter ap_const_lv9_0 bound to: 9'b000000000 
+INFO: [Synth 8-5534] Detected attribute (* fsm_encoding = "none" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:205]
+INFO: [Synth 8-638] synthesizing module 'bnn_unpack_kernel' [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:10]
+	Parameter ap_ST_fsm_state1 bound to: 3'b001 
+	Parameter ap_ST_fsm_state2 bound to: 3'b010 
+	Parameter ap_ST_fsm_state3 bound to: 3'b100 
+	Parameter ap_const_lv32_0 bound to: 0 - type: integer 
+	Parameter ap_const_lv32_1 bound to: 1 - type: integer 
+	Parameter ap_const_lv32_2 bound to: 2 - type: integer 
+	Parameter ap_const_lv4_0 bound to: 4'b0000 
+	Parameter ap_const_lv4_9 bound to: 4'b1001 
+	Parameter ap_const_lv4_1 bound to: 4'b0001 
+	Parameter ap_const_lv32_3 bound to: 3 - type: integer 
+	Parameter ap_const_lv3_7 bound to: 3'b111 
+	Parameter ap_const_lv8_1 bound to: 8'b00000001 
+	Parameter ap_const_lv8_FF bound to: 8'b11111111 
+	Parameter ap_const_lv4_2 bound to: 4'b0010 
+	Parameter ap_const_lv4_3 bound to: 4'b0011 
+	Parameter ap_const_lv4_4 bound to: 4'b0100 
+	Parameter ap_const_lv4_5 bound to: 4'b0101 
+	Parameter ap_const_lv4_6 bound to: 4'b0110 
+	Parameter ap_const_lv4_7 bound to: 4'b0111 
+	Parameter ap_const_lv8_0 bound to: 8'b00000000 
+INFO: [Synth 8-5534] Detected attribute (* fsm_encoding = "none" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:89]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:464]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:466]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:468]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:470]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:472]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:474]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:476]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:478]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:480]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:482]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:490]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:492]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:494]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:496]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:498]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:502]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:504]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:506]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:508]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:510]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:512]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:516]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:518]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:520]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:522]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:524]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:526]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:530]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:534]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:536]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:538]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:540]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:542]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:544]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:546]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:548]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:550]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:552]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:554]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:556]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:558]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:560]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:566]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:568]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:570]
+INFO: [Synth 8-256] done synthesizing module 'bnn_unpack_kernel' (3#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_unpack_kernel.v:10]
+INFO: [Synth 8-638] synthesizing module 'bnn_conv1_mux_144bkb' [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1_mux_144bkb.v:11]
+	Parameter ID bound to: 1 - type: integer 
+	Parameter NUM_STAGE bound to: 1 - type: integer 
+	Parameter din1_WIDTH bound to: 8 - type: integer 
+	Parameter din2_WIDTH bound to: 8 - type: integer 
+	Parameter din3_WIDTH bound to: 8 - type: integer 
+	Parameter din4_WIDTH bound to: 8 - type: integer 
+	Parameter din5_WIDTH bound to: 8 - type: integer 
+	Parameter din6_WIDTH bound to: 8 - type: integer 
+	Parameter din7_WIDTH bound to: 8 - type: integer 
+	Parameter din8_WIDTH bound to: 8 - type: integer 
+	Parameter din9_WIDTH bound to: 8 - type: integer 
+	Parameter din10_WIDTH bound to: 8 - type: integer 
+	Parameter din11_WIDTH bound to: 8 - type: integer 
+	Parameter din12_WIDTH bound to: 8 - type: integer 
+	Parameter din13_WIDTH bound to: 8 - type: integer 
+	Parameter din14_WIDTH bound to: 8 - type: integer 
+	Parameter din15_WIDTH bound to: 8 - type: integer 
+	Parameter din16_WIDTH bound to: 8 - type: integer 
+	Parameter din17_WIDTH bound to: 8 - type: integer 
+	Parameter din18_WIDTH bound to: 8 - type: integer 
+	Parameter din19_WIDTH bound to: 8 - type: integer 
+	Parameter din20_WIDTH bound to: 8 - type: integer 
+	Parameter din21_WIDTH bound to: 8 - type: integer 
+	Parameter din22_WIDTH bound to: 8 - type: integer 
+	Parameter din23_WIDTH bound to: 8 - type: integer 
+	Parameter din24_WIDTH bound to: 8 - type: integer 
+	Parameter din25_WIDTH bound to: 8 - type: integer 
+	Parameter din26_WIDTH bound to: 8 - type: integer 
+	Parameter din27_WIDTH bound to: 8 - type: integer 
+	Parameter din28_WIDTH bound to: 8 - type: integer 
+	Parameter din29_WIDTH bound to: 8 - type: integer 
+	Parameter din30_WIDTH bound to: 8 - type: integer 
+	Parameter din31_WIDTH bound to: 8 - type: integer 
+	Parameter din32_WIDTH bound to: 8 - type: integer 
+	Parameter din33_WIDTH bound to: 8 - type: integer 
+	Parameter din34_WIDTH bound to: 8 - type: integer 
+	Parameter din35_WIDTH bound to: 8 - type: integer 
+	Parameter din36_WIDTH bound to: 8 - type: integer 
+	Parameter din37_WIDTH bound to: 8 - type: integer 
+	Parameter din38_WIDTH bound to: 8 - type: integer 
+	Parameter din39_WIDTH bound to: 8 - type: integer 
+	Parameter din40_WIDTH bound to: 8 - type: integer 
+	Parameter din41_WIDTH bound to: 8 - type: integer 
+	Parameter din42_WIDTH bound to: 8 - type: integer 
+	Parameter din43_WIDTH bound to: 8 - type: integer 
+	Parameter din44_WIDTH bound to: 8 - type: integer 
+	Parameter din45_WIDTH bound to: 8 - type: integer 
+	Parameter din46_WIDTH bound to: 8 - type: integer 
+	Parameter din47_WIDTH bound to: 8 - type: integer 
+	Parameter din48_WIDTH bound to: 8 - type: integer 
+	Parameter din49_WIDTH bound to: 8 - type: integer 
+	Parameter din50_WIDTH bound to: 8 - type: integer 
+	Parameter din51_WIDTH bound to: 8 - type: integer 
+	Parameter din52_WIDTH bound to: 8 - type: integer 
+	Parameter din53_WIDTH bound to: 8 - type: integer 
+	Parameter din54_WIDTH bound to: 8 - type: integer 
+	Parameter din55_WIDTH bound to: 8 - type: integer 
+	Parameter din56_WIDTH bound to: 8 - type: integer 
+	Parameter din57_WIDTH bound to: 8 - type: integer 
+	Parameter din58_WIDTH bound to: 8 - type: integer 
+	Parameter din59_WIDTH bound to: 8 - type: integer 
+	Parameter din60_WIDTH bound to: 8 - type: integer 
+	Parameter din61_WIDTH bound to: 8 - type: integer 
+	Parameter din62_WIDTH bound to: 8 - type: integer 
+	Parameter din63_WIDTH bound to: 8 - type: integer 
+	Parameter din64_WIDTH bound to: 8 - type: integer 
+	Parameter din65_WIDTH bound to: 8 - type: integer 
+	Parameter din66_WIDTH bound to: 8 - type: integer 
+	Parameter din67_WIDTH bound to: 8 - type: integer 
+	Parameter din68_WIDTH bound to: 8 - type: integer 
+	Parameter din69_WIDTH bound to: 8 - type: integer 
+	Parameter din70_WIDTH bound to: 8 - type: integer 
+	Parameter din71_WIDTH bound to: 8 - type: integer 
+	Parameter din72_WIDTH bound to: 8 - type: integer 
+	Parameter din73_WIDTH bound to: 8 - type: integer 
+	Parameter din74_WIDTH bound to: 8 - type: integer 
+	Parameter din75_WIDTH bound to: 8 - type: integer 
+	Parameter din76_WIDTH bound to: 8 - type: integer 
+	Parameter din77_WIDTH bound to: 8 - type: integer 
+	Parameter din78_WIDTH bound to: 8 - type: integer 
+	Parameter din79_WIDTH bound to: 8 - type: integer 
+	Parameter din80_WIDTH bound to: 8 - type: integer 
+	Parameter din81_WIDTH bound to: 8 - type: integer 
+	Parameter din82_WIDTH bound to: 8 - type: integer 
+	Parameter din83_WIDTH bound to: 8 - type: integer 
+	Parameter din84_WIDTH bound to: 8 - type: integer 
+	Parameter din85_WIDTH bound to: 8 - type: integer 
+	Parameter din86_WIDTH bound to: 8 - type: integer 
+	Parameter din87_WIDTH bound to: 8 - type: integer 
+	Parameter din88_WIDTH bound to: 8 - type: integer 
+	Parameter din89_WIDTH bound to: 8 - type: integer 
+	Parameter din90_WIDTH bound to: 8 - type: integer 
+	Parameter din91_WIDTH bound to: 8 - type: integer 
+	Parameter din92_WIDTH bound to: 8 - type: integer 
+	Parameter din93_WIDTH bound to: 8 - type: integer 
+	Parameter din94_WIDTH bound to: 8 - type: integer 
+	Parameter din95_WIDTH bound to: 8 - type: integer 
+	Parameter din96_WIDTH bound to: 8 - type: integer 
+	Parameter din97_WIDTH bound to: 8 - type: integer 
+	Parameter din98_WIDTH bound to: 8 - type: integer 
+	Parameter din99_WIDTH bound to: 8 - type: integer 
+	Parameter din100_WIDTH bound to: 8 - type: integer 
+	Parameter din101_WIDTH bound to: 8 - type: integer 
+	Parameter din102_WIDTH bound to: 8 - type: integer 
+	Parameter din103_WIDTH bound to: 8 - type: integer 
+	Parameter din104_WIDTH bound to: 8 - type: integer 
+	Parameter din105_WIDTH bound to: 8 - type: integer 
+	Parameter din106_WIDTH bound to: 8 - type: integer 
+	Parameter din107_WIDTH bound to: 8 - type: integer 
+	Parameter din108_WIDTH bound to: 8 - type: integer 
+	Parameter din109_WIDTH bound to: 8 - type: integer 
+	Parameter din110_WIDTH bound to: 8 - type: integer 
+	Parameter din111_WIDTH bound to: 8 - type: integer 
+	Parameter din112_WIDTH bound to: 8 - type: integer 
+	Parameter din113_WIDTH bound to: 8 - type: integer 
+	Parameter din114_WIDTH bound to: 8 - type: integer 
+	Parameter din115_WIDTH bound to: 8 - type: integer 
+	Parameter din116_WIDTH bound to: 8 - type: integer 
+	Parameter din117_WIDTH bound to: 8 - type: integer 
+	Parameter din118_WIDTH bound to: 8 - type: integer 
+	Parameter din119_WIDTH bound to: 8 - type: integer 
+	Parameter din120_WIDTH bound to: 8 - type: integer 
+	Parameter din121_WIDTH bound to: 8 - type: integer 
+	Parameter din122_WIDTH bound to: 8 - type: integer 
+	Parameter din123_WIDTH bound to: 8 - type: integer 
+	Parameter din124_WIDTH bound to: 8 - type: integer 
+	Parameter din125_WIDTH bound to: 8 - type: integer 
+	Parameter din126_WIDTH bound to: 8 - type: integer 
+	Parameter din127_WIDTH bound to: 8 - type: integer 
+	Parameter din128_WIDTH bound to: 8 - type: integer 
+	Parameter din129_WIDTH bound to: 8 - type: integer 
+	Parameter din130_WIDTH bound to: 8 - type: integer 
+	Parameter din131_WIDTH bound to: 8 - type: integer 
+	Parameter din132_WIDTH bound to: 8 - type: integer 
+	Parameter din133_WIDTH bound to: 8 - type: integer 
+	Parameter din134_WIDTH bound to: 8 - type: integer 
+	Parameter din135_WIDTH bound to: 8 - type: integer 
+	Parameter din136_WIDTH bound to: 8 - type: integer 
+	Parameter din137_WIDTH bound to: 8 - type: integer 
+	Parameter din138_WIDTH bound to: 8 - type: integer 
+	Parameter din139_WIDTH bound to: 8 - type: integer 
+	Parameter din140_WIDTH bound to: 8 - type: integer 
+	Parameter din141_WIDTH bound to: 8 - type: integer 
+	Parameter din142_WIDTH bound to: 8 - type: integer 
+	Parameter din143_WIDTH bound to: 8 - type: integer 
+	Parameter din144_WIDTH bound to: 8 - type: integer 
+	Parameter din145_WIDTH bound to: 8 - type: integer 
+	Parameter dout_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'bnn_conv1_mux_144bkb' (4#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1_mux_144bkb.v:11]
+INFO: [Synth 8-638] synthesizing module 'bnn_conv1_mux_960cud' [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1_mux_960cud.v:11]
+	Parameter ID bound to: 1 - type: integer 
+	Parameter NUM_STAGE bound to: 1 - type: integer 
+	Parameter din1_WIDTH bound to: 8 - type: integer 
+	Parameter din2_WIDTH bound to: 8 - type: integer 
+	Parameter din3_WIDTH bound to: 8 - type: integer 
+	Parameter din4_WIDTH bound to: 8 - type: integer 
+	Parameter din5_WIDTH bound to: 8 - type: integer 
+	Parameter din6_WIDTH bound to: 8 - type: integer 
+	Parameter din7_WIDTH bound to: 8 - type: integer 
+	Parameter din8_WIDTH bound to: 8 - type: integer 
+	Parameter din9_WIDTH bound to: 8 - type: integer 
+	Parameter din10_WIDTH bound to: 8 - type: integer 
+	Parameter din11_WIDTH bound to: 8 - type: integer 
+	Parameter din12_WIDTH bound to: 8 - type: integer 
+	Parameter din13_WIDTH bound to: 8 - type: integer 
+	Parameter din14_WIDTH bound to: 8 - type: integer 
+	Parameter din15_WIDTH bound to: 8 - type: integer 
+	Parameter din16_WIDTH bound to: 8 - type: integer 
+	Parameter din17_WIDTH bound to: 8 - type: integer 
+	Parameter din18_WIDTH bound to: 8 - type: integer 
+	Parameter din19_WIDTH bound to: 8 - type: integer 
+	Parameter din20_WIDTH bound to: 8 - type: integer 
+	Parameter din21_WIDTH bound to: 8 - type: integer 
+	Parameter din22_WIDTH bound to: 8 - type: integer 
+	Parameter din23_WIDTH bound to: 8 - type: integer 
+	Parameter din24_WIDTH bound to: 8 - type: integer 
+	Parameter din25_WIDTH bound to: 8 - type: integer 
+	Parameter din26_WIDTH bound to: 8 - type: integer 
+	Parameter din27_WIDTH bound to: 8 - type: integer 
+	Parameter din28_WIDTH bound to: 8 - type: integer 
+	Parameter din29_WIDTH bound to: 8 - type: integer 
+	Parameter din30_WIDTH bound to: 8 - type: integer 
+	Parameter din31_WIDTH bound to: 8 - type: integer 
+	Parameter din32_WIDTH bound to: 8 - type: integer 
+	Parameter din33_WIDTH bound to: 8 - type: integer 
+	Parameter din34_WIDTH bound to: 8 - type: integer 
+	Parameter din35_WIDTH bound to: 8 - type: integer 
+	Parameter din36_WIDTH bound to: 8 - type: integer 
+	Parameter din37_WIDTH bound to: 8 - type: integer 
+	Parameter din38_WIDTH bound to: 8 - type: integer 
+	Parameter din39_WIDTH bound to: 8 - type: integer 
+	Parameter din40_WIDTH bound to: 8 - type: integer 
+	Parameter din41_WIDTH bound to: 8 - type: integer 
+	Parameter din42_WIDTH bound to: 8 - type: integer 
+	Parameter din43_WIDTH bound to: 8 - type: integer 
+	Parameter din44_WIDTH bound to: 8 - type: integer 
+	Parameter din45_WIDTH bound to: 8 - type: integer 
+	Parameter din46_WIDTH bound to: 8 - type: integer 
+	Parameter din47_WIDTH bound to: 8 - type: integer 
+	Parameter din48_WIDTH bound to: 8 - type: integer 
+	Parameter din49_WIDTH bound to: 8 - type: integer 
+	Parameter din50_WIDTH bound to: 8 - type: integer 
+	Parameter din51_WIDTH bound to: 8 - type: integer 
+	Parameter din52_WIDTH bound to: 8 - type: integer 
+	Parameter din53_WIDTH bound to: 8 - type: integer 
+	Parameter din54_WIDTH bound to: 8 - type: integer 
+	Parameter din55_WIDTH bound to: 8 - type: integer 
+	Parameter din56_WIDTH bound to: 8 - type: integer 
+	Parameter din57_WIDTH bound to: 8 - type: integer 
+	Parameter din58_WIDTH bound to: 8 - type: integer 
+	Parameter din59_WIDTH bound to: 8 - type: integer 
+	Parameter din60_WIDTH bound to: 8 - type: integer 
+	Parameter din61_WIDTH bound to: 8 - type: integer 
+	Parameter din62_WIDTH bound to: 8 - type: integer 
+	Parameter din63_WIDTH bound to: 8 - type: integer 
+	Parameter din64_WIDTH bound to: 8 - type: integer 
+	Parameter din65_WIDTH bound to: 8 - type: integer 
+	Parameter din66_WIDTH bound to: 8 - type: integer 
+	Parameter din67_WIDTH bound to: 8 - type: integer 
+	Parameter din68_WIDTH bound to: 8 - type: integer 
+	Parameter din69_WIDTH bound to: 8 - type: integer 
+	Parameter din70_WIDTH bound to: 8 - type: integer 
+	Parameter din71_WIDTH bound to: 8 - type: integer 
+	Parameter din72_WIDTH bound to: 8 - type: integer 
+	Parameter din73_WIDTH bound to: 8 - type: integer 
+	Parameter din74_WIDTH bound to: 8 - type: integer 
+	Parameter din75_WIDTH bound to: 8 - type: integer 
+	Parameter din76_WIDTH bound to: 8 - type: integer 
+	Parameter din77_WIDTH bound to: 8 - type: integer 
+	Parameter din78_WIDTH bound to: 8 - type: integer 
+	Parameter din79_WIDTH bound to: 8 - type: integer 
+	Parameter din80_WIDTH bound to: 8 - type: integer 
+	Parameter din81_WIDTH bound to: 8 - type: integer 
+	Parameter din82_WIDTH bound to: 8 - type: integer 
+	Parameter din83_WIDTH bound to: 8 - type: integer 
+	Parameter din84_WIDTH bound to: 8 - type: integer 
+	Parameter din85_WIDTH bound to: 8 - type: integer 
+	Parameter din86_WIDTH bound to: 8 - type: integer 
+	Parameter din87_WIDTH bound to: 8 - type: integer 
+	Parameter din88_WIDTH bound to: 8 - type: integer 
+	Parameter din89_WIDTH bound to: 8 - type: integer 
+	Parameter din90_WIDTH bound to: 8 - type: integer 
+	Parameter din91_WIDTH bound to: 8 - type: integer 
+	Parameter din92_WIDTH bound to: 8 - type: integer 
+	Parameter din93_WIDTH bound to: 8 - type: integer 
+	Parameter din94_WIDTH bound to: 8 - type: integer 
+	Parameter din95_WIDTH bound to: 8 - type: integer 
+	Parameter din96_WIDTH bound to: 8 - type: integer 
+	Parameter din97_WIDTH bound to: 8 - type: integer 
+	Parameter din98_WIDTH bound to: 8 - type: integer 
+	Parameter din99_WIDTH bound to: 8 - type: integer 
+	Parameter din100_WIDTH bound to: 8 - type: integer 
+	Parameter din101_WIDTH bound to: 8 - type: integer 
+	Parameter din102_WIDTH bound to: 8 - type: integer 
+	Parameter din103_WIDTH bound to: 8 - type: integer 
+	Parameter din104_WIDTH bound to: 8 - type: integer 
+	Parameter din105_WIDTH bound to: 8 - type: integer 
+	Parameter din106_WIDTH bound to: 8 - type: integer 
+	Parameter din107_WIDTH bound to: 8 - type: integer 
+	Parameter din108_WIDTH bound to: 8 - type: integer 
+	Parameter din109_WIDTH bound to: 8 - type: integer 
+	Parameter din110_WIDTH bound to: 8 - type: integer 
+	Parameter din111_WIDTH bound to: 8 - type: integer 
+	Parameter din112_WIDTH bound to: 8 - type: integer 
+	Parameter din113_WIDTH bound to: 8 - type: integer 
+	Parameter din114_WIDTH bound to: 8 - type: integer 
+	Parameter din115_WIDTH bound to: 8 - type: integer 
+	Parameter din116_WIDTH bound to: 8 - type: integer 
+	Parameter din117_WIDTH bound to: 8 - type: integer 
+	Parameter din118_WIDTH bound to: 8 - type: integer 
+	Parameter din119_WIDTH bound to: 8 - type: integer 
+	Parameter din120_WIDTH bound to: 8 - type: integer 
+	Parameter din121_WIDTH bound to: 8 - type: integer 
+	Parameter din122_WIDTH bound to: 8 - type: integer 
+	Parameter din123_WIDTH bound to: 8 - type: integer 
+	Parameter din124_WIDTH bound to: 8 - type: integer 
+	Parameter din125_WIDTH bound to: 8 - type: integer 
+	Parameter din126_WIDTH bound to: 8 - type: integer 
+	Parameter din127_WIDTH bound to: 8 - type: integer 
+	Parameter din128_WIDTH bound to: 8 - type: integer 
+	Parameter din129_WIDTH bound to: 8 - type: integer 
+	Parameter din130_WIDTH bound to: 8 - type: integer 
+	Parameter din131_WIDTH bound to: 8 - type: integer 
+	Parameter din132_WIDTH bound to: 8 - type: integer 
+	Parameter din133_WIDTH bound to: 8 - type: integer 
+	Parameter din134_WIDTH bound to: 8 - type: integer 
+	Parameter din135_WIDTH bound to: 8 - type: integer 
+	Parameter din136_WIDTH bound to: 8 - type: integer 
+	Parameter din137_WIDTH bound to: 8 - type: integer 
+	Parameter din138_WIDTH bound to: 8 - type: integer 
+	Parameter din139_WIDTH bound to: 8 - type: integer 
+	Parameter din140_WIDTH bound to: 8 - type: integer 
+	Parameter din141_WIDTH bound to: 8 - type: integer 
+	Parameter din142_WIDTH bound to: 8 - type: integer 
+	Parameter din143_WIDTH bound to: 8 - type: integer 
+	Parameter din144_WIDTH bound to: 8 - type: integer 
+	Parameter din145_WIDTH bound to: 8 - type: integer 
+	Parameter din146_WIDTH bound to: 8 - type: integer 
+	Parameter din147_WIDTH bound to: 8 - type: integer 
+	Parameter din148_WIDTH bound to: 8 - type: integer 
+	Parameter din149_WIDTH bound to: 8 - type: integer 
+	Parameter din150_WIDTH bound to: 8 - type: integer 
+	Parameter din151_WIDTH bound to: 8 - type: integer 
+	Parameter din152_WIDTH bound to: 8 - type: integer 
+	Parameter din153_WIDTH bound to: 8 - type: integer 
+	Parameter din154_WIDTH bound to: 8 - type: integer 
+	Parameter din155_WIDTH bound to: 8 - type: integer 
+	Parameter din156_WIDTH bound to: 8 - type: integer 
+	Parameter din157_WIDTH bound to: 8 - type: integer 
+	Parameter din158_WIDTH bound to: 8 - type: integer 
+	Parameter din159_WIDTH bound to: 8 - type: integer 
+	Parameter din160_WIDTH bound to: 8 - type: integer 
+	Parameter din161_WIDTH bound to: 8 - type: integer 
+	Parameter din162_WIDTH bound to: 8 - type: integer 
+	Parameter din163_WIDTH bound to: 8 - type: integer 
+	Parameter din164_WIDTH bound to: 8 - type: integer 
+	Parameter din165_WIDTH bound to: 8 - type: integer 
+	Parameter din166_WIDTH bound to: 8 - type: integer 
+	Parameter din167_WIDTH bound to: 8 - type: integer 
+	Parameter din168_WIDTH bound to: 8 - type: integer 
+	Parameter din169_WIDTH bound to: 8 - type: integer 
+	Parameter din170_WIDTH bound to: 8 - type: integer 
+	Parameter din171_WIDTH bound to: 8 - type: integer 
+	Parameter din172_WIDTH bound to: 8 - type: integer 
+	Parameter din173_WIDTH bound to: 8 - type: integer 
+	Parameter din174_WIDTH bound to: 8 - type: integer 
+	Parameter din175_WIDTH bound to: 8 - type: integer 
+	Parameter din176_WIDTH bound to: 8 - type: integer 
+	Parameter din177_WIDTH bound to: 8 - type: integer 
+	Parameter din178_WIDTH bound to: 8 - type: integer 
+	Parameter din179_WIDTH bound to: 8 - type: integer 
+	Parameter din180_WIDTH bound to: 8 - type: integer 
+	Parameter din181_WIDTH bound to: 8 - type: integer 
+	Parameter din182_WIDTH bound to: 8 - type: integer 
+	Parameter din183_WIDTH bound to: 8 - type: integer 
+	Parameter din184_WIDTH bound to: 8 - type: integer 
+	Parameter din185_WIDTH bound to: 8 - type: integer 
+	Parameter din186_WIDTH bound to: 8 - type: integer 
+	Parameter din187_WIDTH bound to: 8 - type: integer 
+	Parameter din188_WIDTH bound to: 8 - type: integer 
+	Parameter din189_WIDTH bound to: 8 - type: integer 
+	Parameter din190_WIDTH bound to: 8 - type: integer 
+	Parameter din191_WIDTH bound to: 8 - type: integer 
+	Parameter din192_WIDTH bound to: 8 - type: integer 
+	Parameter din193_WIDTH bound to: 8 - type: integer 
+	Parameter din194_WIDTH bound to: 8 - type: integer 
+	Parameter din195_WIDTH bound to: 8 - type: integer 
+	Parameter din196_WIDTH bound to: 8 - type: integer 
+	Parameter din197_WIDTH bound to: 8 - type: integer 
+	Parameter din198_WIDTH bound to: 8 - type: integer 
+	Parameter din199_WIDTH bound to: 8 - type: integer 
+	Parameter din200_WIDTH bound to: 8 - type: integer 
+	Parameter din201_WIDTH bound to: 8 - type: integer 
+	Parameter din202_WIDTH bound to: 8 - type: integer 
+	Parameter din203_WIDTH bound to: 8 - type: integer 
+	Parameter din204_WIDTH bound to: 8 - type: integer 
+	Parameter din205_WIDTH bound to: 8 - type: integer 
+	Parameter din206_WIDTH bound to: 8 - type: integer 
+	Parameter din207_WIDTH bound to: 8 - type: integer 
+	Parameter din208_WIDTH bound to: 8 - type: integer 
+	Parameter din209_WIDTH bound to: 8 - type: integer 
+	Parameter din210_WIDTH bound to: 8 - type: integer 
+	Parameter din211_WIDTH bound to: 8 - type: integer 
+	Parameter din212_WIDTH bound to: 8 - type: integer 
+	Parameter din213_WIDTH bound to: 8 - type: integer 
+	Parameter din214_WIDTH bound to: 8 - type: integer 
+	Parameter din215_WIDTH bound to: 8 - type: integer 
+	Parameter din216_WIDTH bound to: 8 - type: integer 
+	Parameter din217_WIDTH bound to: 8 - type: integer 
+	Parameter din218_WIDTH bound to: 8 - type: integer 
+	Parameter din219_WIDTH bound to: 8 - type: integer 
+	Parameter din220_WIDTH bound to: 8 - type: integer 
+	Parameter din221_WIDTH bound to: 8 - type: integer 
+	Parameter din222_WIDTH bound to: 8 - type: integer 
+	Parameter din223_WIDTH bound to: 8 - type: integer 
+	Parameter din224_WIDTH bound to: 8 - type: integer 
+	Parameter din225_WIDTH bound to: 8 - type: integer 
+	Parameter din226_WIDTH bound to: 8 - type: integer 
+	Parameter din227_WIDTH bound to: 8 - type: integer 
+	Parameter din228_WIDTH bound to: 8 - type: integer 
+	Parameter din229_WIDTH bound to: 8 - type: integer 
+	Parameter din230_WIDTH bound to: 8 - type: integer 
+	Parameter din231_WIDTH bound to: 8 - type: integer 
+	Parameter din232_WIDTH bound to: 8 - type: integer 
+	Parameter din233_WIDTH bound to: 8 - type: integer 
+	Parameter din234_WIDTH bound to: 8 - type: integer 
+	Parameter din235_WIDTH bound to: 8 - type: integer 
+	Parameter din236_WIDTH bound to: 8 - type: integer 
+	Parameter din237_WIDTH bound to: 8 - type: integer 
+	Parameter din238_WIDTH bound to: 8 - type: integer 
+	Parameter din239_WIDTH bound to: 8 - type: integer 
+	Parameter din240_WIDTH bound to: 8 - type: integer 
+	Parameter din241_WIDTH bound to: 8 - type: integer 
+	Parameter din242_WIDTH bound to: 8 - type: integer 
+	Parameter din243_WIDTH bound to: 8 - type: integer 
+	Parameter din244_WIDTH bound to: 8 - type: integer 
+	Parameter din245_WIDTH bound to: 8 - type: integer 
+	Parameter din246_WIDTH bound to: 8 - type: integer 
+	Parameter din247_WIDTH bound to: 8 - type: integer 
+	Parameter din248_WIDTH bound to: 8 - type: integer 
+	Parameter din249_WIDTH bound to: 8 - type: integer 
+	Parameter din250_WIDTH bound to: 8 - type: integer 
+	Parameter din251_WIDTH bound to: 8 - type: integer 
+	Parameter din252_WIDTH bound to: 8 - type: integer 
+	Parameter din253_WIDTH bound to: 8 - type: integer 
+	Parameter din254_WIDTH bound to: 8 - type: integer 
+	Parameter din255_WIDTH bound to: 8 - type: integer 
+	Parameter din256_WIDTH bound to: 8 - type: integer 
+	Parameter din257_WIDTH bound to: 8 - type: integer 
+	Parameter din258_WIDTH bound to: 8 - type: integer 
+	Parameter din259_WIDTH bound to: 8 - type: integer 
+	Parameter din260_WIDTH bound to: 8 - type: integer 
+	Parameter din261_WIDTH bound to: 8 - type: integer 
+	Parameter din262_WIDTH bound to: 8 - type: integer 
+	Parameter din263_WIDTH bound to: 8 - type: integer 
+	Parameter din264_WIDTH bound to: 8 - type: integer 
+	Parameter din265_WIDTH bound to: 8 - type: integer 
+	Parameter din266_WIDTH bound to: 8 - type: integer 
+	Parameter din267_WIDTH bound to: 8 - type: integer 
+	Parameter din268_WIDTH bound to: 8 - type: integer 
+	Parameter din269_WIDTH bound to: 8 - type: integer 
+	Parameter din270_WIDTH bound to: 8 - type: integer 
+	Parameter din271_WIDTH bound to: 8 - type: integer 
+	Parameter din272_WIDTH bound to: 8 - type: integer 
+	Parameter din273_WIDTH bound to: 8 - type: integer 
+	Parameter din274_WIDTH bound to: 8 - type: integer 
+	Parameter din275_WIDTH bound to: 8 - type: integer 
+	Parameter din276_WIDTH bound to: 8 - type: integer 
+	Parameter din277_WIDTH bound to: 8 - type: integer 
+	Parameter din278_WIDTH bound to: 8 - type: integer 
+	Parameter din279_WIDTH bound to: 8 - type: integer 
+	Parameter din280_WIDTH bound to: 8 - type: integer 
+	Parameter din281_WIDTH bound to: 8 - type: integer 
+	Parameter din282_WIDTH bound to: 8 - type: integer 
+	Parameter din283_WIDTH bound to: 8 - type: integer 
+	Parameter din284_WIDTH bound to: 8 - type: integer 
+	Parameter din285_WIDTH bound to: 8 - type: integer 
+	Parameter din286_WIDTH bound to: 8 - type: integer 
+	Parameter din287_WIDTH bound to: 8 - type: integer 
+	Parameter din288_WIDTH bound to: 8 - type: integer 
+	Parameter din289_WIDTH bound to: 8 - type: integer 
+	Parameter din290_WIDTH bound to: 8 - type: integer 
+	Parameter din291_WIDTH bound to: 8 - type: integer 
+	Parameter din292_WIDTH bound to: 8 - type: integer 
+	Parameter din293_WIDTH bound to: 8 - type: integer 
+	Parameter din294_WIDTH bound to: 8 - type: integer 
+	Parameter din295_WIDTH bound to: 8 - type: integer 
+	Parameter din296_WIDTH bound to: 8 - type: integer 
+	Parameter din297_WIDTH bound to: 8 - type: integer 
+	Parameter din298_WIDTH bound to: 8 - type: integer 
+	Parameter din299_WIDTH bound to: 8 - type: integer 
+	Parameter din300_WIDTH bound to: 8 - type: integer 
+	Parameter din301_WIDTH bound to: 8 - type: integer 
+	Parameter din302_WIDTH bound to: 8 - type: integer 
+	Parameter din303_WIDTH bound to: 8 - type: integer 
+	Parameter din304_WIDTH bound to: 8 - type: integer 
+	Parameter din305_WIDTH bound to: 8 - type: integer 
+	Parameter din306_WIDTH bound to: 8 - type: integer 
+	Parameter din307_WIDTH bound to: 8 - type: integer 
+	Parameter din308_WIDTH bound to: 8 - type: integer 
+	Parameter din309_WIDTH bound to: 8 - type: integer 
+	Parameter din310_WIDTH bound to: 8 - type: integer 
+	Parameter din311_WIDTH bound to: 8 - type: integer 
+	Parameter din312_WIDTH bound to: 8 - type: integer 
+	Parameter din313_WIDTH bound to: 8 - type: integer 
+	Parameter din314_WIDTH bound to: 8 - type: integer 
+	Parameter din315_WIDTH bound to: 8 - type: integer 
+	Parameter din316_WIDTH bound to: 8 - type: integer 
+	Parameter din317_WIDTH bound to: 8 - type: integer 
+	Parameter din318_WIDTH bound to: 8 - type: integer 
+	Parameter din319_WIDTH bound to: 8 - type: integer 
+	Parameter din320_WIDTH bound to: 8 - type: integer 
+	Parameter din321_WIDTH bound to: 8 - type: integer 
+	Parameter din322_WIDTH bound to: 8 - type: integer 
+	Parameter din323_WIDTH bound to: 8 - type: integer 
+	Parameter din324_WIDTH bound to: 8 - type: integer 
+	Parameter din325_WIDTH bound to: 8 - type: integer 
+	Parameter din326_WIDTH bound to: 8 - type: integer 
+	Parameter din327_WIDTH bound to: 8 - type: integer 
+	Parameter din328_WIDTH bound to: 8 - type: integer 
+	Parameter din329_WIDTH bound to: 8 - type: integer 
+	Parameter din330_WIDTH bound to: 8 - type: integer 
+	Parameter din331_WIDTH bound to: 8 - type: integer 
+	Parameter din332_WIDTH bound to: 8 - type: integer 
+	Parameter din333_WIDTH bound to: 8 - type: integer 
+	Parameter din334_WIDTH bound to: 8 - type: integer 
+	Parameter din335_WIDTH bound to: 8 - type: integer 
+	Parameter din336_WIDTH bound to: 8 - type: integer 
+	Parameter din337_WIDTH bound to: 8 - type: integer 
+	Parameter din338_WIDTH bound to: 8 - type: integer 
+	Parameter din339_WIDTH bound to: 8 - type: integer 
+	Parameter din340_WIDTH bound to: 8 - type: integer 
+	Parameter din341_WIDTH bound to: 8 - type: integer 
+	Parameter din342_WIDTH bound to: 8 - type: integer 
+	Parameter din343_WIDTH bound to: 8 - type: integer 
+	Parameter din344_WIDTH bound to: 8 - type: integer 
+	Parameter din345_WIDTH bound to: 8 - type: integer 
+	Parameter din346_WIDTH bound to: 8 - type: integer 
+	Parameter din347_WIDTH bound to: 8 - type: integer 
+	Parameter din348_WIDTH bound to: 8 - type: integer 
+	Parameter din349_WIDTH bound to: 8 - type: integer 
+	Parameter din350_WIDTH bound to: 8 - type: integer 
+	Parameter din351_WIDTH bound to: 8 - type: integer 
+	Parameter din352_WIDTH bound to: 8 - type: integer 
+	Parameter din353_WIDTH bound to: 8 - type: integer 
+	Parameter din354_WIDTH bound to: 8 - type: integer 
+	Parameter din355_WIDTH bound to: 8 - type: integer 
+	Parameter din356_WIDTH bound to: 8 - type: integer 
+	Parameter din357_WIDTH bound to: 8 - type: integer 
+	Parameter din358_WIDTH bound to: 8 - type: integer 
+	Parameter din359_WIDTH bound to: 8 - type: integer 
+	Parameter din360_WIDTH bound to: 8 - type: integer 
+	Parameter din361_WIDTH bound to: 8 - type: integer 
+	Parameter din362_WIDTH bound to: 8 - type: integer 
+	Parameter din363_WIDTH bound to: 8 - type: integer 
+	Parameter din364_WIDTH bound to: 8 - type: integer 
+	Parameter din365_WIDTH bound to: 8 - type: integer 
+	Parameter din366_WIDTH bound to: 8 - type: integer 
+	Parameter din367_WIDTH bound to: 8 - type: integer 
+	Parameter din368_WIDTH bound to: 8 - type: integer 
+	Parameter din369_WIDTH bound to: 8 - type: integer 
+	Parameter din370_WIDTH bound to: 8 - type: integer 
+	Parameter din371_WIDTH bound to: 8 - type: integer 
+	Parameter din372_WIDTH bound to: 8 - type: integer 
+	Parameter din373_WIDTH bound to: 8 - type: integer 
+	Parameter din374_WIDTH bound to: 8 - type: integer 
+	Parameter din375_WIDTH bound to: 8 - type: integer 
+	Parameter din376_WIDTH bound to: 8 - type: integer 
+	Parameter din377_WIDTH bound to: 8 - type: integer 
+	Parameter din378_WIDTH bound to: 8 - type: integer 
+	Parameter din379_WIDTH bound to: 8 - type: integer 
+	Parameter din380_WIDTH bound to: 8 - type: integer 
+	Parameter din381_WIDTH bound to: 8 - type: integer 
+	Parameter din382_WIDTH bound to: 8 - type: integer 
+	Parameter din383_WIDTH bound to: 8 - type: integer 
+	Parameter din384_WIDTH bound to: 8 - type: integer 
+	Parameter din385_WIDTH bound to: 8 - type: integer 
+	Parameter din386_WIDTH bound to: 8 - type: integer 
+	Parameter din387_WIDTH bound to: 8 - type: integer 
+	Parameter din388_WIDTH bound to: 8 - type: integer 
+	Parameter din389_WIDTH bound to: 8 - type: integer 
+	Parameter din390_WIDTH bound to: 8 - type: integer 
+	Parameter din391_WIDTH bound to: 8 - type: integer 
+	Parameter din392_WIDTH bound to: 8 - type: integer 
+	Parameter din393_WIDTH bound to: 8 - type: integer 
+	Parameter din394_WIDTH bound to: 8 - type: integer 
+	Parameter din395_WIDTH bound to: 8 - type: integer 
+	Parameter din396_WIDTH bound to: 8 - type: integer 
+	Parameter din397_WIDTH bound to: 8 - type: integer 
+	Parameter din398_WIDTH bound to: 8 - type: integer 
+	Parameter din399_WIDTH bound to: 8 - type: integer 
+	Parameter din400_WIDTH bound to: 8 - type: integer 
+	Parameter din401_WIDTH bound to: 8 - type: integer 
+	Parameter din402_WIDTH bound to: 8 - type: integer 
+	Parameter din403_WIDTH bound to: 8 - type: integer 
+	Parameter din404_WIDTH bound to: 8 - type: integer 
+	Parameter din405_WIDTH bound to: 8 - type: integer 
+	Parameter din406_WIDTH bound to: 8 - type: integer 
+	Parameter din407_WIDTH bound to: 8 - type: integer 
+	Parameter din408_WIDTH bound to: 8 - type: integer 
+	Parameter din409_WIDTH bound to: 8 - type: integer 
+	Parameter din410_WIDTH bound to: 8 - type: integer 
+	Parameter din411_WIDTH bound to: 8 - type: integer 
+	Parameter din412_WIDTH bound to: 8 - type: integer 
+	Parameter din413_WIDTH bound to: 8 - type: integer 
+	Parameter din414_WIDTH bound to: 8 - type: integer 
+	Parameter din415_WIDTH bound to: 8 - type: integer 
+	Parameter din416_WIDTH bound to: 8 - type: integer 
+	Parameter din417_WIDTH bound to: 8 - type: integer 
+	Parameter din418_WIDTH bound to: 8 - type: integer 
+	Parameter din419_WIDTH bound to: 8 - type: integer 
+	Parameter din420_WIDTH bound to: 8 - type: integer 
+	Parameter din421_WIDTH bound to: 8 - type: integer 
+	Parameter din422_WIDTH bound to: 8 - type: integer 
+	Parameter din423_WIDTH bound to: 8 - type: integer 
+	Parameter din424_WIDTH bound to: 8 - type: integer 
+	Parameter din425_WIDTH bound to: 8 - type: integer 
+	Parameter din426_WIDTH bound to: 8 - type: integer 
+	Parameter din427_WIDTH bound to: 8 - type: integer 
+	Parameter din428_WIDTH bound to: 8 - type: integer 
+	Parameter din429_WIDTH bound to: 8 - type: integer 
+	Parameter din430_WIDTH bound to: 8 - type: integer 
+	Parameter din431_WIDTH bound to: 8 - type: integer 
+	Parameter din432_WIDTH bound to: 8 - type: integer 
+	Parameter din433_WIDTH bound to: 8 - type: integer 
+	Parameter din434_WIDTH bound to: 8 - type: integer 
+	Parameter din435_WIDTH bound to: 8 - type: integer 
+	Parameter din436_WIDTH bound to: 8 - type: integer 
+	Parameter din437_WIDTH bound to: 8 - type: integer 
+	Parameter din438_WIDTH bound to: 8 - type: integer 
+	Parameter din439_WIDTH bound to: 8 - type: integer 
+	Parameter din440_WIDTH bound to: 8 - type: integer 
+	Parameter din441_WIDTH bound to: 8 - type: integer 
+	Parameter din442_WIDTH bound to: 8 - type: integer 
+	Parameter din443_WIDTH bound to: 8 - type: integer 
+	Parameter din444_WIDTH bound to: 8 - type: integer 
+	Parameter din445_WIDTH bound to: 8 - type: integer 
+	Parameter din446_WIDTH bound to: 8 - type: integer 
+	Parameter din447_WIDTH bound to: 8 - type: integer 
+	Parameter din448_WIDTH bound to: 8 - type: integer 
+	Parameter din449_WIDTH bound to: 8 - type: integer 
+	Parameter din450_WIDTH bound to: 8 - type: integer 
+	Parameter din451_WIDTH bound to: 8 - type: integer 
+	Parameter din452_WIDTH bound to: 8 - type: integer 
+	Parameter din453_WIDTH bound to: 8 - type: integer 
+	Parameter din454_WIDTH bound to: 8 - type: integer 
+	Parameter din455_WIDTH bound to: 8 - type: integer 
+	Parameter din456_WIDTH bound to: 8 - type: integer 
+	Parameter din457_WIDTH bound to: 8 - type: integer 
+	Parameter din458_WIDTH bound to: 8 - type: integer 
+	Parameter din459_WIDTH bound to: 8 - type: integer 
+	Parameter din460_WIDTH bound to: 8 - type: integer 
+	Parameter din461_WIDTH bound to: 8 - type: integer 
+	Parameter din462_WIDTH bound to: 8 - type: integer 
+	Parameter din463_WIDTH bound to: 8 - type: integer 
+	Parameter din464_WIDTH bound to: 8 - type: integer 
+	Parameter din465_WIDTH bound to: 8 - type: integer 
+	Parameter din466_WIDTH bound to: 8 - type: integer 
+	Parameter din467_WIDTH bound to: 8 - type: integer 
+	Parameter din468_WIDTH bound to: 8 - type: integer 
+	Parameter din469_WIDTH bound to: 8 - type: integer 
+	Parameter din470_WIDTH bound to: 8 - type: integer 
+	Parameter din471_WIDTH bound to: 8 - type: integer 
+	Parameter din472_WIDTH bound to: 8 - type: integer 
+	Parameter din473_WIDTH bound to: 8 - type: integer 
+	Parameter din474_WIDTH bound to: 8 - type: integer 
+	Parameter din475_WIDTH bound to: 8 - type: integer 
+	Parameter din476_WIDTH bound to: 8 - type: integer 
+	Parameter din477_WIDTH bound to: 8 - type: integer 
+	Parameter din478_WIDTH bound to: 8 - type: integer 
+	Parameter din479_WIDTH bound to: 8 - type: integer 
+	Parameter din480_WIDTH bound to: 8 - type: integer 
+	Parameter din481_WIDTH bound to: 8 - type: integer 
+	Parameter din482_WIDTH bound to: 8 - type: integer 
+	Parameter din483_WIDTH bound to: 8 - type: integer 
+	Parameter din484_WIDTH bound to: 8 - type: integer 
+	Parameter din485_WIDTH bound to: 8 - type: integer 
+	Parameter din486_WIDTH bound to: 8 - type: integer 
+	Parameter din487_WIDTH bound to: 8 - type: integer 
+	Parameter din488_WIDTH bound to: 8 - type: integer 
+	Parameter din489_WIDTH bound to: 8 - type: integer 
+	Parameter din490_WIDTH bound to: 8 - type: integer 
+	Parameter din491_WIDTH bound to: 8 - type: integer 
+	Parameter din492_WIDTH bound to: 8 - type: integer 
+	Parameter din493_WIDTH bound to: 8 - type: integer 
+	Parameter din494_WIDTH bound to: 8 - type: integer 
+	Parameter din495_WIDTH bound to: 8 - type: integer 
+	Parameter din496_WIDTH bound to: 8 - type: integer 
+	Parameter din497_WIDTH bound to: 8 - type: integer 
+	Parameter din498_WIDTH bound to: 8 - type: integer 
+	Parameter din499_WIDTH bound to: 8 - type: integer 
+	Parameter din500_WIDTH bound to: 8 - type: integer 
+	Parameter din501_WIDTH bound to: 8 - type: integer 
+	Parameter din502_WIDTH bound to: 8 - type: integer 
+	Parameter din503_WIDTH bound to: 8 - type: integer 
+	Parameter din504_WIDTH bound to: 8 - type: integer 
+	Parameter din505_WIDTH bound to: 8 - type: integer 
+	Parameter din506_WIDTH bound to: 8 - type: integer 
+	Parameter din507_WIDTH bound to: 8 - type: integer 
+	Parameter din508_WIDTH bound to: 8 - type: integer 
+	Parameter din509_WIDTH bound to: 8 - type: integer 
+	Parameter din510_WIDTH bound to: 8 - type: integer 
+	Parameter din511_WIDTH bound to: 8 - type: integer 
+	Parameter din512_WIDTH bound to: 8 - type: integer 
+	Parameter din513_WIDTH bound to: 8 - type: integer 
+	Parameter din514_WIDTH bound to: 8 - type: integer 
+	Parameter din515_WIDTH bound to: 8 - type: integer 
+	Parameter din516_WIDTH bound to: 8 - type: integer 
+	Parameter din517_WIDTH bound to: 8 - type: integer 
+	Parameter din518_WIDTH bound to: 8 - type: integer 
+	Parameter din519_WIDTH bound to: 8 - type: integer 
+	Parameter din520_WIDTH bound to: 8 - type: integer 
+	Parameter din521_WIDTH bound to: 8 - type: integer 
+	Parameter din522_WIDTH bound to: 8 - type: integer 
+	Parameter din523_WIDTH bound to: 8 - type: integer 
+	Parameter din524_WIDTH bound to: 8 - type: integer 
+	Parameter din525_WIDTH bound to: 8 - type: integer 
+	Parameter din526_WIDTH bound to: 8 - type: integer 
+	Parameter din527_WIDTH bound to: 8 - type: integer 
+	Parameter din528_WIDTH bound to: 8 - type: integer 
+	Parameter din529_WIDTH bound to: 8 - type: integer 
+	Parameter din530_WIDTH bound to: 8 - type: integer 
+	Parameter din531_WIDTH bound to: 8 - type: integer 
+	Parameter din532_WIDTH bound to: 8 - type: integer 
+	Parameter din533_WIDTH bound to: 8 - type: integer 
+	Parameter din534_WIDTH bound to: 8 - type: integer 
+	Parameter din535_WIDTH bound to: 8 - type: integer 
+	Parameter din536_WIDTH bound to: 8 - type: integer 
+	Parameter din537_WIDTH bound to: 8 - type: integer 
+	Parameter din538_WIDTH bound to: 8 - type: integer 
+	Parameter din539_WIDTH bound to: 8 - type: integer 
+	Parameter din540_WIDTH bound to: 8 - type: integer 
+	Parameter din541_WIDTH bound to: 8 - type: integer 
+	Parameter din542_WIDTH bound to: 8 - type: integer 
+	Parameter din543_WIDTH bound to: 8 - type: integer 
+	Parameter din544_WIDTH bound to: 8 - type: integer 
+	Parameter din545_WIDTH bound to: 8 - type: integer 
+	Parameter din546_WIDTH bound to: 8 - type: integer 
+	Parameter din547_WIDTH bound to: 8 - type: integer 
+	Parameter din548_WIDTH bound to: 8 - type: integer 
+	Parameter din549_WIDTH bound to: 8 - type: integer 
+	Parameter din550_WIDTH bound to: 8 - type: integer 
+	Parameter din551_WIDTH bound to: 8 - type: integer 
+	Parameter din552_WIDTH bound to: 8 - type: integer 
+	Parameter din553_WIDTH bound to: 8 - type: integer 
+	Parameter din554_WIDTH bound to: 8 - type: integer 
+	Parameter din555_WIDTH bound to: 8 - type: integer 
+	Parameter din556_WIDTH bound to: 8 - type: integer 
+	Parameter din557_WIDTH bound to: 8 - type: integer 
+	Parameter din558_WIDTH bound to: 8 - type: integer 
+	Parameter din559_WIDTH bound to: 8 - type: integer 
+	Parameter din560_WIDTH bound to: 8 - type: integer 
+	Parameter din561_WIDTH bound to: 8 - type: integer 
+	Parameter din562_WIDTH bound to: 8 - type: integer 
+	Parameter din563_WIDTH bound to: 8 - type: integer 
+	Parameter din564_WIDTH bound to: 8 - type: integer 
+	Parameter din565_WIDTH bound to: 8 - type: integer 
+	Parameter din566_WIDTH bound to: 8 - type: integer 
+	Parameter din567_WIDTH bound to: 8 - type: integer 
+	Parameter din568_WIDTH bound to: 8 - type: integer 
+	Parameter din569_WIDTH bound to: 8 - type: integer 
+	Parameter din570_WIDTH bound to: 8 - type: integer 
+	Parameter din571_WIDTH bound to: 8 - type: integer 
+	Parameter din572_WIDTH bound to: 8 - type: integer 
+	Parameter din573_WIDTH bound to: 8 - type: integer 
+	Parameter din574_WIDTH bound to: 8 - type: integer 
+	Parameter din575_WIDTH bound to: 8 - type: integer 
+	Parameter din576_WIDTH bound to: 8 - type: integer 
+	Parameter din577_WIDTH bound to: 8 - type: integer 
+	Parameter din578_WIDTH bound to: 8 - type: integer 
+	Parameter din579_WIDTH bound to: 8 - type: integer 
+	Parameter din580_WIDTH bound to: 8 - type: integer 
+	Parameter din581_WIDTH bound to: 8 - type: integer 
+	Parameter din582_WIDTH bound to: 8 - type: integer 
+	Parameter din583_WIDTH bound to: 8 - type: integer 
+	Parameter din584_WIDTH bound to: 8 - type: integer 
+	Parameter din585_WIDTH bound to: 8 - type: integer 
+	Parameter din586_WIDTH bound to: 8 - type: integer 
+	Parameter din587_WIDTH bound to: 8 - type: integer 
+	Parameter din588_WIDTH bound to: 8 - type: integer 
+	Parameter din589_WIDTH bound to: 8 - type: integer 
+	Parameter din590_WIDTH bound to: 8 - type: integer 
+	Parameter din591_WIDTH bound to: 8 - type: integer 
+	Parameter din592_WIDTH bound to: 8 - type: integer 
+	Parameter din593_WIDTH bound to: 8 - type: integer 
+	Parameter din594_WIDTH bound to: 8 - type: integer 
+	Parameter din595_WIDTH bound to: 8 - type: integer 
+	Parameter din596_WIDTH bound to: 8 - type: integer 
+	Parameter din597_WIDTH bound to: 8 - type: integer 
+	Parameter din598_WIDTH bound to: 8 - type: integer 
+	Parameter din599_WIDTH bound to: 8 - type: integer 
+	Parameter din600_WIDTH bound to: 8 - type: integer 
+	Parameter din601_WIDTH bound to: 8 - type: integer 
+	Parameter din602_WIDTH bound to: 8 - type: integer 
+	Parameter din603_WIDTH bound to: 8 - type: integer 
+	Parameter din604_WIDTH bound to: 8 - type: integer 
+	Parameter din605_WIDTH bound to: 8 - type: integer 
+	Parameter din606_WIDTH bound to: 8 - type: integer 
+	Parameter din607_WIDTH bound to: 8 - type: integer 
+	Parameter din608_WIDTH bound to: 8 - type: integer 
+	Parameter din609_WIDTH bound to: 8 - type: integer 
+	Parameter din610_WIDTH bound to: 8 - type: integer 
+	Parameter din611_WIDTH bound to: 8 - type: integer 
+	Parameter din612_WIDTH bound to: 8 - type: integer 
+	Parameter din613_WIDTH bound to: 8 - type: integer 
+	Parameter din614_WIDTH bound to: 8 - type: integer 
+	Parameter din615_WIDTH bound to: 8 - type: integer 
+	Parameter din616_WIDTH bound to: 8 - type: integer 
+	Parameter din617_WIDTH bound to: 8 - type: integer 
+	Parameter din618_WIDTH bound to: 8 - type: integer 
+	Parameter din619_WIDTH bound to: 8 - type: integer 
+	Parameter din620_WIDTH bound to: 8 - type: integer 
+	Parameter din621_WIDTH bound to: 8 - type: integer 
+	Parameter din622_WIDTH bound to: 8 - type: integer 
+	Parameter din623_WIDTH bound to: 8 - type: integer 
+	Parameter din624_WIDTH bound to: 8 - type: integer 
+	Parameter din625_WIDTH bound to: 8 - type: integer 
+	Parameter din626_WIDTH bound to: 8 - type: integer 
+	Parameter din627_WIDTH bound to: 8 - type: integer 
+	Parameter din628_WIDTH bound to: 8 - type: integer 
+	Parameter din629_WIDTH bound to: 8 - type: integer 
+	Parameter din630_WIDTH bound to: 8 - type: integer 
+	Parameter din631_WIDTH bound to: 8 - type: integer 
+	Parameter din632_WIDTH bound to: 8 - type: integer 
+	Parameter din633_WIDTH bound to: 8 - type: integer 
+	Parameter din634_WIDTH bound to: 8 - type: integer 
+	Parameter din635_WIDTH bound to: 8 - type: integer 
+	Parameter din636_WIDTH bound to: 8 - type: integer 
+	Parameter din637_WIDTH bound to: 8 - type: integer 
+	Parameter din638_WIDTH bound to: 8 - type: integer 
+	Parameter din639_WIDTH bound to: 8 - type: integer 
+	Parameter din640_WIDTH bound to: 8 - type: integer 
+	Parameter din641_WIDTH bound to: 8 - type: integer 
+	Parameter din642_WIDTH bound to: 8 - type: integer 
+	Parameter din643_WIDTH bound to: 8 - type: integer 
+	Parameter din644_WIDTH bound to: 8 - type: integer 
+	Parameter din645_WIDTH bound to: 8 - type: integer 
+	Parameter din646_WIDTH bound to: 8 - type: integer 
+	Parameter din647_WIDTH bound to: 8 - type: integer 
+	Parameter din648_WIDTH bound to: 8 - type: integer 
+	Parameter din649_WIDTH bound to: 8 - type: integer 
+	Parameter din650_WIDTH bound to: 8 - type: integer 
+	Parameter din651_WIDTH bound to: 8 - type: integer 
+	Parameter din652_WIDTH bound to: 8 - type: integer 
+	Parameter din653_WIDTH bound to: 8 - type: integer 
+	Parameter din654_WIDTH bound to: 8 - type: integer 
+	Parameter din655_WIDTH bound to: 8 - type: integer 
+	Parameter din656_WIDTH bound to: 8 - type: integer 
+	Parameter din657_WIDTH bound to: 8 - type: integer 
+	Parameter din658_WIDTH bound to: 8 - type: integer 
+	Parameter din659_WIDTH bound to: 8 - type: integer 
+	Parameter din660_WIDTH bound to: 8 - type: integer 
+	Parameter din661_WIDTH bound to: 8 - type: integer 
+	Parameter din662_WIDTH bound to: 8 - type: integer 
+	Parameter din663_WIDTH bound to: 8 - type: integer 
+	Parameter din664_WIDTH bound to: 8 - type: integer 
+	Parameter din665_WIDTH bound to: 8 - type: integer 
+	Parameter din666_WIDTH bound to: 8 - type: integer 
+	Parameter din667_WIDTH bound to: 8 - type: integer 
+	Parameter din668_WIDTH bound to: 8 - type: integer 
+	Parameter din669_WIDTH bound to: 8 - type: integer 
+	Parameter din670_WIDTH bound to: 8 - type: integer 
+	Parameter din671_WIDTH bound to: 8 - type: integer 
+	Parameter din672_WIDTH bound to: 8 - type: integer 
+	Parameter din673_WIDTH bound to: 8 - type: integer 
+	Parameter din674_WIDTH bound to: 8 - type: integer 
+	Parameter din675_WIDTH bound to: 8 - type: integer 
+	Parameter din676_WIDTH bound to: 8 - type: integer 
+	Parameter din677_WIDTH bound to: 8 - type: integer 
+	Parameter din678_WIDTH bound to: 8 - type: integer 
+	Parameter din679_WIDTH bound to: 8 - type: integer 
+	Parameter din680_WIDTH bound to: 8 - type: integer 
+	Parameter din681_WIDTH bound to: 8 - type: integer 
+	Parameter din682_WIDTH bound to: 8 - type: integer 
+	Parameter din683_WIDTH bound to: 8 - type: integer 
+	Parameter din684_WIDTH bound to: 8 - type: integer 
+	Parameter din685_WIDTH bound to: 8 - type: integer 
+	Parameter din686_WIDTH bound to: 8 - type: integer 
+	Parameter din687_WIDTH bound to: 8 - type: integer 
+	Parameter din688_WIDTH bound to: 8 - type: integer 
+	Parameter din689_WIDTH bound to: 8 - type: integer 
+	Parameter din690_WIDTH bound to: 8 - type: integer 
+	Parameter din691_WIDTH bound to: 8 - type: integer 
+	Parameter din692_WIDTH bound to: 8 - type: integer 
+	Parameter din693_WIDTH bound to: 8 - type: integer 
+	Parameter din694_WIDTH bound to: 8 - type: integer 
+	Parameter din695_WIDTH bound to: 8 - type: integer 
+	Parameter din696_WIDTH bound to: 8 - type: integer 
+	Parameter din697_WIDTH bound to: 8 - type: integer 
+	Parameter din698_WIDTH bound to: 8 - type: integer 
+	Parameter din699_WIDTH bound to: 8 - type: integer 
+	Parameter din700_WIDTH bound to: 8 - type: integer 
+	Parameter din701_WIDTH bound to: 8 - type: integer 
+	Parameter din702_WIDTH bound to: 8 - type: integer 
+	Parameter din703_WIDTH bound to: 8 - type: integer 
+	Parameter din704_WIDTH bound to: 8 - type: integer 
+	Parameter din705_WIDTH bound to: 8 - type: integer 
+	Parameter din706_WIDTH bound to: 8 - type: integer 
+	Parameter din707_WIDTH bound to: 8 - type: integer 
+	Parameter din708_WIDTH bound to: 8 - type: integer 
+	Parameter din709_WIDTH bound to: 8 - type: integer 
+	Parameter din710_WIDTH bound to: 8 - type: integer 
+	Parameter din711_WIDTH bound to: 8 - type: integer 
+	Parameter din712_WIDTH bound to: 8 - type: integer 
+	Parameter din713_WIDTH bound to: 8 - type: integer 
+	Parameter din714_WIDTH bound to: 8 - type: integer 
+	Parameter din715_WIDTH bound to: 8 - type: integer 
+	Parameter din716_WIDTH bound to: 8 - type: integer 
+	Parameter din717_WIDTH bound to: 8 - type: integer 
+	Parameter din718_WIDTH bound to: 8 - type: integer 
+	Parameter din719_WIDTH bound to: 8 - type: integer 
+	Parameter din720_WIDTH bound to: 8 - type: integer 
+	Parameter din721_WIDTH bound to: 8 - type: integer 
+	Parameter din722_WIDTH bound to: 8 - type: integer 
+	Parameter din723_WIDTH bound to: 8 - type: integer 
+	Parameter din724_WIDTH bound to: 8 - type: integer 
+	Parameter din725_WIDTH bound to: 8 - type: integer 
+	Parameter din726_WIDTH bound to: 8 - type: integer 
+	Parameter din727_WIDTH bound to: 8 - type: integer 
+	Parameter din728_WIDTH bound to: 8 - type: integer 
+	Parameter din729_WIDTH bound to: 8 - type: integer 
+	Parameter din730_WIDTH bound to: 8 - type: integer 
+	Parameter din731_WIDTH bound to: 8 - type: integer 
+	Parameter din732_WIDTH bound to: 8 - type: integer 
+	Parameter din733_WIDTH bound to: 8 - type: integer 
+	Parameter din734_WIDTH bound to: 8 - type: integer 
+	Parameter din735_WIDTH bound to: 8 - type: integer 
+	Parameter din736_WIDTH bound to: 8 - type: integer 
+	Parameter din737_WIDTH bound to: 8 - type: integer 
+	Parameter din738_WIDTH bound to: 8 - type: integer 
+	Parameter din739_WIDTH bound to: 8 - type: integer 
+	Parameter din740_WIDTH bound to: 8 - type: integer 
+	Parameter din741_WIDTH bound to: 8 - type: integer 
+	Parameter din742_WIDTH bound to: 8 - type: integer 
+	Parameter din743_WIDTH bound to: 8 - type: integer 
+	Parameter din744_WIDTH bound to: 8 - type: integer 
+	Parameter din745_WIDTH bound to: 8 - type: integer 
+	Parameter din746_WIDTH bound to: 8 - type: integer 
+	Parameter din747_WIDTH bound to: 8 - type: integer 
+	Parameter din748_WIDTH bound to: 8 - type: integer 
+	Parameter din749_WIDTH bound to: 8 - type: integer 
+	Parameter din750_WIDTH bound to: 8 - type: integer 
+	Parameter din751_WIDTH bound to: 8 - type: integer 
+	Parameter din752_WIDTH bound to: 8 - type: integer 
+	Parameter din753_WIDTH bound to: 8 - type: integer 
+	Parameter din754_WIDTH bound to: 8 - type: integer 
+	Parameter din755_WIDTH bound to: 8 - type: integer 
+	Parameter din756_WIDTH bound to: 8 - type: integer 
+	Parameter din757_WIDTH bound to: 8 - type: integer 
+	Parameter din758_WIDTH bound to: 8 - type: integer 
+	Parameter din759_WIDTH bound to: 8 - type: integer 
+	Parameter din760_WIDTH bound to: 8 - type: integer 
+	Parameter din761_WIDTH bound to: 8 - type: integer 
+	Parameter din762_WIDTH bound to: 8 - type: integer 
+	Parameter din763_WIDTH bound to: 8 - type: integer 
+	Parameter din764_WIDTH bound to: 8 - type: integer 
+	Parameter din765_WIDTH bound to: 8 - type: integer 
+	Parameter din766_WIDTH bound to: 8 - type: integer 
+	Parameter din767_WIDTH bound to: 8 - type: integer 
+	Parameter din768_WIDTH bound to: 8 - type: integer 
+	Parameter din769_WIDTH bound to: 8 - type: integer 
+	Parameter din770_WIDTH bound to: 8 - type: integer 
+	Parameter din771_WIDTH bound to: 8 - type: integer 
+	Parameter din772_WIDTH bound to: 8 - type: integer 
+	Parameter din773_WIDTH bound to: 8 - type: integer 
+	Parameter din774_WIDTH bound to: 8 - type: integer 
+	Parameter din775_WIDTH bound to: 8 - type: integer 
+	Parameter din776_WIDTH bound to: 8 - type: integer 
+	Parameter din777_WIDTH bound to: 8 - type: integer 
+	Parameter din778_WIDTH bound to: 8 - type: integer 
+	Parameter din779_WIDTH bound to: 8 - type: integer 
+	Parameter din780_WIDTH bound to: 8 - type: integer 
+	Parameter din781_WIDTH bound to: 8 - type: integer 
+	Parameter din782_WIDTH bound to: 8 - type: integer 
+	Parameter din783_WIDTH bound to: 8 - type: integer 
+	Parameter din784_WIDTH bound to: 8 - type: integer 
+	Parameter din785_WIDTH bound to: 8 - type: integer 
+	Parameter din786_WIDTH bound to: 8 - type: integer 
+	Parameter din787_WIDTH bound to: 8 - type: integer 
+	Parameter din788_WIDTH bound to: 8 - type: integer 
+	Parameter din789_WIDTH bound to: 8 - type: integer 
+	Parameter din790_WIDTH bound to: 8 - type: integer 
+	Parameter din791_WIDTH bound to: 8 - type: integer 
+	Parameter din792_WIDTH bound to: 8 - type: integer 
+	Parameter din793_WIDTH bound to: 8 - type: integer 
+	Parameter din794_WIDTH bound to: 8 - type: integer 
+	Parameter din795_WIDTH bound to: 8 - type: integer 
+	Parameter din796_WIDTH bound to: 8 - type: integer 
+	Parameter din797_WIDTH bound to: 8 - type: integer 
+	Parameter din798_WIDTH bound to: 8 - type: integer 
+	Parameter din799_WIDTH bound to: 8 - type: integer 
+	Parameter din800_WIDTH bound to: 8 - type: integer 
+	Parameter din801_WIDTH bound to: 8 - type: integer 
+	Parameter din802_WIDTH bound to: 8 - type: integer 
+	Parameter din803_WIDTH bound to: 8 - type: integer 
+	Parameter din804_WIDTH bound to: 8 - type: integer 
+	Parameter din805_WIDTH bound to: 8 - type: integer 
+	Parameter din806_WIDTH bound to: 8 - type: integer 
+	Parameter din807_WIDTH bound to: 8 - type: integer 
+	Parameter din808_WIDTH bound to: 8 - type: integer 
+	Parameter din809_WIDTH bound to: 8 - type: integer 
+	Parameter din810_WIDTH bound to: 8 - type: integer 
+	Parameter din811_WIDTH bound to: 8 - type: integer 
+	Parameter din812_WIDTH bound to: 8 - type: integer 
+	Parameter din813_WIDTH bound to: 8 - type: integer 
+	Parameter din814_WIDTH bound to: 8 - type: integer 
+	Parameter din815_WIDTH bound to: 8 - type: integer 
+	Parameter din816_WIDTH bound to: 8 - type: integer 
+	Parameter din817_WIDTH bound to: 8 - type: integer 
+	Parameter din818_WIDTH bound to: 8 - type: integer 
+	Parameter din819_WIDTH bound to: 8 - type: integer 
+	Parameter din820_WIDTH bound to: 8 - type: integer 
+	Parameter din821_WIDTH bound to: 8 - type: integer 
+	Parameter din822_WIDTH bound to: 8 - type: integer 
+	Parameter din823_WIDTH bound to: 8 - type: integer 
+	Parameter din824_WIDTH bound to: 8 - type: integer 
+	Parameter din825_WIDTH bound to: 8 - type: integer 
+	Parameter din826_WIDTH bound to: 8 - type: integer 
+	Parameter din827_WIDTH bound to: 8 - type: integer 
+	Parameter din828_WIDTH bound to: 8 - type: integer 
+	Parameter din829_WIDTH bound to: 8 - type: integer 
+	Parameter din830_WIDTH bound to: 8 - type: integer 
+	Parameter din831_WIDTH bound to: 8 - type: integer 
+	Parameter din832_WIDTH bound to: 8 - type: integer 
+	Parameter din833_WIDTH bound to: 8 - type: integer 
+	Parameter din834_WIDTH bound to: 8 - type: integer 
+	Parameter din835_WIDTH bound to: 8 - type: integer 
+	Parameter din836_WIDTH bound to: 8 - type: integer 
+	Parameter din837_WIDTH bound to: 8 - type: integer 
+	Parameter din838_WIDTH bound to: 8 - type: integer 
+	Parameter din839_WIDTH bound to: 8 - type: integer 
+	Parameter din840_WIDTH bound to: 8 - type: integer 
+	Parameter din841_WIDTH bound to: 8 - type: integer 
+	Parameter din842_WIDTH bound to: 8 - type: integer 
+	Parameter din843_WIDTH bound to: 8 - type: integer 
+	Parameter din844_WIDTH bound to: 8 - type: integer 
+	Parameter din845_WIDTH bound to: 8 - type: integer 
+	Parameter din846_WIDTH bound to: 8 - type: integer 
+	Parameter din847_WIDTH bound to: 8 - type: integer 
+	Parameter din848_WIDTH bound to: 8 - type: integer 
+	Parameter din849_WIDTH bound to: 8 - type: integer 
+	Parameter din850_WIDTH bound to: 8 - type: integer 
+	Parameter din851_WIDTH bound to: 8 - type: integer 
+	Parameter din852_WIDTH bound to: 8 - type: integer 
+	Parameter din853_WIDTH bound to: 8 - type: integer 
+	Parameter din854_WIDTH bound to: 8 - type: integer 
+	Parameter din855_WIDTH bound to: 8 - type: integer 
+	Parameter din856_WIDTH bound to: 8 - type: integer 
+	Parameter din857_WIDTH bound to: 8 - type: integer 
+	Parameter din858_WIDTH bound to: 8 - type: integer 
+	Parameter din859_WIDTH bound to: 8 - type: integer 
+	Parameter din860_WIDTH bound to: 8 - type: integer 
+	Parameter din861_WIDTH bound to: 8 - type: integer 
+	Parameter din862_WIDTH bound to: 8 - type: integer 
+	Parameter din863_WIDTH bound to: 8 - type: integer 
+	Parameter din864_WIDTH bound to: 8 - type: integer 
+	Parameter din865_WIDTH bound to: 8 - type: integer 
+	Parameter din866_WIDTH bound to: 8 - type: integer 
+	Parameter din867_WIDTH bound to: 8 - type: integer 
+	Parameter din868_WIDTH bound to: 8 - type: integer 
+	Parameter din869_WIDTH bound to: 8 - type: integer 
+	Parameter din870_WIDTH bound to: 8 - type: integer 
+	Parameter din871_WIDTH bound to: 8 - type: integer 
+	Parameter din872_WIDTH bound to: 8 - type: integer 
+	Parameter din873_WIDTH bound to: 8 - type: integer 
+	Parameter din874_WIDTH bound to: 8 - type: integer 
+	Parameter din875_WIDTH bound to: 8 - type: integer 
+	Parameter din876_WIDTH bound to: 8 - type: integer 
+	Parameter din877_WIDTH bound to: 8 - type: integer 
+	Parameter din878_WIDTH bound to: 8 - type: integer 
+	Parameter din879_WIDTH bound to: 8 - type: integer 
+	Parameter din880_WIDTH bound to: 8 - type: integer 
+	Parameter din881_WIDTH bound to: 8 - type: integer 
+	Parameter din882_WIDTH bound to: 8 - type: integer 
+	Parameter din883_WIDTH bound to: 8 - type: integer 
+	Parameter din884_WIDTH bound to: 8 - type: integer 
+	Parameter din885_WIDTH bound to: 8 - type: integer 
+	Parameter din886_WIDTH bound to: 8 - type: integer 
+	Parameter din887_WIDTH bound to: 8 - type: integer 
+	Parameter din888_WIDTH bound to: 8 - type: integer 
+	Parameter din889_WIDTH bound to: 8 - type: integer 
+	Parameter din890_WIDTH bound to: 8 - type: integer 
+	Parameter din891_WIDTH bound to: 8 - type: integer 
+	Parameter din892_WIDTH bound to: 8 - type: integer 
+	Parameter din893_WIDTH bound to: 8 - type: integer 
+	Parameter din894_WIDTH bound to: 8 - type: integer 
+	Parameter din895_WIDTH bound to: 8 - type: integer 
+	Parameter din896_WIDTH bound to: 8 - type: integer 
+	Parameter din897_WIDTH bound to: 8 - type: integer 
+	Parameter din898_WIDTH bound to: 8 - type: integer 
+	Parameter din899_WIDTH bound to: 8 - type: integer 
+	Parameter din900_WIDTH bound to: 8 - type: integer 
+	Parameter din901_WIDTH bound to: 8 - type: integer 
+	Parameter din902_WIDTH bound to: 8 - type: integer 
+	Parameter din903_WIDTH bound to: 8 - type: integer 
+	Parameter din904_WIDTH bound to: 8 - type: integer 
+	Parameter din905_WIDTH bound to: 8 - type: integer 
+	Parameter din906_WIDTH bound to: 8 - type: integer 
+	Parameter din907_WIDTH bound to: 8 - type: integer 
+	Parameter din908_WIDTH bound to: 8 - type: integer 
+	Parameter din909_WIDTH bound to: 8 - type: integer 
+	Parameter din910_WIDTH bound to: 8 - type: integer 
+	Parameter din911_WIDTH bound to: 8 - type: integer 
+	Parameter din912_WIDTH bound to: 8 - type: integer 
+	Parameter din913_WIDTH bound to: 8 - type: integer 
+	Parameter din914_WIDTH bound to: 8 - type: integer 
+	Parameter din915_WIDTH bound to: 8 - type: integer 
+	Parameter din916_WIDTH bound to: 8 - type: integer 
+	Parameter din917_WIDTH bound to: 8 - type: integer 
+	Parameter din918_WIDTH bound to: 8 - type: integer 
+	Parameter din919_WIDTH bound to: 8 - type: integer 
+	Parameter din920_WIDTH bound to: 8 - type: integer 
+	Parameter din921_WIDTH bound to: 8 - type: integer 
+	Parameter din922_WIDTH bound to: 8 - type: integer 
+	Parameter din923_WIDTH bound to: 8 - type: integer 
+	Parameter din924_WIDTH bound to: 8 - type: integer 
+	Parameter din925_WIDTH bound to: 8 - type: integer 
+	Parameter din926_WIDTH bound to: 8 - type: integer 
+	Parameter din927_WIDTH bound to: 8 - type: integer 
+	Parameter din928_WIDTH bound to: 8 - type: integer 
+	Parameter din929_WIDTH bound to: 8 - type: integer 
+	Parameter din930_WIDTH bound to: 8 - type: integer 
+	Parameter din931_WIDTH bound to: 8 - type: integer 
+	Parameter din932_WIDTH bound to: 8 - type: integer 
+	Parameter din933_WIDTH bound to: 8 - type: integer 
+	Parameter din934_WIDTH bound to: 8 - type: integer 
+	Parameter din935_WIDTH bound to: 8 - type: integer 
+	Parameter din936_WIDTH bound to: 8 - type: integer 
+	Parameter din937_WIDTH bound to: 8 - type: integer 
+	Parameter din938_WIDTH bound to: 8 - type: integer 
+	Parameter din939_WIDTH bound to: 8 - type: integer 
+	Parameter din940_WIDTH bound to: 8 - type: integer 
+	Parameter din941_WIDTH bound to: 8 - type: integer 
+	Parameter din942_WIDTH bound to: 8 - type: integer 
+	Parameter din943_WIDTH bound to: 8 - type: integer 
+	Parameter din944_WIDTH bound to: 8 - type: integer 
+	Parameter din945_WIDTH bound to: 8 - type: integer 
+	Parameter din946_WIDTH bound to: 8 - type: integer 
+	Parameter din947_WIDTH bound to: 8 - type: integer 
+	Parameter din948_WIDTH bound to: 8 - type: integer 
+	Parameter din949_WIDTH bound to: 8 - type: integer 
+	Parameter din950_WIDTH bound to: 8 - type: integer 
+	Parameter din951_WIDTH bound to: 8 - type: integer 
+	Parameter din952_WIDTH bound to: 8 - type: integer 
+	Parameter din953_WIDTH bound to: 8 - type: integer 
+	Parameter din954_WIDTH bound to: 8 - type: integer 
+	Parameter din955_WIDTH bound to: 8 - type: integer 
+	Parameter din956_WIDTH bound to: 8 - type: integer 
+	Parameter din957_WIDTH bound to: 8 - type: integer 
+	Parameter din958_WIDTH bound to: 8 - type: integer 
+	Parameter din959_WIDTH bound to: 8 - type: integer 
+	Parameter din960_WIDTH bound to: 8 - type: integer 
+	Parameter din961_WIDTH bound to: 10 - type: integer 
+	Parameter dout_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'bnn_conv1_mux_960cud' (5#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1_mux_960cud.v:11]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15010]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15012]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15078]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15088]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15090]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15092]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15094]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15096]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15098]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15100]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15102]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15104]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15106]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15108]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15110]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15112]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15114]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15116]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15118]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15120]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15122]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15124]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15126]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15128]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15130]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15132]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15134]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15136]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15138]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15140]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15142]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15144]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15146]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15148]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15150]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15152]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15154]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15156]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15158]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15160]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15162]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15164]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15166]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15168]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15170]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15172]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15174]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15176]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15178]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15180]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15182]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15184]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15186]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15188]
+WARNING: [Synth 8-589] replacing case/wildcard equality operator === with logical equality operator == [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15190]
+INFO: [Common 17-14] Message 'Synth 8-589' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-256] done synthesizing module 'bnn_conv1' (6#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:12]
+INFO: [Synth 8-256] done synthesizing module 'cw305_reg_bnn' (7#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_bnn.v:30]
+INFO: [Synth 8-638] synthesizing module 'clocks' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
+INFO: [Synth 8-638] synthesizing module 'BUFGMUX_CTRL' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
+INFO: [Synth 8-256] done synthesizing module 'BUFGMUX_CTRL' (8#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
+INFO: [Synth 8-638] synthesizing module 'ODDR' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:25305]
+	Parameter DDR_CLK_EDGE bound to: OPPOSITE_EDGE - type: string 
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D1_INVERTED bound to: 1'b0 
+	Parameter IS_D2_INVERTED bound to: 1'b0 
+	Parameter SRTYPE bound to: SYNC - type: string 
+INFO: [Synth 8-256] done synthesizing module 'ODDR' (9#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:25305]
+INFO: [Synth 8-638] synthesizing module 'IBUFG' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:14570]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-256] done synthesizing module 'IBUFG' (10#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:14570]
+INFO: [Synth 8-638] synthesizing module 'BUFG' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'BUFG' (11#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'clocks' (12#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
+INFO: [Synth 8-256] done synthesizing module 'cw305_bnn_top' (13#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn_top.v:9]
+WARNING: [Synth 8-3917] design cw305_bnn_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[15]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[14]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[13]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[12]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[11]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[10]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[9]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[8]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[7]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[6]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[5]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[4]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[3]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[2]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[1]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[0]
+WARNING: [Synth 8-3331] design cw305_reg_bnn has unconnected port reg_read
+WARNING: [Synth 8-3331] design cw305_usb_reg_fe has unconnected port usb_alen
+WARNING: [Synth 8-3331] design cw305_bnn_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_bnn_top has unconnected port l14_sel
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 432.422 ; gain = 222.770
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 432.422 ; gain = 222.770
+---------------------------------------------------------------------------------
+INFO: [Netlist 29-17] Analyzing 3 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Device 21-403] Loading part xc7a100tftg256-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/cw305_bnn_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/cw305_bnn_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+WARNING: [Vivado 12-507] No nets matched 'U_*/crypt_clk'. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:12]
+CRITICAL WARNING: [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_nets U_*/crypt_clk]'. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:12]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+WARNING: [Vivado 12-627] No clocks matched 'crypt_clk'. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:16]
+INFO: [Vivado 12-626] No clocks found. Please use 'create_clock' or 'create_generated_clock' command to create clocks. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:16]
+CRITICAL WARNING: [Vivado 12-4739] set_clock_groups:No valid object(s) found for '-group [get_clocks -include_generated_clocks crypt_clk]'. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:16]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
+  IBUFG => IBUF: 1 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 730.313 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tftg256-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4490] FSM extraction disabled for register 'ap_CS_fsm_reg' through user attribute
+INFO: [Synth 8-4490] FSM extraction disabled for register 'ap_CS_fsm_reg' through user attribute
+INFO: [Synth 8-5544] ROM "exitcond_fu_184_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp4_fu_320_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp2_fu_306_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp_fu_292_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp5_fu_334_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp9_fu_372_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp15_fu_434_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp21_fu_488_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sel_tmp28_fu_558_p2" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15758]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:14962]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15568]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15608]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15602]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15600]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:14962]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15568]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15608]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15602]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15600]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:14962]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15568]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15608]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15602]
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15600]
+INFO: [Synth 8-4490] FSM extraction disabled for register 'ap_CS_fsm_reg' through user attribute
+INFO: [Synth 8-4490] FSM extraction disabled for register 'ap_CS_fsm_reg' through user attribute
+INFO: [Synth 8-5546] ROM "exitcond2_fu_25267_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "exitcond9_fu_18514_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "exitcond6_fu_8784_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "exitcond8_fu_8845_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "exitcond10_fu_8861_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "exitcond7_fu_14633_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "exitcond11_fu_14663_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "exitcond5_fu_24863_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "exitcond4_fu_24902_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "exitcond3_fu_24941_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "exitcond1_fu_25283_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "exitcond_fu_25299_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "exitcond_flatten_fu_18502_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_0_1_fu_8805_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_0_2_fu_8810_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_1_fu_8820_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_2_fu_8825_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_fu_8815_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_1_fu_8835_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_2_fu_8840_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_fu_8830_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_1_fu_8800_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "tmp_17_fu_14645_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_20_fu_14651_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_28_fu_14681_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_27_fu_14675_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     13 Bit       Adders := 1     
+	   2 Input     12 Bit       Adders := 1     
+	   3 Input     11 Bit       Adders := 1     
+	   2 Input     11 Bit       Adders := 4     
+	   2 Input     10 Bit       Adders := 5     
+	   4 Input     10 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 9     
+	   3 Input      8 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 1     
+	   2 Input      6 Bit       Adders := 2     
+	   3 Input      6 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 8     
+	   2 Input      4 Bit       Adders := 1     
+	   2 Input      2 Bit       Adders := 6     
++---XORs : 
+	   2 Input      8 Bit         XORs := 17    
+	   2 Input      1 Bit         XORs := 2     
++---XORs : 
+	               16 Bit    Wide XORs := 1     
+	                8 Bit    Wide XORs := 1     
++---Registers : 
+	               33 Bit    Registers := 1     
+	               21 Bit    Registers := 1     
+	               11 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 1282  
+	                6 Bit    Registers := 1     
+	                5 Bit    Registers := 11    
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 5     
+	                2 Bit    Registers := 12    
+	                1 Bit    Registers := 31    
++---RAMs : 
+	              12K Bit         RAMs := 1     
+	               6K Bit         RAMs := 1     
+	             1024 Bit         RAMs := 1     
++---Muxes : 
+	   2 Input     33 Bit        Muxes := 2     
+	  34 Input     33 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     31 Bit        Muxes := 1     
+	   2 Input     30 Bit        Muxes := 2     
+	   2 Input     27 Bit        Muxes := 1     
+	   2 Input     26 Bit        Muxes := 1     
+	   2 Input     25 Bit        Muxes := 1     
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input     23 Bit        Muxes := 1     
+	   2 Input     21 Bit        Muxes := 2     
+	   2 Input     20 Bit        Muxes := 1     
+	   2 Input     19 Bit        Muxes := 1     
+	   2 Input     18 Bit        Muxes := 1     
+	   2 Input     17 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 1     
+	   2 Input     15 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 1     
+	   2 Input     13 Bit        Muxes := 1     
+	   2 Input     12 Bit        Muxes := 1     
+	   2 Input     11 Bit        Muxes := 2     
+	   2 Input     10 Bit        Muxes := 2     
+	   2 Input      9 Bit        Muxes := 10    
+	   2 Input      8 Bit        Muxes := 1272  
+	   2 Input      7 Bit        Muxes := 3     
+	   2 Input      4 Bit        Muxes := 1     
+	   3 Input      4 Bit        Muxes := 1     
+	   5 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 3     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 96    
+	   4 Input      1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module cw305_usb_reg_fe 
+Detailed RTL Component Info : 
++---Registers : 
+	               21 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
+Module cdc_pulse 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
+Module bnn_unpack_kernel 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      4 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 18    
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 19    
+	   5 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 45    
+Module bnn_conv1_mux_144bkb 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 143   
+Module bnn_conv1_mux_960cud 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 959   
+Module bnn_conv1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     13 Bit       Adders := 1     
+	   2 Input     12 Bit       Adders := 1     
+	   3 Input     11 Bit       Adders := 1     
+	   2 Input     11 Bit       Adders := 4     
+	   2 Input     10 Bit       Adders := 5     
+	   4 Input     10 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 9     
+	   3 Input      8 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 1     
+	   2 Input      6 Bit       Adders := 2     
+	   3 Input      6 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 8     
+	   2 Input      2 Bit       Adders := 6     
++---XORs : 
+	   2 Input      8 Bit         XORs := 17    
++---Registers : 
+	               33 Bit    Registers := 1     
+	               11 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 1260  
+	                6 Bit    Registers := 1     
+	                5 Bit    Registers := 11    
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 11    
+	                1 Bit    Registers := 20    
++---Muxes : 
+	   2 Input     33 Bit        Muxes := 2     
+	  34 Input     33 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     31 Bit        Muxes := 1     
+	   2 Input     30 Bit        Muxes := 2     
+	   2 Input     27 Bit        Muxes := 1     
+	   2 Input     26 Bit        Muxes := 1     
+	   2 Input     25 Bit        Muxes := 1     
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input     23 Bit        Muxes := 1     
+	   2 Input     21 Bit        Muxes := 2     
+	   2 Input     20 Bit        Muxes := 1     
+	   2 Input     19 Bit        Muxes := 1     
+	   2 Input     18 Bit        Muxes := 1     
+	   2 Input     17 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 1     
+	   2 Input     15 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 1     
+	   2 Input     13 Bit        Muxes := 1     
+	   2 Input     12 Bit        Muxes := 1     
+	   2 Input     11 Bit        Muxes := 2     
+	   2 Input     10 Bit        Muxes := 2     
+	   2 Input      9 Bit        Muxes := 10    
+	   2 Input      8 Bit        Muxes := 147   
+	   2 Input      7 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 41    
+Module cw305_reg_bnn 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---XORs : 
+	               16 Bit    Wide XORs := 1     
+	                8 Bit    Wide XORs := 1     
++---Registers : 
+	                8 Bit    Registers := 3     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 6     
++---RAMs : 
+	              12K Bit         RAMs := 1     
+	               6K Bit         RAMs := 1     
+	             1024 Bit         RAMs := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 4     
+	   2 Input      7 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 10    
+	   4 Input      1 Bit        Muxes := 2     
+Module clocks 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 1     
+	   3 Input      4 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-41] '+' operator could not be merged with '+' operator due to loss of accuracy [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/bnn_conv1_hls_3_f16/sol1/impl/verilog/bnn_conv1.v:15566]
+INFO: [Synth 8-5544] ROM "tmp_27_fu_14675_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_28_fu_14681_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_20_fu_14651_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "tmp_17_fu_14645_p2" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "exitcond_flatten_fu_18502_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_1_fu_8800_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_0_1_fu_8805_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_fu_8815_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_0_2_fu_8810_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_2_fu_8825_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_1_1_fu_8820_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_fu_8830_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_2_fu_8840_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tmp_16_2_1_fu_8835_p2" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "U_reg_bnn/go_pulse_usb" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3917] design cw305_bnn_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[15]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[14]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[13]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[12]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[11]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[10]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[9]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[8]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[7]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[6]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[5]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[4]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[3]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[2]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[1]
+WARNING: [Synth 8-3331] design bnn_conv1 has unconnected port out_r_Dout_A[0]
+WARNING: [Synth 8-3331] design cw305_bnn_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_bnn_top has unconnected port l14_sel
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_2_2_fu_2726_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_2_2_fu_2726_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_2_1_fu_2722_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_2_1_fu_2722_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_2_0_fu_2718_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_2_0_fu_2718_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_1_2_fu_2714_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_1_2_fu_2714_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_1_1_fu_2710_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_1_1_fu_2710_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_1_0_fu_2706_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_1_0_fu_2706_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_0_2_fu_2702_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_0_2_fu_2702_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_0_1_fu_2698_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_0_1_fu_2698_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_15_0_0_fu_2694_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_15_0_0_fu_2694_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_2_2_fu_2690_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_2_2_fu_2690_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_2_1_fu_2686_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_2_1_fu_2686_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_2_0_fu_2682_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_2_0_fu_2682_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_1_2_fu_2678_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_1_2_fu_2678_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_1_1_fu_2674_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_1_1_fu_2674_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_1_0_fu_2670_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_1_0_fu_2670_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_0_2_fu_2666_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_0_2_fu_2666_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_0_1_fu_2662_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_0_1_fu_2662_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_14_0_0_fu_2658_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_14_0_0_fu_2658_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_2_2_fu_2654_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_2_2_fu_2654_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_2_1_fu_2650_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_2_1_fu_2650_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_2_0_fu_2646_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_2_0_fu_2646_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_1_2_fu_2642_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_1_2_fu_2642_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_1_1_fu_2638_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_1_1_fu_2638_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_1_0_fu_2634_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_1_0_fu_2634_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_0_2_fu_2630_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_0_2_fu_2630_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_0_1_fu_2626_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_0_1_fu_2626_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_13_0_0_fu_2622_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_13_0_0_fu_2622_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_2_2_fu_2618_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_2_2_fu_2618_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_2_1_fu_2614_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_2_1_fu_2614_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_2_0_fu_2610_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_2_0_fu_2610_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_1_2_fu_2606_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_1_2_fu_2606_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_1_1_fu_2602_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_1_1_fu_2602_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_1_0_fu_2598_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_1_0_fu_2598_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_0_2_fu_2594_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_0_2_fu_2594_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_0_1_fu_2590_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_0_1_fu_2590_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_12_0_0_fu_2586_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_12_0_0_fu_2586_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_2_2_fu_2582_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_2_2_fu_2582_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_2_1_fu_2578_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_2_1_fu_2578_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_2_0_fu_2574_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_2_0_fu_2574_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_1_2_fu_2570_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_1_2_fu_2570_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_1_1_fu_2566_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_1_1_fu_2566_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_1_0_fu_2562_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_1_0_fu_2562_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_0_2_fu_2558_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_0_2_fu_2558_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_0_1_fu_2554_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_0_1_fu_2554_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_11_0_0_fu_2550_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_11_0_0_fu_2550_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_2_2_fu_2546_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_2_2_fu_2546_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_2_1_fu_2542_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_2_1_fu_2542_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_2_0_fu_2538_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_2_0_fu_2538_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_1_2_fu_2534_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_1_2_fu_2534_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_1_1_fu_2530_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_1_1_fu_2530_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_1_0_fu_2526_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_1_0_fu_2526_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_0_2_fu_2522_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_0_2_fu_2522_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_0_1_fu_2518_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_0_1_fu_2518_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_10_0_0_fu_2514_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_10_0_0_fu_2514_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_2_2_fu_2510_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_2_2_fu_2510_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_2_1_fu_2506_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_2_1_fu_2506_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_2_0_fu_2502_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_2_0_fu_2502_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_1_2_fu_2498_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_1_2_fu_2498_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_1_1_fu_2494_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_1_1_fu_2494_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_1_0_fu_2490_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_1_0_fu_2490_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_0_2_fu_2486_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_0_2_fu_2486_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_0_1_fu_2482_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_0_1_fu_2482_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_9_0_0_fu_2478_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_9_0_0_fu_2478_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_2_2_fu_2474_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_2_2_fu_2474_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_2_1_fu_2470_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_2_1_fu_2470_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_2_0_fu_2466_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_2_0_fu_2466_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_1_2_fu_2462_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_1_2_fu_2462_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_1_1_fu_2458_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_1_1_fu_2458_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_1_0_fu_2454_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_1_0_fu_2454_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_0_2_fu_2450_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_0_2_fu_2450_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_0_1_fu_2446_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_0_1_fu_2446_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_8_0_0_fu_2442_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_8_0_0_fu_2442_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_2_2_fu_2438_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_2_2_fu_2438_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_2_1_fu_2434_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_2_1_fu_2434_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_2_0_fu_2430_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_2_0_fu_2430_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_1_2_fu_2426_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_1_2_fu_2426_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_1_1_fu_2422_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_1_1_fu_2422_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_1_0_fu_2418_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_1_0_fu_2418_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_0_2_fu_2414_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_0_2_fu_2414_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_0_1_fu_2410_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_0_1_fu_2410_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_1_0_fu_2310_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_1_0_fu_2310_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_0_2_fu_2306_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_0_2_fu_2306_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_0_1_fu_2302_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_0_1_fu_2302_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_0_0_fu_2298_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_0_0_fu_2298_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_3_2_2_fu_2294_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_3_2_2_fu_2294_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_3_2_1_fu_2290_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_3_2_1_fu_2290_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_3_2_0_fu_2286_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_3_2_0_fu_2286_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_3_1_2_fu_2282_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_3_1_2_fu_2282_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_5_0_2_fu_2342_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_5_0_2_fu_2342_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_5_0_1_fu_2338_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_5_0_1_fu_2338_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_5_0_0_fu_2334_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_5_0_0_fu_2334_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_2_2_fu_2330_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_2_2_fu_2330_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_2_1_fu_2326_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_2_1_fu_2326_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_2_0_fu_2322_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_2_0_fu_2322_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_1_2_fu_2318_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_1_2_fu_2318_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_4_1_1_fu_2314_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_4_1_1_fu_2314_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_7_0_0_fu_2406_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_7_0_0_fu_2406_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_6_2_2_fu_2402_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_6_2_2_fu_2402_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_6_2_1_fu_2398_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_6_2_1_fu_2398_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_reg_bnn/U_conv/win_6_2_0_fu_2394_reg[0]' (FDRE) to 'U_reg_bnn/U_conv/win_6_2_0_fu_2394_reg[1]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_2_2_fu_2726_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_2_1_fu_2722_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_2_0_fu_2718_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_1_2_fu_2714_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_1_1_fu_2710_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_1_0_fu_2706_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_0_2_fu_2702_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_0_1_fu_2698_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_15_0_0_fu_2694_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_2_2_fu_2690_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_2_1_fu_2686_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_2_0_fu_2682_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_1_2_fu_2678_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_1_1_fu_2674_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_1_0_fu_2670_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_0_2_fu_2666_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_0_1_fu_2662_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_14_0_0_fu_2658_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_2_2_fu_2654_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_2_1_fu_2650_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_2_0_fu_2646_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_1_2_fu_2642_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_1_1_fu_2638_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_1_0_fu_2634_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_0_2_fu_2630_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_0_1_fu_2626_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_13_0_0_fu_2622_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_2_2_fu_2618_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_2_1_fu_2614_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_2_0_fu_2610_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_1_2_fu_2606_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_1_1_fu_2602_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_1_0_fu_2598_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_0_2_fu_2594_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_0_1_fu_2590_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_12_0_0_fu_2586_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_2_2_fu_2582_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_2_1_fu_2578_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_2_0_fu_2574_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_1_2_fu_2570_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_1_1_fu_2566_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_1_0_fu_2562_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_0_2_fu_2558_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_0_1_fu_2554_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_11_0_0_fu_2550_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_2_2_fu_2546_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_2_1_fu_2542_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_2_0_fu_2538_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_1_2_fu_2534_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_1_1_fu_2530_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_1_0_fu_2526_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_0_2_fu_2522_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_0_1_fu_2518_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_10_0_0_fu_2514_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_2_2_fu_2510_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_2_1_fu_2506_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_2_0_fu_2502_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_1_2_fu_2498_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_1_1_fu_2494_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_1_0_fu_2490_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_0_2_fu_2486_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_0_1_fu_2482_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_9_0_0_fu_2478_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_2_2_fu_2474_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_2_1_fu_2470_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_2_0_fu_2466_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_1_2_fu_2462_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_1_1_fu_2458_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_1_0_fu_2454_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_0_2_fu_2450_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_0_1_fu_2446_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_8_0_0_fu_2442_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_2_2_fu_2438_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_2_1_fu_2434_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_2_0_fu_2430_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_1_2_fu_2426_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_1_1_fu_2422_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_1_0_fu_2418_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_0_2_fu_2414_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_0_1_fu_2410_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_1_0_fu_2310_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_0_2_fu_2306_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_0_1_fu_2302_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_0_0_fu_2298_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_3_2_2_fu_2294_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_3_2_1_fu_2290_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_3_2_0_fu_2286_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_3_1_2_fu_2282_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_5_0_2_fu_2342_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_5_0_1_fu_2338_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_5_0_0_fu_2334_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_2_2_fu_2330_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_2_1_fu_2326_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_2_0_fu_2322_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_1_2_fu_2318_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_4_1_1_fu_2314_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_7_0_0_fu_2406_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_6_2_2_fu_2402_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_6_2_1_fu_2398_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg_bnn/U_conv /\win_6_2_0_fu_2394_reg[7] )
+INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-3332] Sequential element (kern_0_write_assign_reg_132_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_1_write_assign_reg_96_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_2_write_assign_reg_60_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_3_write_assign_reg_72_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_4_write_assign_reg_84_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_5_write_assign_reg_108_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_6_write_assign_reg_120_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_7_write_assign_reg_144_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (kern_8_write_assign_reg_156_reg[0]) is unused and will be removed from module bnn_unpack_kernel.
+WARNING: [Synth 8-3332] Sequential element (sum4_reg_29224_reg[10]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (tmp_20_reg_29051_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_0_2_fu_2162_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_0_1_fu_2158_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (tmp_17_reg_28999_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_1_2_fu_2174_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_1_1_fu_2170_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (tmp_22_reg_29151_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_2_2_fu_2186_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_2_1_fu_2182_reg[0]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_0_0_fu_2154_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_1_0_fu_2166_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_0_2_0_fu_2178_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_0_2_fu_2198_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_0_1_fu_2194_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_0_0_fu_2190_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_1_2_fu_2210_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_1_1_fu_2206_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_1_0_fu_2202_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_2_2_fu_2222_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_2_1_fu_2218_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_1_2_0_fu_2214_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_0_2_fu_2234_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_0_1_fu_2230_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_0_0_fu_2226_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_1_2_fu_2246_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_1_1_fu_2242_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_1_0_fu_2238_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_2_2_fu_2258_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_2_1_fu_2254_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_2_2_0_fu_2250_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_0_2_fu_2270_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_0_1_fu_2266_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_0_0_fu_2262_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_1_2_fu_2282_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_1_1_fu_2278_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_1_0_fu_2274_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_2_2_fu_2294_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_2_1_fu_2290_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_3_2_0_fu_2286_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_0_2_fu_2306_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_0_1_fu_2302_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_0_0_fu_2298_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_1_2_fu_2318_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_1_1_fu_2314_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_1_0_fu_2310_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_2_2_fu_2330_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_2_1_fu_2326_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_4_2_0_fu_2322_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_0_2_fu_2342_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_0_1_fu_2338_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_0_0_fu_2334_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_1_2_fu_2354_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_1_1_fu_2350_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_1_0_fu_2346_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_2_2_fu_2366_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_2_1_fu_2362_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_5_2_0_fu_2358_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_0_2_fu_2378_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_0_1_fu_2374_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_0_0_fu_2370_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_1_2_fu_2390_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_1_1_fu_2386_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_1_0_fu_2382_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_2_2_fu_2402_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_2_1_fu_2398_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_6_2_0_fu_2394_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_0_2_fu_2414_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_0_1_fu_2410_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_0_0_fu_2406_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_1_2_fu_2426_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_1_1_fu_2422_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_1_0_fu_2418_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_2_2_fu_2438_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_2_1_fu_2434_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_7_2_0_fu_2430_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_0_2_fu_2450_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_0_1_fu_2446_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_0_0_fu_2442_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_1_2_fu_2462_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_1_1_fu_2458_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_1_0_fu_2454_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_2_2_fu_2474_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_2_1_fu_2470_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_8_2_0_fu_2466_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_0_2_fu_2486_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_0_1_fu_2482_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_0_0_fu_2478_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_1_2_fu_2498_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_1_1_fu_2494_reg[7]) is unused and will be removed from module bnn_conv1.
+WARNING: [Synth 8-3332] Sequential element (win_9_1_0_fu_2490_reg[7]) is unused and will be removed from module bnn_conv1.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping  Report (see note below)
++--------------+-------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name   | RTL Object  | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++--------------+-------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|cw305_reg_bnn | krn_mem_reg | 128 x 8                | W |   | 128 x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++--------------+-------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++--------------+-----------------------+-----------+----------------------+--------------------------------+
+|Module Name   | RTL Object            | Inference | Size (Depth x Width) | Primitives                     | 
++--------------+-----------------------+-----------+----------------------+--------------------------------+
+|cw305_bnn_top | U_reg_bnn/out_mem_reg | Implied   | 1 K x 16             | RAM64X1D x 13  RAM64M x 65     | 
+|cw305_bnn_top | U_reg_bnn/img_mem_reg | Implied   | 1 K x 8              | RAM16X1D x 8  RAM128X1D x 48   | 
++--------------+-----------------------+-----------+----------------------+--------------------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:40 ; elapsed = 00:00:42 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 730.313 ; gain = 520.660
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4480] The timing for the instance U_reg_bnn/krn_mem_reg (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:47 ; elapsed = 00:00:50 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:48 ; elapsed = 00:00:50 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |BUFG         |     1|
+|2     |BUFGMUX_CTRL |     1|
+|3     |CARRY4       |    36|
+|4     |LUT1         |    12|
+|5     |LUT2         |   104|
+|6     |LUT3         |  3332|
+|7     |LUT4         |   108|
+|8     |LUT5         |   216|
+|9     |LUT6         |  2434|
+|10    |MUXF7        |  1697|
+|11    |MUXF8        |   568|
+|12    |ODDR         |     1|
+|13    |RAM128X1D    |    48|
+|14    |RAM16X1D     |     8|
+|15    |RAM64M       |    65|
+|16    |RAM64X1D     |    13|
+|17    |RAMB18E1     |     1|
+|18    |FDCE         |     4|
+|19    |FDRE         |  8827|
+|20    |FDSE         |    20|
+|21    |IBUF         |    30|
+|22    |IBUFG        |     1|
+|23    |IOBUF        |     8|
+|24    |OBUF         |     5|
++------+-------------+------+
+
+Report Instance Areas: 
++------+------------------------------------+------------------+------+
+|      |Instance                            |Module            |Cells |
++------+------------------------------------+------------------+------+
+|1     |top                                 |                  | 17540|
+|2     |  U_clocks                          |clocks            |     4|
+|3     |  U_reg_bnn                         |cw305_reg_bnn     | 17380|
+|4     |    U_conv                          |bnn_conv1         | 17050|
+|5     |      grp_bnn_unpack_kernel_fu_4459 |bnn_unpack_kernel |    99|
+|6     |    U_go                            |cdc_pulse         |     7|
+|7     |  U_usb_reg_fe                      |cw305_usb_reg_fe  |   113|
++------+------------------------------------+------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:48 ; elapsed = 00:00:50 . Memory (MB): peak = 795.680 ; gain = 586.027
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 177 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:36 ; elapsed = 00:00:43 . Memory (MB): peak = 795.680 ; gain = 288.137
+Synthesis Optimization Complete : Time (s): cpu = 00:00:48 ; elapsed = 00:00:50 . Memory (MB): peak = 795.680 ; gain = 586.027
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 212 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'cw305_bnn_top' is not ideal for floorplanning, since the cellview 'bnn_conv1' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:16]
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 144 instances were transformed.
+  BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
+  IBUFG => IBUF: 1 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 8 instances
+  RAM128X1D => RAM128X1D (RAMD64E, RAMD64E, MUXF7, MUXF7, RAMD64E, RAMD64E): 48 instances
+  RAM16X1D => RAM32X1D (RAMD32, RAMD32): 8 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 65 instances
+  RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 13 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+335 Infos, 243 Warnings, 2 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 1169.195 ; gain = 959.543
+# set fh [open cells_dump.txt w]
+# foreach c [get_cells -hier -filter {IS_PRIMITIVE==0}] { puts $fh $c }
+# close $fh
+# puts "CELLS_DUMP: [llength [get_cells -hier -filter {IS_PRIMITIVE==0}]] hierarchical cells -> cells_dump.txt"
+CELLS_DUMP: 6 hierarchical cells -> cells_dump.txt
+# if {[catch {source ../cw305/ro_pblock.tcl} emsg]} {
+#     puts "WARNING: pblock skipped ($emsg) -- building v2 sensor WITHOUT co-location"
+# }
+## get_cells -quiet -hier -filter {NAME =~ *U_ro_sensor*}
+WARNING: pblock skipped (ro_pblock: could not find sensor cells (U_ro_sensor/tap_sync/U_RO)) -- building v2 sensor WITHOUT co-location
+# opt_design
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.395 . Memory (MB): peak = 1169.195 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+Implement Debug Cores | Checksum: 1b6fe6a40
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: 10e584eef
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.344 . Memory (MB): peak = 1169.195 ; gain = 0.000
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-10] Eliminated 512 cells.
+Phase 2 Constant propagation | Checksum: 1289b2014
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1169.195 ; gain = 0.000
+
+Phase 3 Sweep
+INFO: [Opt 31-12] Eliminated 78 unconnected nets.
+INFO: [Opt 31-11] Eliminated 0 unconnected cells.
+Phase 3 Sweep | Checksum: 1e1852563
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1169.195 ; gain = 0.000
+
+Phase 4 BUFG optimization
+INFO: [Opt 31-12] Eliminated 0 unconnected nets.
+INFO: [Opt 31-11] Eliminated 0 unconnected cells.
+Phase 4 BUFG optimization | Checksum: 1e1852563
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1169.195 ; gain = 0.000
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1169.195 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 1e1852563
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1169.195 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 1 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 1 newly gated: 0 Total Ports: 2
+Ending PowerOpt Patch Enables Task | Checksum: 1e9d734d9
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 1e9d734d9
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1272.367 ; gain = 103.172
+INFO: [Common 17-83] Releasing license: Implementation
+20 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1272.367 ; gain = 103.172
+# place_design
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1272.367 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 1433a29e9
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 1.2 Build Placer Netlist Model
+Phase 1.2 Build Placer Netlist Model | Checksum: 207066846
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 1.3 Constrain Clocks/Macros
+Phase 1.3 Constrain Clocks/Macros | Checksum: 207066846
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: 207066846
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 1d692015a
+
+Time (s): cpu = 00:00:19 ; elapsed = 00:00:13 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1d692015a
+
+Time (s): cpu = 00:00:19 ; elapsed = 00:00:13 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 210af4f7f
+
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:17 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 1a115028f
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:17 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 1a115028f
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:17 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.5 Timing Path Optimizer
+Phase 3.5 Timing Path Optimizer | Checksum: 1abfa6c0d
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 223373584
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 231cc93b2
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 231cc93b2
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 231cc93b2
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+INFO: [Place 30-746] Post Placement Timing Summary WNS=3.491. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: 1cd48695b
+
+Time (s): cpu = 00:00:34 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Phase 4.1 Post Commit Optimization | Checksum: 1cd48695b
+
+Time (s): cpu = 00:00:34 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 1cd48695b
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 1cd48695b
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 1ddd89e24
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 1ddd89e24
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+Ending Placer Task | Checksum: eddb017d
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1272.367 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+14 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:28 . Memory (MB): peak = 1272.367 ; gain = 0.000
+# route_design
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: 841036f5 ConstDB: 0 ShapeSum: 69caca88 RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 15b9cf1c4
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 2 Router Initialization
+
+Phase 2.1 Create Timer
+Phase 2.1 Create Timer | Checksum: 15b9cf1c4
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 2.2 Fix Topology Constraints
+Phase 2.2 Fix Topology Constraints | Checksum: 15b9cf1c4
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 2.3 Pre Route Cleanup
+Phase 2.3 Pre Route Cleanup | Checksum: 15b9cf1c4
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1272.367 ; gain = 0.000
+ Number of Nodes with overlaps = 0
+
+Phase 2.4 Update Timing
+Phase 2.4 Update Timing | Checksum: 1eb1ef1f1
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:28 . Memory (MB): peak = 1272.367 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.627  | TNS=0.000  | WHS=-0.538 | THS=-643.124|
+
+Phase 2 Router Initialization | Checksum: 1853eed5a
+
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:29 . Memory (MB): peak = 1272.367 ; gain = 0.000
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 1902943fd
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:31 . Memory (MB): peak = 1295.203 ; gain = 22.836
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 1221
+ Number of Nodes with overlaps = 61
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+
+Phase 4.1.1 Update Timing
+Phase 4.1.1 Update Timing | Checksum: 138fc4cec
+
+Time (s): cpu = 00:00:51 ; elapsed = 00:00:35 . Memory (MB): peak = 1295.203 ; gain = 22.836
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.792  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 1848663fa
+
+Time (s): cpu = 00:00:51 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+Phase 4 Rip-up And Reroute | Checksum: 1848663fa
+
+Time (s): cpu = 00:00:51 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+Phase 5.1 Delay CleanUp | Checksum: 1848663fa
+
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 1848663fa
+
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+Phase 5 Delay and Skew Optimization | Checksum: 1848663fa
+
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 1d6f52006
+
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:36 . Memory (MB): peak = 1295.203 ; gain = 22.836
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.792  | TNS=0.000  | WHS=-0.926 | THS=-11.236|
+
+Phase 6.1 Hold Fix Iter | Checksum: 1cdb0cc13
+
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:38 . Memory (MB): peak = 1386.441 ; gain = 114.074
+Phase 6 Post Hold Fix | Checksum: 187f20699
+
+Time (s): cpu = 00:00:56 ; elapsed = 00:00:38 . Memory (MB): peak = 1386.441 ; gain = 114.074
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 2.73273 %
+  Global Horizontal Routing Utilization  = 3.26613 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 7 Route finalize | Checksum: 236a2f56a
+
+Time (s): cpu = 00:00:56 ; elapsed = 00:00:38 . Memory (MB): peak = 1386.441 ; gain = 114.074
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 236a2f56a
+
+Time (s): cpu = 00:00:56 ; elapsed = 00:00:38 . Memory (MB): peak = 1386.441 ; gain = 114.074
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 23803acda
+
+Time (s): cpu = 00:00:56 ; elapsed = 00:00:39 . Memory (MB): peak = 1386.441 ; gain = 114.074
+
+Phase 10 Post Router Timing
+
+Phase 10.1 Update Timing
+Phase 10.1 Update Timing | Checksum: 235ee85ce
+
+Time (s): cpu = 00:00:57 ; elapsed = 00:00:40 . Memory (MB): peak = 1386.441 ; gain = 114.074
+INFO: [Route 35-57] Estimated Timing Summary | WNS=3.792  | TNS=0.000  | WHS=0.050  | THS=0.000  |
+
+INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
+Phase 10 Post Router Timing | Checksum: 235ee85ce
+
+Time (s): cpu = 00:00:57 ; elapsed = 00:00:40 . Memory (MB): peak = 1386.441 ; gain = 114.074
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:00:57 ; elapsed = 00:00:40 . Memory (MB): peak = 1386.441 ; gain = 114.074
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+12 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:00:59 ; elapsed = 00:00:41 . Memory (MB): peak = 1386.441 ; gain = 114.074
+# report_timing_summary -quiet -file timing_ro3v2.rpt
+# source ../cw305/allow_ro_loops.tcl
+## set ro_loop_nets [get_nets -hierarchical -quiet *ro_loop*]
+## puts "RO_SENSOR: allowing combinational loops on [llength $ro_loop_nets] ro_loop nets"
+RO_SENSOR: allowing combinational loops on 0 ro_loop nets
+## if {[llength $ro_loop_nets] > 0} {
+##     set_property ALLOW_COMBINATORIAL_LOOPS TRUE $ro_loop_nets
+## }
+## set_property BITSTREAM.GENERAL.CRC DISABLE [current_design]
+# write_bitstream -force cw305_bnn_ro3pb.bit
+Command: write_bitstream -force cw305_bnn_ro3pb.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command write_bitstream
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC 23-20] Rule violation (RTSTAT-10) No routable loads - 1 net(s) have no routable loads. The problem bus(es) and/or net(s) are U_reg_bnn/sensor_enable_c.
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 1 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Overwriting "TIMESTAMP" with "CC356E32" for option USR_ACCESS
+Creating bitmap...
+Creating bitstream...
+Bitstream compression saved 18002080 bits.
+Writing bitstream ./cw305_bnn_ro3pb.bit...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
+INFO: [Common 17-83] Releasing license: Implementation
+7 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 1625.309 ; gain = 238.867
+# puts "BITSTREAM: build/cw305_bnn_ro3pb.bit"
+BITSTREAM: build/cw305_bnn_ro3pb.bit
+# exit
+INFO: [Common 17-206] Exiting Vivado at Tue Aug 25 22:57:07 2026...

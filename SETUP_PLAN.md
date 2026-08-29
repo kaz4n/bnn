@@ -11,6 +11,7 @@ setup (CW305 Artix-7 target + ChipWhisperer-Lite capture, Vivado/Vivado HLS 2016
 ### 1.1 Did the paper edit bnn-fpga? — YES, heavily.
 
 Stock `cornell-zhang/bnn-fpga`:
+
 - Target: **Zedboard (Zynq-7000 SoC, ARM + fabric)**, flow = **Xilinx SDSoC** 2016.4/2017.1.
 - Dataset: **CIFAR-10 only**. Input 32×32×3. VGG-style 6 conv-layer net
   ({128-128-256-256-512-512} channels) + FC layers.
@@ -18,6 +19,7 @@ Stock `cornell-zhang/bnn-fpga`:
 - Weights shipped as zip (Google Drive); the host binarizes + reorders them at runtime.
 
 Paper's target model (Table 1):
+
 - Dataset: **MNIST**, input **28×28×1**.
 - **4 layers**, first layer **64 kernels**, kernel **3×3 (Model 1)** and **5×5 (Model 2)**.
 - Line buffer: line size 28, input channel 1.
@@ -30,11 +32,13 @@ edits or the weights — we rebuild them.
 ### 1.2 Did the paper edit / use BinaryNet? — Used in TWO different roles. Resolved.
 
 `MatthieuCourbariaux/BinaryNet` (Theano/Lasagne):
+
 - `mnist.py` = **MLP** (3 hidden FC layers, ~4096 units). **No conv layer.** ~0.96% error.
 - `cifar10.py` = VGG-style **ConvNet** (the architecture bnn-fpga implements).
 - `svhn.py` = ConvNet.
 
 Key resolution of the confusion:
+
 - The BinaryNet **MNIST MLP is the paper's "golden reference" classifier**, NOT the
   attacked network. Paper §6.3: *"we use a multi-layer perceptron network [12] with an
   accuracy of 99.2% as a golden reference to evaluate the cognitive quality."* That is
@@ -53,6 +57,7 @@ future work.) No ambiguity.
 ### 1.4 Net consequence for you
 
 You must supply, from scratch:
+
 1. A binarized 4-layer MNIST CNN (layer-1 = 64× 3×3) — train it yourself.
 2. An RTL/HLS layer-1 line-buffer conv unit retargeted to 28×28×1.
 3. A CW305 host/register harness (replaces the SDSoC ARM data movers — which do not
@@ -68,6 +73,7 @@ You must supply, from scratch:
 
 bnn-fpga's stock build is SDSoC-only, so it cannot build as-is on ANY board with your
 tools. Path forward:
+
 - Run **Vivado HLS 2016.4** on the accelerator C++ (`cpp/accel/`) to synthesize RTL.
 - Wrap the emitted RTL in a **plain Vivado 2016.4** project.
 - Gotcha: the HLS source contains `#pragma SDS ...` directives (SDSoC-specific). Plain
@@ -78,6 +84,7 @@ tools. Path forward:
 
 SDSoC auto-generated every ARM↔fabric DMA mover. None of that exists on CW305. You
 rebuild host I/O over the **CW305 USB register interface**:
+
 - Use ChipWhisperer's CW305 reference Verilog (`cw305_top.v`, `cw305_usb_reg_fe`, the
   register-bus example) as the shell.
 - Map registers: write the 28×28 input image + the 64 kernels into BRAM via registers;
@@ -130,6 +137,7 @@ Goal: a synchronous, triggered power trace off the CW305, captured by CW-Lite, i
 software. If this bench path fails, nothing downstream matters.
 
 Steps:
+
 1. Install ChipWhisperer (Python `chipwhisperer` package + correct CW-Lite firmware).
 2. Flash and run a **stock CW305 example** (the bundled AES-on-CW305 target) end-to-end:
    program the CW305 with the provided bitstream, capture a trace via `scope.capture()`,
@@ -181,6 +189,7 @@ Identify the conv window via the trigger (start known; length = total cycles for
 curve fitting needed.
 
 **§6 Background detection (passive adversary):**
+
 - Capture one trace per kernel (or just one kernel — paper shows kernel choice barely
   matters).
 - Build histogram of per-cycle power; pick threshold by max decrease in cycle count
@@ -190,6 +199,7 @@ curve fitting needed.
   golden MLP. Paper: ~86% pixel, ~81.6% recognition (3×3).
 
 **§7 Power template (active adversary):**
+
 - Profile: capture power for each of **9 kernels** (paper uses 9, not all 64) over the
   300 template images. For each cycle, store (related pixels in the K×(K+1)=12-pixel
   window, power-feature-vector ρ of length 9). That is the power template.
@@ -213,18 +223,18 @@ registers + 5×5 MAC) and re-profiling. Expect lower accuracy (paper: 79% templa
 
 ## Part 5 — Key numbers to reproduce (targets from the paper)
 
-| Quantity | Paper value (3×3 / Model 1) |
-|---|---|
-| Layer-1 kernels | 64 |
-| Kernels used for template | 9 |
-| Template images / eval images | 300 / 200 (500 total) |
-| Related pixels per cycle (3×3) | K×(K+1) = 12 |
-| Background detection threshold | ~0.5 (rescale) |
-| Template δ / grouping | δ=1.0, 3 groups of 3 |
-| Pixel-level acc (background, 3×3) | ~86.2% |
-| Recognition acc (background, 3×3) | ~81.6% |
-| Recognition acc (template, 3×3) | ~89.8% |
-| Golden classifier | BinaryNet MNIST MLP, ~99.2% |
+| Quantity                           | Paper value (3×3 / Model 1) |
+| ---------------------------------- | ---------------------------- |
+| Layer-1 kernels                    | 64                           |
+| Kernels used for template          | 9                            |
+| Template images / eval images      | 300 / 200 (500 total)        |
+| Related pixels per cycle (3×3)    | K×(K+1) = 12                |
+| Background detection threshold     | ~0.5 (rescale)               |
+| Template δ / grouping             | δ=1.0, 3 groups of 3        |
+| Pixel-level acc (background, 3×3) | ~86.2%                       |
+| Recognition acc (background, 3×3) | ~81.6%                       |
+| Recognition acc (template, 3×3)   | ~89.8%                       |
+| Golden classifier                  | BinaryNet MNIST MLP, ~99.2%  |
 
 ---
 
@@ -244,6 +254,7 @@ registers + 5×5 MAC) and re-profiling. Expect lower accuracy (paper: 79% templa
 ---
 
 ## Sources
+
 - Paper: *I Know What You See* (ACSAC '18), arXiv:1803.05847.
 - bnn-fpga: https://github.com/cornell-zhang/bnn-fpga (Zedboard/SDSoC, CIFAR-10).
 - BinaryNet: https://github.com/MatthieuCourbariaux/BinaryNet (MNIST=MLP, CIFAR/SVHN=ConvNet).

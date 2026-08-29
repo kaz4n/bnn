@@ -2,5 +2,6 @@
 # binarization is self-contained in bnn_layers.py).
 tensorflow>=2.16
 numpy
+scipy
 # Note: TF GPU is unavailable on native Windows for TF>=2.11 (CPU-only here).
 # For faster training use WSL2 + tensorflow[and-cuda], or train on a GPU box.

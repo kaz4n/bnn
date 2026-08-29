@@ -1,0 +1,18 @@
+{
+  "name": "template_onehot_wei_scale_200",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\wei_scale\\results_200_merged",
+  "metrics": {
+    "bit_acc": 0.9430612244897959,
+    "foreground_precision": 0.7580355844281766,
+    "foreground_recall": 0.7988555663413887,
+    "foreground_f1": 0.777910447761194,
+    "foreground_iou": 0.6365412799218368,
+    "all_zero_bit_acc": 0.8751721938775511,
+    "mssim": 0.7035074149882766,
+    "pixel_level_distance": 14.519388198852539,
+    "recognition_accuracy_original": 0.985,
+    "recognition_accuracy_recovered": 0.945,
+    "n_images": 200
+  }
+}

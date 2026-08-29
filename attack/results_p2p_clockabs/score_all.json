@@ -1,0 +1,18 @@
+{
+  "name": "p2p_generator_500",
+  "kind": "p2p",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\results_p2p_clockabs",
+  "metrics": {
+    "bit_acc": 0.972125,
+    "foreground_precision": 0.8972312146864255,
+    "foreground_recall": 0.8846901145961378,
+    "foreground_f1": 0.8909165327290334,
+    "foreground_iou": 0.8032907883130209,
+    "all_zero_bit_acc": 0.8713316326530612,
+    "mssim": 0.80264905671963,
+    "pixel_level_distance": 8.818780899047852,
+    "recognition_accuracy_original": 0.974,
+    "recognition_accuracy_recovered": 0.946,
+    "n_images": 500
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ksize": 3,
+  "n_profile": 5,
+  "n_eval": 2,
+  "kernel_src": "../training/artifacts/model_3x3/layer1_kernels.npy",
+  "images": [
+    {
+      "idx": 5,
+      "label": 1,
+      "bg_pixel_acc": 0.923469387755102,
+      "tm_pixel_dist": 28.49774024869688,
+      "recog_orig": 1,
+      "recog_bg": 1,
+      "recog_tm": 5
+    },
+    {
+      "idx": 6,
+      "label": 4,
+      "bg_pixel_acc": 0.8698979591836735,
+      "tm_pixel_dist": 33.75206055636541,
+      "recog_orig": 4,
+      "recog_bg": 7,
+      "recog_tm": 4
+    }
+  ],
+  "summary": {
+    "bg_pixel_acc_mean": 0.8966836734693877,
+    "tm_pixel_dist_mean": 31.124900402531143,
+    "recog_acc_orig": 1.0,
+    "recog_acc_background": 0.5,
+    "recog_acc_template": 0.5,
+    "paper_targets": {
+      "bg_pixel_acc": 0.862,
+      "recog_background": 0.816,
+      "recog_template": 0.898
+    }
+  }
+}

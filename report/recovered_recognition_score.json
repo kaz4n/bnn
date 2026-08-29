@@ -1,0 +1,247 @@
+{
+  "n": 30,
+  "orig_recognition_acc": 1.0,
+  "recovered_recognition_acc": 1.0,
+  "rows": [
+    {
+      "file": "recovered_0030.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0031.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0032.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0033.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0034.npz",
+      "label": 7,
+      "orig_pred": 7,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0035.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0036.npz",
+      "label": 7,
+      "orig_pred": 7,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0037.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0038.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0039.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0040.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0041.npz",
+      "label": 7,
+      "orig_pred": 7,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0042.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0043.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0044.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0045.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0046.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0047.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0048.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0049.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0050.npz",
+      "label": 6,
+      "orig_pred": 6,
+      "recovered_pred": 6,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0051.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0052.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0053.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0054.npz",
+      "label": 6,
+      "orig_pred": 6,
+      "recovered_pred": 6,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0055.npz",
+      "label": 0,
+      "orig_pred": 0,
+      "recovered_pred": 0,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0056.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0057.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0058.npz",
+      "label": 9,
+      "orig_pred": 9,
+      "recovered_pred": 9,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0059.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    }
+  ]
+}

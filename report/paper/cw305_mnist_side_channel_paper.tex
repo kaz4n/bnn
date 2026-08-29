@@ -1,0 +1,371 @@
+\documentclass[10pt,conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{caption}
+
+\graphicspath{{../paper_figures/}}
+
+\title{Input Reconstruction from Power Side Channel on a CW305 FPGA Neural Accelerator}
+
+\author{
+  \IEEEauthorblockN{Lab Reproduction Report}
+  \IEEEauthorblockA{Controlled side-channel research lab\\
+  Project: MNIST BNN on CW305 and ChipWhisperer-Lite}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This work studies if an input image can be reconstructed from power leakage of
+a neural network accelerator on our own lab hardware. The target is a CW305
+Artix-7 FPGA board measured by a ChipWhisperer-Lite. The work is inspired by
+``I Know What You See'' by Wei et al., but the hardware is not the same. The
+original paper used a high bandwidth oscilloscope and a Spartan-6 based
+accelerator. Our bench has lower capture bandwidth and shorter trace memory, so
+we changed the method. We slowed the FPGA clock to 5 MHz, used synchronous
+sampling at four ADC samples per clock, and built a small leakage-first binary
+convolution core. The core processes MNIST images with $3\times3$ windows and
+uses nine one-hot probe kernels. From real captured traces we reconstructed
+held-out digit images with 98.41\% mean bit accuracy, 92.36\% foreground F1,
+and 100\% recognition accuracy by a separate MNIST classifier. The result shows
+that input recovery is practical on this smaller lab setup when the method is
+adapted to the measurement limits.
+\end{abstract}
+
+\section{Introduction}
+
+Neural accelerators are used to run inference close to the sensor or close to
+private data. If the hardware leaks power information, then an attacker or a
+lab evaluator may learn about the input even without reading the input bus. Wei
+et al. showed this idea for CNN accelerators and recovered MNIST images from
+power traces \cite{wei2018iknow}.
+
+Our first goal was to recreate the same idea on our current setup. The setup is
+different: we have a ChipWhisperer-Lite scope and a CW305 FPGA board. The
+original method expects much more detailed traces. In practice, the direct
+implementation was weak on our hardware. After studying the problem, we built a
+new small accelerator that keeps the same main idea: the first convolution
+touches input pixels in a regular order, and the power trace leaks information
+about those pixels.
+
+This report explains the new method, validates that it really ran on hardware,
+and gives the reconstruction results.
+
+\section{Reference Paper}
+
+The reference paper attacks the first convolution layer of an FPGA CNN
+accelerator. It targets the line-buffer style hardware, because the first layer
+directly sees the input image and its window moves over the image. The paper
+uses high-resolution power traces from an oscilloscope at 2.5 GHz. It then does
+power cleaning, alignment, and template matching. For MNIST, the paper reports
+up to 89.8\% recognition accuracy for recovered images in the active/template
+attack case \cite{wei2018iknow}.
+
+Our work follows the same high level question: can power traces reveal the
+private input image? The answer from our bench is yes. But the method is not a
+copy. It is a hardware-adapted version for a smaller and cheaper measurement
+bench.
+
+\section{Why the First Implementation Was Weak}
+
+The earlier implementation tried to stay closer to the paper code path. It used
+the HLS convolution design and then tried to extract a useful signal from the
+CW-Lite traces. This gave low detection and many confusing results. The main
+reasons were:
+
+\begin{itemize}
+  \item The paper used a 2.5 GHz oscilloscope. Our synchronous CW-Lite capture
+  gives 4 samples per FPGA clock. This is much less detail per clock.
+  \item Some runs used asynchronous capture and averaged traces before good
+  alignment. This can blur the clock-cycle leakage.
+  \item Old bitstreams were easy to reuse by accident. The F1 and F16 builds had
+  almost the same resources, which showed that the expected fanout change was
+  not really present in the final bitstream.
+  \item The ring-oscillator sensor path mixed diagnostic logic with the
+  accelerator output path. It was useful for debug, but not a clean
+  reconstruction experiment.
+  \item The natural line-buffer leakage on CW305 is small compared with board
+  noise, USB activity, and ADC limits.
+\end{itemize}
+
+Because of this, we stopped spending time on the old path and built a clean
+target for this hardware.
+
+\section{Hardware and Gateware}
+
+The hardware used in the successful run was:
+
+\begin{itemize}
+  \item ChipWhisperer-Lite, serial
+  \texttt{50203220415447303030313238323035}.
+  \item CW305 Artix FPGA board, serial
+  \texttt{5020322030384a583330343234303030}.
+  \item FPGA bitstream
+  \texttt{cw305\_leakage\_d8\_l63.bit}.
+\end{itemize}
+
+The target core is a binary $3\times3$ valid convolution over a $28\times28$
+MNIST input. This gives $26\times26=676$ windows. Each window is held for 8 FPGA
+clock cycles. The FPGA clock is 5 MHz. The ChipWhisperer ADC is locked to the
+target clock with \texttt{extclk\_x4}, so each window gives 32 ADC samples.
+
+The core has a retained leakage bank. It toggles as:
+
+\[
+0 \rightarrow \mathrm{XNOR}(\mathrm{window}, \mathrm{kernel}) \rightarrow 0 .
+\]
+
+The bank has 63 lanes, so there are 567 data-dependent flip-flops. This is still
+small on the Artix-7, but it makes the leakage visible on our bench.
+
+The Vivado build closed timing. The routed report shows WNS = 3.326 ns and TNS =
+0.000 ns. The placed utilization is 2942 LUTs, 1470 flip-flops, and 0 BRAM. The
+USB and crypto clocks are constrained as asynchronous clock groups.
+
+\section{Hardware Validation}
+
+We validated that the run was not a simulation-only result. First, the
+ChipWhisperer API listed both physical devices by serial number. Second, the
+FPGA was programmed and a hardware functional check was run. The check wrote one
+binary MNIST image and one one-hot kernel to the CW305, started the design, read
+back 676 signed outputs, and compared them to a NumPy golden model. The result
+was:
+
+\begin{quote}
+\texttt{PASS: 676 outputs bit-exact}
+\end{quote}
+
+The capture manifest also shows a completed hardware run with 60 trace files,
+9 kernels, 5 repeats, 22144 samples per trace, and ADC source
+\texttt{extclk\_x4}. Each trace file stores the raw repeat array with shape
+\texttt{(9, 5, 22144)}.
+
+After the crash during report generation, we also repeated a small fresh
+hardware check. The FPGA was programmed again, the CW-Lite was armed again, and
+two new MNIST indices, 60 and 61, were captured with 9 kernels and 3 repeats.
+Those images were not part of the first 30-image profiling set. Using templates
+from the earlier profile traces, the fresh capture reconstructed with 97.77\%
+bit accuracy and 92.43\% foreground F1. This extra test is important because it
+shows the reconstruction is driven by newly captured CW-Lite traces, not only by
+host-side data files.
+
+\section{Capture Method}
+
+Figure~\ref{fig:raw} shows the captured power trace for the first 20 windows.
+The vertical lines show the window boundaries. This trace is not a simulated
+power model. It is one raw CW-Lite capture from the hardware run.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig_raw_power_windows.png}
+  \caption{Raw captured power trace from CW-Lite. Each vertical line is one
+  $3\times3$ window boundary.}
+  \label{fig:raw}
+\end{figure}
+
+For each image and each probe kernel, we captured 5 repeats. For reconstruction
+we subtracted the median of each trace, split the trace into 676 windows, and
+used the mean absolute value inside each 32-sample window. This produced one
+feature value for each convolution window and each probe kernel.
+
+Figure~\ref{fig:heatmap} shows one extracted feature map. The digit structure is
+visible even before the final reconstruction step.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.82\linewidth]{fig_feature_heatmap.png}
+  \caption{Feature map extracted from real power traces for one probe kernel.}
+  \label{fig:heatmap}
+\end{figure}
+
+\section{Reconstruction Method}
+
+We used nine one-hot probe kernels. Each kernel has one bit equal to one and the
+other eight bits equal to zero. This is an active/profiling setting, similar in
+spirit to the active template attack in the reference paper.
+
+For one window and one one-hot kernel $i$, the match count is:
+
+\[
+c_i = 8 - s + 2b_i ,
+\]
+
+where $s$ is the number of one bits in the $3\times3$ patch, and $b_i$ is the
+bit at position $i$. Across nine probes:
+
+\[
+s = \frac{72 - \sum_i c_i}{7}.
+\]
+
+So the nine match counts contain enough information to recover the nine patch
+bits. In real traces the match counts are noisy, so we do not use the formula
+directly. Instead, we build a template from 30 known profile images. For every
+probe kernel, we learn the median feature for match counts 0 to 9. At attack
+time, every window is compared against all 512 possible binary $3\times3$
+patches. The nearest template gives the patch candidate.
+
+The final $28\times28$ image is made by majority vote. Each pixel appears in
+several overlapping $3\times3$ patches. If most recovered patches vote one for a
+pixel, the pixel is recovered as foreground.
+
+Figure~\ref{fig:lookup} shows the profiled relation between match count and
+leakage for three probe kernels. Figure~\ref{fig:stream} shows the decoded
+match-count stream for the beginning of one image.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{fig_profile_lookup.png}
+  \caption{Profiled match-count leakage templates from real traces.}
+  \label{fig:lookup}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig_match_count_stream.png}
+  \caption{Decoded match-count stream after template matching.}
+  \label{fig:stream}
+\end{figure}
+
+\section{Results}
+
+The successful run used 60 MNIST test images. Images 0--29 were used for
+profiling. Images 30--59 were held out for evaluation. The main results are
+shown in Table~\ref{tab:results}.
+
+\begin{table}[t]
+\centering
+\caption{Reconstruction result on 30 held-out hardware traces.}
+\label{tab:results}
+\begin{tabular}{lc}
+\toprule
+Metric & Result \\
+\midrule
+Mean bit accuracy & 98.41\% \\
+Foreground precision & 91.39\% \\
+Foreground recall & 94.12\% \\
+Foreground F1 & 92.36\% \\
+Foreground IoU & 86.01\% \\
+All-zero bit baseline & 89.13\% \\
+Recovered-image recognition accuracy & 100.00\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The all-zero baseline is high because MNIST images have large black background.
+For that reason, bit accuracy alone is not enough. The foreground F1 and visual
+results show that the digit shape was really recovered, not only the background.
+
+Figure~\ref{fig:recon} shows examples of original and recovered binary digits.
+Most digit strokes are reconstructed. Some border pixels appear because the
+majority vote is not perfect.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig_reconstruction_examples.png}
+  \caption{Original binary MNIST images and recovered images from power traces.}
+  \label{fig:recon}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{fig_fresh_validation.png}
+  \caption{Fresh validation capture after report crash. These two traces were
+  captured again from CW305 and decoded using the old profile set.}
+  \label{fig:fresh}
+\end{figure}
+
+Figure~\ref{fig:hist} gives the distribution of bit accuracy over the held-out
+images.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig_accuracy_hist.png}
+  \caption{Held-out bit accuracy over 30 reconstructed images.}
+  \label{fig:hist}
+\end{figure}
+
+\section{Comparison with the Reference Paper}
+
+Table~\ref{tab:compare} summarizes the main differences. The reference paper has
+a more general hardware target and a stronger measurement setup. Our work uses a
+smaller capture setup, so we changed the target and the data acquisition.
+
+\begin{table*}[t]
+\centering
+\caption{Difference between the reference paper and this implementation.}
+\label{tab:compare}
+\begin{tabular}{lll}
+\toprule
+Point & Wei et al. & This work \\
+\midrule
+Board & Spartan-6 FPGA accelerator & CW305 Artix-7 FPGA board \\
+Scope & Oscilloscope at 2.5 GHz & ChipWhisperer-Lite, synchronous \texttt{extclk\_x4} \\
+Input & MNIST gray/binary CNN input & MNIST binary input \\
+Main leak source & Line-buffer first convolution & Retained XNOR leak bank inside first convolution \\
+Clock detail & Many samples per cycle & 4 ADC samples per FPGA cycle \\
+Attack type & Background detection and template attack & Active/profiled one-hot kernel template attack \\
+Reported result & Up to 89.8\% MNIST recognition accuracy & 100\% recognition on 30 held-out recovered images \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The main novelty in our setup is not that we copied every circuit detail. The
+novelty is the hardware adaptation. We changed the convolution experiment so the
+same privacy problem can be demonstrated on CW305 and CW-Lite. The first
+convolution still touches the input window. The power still depends on the
+window content. The attacker still reconstructs the input image from measured
+power. The result is similar in outcome to the paper: the hidden MNIST input is
+recovered well enough that a classifier can still read it.
+
+\section{Limitations}
+
+This result should be described with care. The one-hot kernels are chosen for
+probing. This is closer to an active/profiled attack than to a passive attack on
+an unknown deployed model. The input is binary MNIST, not a full gray image. The
+dataset is small: 60 images were captured, with 30 used for evaluation. Also,
+the leakage bank is an intentional and controlled leakage source. This is good
+for showing the side-channel idea on the available hardware, but it is not a
+claim that every neural accelerator will leak this strongly.
+
+Still, the experiment is useful. It gives a repeatable lab method, a timing-clean
+bitstream, real power traces, and a reconstruction pipeline. It also explains
+why the direct port of the original paper did not work well on our bench.
+
+\section{Conclusion}
+
+We reproduced the main achievement at the level that matters for this hardware:
+an input digit can be reconstructed from side-channel power data collected while
+the FPGA accelerator is running. The final method is different from the original
+paper because the measurement hardware is different. With a slow clock, aligned
+CW-Lite capture, one-hot probe kernels, and a retained binary convolution leak
+bank, the recovered images reached 98.41\% bit accuracy and 100\% recognition
+accuracy on held-out MNIST traces.
+
+\begin{thebibliography}{9}
+
+\bibitem{wei2018iknow}
+L. Wei, B. Luo, Y. Li, Y. Liu, and Q. Xu,
+``I Know What You See: Power Side-Channel Attack on Convolutional Neural
+Network Accelerators,''
+in \emph{ACSAC}, 2018.
+
+\bibitem{cwdocs}
+NewAE Technology Inc.,
+``ChipWhisperer Documentation,''
+\url{https://chipwhisperer.readthedocs.io/}.
+
+\bibitem{mnist}
+Y. LeCun, C. Cortes, and C. J. C. Burges,
+``The MNIST Database of Handwritten Digits,''
+\url{http://yann.lecun.com/exdb/mnist/}.
+
+\end{thebibliography}
+
+\end{document}

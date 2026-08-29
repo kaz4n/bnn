@@ -18,9 +18,9 @@ larq is **not** used (it breaks on Keras 3).
 
 ```bash
 pip install -r requirements.txt
-python train_attacked_cnn.py --ksize 3 --epochs 40
-python train_attacked_cnn.py --ksize 5 --epochs 40
-python train_golden_mlp.py --epochs 50
+python train_attacked_cnn.py --ksize 3 --epochs 150
+python train_attacked_cnn.py --ksize 5 --epochs 150
+python train_golden_mlp.py --epochs 150
 ```
 
 ## Key outputs (per model, under `artifacts/model_KxK/`)

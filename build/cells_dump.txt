@@ -1,0 +1,6 @@
+U_clocks
+U_reg_bnn
+U_usb_reg_fe
+U_reg_bnn/U_conv
+U_reg_bnn/U_go
+U_reg_bnn/U_conv/grp_bnn_unpack_kernel_fu_4459

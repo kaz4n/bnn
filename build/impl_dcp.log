@@ -1,0 +1,469 @@
+
+****** Vivado v2016.4 (64-bit)
+  **** SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+  **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source impl_from_dcp.tcl
+# open_checkpoint vivado_ro3pb/cw305_bnn_ro3pb.runs/synth_1/cw305_bnn_top.dcp
+Command: open_checkpoint vivado_ro3pb/cw305_bnn_ro3pb.runs/synth_1/cw305_bnn_top.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 209.551 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 208 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'cw305_bnn_top' is not ideal for floorplanning, since the cellview 'bnn_conv1' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-479] Netlist was created with Vivado 2016.4
+INFO: [Device 21-403] Loading part xc7a100tftg256-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 142 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 8 instances
+  RAM128X1D => RAM128X1D (RAMD64E, RAMD64E, RAMD64E, RAMD64E, MUXF7, MUXF7): 48 instances
+  RAM16X1D => RAM32X1D (RAMD32, RAMD32): 8 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 65 instances
+  RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 13 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2016.4 (64-bit) build 1756540
+# set CWXDC "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc"
+# read_xdc $CWXDC
+Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+# read_xdc ../cw305/cw305_bnn.xdc
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc:16]
+get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1009.531 ; gain = 519.168
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_bnn.xdc]
+read_xdc: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1009.531 ; gain = 519.168
+# read_xdc ../cw305/ro_sensor.xdc
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/ro_sensor.xdc]
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/ro_sensor.xdc]
+# set nloop [llength [get_nets -hier -quiet *ro_loop*]]
+# puts "IMPL: $nloop ro_loop nets in synth DCP"
+IMPL: 128 ro_loop nets in synth DCP
+# set_property ALLOW_COMBINATORIAL_LOOPS TRUE [get_nets -hier -quiet *ro_loop*]
+# if {[catch {source ../cw305/ro_pblock.tcl} e]} { puts "WARNING pblock skipped: $e" }
+## get_cells -quiet -hier -filter {NAME =~ *U_ro_sensor*}
+## get_cells -quiet -hier -filter {NAME =~ *U_conv*}
+## llength $SENSOR
+## llength $CONV
+ro_pblock: pb_core = 226 sensor + 17058 conv cells in X0Y0:X0Y2
+# opt_design
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.352 . Memory (MB): peak = 1025.250 ; gain = 9.801
+
+Starting Logic Optimization Task
+Implement Debug Cores | Checksum: 11eb1f9a1
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: fd8da0d0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.252 . Memory (MB): peak = 1025.250 ; gain = 0.000
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-10] Eliminated 512 cells.
+Phase 2 Constant propagation | Checksum: 19e74a14e
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1025.250 ; gain = 0.000
+
+Phase 3 Sweep
+INFO: [Opt 31-12] Eliminated 78 unconnected nets.
+INFO: [Opt 31-11] Eliminated 0 unconnected cells.
+Phase 3 Sweep | Checksum: f994d9da
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1025.250 ; gain = 0.000
+
+Phase 4 BUFG optimization
+INFO: [Opt 31-12] Eliminated 0 unconnected nets.
+INFO: [Opt 31-11] Eliminated 0 unconnected cells.
+Phase 4 BUFG optimization | Checksum: f994d9da
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1025.250 ; gain = 0.000
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1025.250 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: f994d9da
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1025.250 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-203] Number of nets are not same before and after processing of findDistanceFromSourceAndDest. Before: 0 After: 128
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 1 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 1 newly gated: 0 Total Ports: 2
+Ending PowerOpt Patch Enables Task | Checksum: 1ee3471da
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 1ee3471da
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1197.051 ; gain = 171.801
+INFO: [Common 17-83] Releasing license: Implementation
+20 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+# place_design
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1197.051 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device | Checksum: b1cc7598
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 1.2 Build Placer Netlist Model
+Phase 1.2 Build Placer Netlist Model | Checksum: 18b790ed5
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 1.3 Constrain Clocks/Macros
+Phase 1.3 Constrain Clocks/Macros | Checksum: 18b790ed5
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: 18b790ed5
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 1107e916b
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:14 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1107e916b
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:14 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: f4bfbdb4
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:17 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 9f2eb417
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 9f2eb417
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.5 Timing Path Optimizer
+Phase 3.5 Timing Path Optimizer | Checksum: 13f936b37
+
+Time (s): cpu = 00:00:26 ; elapsed = 00:00:19 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 16069ae92
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 9bb3cb78
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 9bb3cb78
+
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:23 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 9bb3cb78
+
+Time (s): cpu = 00:00:31 ; elapsed = 00:00:24 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+INFO: [Place 30-746] Post Placement Timing Summary WNS=2.722. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: ca4fe4be
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Phase 4.1 Post Commit Optimization | Checksum: ca4fe4be
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: ca4fe4be
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: ca4fe4be
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 6f6263aa
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 6f6263aa
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+Ending Placer Task | Checksum: 5414b5fa
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1197.051 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+14 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:00:37 ; elapsed = 00:00:28 . Memory (MB): peak = 1197.051 ; gain = 0.000
+# route_design
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: 5e5f754 ConstDB: 0 ShapeSum: 4e2ebea6 RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 11e9d0d3f
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:20 . Memory (MB): peak = 1227.535 ; gain = 30.484
+
+Phase 2 Router Initialization
+
+Phase 2.1 Create Timer
+Phase 2.1 Create Timer | Checksum: 11e9d0d3f
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:20 . Memory (MB): peak = 1227.535 ; gain = 30.484
+
+Phase 2.2 Fix Topology Constraints
+Phase 2.2 Fix Topology Constraints | Checksum: 11e9d0d3f
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:21 . Memory (MB): peak = 1227.535 ; gain = 30.484
+
+Phase 2.3 Pre Route Cleanup
+Phase 2.3 Pre Route Cleanup | Checksum: 11e9d0d3f
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:21 . Memory (MB): peak = 1227.535 ; gain = 30.484
+ Number of Nodes with overlaps = 0
+
+Phase 2.4 Update Timing
+Phase 2.4 Update Timing | Checksum: 1f6325909
+
+Time (s): cpu = 00:00:29 ; elapsed = 00:00:23 . Memory (MB): peak = 1238.266 ; gain = 41.215
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=2.858  | TNS=0.000  | WHS=-0.370 | THS=-682.954|
+
+Phase 2 Router Initialization | Checksum: 24bc66adc
+
+Time (s): cpu = 00:00:31 ; elapsed = 00:00:25 . Memory (MB): peak = 1240.875 ; gain = 43.824
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: ccabf2e5
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1258.098 ; gain = 61.047
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 1530
+ Number of Nodes with overlaps = 62
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+
+Phase 4.1.1 Update Timing
+Phase 4.1.1 Update Timing | Checksum: 1b193bb36
+
+Time (s): cpu = 00:00:42 ; elapsed = 00:00:31 . Memory (MB): peak = 1258.098 ; gain = 61.047
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.253  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 126289f42
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:31 . Memory (MB): peak = 1258.098 ; gain = 61.047
+Phase 4 Rip-up And Reroute | Checksum: 126289f42
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:31 . Memory (MB): peak = 1258.098 ; gain = 61.047
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+
+Phase 5.1.1 Update Timing
+Phase 5.1.1 Update Timing | Checksum: 21948e2fe
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:32 . Memory (MB): peak = 1258.098 ; gain = 61.047
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.253  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 5.1 Delay CleanUp | Checksum: 21948e2fe
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:32 . Memory (MB): peak = 1258.098 ; gain = 61.047
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 21948e2fe
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:32 . Memory (MB): peak = 1258.098 ; gain = 61.047
+Phase 5 Delay and Skew Optimization | Checksum: 21948e2fe
+
+Time (s): cpu = 00:00:43 ; elapsed = 00:00:32 . Memory (MB): peak = 1258.098 ; gain = 61.047
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 18437592c
+
+Time (s): cpu = 00:00:44 ; elapsed = 00:00:32 . Memory (MB): peak = 1258.098 ; gain = 61.047
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.253  | TNS=0.000  | WHS=-0.892 | THS=-6.032 |
+
+Phase 6.1 Hold Fix Iter | Checksum: 24a291b94
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:33 . Memory (MB): peak = 1345.234 ; gain = 148.184
+Phase 6 Post Hold Fix | Checksum: 2704dd487
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:33 . Memory (MB): peak = 1345.234 ; gain = 148.184
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 2.59847 %
+  Global Horizontal Routing Utilization  = 3.13896 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 7 Route finalize | Checksum: 1bbf761a9
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:33 . Memory (MB): peak = 1345.234 ; gain = 148.184
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 1bbf761a9
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:33 . Memory (MB): peak = 1345.234 ; gain = 148.184
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 13ee57fe0
+
+Time (s): cpu = 00:00:47 ; elapsed = 00:00:34 . Memory (MB): peak = 1345.234 ; gain = 148.184
+
+Phase 10 Post Router Timing
+
+Phase 10.1 Update Timing
+Phase 10.1 Update Timing | Checksum: 173af5daf
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:34 . Memory (MB): peak = 1345.234 ; gain = 148.184
+INFO: [Route 35-57] Estimated Timing Summary | WNS=3.253  | TNS=0.000  | WHS=0.070  | THS=0.000  |
+
+INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
+Phase 10 Post Router Timing | Checksum: 173af5daf
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:34 . Memory (MB): peak = 1345.234 ; gain = 148.184
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:34 . Memory (MB): peak = 1345.234 ; gain = 148.184
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+13 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:00:50 ; elapsed = 00:00:36 . Memory (MB): peak = 1345.234 ; gain = 148.184
+# source ../cw305/allow_ro_loops.tcl
+## set ro_loop_nets [get_nets -hierarchical -quiet *ro_loop*]
+## puts "RO_SENSOR: allowing combinational loops on [llength $ro_loop_nets] ro_loop nets"
+RO_SENSOR: allowing combinational loops on 128 ro_loop nets
+## if {[llength $ro_loop_nets] > 0} {
+##     set_property ALLOW_COMBINATORIAL_LOOPS TRUE $ro_loop_nets
+## }
+## set_property BITSTREAM.GENERAL.CRC DISABLE [current_design]
+# write_bitstream -force cw305_bnn_ro3pb.bit
+Command: write_bitstream -force cw305_bnn_ro3pb.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command write_bitstream
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 11 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[9].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/GEN_INV[10].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[11].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 11 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[9].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/GEN_INV[10].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[15].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 11 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[9].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/GEN_INV[10].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[3].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 11 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[9].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/GEN_INV[10].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[7].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 5 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[0].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[0].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[0].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[0].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[0].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 5 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[12].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[12].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[12].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[12].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[12].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 5 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[4].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[4].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[4].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[4].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[4].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 5 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[8].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[8].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[8].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[8].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[8].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 7 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[13].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 7 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[1].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 7 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[5].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 7 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[9].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 9 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[10].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 9 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[14].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 9 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[2].U_RO/U_inv0.
+WARNING: [DRC 23-20] Rule violation (LUTLP-2) Combinatorial Loop Allowed - 9 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. This loop has been identified in the constraints as being known and understood by use of the ALLOW_COMBINATORIAL_LOOPS property on a net in the loop. The cells in the loop are: U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[1].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[2].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[3].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[4].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[5].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[6].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[7].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/GEN_INV[8].U_inv, U_reg_bnn/U_ro_sensor/GEN_RO[6].U_RO/U_inv0.
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 16 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Overwriting "TIMESTAMP" with "CC357B00" for option USR_ACCESS
+Creating bitmap...
+Creating bitstream...
+Bitstream compression saved 20259200 bits.
+Writing bitstream ./cw305_bnn_ro3pb.bit...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
+INFO: [Common 17-83] Releasing license: Implementation
+7 Infos, 16 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1623.398 ; gain = 278.164
+# puts "BITSTREAM: build/cw305_bnn_ro3pb.bit"
+BITSTREAM: build/cw305_bnn_ro3pb.bit
+# exit
+INFO: [Common 17-206] Exiting Vivado at Tue Aug 25 23:44:10 2026...

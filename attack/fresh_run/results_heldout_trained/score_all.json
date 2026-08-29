@@ -1,0 +1,18 @@
+{
+  "name": "template_trained_kernels",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\fresh_run\\results_heldout_trained",
+  "metrics": {
+    "bit_acc": 0.9676020408163265,
+    "foreground_precision": 0.9649356413670661,
+    "foreground_recall": 0.7609380469023451,
+    "foreground_f1": 0.8508806262230919,
+    "foreground_iou": 0.7404632152588556,
+    "all_zero_bit_acc": 0.8785289115646259,
+    "mssim": 0.8239413768087467,
+    "pixel_level_distance": 8.261479377746582,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.9333333333333333,
+    "n_images": 30
+  }
+}

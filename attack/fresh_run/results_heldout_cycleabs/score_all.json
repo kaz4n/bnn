@@ -1,0 +1,18 @@
+{
+  "name": "template_onehot_percycle",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\fresh_run\\results_heldout_cycleabs",
+  "metrics": {
+    "bit_acc": 0.9489795918367347,
+    "foreground_precision": 0.8509106310885218,
+    "foreground_recall": 0.7031851592579629,
+    "foreground_f1": 0.770026830203143,
+    "foreground_iou": 0.626051729510751,
+    "all_zero_bit_acc": 0.8785289115646259,
+    "mssim": 0.75090959292579,
+    "pixel_level_distance": 13.010204315185547,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 30
+  }
+}

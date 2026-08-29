@@ -1,0 +1,5 @@
+{
+  "attack_bundle": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\wei_scale\\eval_bundle_200",
+  "truth": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\wei_scale\\truth_eval_200.json",
+  "items": 200
+}

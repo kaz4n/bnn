@@ -1,0 +1,321 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+\graphicspath{{../paper_figures/}}
+
+\title{Concise Report on the CW305 Side Channel Image Reconstruction Work}
+\author{Prepared from the current lab implementation}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Short summary}
+
+In this work I tried to recreate the main idea from the paper
+\emph{I Know What You See: Power Side-Channel Attack on Convolutional Neural
+Network Accelerators}. The paper showed that the input image of a CNN accelerator
+can be recovered from power traces. Their strongest MNIST active template result
+was about 89.8\% recognition accuracy for the recovered images.
+
+My hardware is different from the paper. I used a CW305 FPGA board with a
+ChipWhisperer-Lite capture board. The paper used a stronger oscilloscope setup.
+Because of this difference, I did not copy the experiment exactly. I made a
+hardware-adapted method that still keeps the same research point: the first
+convolution layer leaks enough information to reconstruct the private input
+image from power.
+
+I tested two methods:
+
+\begin{enumerate}
+  \item A leakage-first direct reconstruction method.
+  \item A stricter active power-template method.
+\end{enumerate}
+
+Both methods used real power traces captured from the FPGA. The second method is
+closer to the active power-template attack in the paper, because the attack
+image files were stripped so they only contain traces and metadata. The original
+image and label were only used after the attack for scoring.
+
+\section*{Hardware setup used}
+
+The final working setup was:
+
+\begin{itemize}
+  \item Target board: CW305 FPGA board.
+  \item Capture board: ChipWhisperer-Lite.
+  \item FPGA bitstream: \texttt{cw305\_leakage\_d8\_l63.bit}.
+  \item Clock: FPGA at 5 MHz.
+  \item ADC mode: synchronous \texttt{extclk\_x4}, so 4 samples per FPGA clock.
+  \item Each 3x3 MNIST window was held for 8 FPGA clocks.
+  \item Each window therefore had 32 ADC samples.
+  \item Each full image trace had 676 valid windows and 22144 samples.
+\end{itemize}
+
+The board run also passed a functional check. The hardware convolution output
+matched the software golden output for all 676 windows. This was important
+because otherwise the attack result could be only a host-side artifact.
+
+\section*{Captured power signal}
+
+Figure~\ref{fig:raw-power} shows the real captured ChipWhisperer power trace.
+The trace is not random data. It has repeated blocks which follow the convolution
+window timing. Each block is one 3x3 image window held on the FPGA datapath.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig_raw_power_windows.png}
+  \caption{Captured CW-Lite power signal. The highlighted windows are the power
+  samples used for reconstruction.}
+  \label{fig:raw-power}
+\end{figure}
+
+For the reconstruction, I did not use the whole trace as one black-box vector.
+I split it using the known FPGA schedule. For each kernel and each window, I took
+a small feature from the 32 samples. The main feature was the mean absolute power
+after removing the trace median. This made one power value for each kernel/window
+pair.
+
+Figure~\ref{fig:feature-map} shows this transformation. The image-like structure
+appears in the feature map, because each window contains a local part of the
+MNIST digit.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{fig_feature_heatmap.png}
+  \caption{Feature map extracted from real power traces. The power features are
+  later used to recover the 3x3 patches.}
+  \label{fig:feature-map}
+\end{figure}
+
+\section*{Method 1: leakage-first direct reconstruction}
+
+The first successful method was made to fit the current hardware. I used nine
+one-hot probe kernels. Each probe kernel checks one position inside the 3x3
+patch. The FPGA still runs a binary convolution style operation, but the one-hot
+kernels make the leakage easier to decode on ChipWhisperer.
+
+The idea is simple. For every 3x3 image patch, the FPGA leakage changes with the
+number of bit matches between the patch and the probe kernel. I built a small
+profile from known images, then decoded each unknown window as one of the 512
+possible binary 3x3 patches. After that, overlapping patches were combined by
+majority vote to recover the full 28x28 image.
+
+This method is very strong, but it is also more controlled than the original
+paper. It uses the chosen one-hot kernels and the known timing of the FPGA.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig_profile_lookup.png}
+  \caption{Profiled relation between power feature and match count. This is how
+  the measured trace becomes patch information.}
+  \label{fig:lookup}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{fig_reconstruction_examples.png}
+  \caption{Examples from the leakage-first direct reconstruction method.}
+  \label{fig:direct-recon}
+\end{figure}
+
+\section*{Method 2: active power-template reconstruction}
+
+After that, I made a second method which is closer to the active attack in the
+paper. The paper builds a power template from profiling images. Then, during the
+real attack, it uses the measured power vector to search for possible pixel
+candidates. Finally it chooses the candidates that agree with each other across
+overlapping windows.
+
+I implemented the same style:
+
+\begin{enumerate}
+  \item I used 30 known hardware captures to build a template:
+  \[
+  PT = \{(3\times3\ \text{patch bits},\ 9\text{-kernel power vector})\}.
+  \]
+  \item I made a trace-only attack bundle. These files contain traces, repeats,
+  kernel IDs, timing metadata, and no image or label.
+  \item The attack searched the template by grouped power-vector distance.
+  \item It selected one patch per window using a greedy overlap consistency
+  method.
+  \item Only after reconstruction, I loaded the truth file for scoring.
+\end{enumerate}
+
+I also checked the attack files. There were 33 trace-only files checked, and none
+of them contained \texttt{image}, \texttt{label}, \texttt{original},
+\texttt{truth}, or \texttt{true\_codes}. This gives a cleaner claim: the
+reconstruction stage itself used traces and the profile template, not the real
+attacked image.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth,height=0.55\textheight,keepaspectratio]{fig_active_power_template_trace_only_report.png}
+  \caption{Trace-only active-template reconstruction on held-out hardware
+  traces.}
+  \label{fig:active-heldout}
+\end{figure}
+
+I also ran a fresh hardware capture after the method was added. The board was
+programmed and ChipWhisperer reported ADC lock. Three new images were captured:
+indices 62, 63, and 64. These were then stripped into trace-only files and
+attacked using the older profile template.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth,height=0.75\textheight,keepaspectratio]{fig_active_template_fresh_hardware.png}
+  \caption{Fresh board capture reconstructed with the active-template method.}
+  \label{fig:active-fresh}
+\end{figure}
+
+\section*{Results}
+
+Table~\ref{tab:results} gives the main outcome. The all-zero baseline is high
+because MNIST has large black background, so I also report foreground F1 and
+recognition accuracy.
+
+\begin{table}[H]
+\centering
+\caption{Main results from real hardware traces.}
+\label{tab:results}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.34\linewidth}cccc}
+\toprule
+Method & Bit acc. & Foreground F1 & IoU & Recognition \\
+\midrule
+Leakage-first direct, 30 held-out images
+& 98.41\% & 92.36\% & 86.01\% & 100.00\% \\
+Leakage-first direct, fresh 2-image check
+& 97.77\% & 92.43\% & 85.93\% & not main metric \\
+Active power-template, 30 trace-only images
+& 95.62\% & 79.75\% & 66.84\% & 96.67\% \\
+Active power-template, fresh 3 trace-only images
+& 94.22\% & 75.33\% & 60.74\% & 100.00\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The direct method gives better pixel quality. The active-template method gives a
+more honest comparison with the paper's active attack. Its 96.67\% recognition
+on 30 held-out images is above the 89.8\% recognition number reported by the
+paper for the 3x3 active-template MNIST setting. I should still describe it
+carefully, because my setup uses controlled one-hot kernels and a leakage-friendly
+bitstream.
+
+\section*{Why the older implementation stalled and gave low detection}
+
+The older implementation was trying to stay close to the paper's original
+accelerator and attack flow. That was useful for learning, but it did not match
+the real measurement strength of this hardware. The main problems were:
+
+\begin{itemize}
+  \item The paper used a 2.5 GS/s oscilloscope. ChipWhisperer-Lite has much lower
+  sampling rate and only a small number of samples per clock in this setup.
+  \item The first implementation tried to extract small convolution leakage from
+  a large FPGA power signal. The clock tree, USB logic, static current, and other
+  FPGA activity diluted the useful leakage.
+  \item Some earlier captures had trigger and window-mapping problems. The trace
+  did not always cover the full useful computation in a clean way.
+  \item Some old bitstreams and source versions were easy to mix. This made it
+  hard to prove that the hardware being measured was the same hardware described
+  by the current code.
+  \item The old passive/background style attack was weak on this setup. It can
+  detect big background regions when the SNR is good, but it is not enough for a
+  strong professor demo on CW305/CW-Lite.
+\end{itemize}
+
+So the problem was not only a software bug. It was a hardware and measurement
+fit problem. The original paper's power extraction method assumes a much better
+analog capture path. On my setup, I had to slow the FPGA down, use synchronous
+capture, hold each window longer, and amplify the data-dependent switching.
+
+\section*{Differences from the original paper}
+
+The main idea is the same: recover an input image from power leakage of the first
+convolution layer. But the implementation is not identical.
+
+\begin{table}[H]
+\centering
+\caption{Main differences between the paper and this implementation.}
+\label{tab:compare}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.26\linewidth}
+                >{\raggedright\arraybackslash}p{0.32\linewidth}
+                >{\raggedright\arraybackslash}p{0.32\linewidth}}
+\toprule
+Point & Original paper & My implementation \\
+\midrule
+Capture equipment
+& High-bandwidth oscilloscope setup.
+& ChipWhisperer-Lite with CW305 power measurement path. \\
+Target hardware
+& FPGA CNN accelerator from the paper setup.
+& CW305 Artix FPGA with a custom leakage-friendly MNIST convolution core. \\
+Power extraction
+& More complex analog filtering and extraction.
+& Synchronous capture at \texttt{extclk\_x4}; each window has fixed 32 samples. \\
+Attack style
+& Passive background and active power-template attacks.
+& Direct leakage-first method and stricter active power-template method. \\
+Kernel use
+& Uses different convolution kernels from the model.
+& Uses controlled one-hot probe kernels to make leakage measurable on this board. \\
+Claim
+& General image recovery from CNN accelerator power traces.
+& Hardware-adapted proof that CW305/CW-Lite traces can reconstruct recognizable
+MNIST inputs. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{What I think is the correct claim}
+
+The strongest correct claim is:
+
+\begin{quote}
+On the CW305 and ChipWhisperer-Lite setup, real FPGA power traces are enough to
+reconstruct recognizable MNIST inputs when using a controlled active/profiled
+method. The active-template version reconstructs from trace-only attack files
+and reaches 96.67\% recognition on 30 held-out hardware captures.
+\end{quote}
+
+This is similar in outcome and spirit to the original active-template attack,
+but it is adapted to different hardware. I should not claim it is a fully passive
+unknown-model attack. The current result is still useful because it shows the
+privacy leakage in a real board setup, and it gives a practical path for the next
+student or professor to continue.
+
+\section*{Next steps}
+
+If we want to make the work stronger, I suggest:
+
+\begin{itemize}
+  \item Capture more fresh images, for example 100 profile and 100 attack images.
+  \item Sweep \texttt{delta}, group size, and candidate cap for the active-template
+  method.
+  \item Try trained kernels after the one-hot version is fully stable.
+  \item Add a small hardware build ID register, so every capture proves exactly
+  which bitstream was loaded.
+  \item If better hardware is available later, try ChipWhisperer-Husky or an
+  oscilloscope to reduce the need for leakage amplification.
+\end{itemize}
+
+\section*{Conclusion}
+
+The first old implementation gave low detection because it was too close to the
+paper assumptions while the hardware was not the same. After adapting the
+methodology to CW305 and ChipWhisperer-Lite, the experiment became successful.
+The direct method gives very clean image recovery. The active-template method is
+closer to the paper and gives a strong trace-only result. I believe this is a
+good point to show to the professor, because it explains both the failure and
+the new working path.
+
+\end{document}

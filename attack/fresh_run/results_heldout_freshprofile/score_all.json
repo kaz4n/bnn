@@ -1,0 +1,18 @@
+{
+  "name": "template_onehot_fresh30",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\fresh_run\\results_heldout_freshprofile",
+  "metrics": {
+    "bit_acc": 0.9468112244897959,
+    "foreground_precision": 0.8196656050955414,
+    "foreground_recall": 0.7206860343017151,
+    "foreground_f1": 0.7669957161482586,
+    "foreground_iou": 0.6220543806646526,
+    "all_zero_bit_acc": 0.8785289115646259,
+    "mssim": 0.7249371891465894,
+    "pixel_level_distance": 13.563138008117676,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 30
+  }
+}

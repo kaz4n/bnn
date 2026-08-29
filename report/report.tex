@@ -1,0 +1,274 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,booktabs,amsmath,hyperref,xcolor,listings}
+\usepackage{caption}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,
+        backgroundcolor=\color{gray!8}}
+\title{\textbf{Recreating ``I Know What You See'': A Power Side-Channel Attack on a
+BNN Accelerator, Ported to CW305 + ChipWhisperer-Lite}\\
+\large Reproduction, Hardware Realisation, and an Analysis of Why Measured-Silicon
+Recovery Fails}
+\author{Reproduction study}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We reproduce the attack of Wei \emph{et al.} (ACSAC'18), which recovers the input image
+of an FPGA binarized-CNN (BNN) accelerator from the power consumption of its first
+convolution layer. We retarget the design from the original Spartan-6 / SAKURA-G /
+2.5\,GHz-oscilloscope bench to a CW305 Artix-7 board captured with a ChipWhisperer-Lite.
+The full pipeline is realised: a binarized MNIST CNN is trained, the first-layer
+line-buffer convolution is implemented in HLS and verified \emph{bit-exact on silicon},
+and the §6 (background detection) and §7 (power-template) attacks are implemented. In
+\emph{simulation} the attack reproduces the paper (3$\times$3 template recognition
+$0.935$ vs.\ paper $0.898$). On \emph{measured} silicon, recovery fails: the per-cycle
+power correlates with the image only at $\rho\!\approx\!0.1$. We show through an
+exhaustive sweep---four convolution micro-architectures (including a $16\times$ leakage
+amplifier), two sampling regimes, and feature/gain/averaging variations---that the
+limitation is the \emph{measurement bench}, not the implementation. We explain precisely
+why the simulation succeeds while the hardware does not, compare the two benches, and
+survey alternative routes (deep-learning SCA, EM, external high-rate capture, design
+changes) that could recover a similar result.
+\end{abstract}
+
+\section{Introduction}
+The target paper~\cite{wei2018} attacks the \emph{first} convolution layer of an
+FPGA BNN accelerator. Because that layer's line buffer streams the raw image one pixel per
+clock cycle, its dynamic power leaks pixel values; the authors recover MNIST digits with up
+to $89.8\%$ recognition. The accelerator is the open \texttt{bnn-fpga} design of Zhao
+\emph{et al.}~\cite{zhao2017}; the BNN methodology is BinaryNet~\cite{hubara2016}.
+
+Our goal: reproduce this on a \emph{ChipWhisperer-Lite (CW1173)} capturing a
+\emph{CW305 Artix-7 (XC7A100T)} target, using Vivado / Vivado~HLS~2016.4. This bench
+differs fundamentally from the paper's (Sec.~\ref{sec:compare}), which turns out to be
+decisive.
+
+\section{Background}
+\textbf{Line buffer (attack surface).} For a $K\!\times\!K$ kernel the conv unit holds
+$K\!-\!1$ line buffers plus a $K\!\times\!K$ window of registers; each cycle one pixel
+shifts in and one output is produced (paper Fig.~9c; \texttt{bnn-fpga} Sec.~III). The
+moving pixels make the per-cycle switching data-dependent.
+
+\textbf{Two attacks.} \emph{Background detection} (§6, passive): cycles whose window is
+uniform (background) switch little $\Rightarrow$ low power; thresholding the per-cycle
+power yields a silhouette. \emph{Power template} (§7, active): profile per-cycle power for
+several kernels, then match an unknown image's per-cycle ``power feature vector'' against
+the template to recover pixel values.
+
+\section{Recreated setup}\label{sec:setup}
+\textbf{Training (\texttt{training/}).} A 4-layer binarized CNN on MNIST, first layer
+$64$ kernels, $K\!\in\!\{3,5\}$, implemented with a self-contained BinaryNet STE
+(\texttt{bnn\_layers.py}; \texttt{larq} is incompatible with Keras~3). Test accuracy
+$93\%$/$98.3\%$ ($3\!\times\!3$/$5\!\times\!5$); a BinaryNet MLP golden classifier reaches
+$98.8\%$ for the recognition metric. The $64$ binarized kernels are exported
+(\texttt{layer1\_kernels.npy}).
+
+\textbf{FPGA conv (\texttt{hls/bnn\_conv1.cpp}, \texttt{cw305/}).} \texttt{bnn-fpga} is
+SDSoC-only and cannot build with our toolchain, so the first-layer convolution is
+re-implemented in HLS as a streaming line buffer (one pixel/cycle, II$=1$), wrapped in the
+stock CW305 USB-register shell (\texttt{cw305\_usb\_reg\_fe.v}, \texttt{clocks.v},
+\texttt{cw305.xdc}) by \texttt{cw305\_bnn\_top.v} / \texttt{cw305\_reg\_bnn.v}. The host
+writes the image and one kernel, pulses \texttt{GO}, and the design asserts the
+ChipWhisperer trigger for the whole convolution. The hardware output is \emph{bit-exact}
+to a NumPy golden for every image/kernel tested (\texttt{host/cw305\_func\_check.py}).
+
+\textbf{Capture.} The CW305 PLL clocks the conv; its clock is fed to the CW-Lite so the
+ADC samples \emph{synchronously} (Fig.~\ref{fig:p0}). The amplified shunt (X4) feeds the
+CW-Lite \textsc{measure} input.
+
+\section{Attacks (\texttt{attack/})}
+The §5 power-extraction front-end is replaced by a synchronous per-cycle reduction
+(\texttt{power\_extract.py}); §6 uses an Otsu threshold (\texttt{attack\_background.py});
+§7 builds a KD-tree template and reconstructs with a faithful Algorithm~2
+(\texttt{power\_template.py}). Identical code runs on \emph{simulated} traces
+(\texttt{trace\_sim.py}, a Hamming-distance CMOS power model) and on \emph{measured}
+traces (\texttt{run\_on\_hardware.py}); only the trace source differs.
+
+\section{Result 1 -- Simulation reproduces the paper}
+With a Hamming-distance power model of the line buffer, the attack recovers the inputs at
+paper level: $3\times3$ template recognition $\mathbf{0.935}$ (paper $0.898$), $5\times5$
+$0.785$ (paper $0.790$); background recognition $0.77$/$0.655$ (paper $0.816$/$0.646$).
+Fig.~\ref{fig:sim} shows recovered digits.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/sim_recovery.png}
+\caption{Simulation: input recovered from the \emph{modelled} power. The template attack
+restores recognisable digits (recognition $0.935$, paper $0.898$).}
+\label{fig:sim}
+\end{figure}
+
+\section{Result 2 -- The bench works, but measured recovery fails}
+The capture path is validated end-to-end with the stock AES bitstream
+(Fig.~\ref{fig:p0}). The BNN conv produces a clean, triggered, synchronous trace
+(Fig.~\ref{fig:real}). Yet running §6/§7 on \emph{measured} traces recovers nothing
+(template recognition $\approx 0.15$ vs.\ $0.90$): the per-cycle power barely tracks the
+image (Fig.~\ref{fig:corr}), $\rho\!\approx\!0.1$, far below the $\sim$0.5 needed.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/p0_aes.png}
+\caption{P0: stock AES power trace on the CW305 -- the CW-Lite capture path (USB,
+synchronous clock lock, trigger, amplified shunt) is validated.}
+\label{fig:p0}
+\end{figure}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/real_trace.png}
+\caption{Measured layer-1 BNN convolution power trace (one kernel, $\mathrm{avg}=100$).
+Triggered, synchronous, $4$ samples/cycle over $900$ cycles -- but the per-cycle dynamic
+power is dominated by data-\emph{independent} activity.}
+\label{fig:real}
+\end{figure}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/corr_fail.png}
+\caption{Measured per-cycle power does \emph{not} follow the true pixel content
+(top), and the scatter (bottom) shows $\rho\!\approx\!0.1$ -- the attack cannot separate
+foreground from background or match templates.}
+\label{fig:corr}
+\end{figure}
+
+\section{Why simulation works but silicon does not}\label{sec:why}
+The simulation uses an \emph{idealised per-cycle power model}: $p[c]$ is exactly the
+Hamming distance of the line-buffer datapath between cycles $c\!-\!1$ and $c$, with additive
+white noise. By construction $p[c]$ is a clean, perfectly-aligned function of the window
+pixels, so §6/§7 recover the image.
+
+Real silicon violates every idealisation:
+\begin{enumerate}
+\item \textbf{Per-cycle power is not observable at 4 samples/cycle.} AC-coupling and the
+power-distribution-network capacitance \emph{smear} each cycle's transient into its
+neighbours (the very effect the paper's §5 removes). The paper sampled at \textbf{2.5\,GHz}
+($\sim$thousands of samples/cycle) and \emph{curve-fit the RC transient of each cycle} to
+recover clean per-cycle power. With CW-Lite's \textbf{4 samples/cycle} that extraction is
+impossible.
+\item \textbf{The data-dependent fraction is tiny.} On the large XC7A100T, a sub-mW conv's
+pixel-dependent switching is buried under clock-tree, static and I/O power. The paper used
+a small Spartan-6 on SAKURA-G, an SCA-isolated board with a dedicated amplified power tap.
+\end{enumerate}
+The simulation models leakage \emph{as the paper's bench could measure it}; CW-Lite cannot
+measure it that way.
+
+\section{The fix attempts -- and the decisive negative result}
+We aligned the implementation ever closer to the paper and tried to force the leakage:
+\begin{itemize}
+\item conv micro-architecture: (v1) preload + muxed reads, (v2) addressed line buffer,
+(v3) true shift-register line buffer (paper Fig.~9c), (v4) a \textbf{$16\times$ parallel
+leakage amplifier} (distinct unmergeable lanes all carrying the pixel stream);
+\item sampling: synchronous $4\times$ and \textbf{asynchronous $21\times$/cycle}
+oversampling (paper §5 style);
+\item features (magnitude vs.\ Hamming distance), alignment scans, gain $30$--$50$\,dB,
+averaging $50$--$500$.
+\end{itemize}
+All four micro-architectures are bit-exact on silicon. \textbf{Every variant produced the
+same $\rho\!\approx\!0.1$--$0.2$} (Fig.~\ref{fig:wall}). Crucially, multiplying the
+data-dependent switching $16\times$ \emph{did not change} the correlation: the bottleneck is
+per-cycle \emph{extraction}, not leakage magnitude.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.85\linewidth]{figs/corr_wall.png}
+\caption{Every design lever -- including a $16\times$ leakage amplifier -- lands at the
+same $\sim$0.1 correlation floor. The wall is the measurement bench.}
+\label{fig:wall}
+\end{figure}
+
+\section{Result 3 -- Deep-learning SCA, the strongest practical route, also fails}
+\label{sec:dl}
+Because a neural network can combine many weakly-leaking features non-linearly, we
+implemented a profiled DL-SCA (\texttt{attack/dl\_sca.py}): for each pixel we gather the
+trace samples of the $K\!\times\!K$ convolution cycles whose window contains it ($9$ kernels
+$\times 4$ samples $\times 9$ cycles $=324$ features) and train an MLP to predict the pixel,
+profiling on known images and recovering held-out ones. Per-pixel foreground/background
+separability creeps up with data ($0.67\!\rightarrow\!0.71\!\rightarrow\!0.74$ for
+$90\!\rightarrow\!300\!\rightarrow\!1000$ profiling images) but \emph{recognition never
+leaves chance} ($0.067,\,0.14,\,0.095$; i.e.\ $\approx\!0.10$), and the recovered images
+remain noise (Fig.~\ref{fig:dl}). The $0.74$ per-pixel ceiling---$26\%$ of pixels
+wrong---is far below what a recognisable digit needs. The strongest practical attack, given
+$1000$ profiling traces, still does not recover the input on this bench, which is the
+cleanest evidence that the limit is the measurement, not the attack.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/dl_recovery.png}
+\caption{Profiled deep-learning SCA on measured CW305 traces ($300$ profiling images).
+Per-pixel accuracy $0.71$ and recognition $0.14$ reflect weak statistical bias only -- the
+recovered images carry no digit structure.}
+\label{fig:dl}
+\end{figure}
+
+\section{Paper bench vs.\ ours}\label{sec:compare}
+\begin{table}[h]\centering\small
+\begin{tabular}{lll}
+\toprule
+ & \textbf{Paper (Wei \emph{et al.})} & \textbf{This work} \\
+\midrule
+Target FPGA   & Spartan-6 LX75 (small)   & Artix-7 XC7A100T (large) \\
+Board         & SAKURA-G (SCA-isolated)  & CW305 \\
+Power tap     & dedicated amplified      & X4 amplified shunt \\
+Oscilloscope  & Tektronix 2.5\,GHz       & CW-Lite 105\,MS/s \\
+Samples/cycle & $\sim$thousands (async)  & 4 (sync) \\
+§5 extraction & RC-transient curve fit   & not possible (4 samp/cyc) \\
+Accelerator   & \texttt{bnn-fpga} (SDSoC)& HLS line buffer (bit-exact) \\
+Recovery      & up to 89.8\%             & $\approx$15\% (sim: 93.5\%) \\
+\bottomrule
+\end{tabular}
+\caption{The decisive differences are the oscilloscope bandwidth (samples/cycle) and the
+SCA-isolated small target.}
+\end{table}
+
+\section{Alternatives to recover a similar result}\label{sec:alt}
+Ranked by how much they keep of the original experiment:
+\begin{enumerate}
+\item \textbf{Deep-learning / profiled SCA (same hardware) -- implemented, Sec.~\ref{sec:dl}.}
+With up to $1000$ profiling traces, recognition stays at chance ($\approx\!0.10$) and
+recovery is noise; per-pixel separability plateaus at $0.74$. On present evidence it is
+capped by the per-cycle extraction limit rather than by data, so this same-bench route does
+not reach the paper.
+\item \textbf{TVLA / Welch $t$-test first.} A fixed-vs-random pixel $t$-test
+quantifies \emph{whether and where} per-cycle leakage exists, setting an upper bound on any
+attack and validating capture before investing in (1).
+\item \textbf{Better capture, same target.} An external GHz oscilloscope on the CW305 X4
+SMA (or a ChipWhisperer-Husky, larger buffer + higher rate) restores the paper's
+samples/cycle and enables §5 extraction; a CW501 differential probe and an external
+low-noise VCC-INT supply raise SNR.
+\item \textbf{EM instead of power.} An H-field probe over the convolution region localises
+the signal and often beats global power SNR for a small core.
+\item \textbf{Shrink the system-to-conv power ratio.} Deploy on a small FPGA (e.g.\
+CW305-A35 or a Spartan-class board), clock-gate everything but the conv, and clock very low
+so an external scope captures the transient -- approaching the paper's conditions.
+\item \textbf{Change the leakage model deliberately.} Widen the pixel datapath / add a
+register stage whose Hamming weight encodes the pixel onto a wide bus (a design change
+within the line-buffer spirit), so the leak is large and easy to model.
+\item \textbf{Reframe the deliverable.} The attack \emph{algorithm} is validated against
+the paper in simulation; on this bench the realistic on-silicon demonstration is a simpler,
+higher-leakage target (e.g.\ the AES key recovery the CW305 is designed for), with the BNN
+input-recovery shown in simulation.
+\end{enumerate}
+
+\section{Conclusion}
+We faithfully reproduced the attack's \emph{algorithm} (paper-level recovery in simulation)
+and built the \emph{full hardware pipeline} (a bit-exact line-buffer conv on the CW305 with
+working synchronous capture). Measured-silicon recovery does not reach the paper because the
+CW305+CW-Lite bench cannot extract clean per-cycle power for a sub-mW convolution: proven by
+a $16\times$ leakage amplifier leaving the correlation unchanged. Faithful real-silicon
+recovery needs the paper's class of bench (SCA-isolated small target + GHz scope). Even a
+profiled deep-learning attack with $1000$ traces (Sec.~\ref{sec:dl}) recovers only noise
+(recognition at chance), confirming the floor is fundamental to this bench rather than to
+any one attack. The faithful path forward is better acquisition (GHz scope / Husky, EM
+probe, SCA-isolated small target); the existing CW305+CW-Lite setup is sufficient to
+\emph{validate the design and algorithm} but not to \emph{measure} the leakage the attack
+needs. All code, traces and figures are in the repository.
+
+\begin{thebibliography}{9}\small
+\bibitem{wei2018} L.~Wei, B.~Luo, Y.~Li, Y.~Liu, Q.~Xu, ``I Know What You See: Power
+Side-Channel Attack on Convolutional Neural Network Accelerators,'' ACSAC 2018.
+\bibitem{zhao2017} R.~Zhao \emph{et al.}, ``Accelerating Binarized Convolutional Neural
+Networks with Software-Programmable FPGAs,'' FPGA 2017.
+\bibitem{hubara2016} I.~Hubara, M.~Courbariaux \emph{et al.}, ``Binarized Neural
+Networks,'' NeurIPS 2016.
+\bibitem{timon2018} B.~Timon, ``Non-Profiled Deep Learning-based Side-Channel Attacks,''
+IACR ePrint 2018/196.
+\bibitem{dlsca} Practical Deep-Learning-based Power Side-Channel Attacks, arXiv:1907.02674.
+\end{thebibliography}
+\end{document}

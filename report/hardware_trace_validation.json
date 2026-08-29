@@ -1,0 +1,15 @@
+{
+  "n_trace_files": 60,
+  "expected_files": 60,
+  "all_repeat_shapes": [
+    [
+      9,
+      5,
+      22144
+    ]
+  ],
+  "manifest_status": "complete",
+  "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+  "first_trace_file": "img0000.npz",
+  "last_trace_file": "img0059.npz"
+}

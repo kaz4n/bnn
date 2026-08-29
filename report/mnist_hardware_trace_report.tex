@@ -1,0 +1,234 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{MNIST BNN Power Trace Capture on CW305 + CW-Lite\\
+\large Output Summary, Transformation Evidence, and Failure Review}
+\author{Hardware evaluation notes}
+\date{July 5, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report summarizes the corrected MNIST hardware run for the BNN side-channel
+reconstruction experiment.  The target is MNIST only, not CIFAR.  The FPGA was
+programmed with the CW305 Artix-7 bitstream, the CW-Lite captured analog power
+traces, and the first convolution output write was used as the trigger anchor.
+The functional hardware result is correct: the CW305 output matches the software
+golden model bit-for-bit for all 784 MNIST pixels.  The attack result is still
+poor: the classifier recognizes original images at 97.5\%, but recognizes the
+curve-fit background reconstructions at only 8.5\% and curve-fit template
+reconstructions at 13.0\%.  The bottleneck is therefore the trace-to-image
+recovery stage, not MNIST classification or the basic HLS functional behavior.
+\end{abstract}
+
+\section{Scope}
+The present run uses the MNIST data path and the MNIST layer-1 BNN parameters.
+CIFAR files and CIFAR shapes are deliberately excluded.  The relevant hardware
+configuration is:
+
+\begin{itemize}
+  \item Target board: CW305 Artix-7.
+  \item Capture board: ChipWhisperer-Lite.
+  \item Bitstream: \path{build/cw305_bnn_3_f16_trigfix.bit}.
+  \item Captures: \path{host/traces_analog_trigfix_500}.
+  \item Evaluation without curve fitting: \path{attack/results_trigfix500_nofit_norm}.
+  \item Evaluation with curve fitting: \path{attack/results_trigfix500_curvefit_norm}.
+\end{itemize}
+
+\section{Hardware and Capture Summary}
+The capture procedure was changed from the older busy-window trigger to a trigger
+on the first HLS output write.  This matters because the HLS design spends a
+large number of cycles in initialization and control before useful MNIST output
+pixels are emitted.  Capturing on the coarse busy signal mixed those phases with
+the convolution output phase and misaligned the trace-to-pixel mapping.  The
+corrected trigger is:
+\[
+\texttt{tio\_trigger} = \texttt{out\_ce} \land (|\texttt{out\_we}|) \land
+(\texttt{out\_index} < 784).
+\]
+
+\begin{table}[H]
+\centering
+\caption{Corrected MNIST hardware capture metadata.}
+\begin{tabular}{ll}
+\toprule
+Field & Value \\
+\midrule
+Trigger source & First output write \\
+Images captured & 500 \\
+Kernels per image & 9 \\
+Input shape & $28 \times 28 \times 1$ MNIST \\
+Kernel shape & $3 \times 3$ \\
+FPGA clock & 5 MHz \\
+ADC sample rate & 105 MS/s \\
+Samples per FPGA cycle & 21 \\
+Samples per trace & 19,200 \\
+Averaging & 20 captures per kernel trace \\
+Cycle-zero offset & 62 cycles \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Output Summary}
+The corrected hardware capture and extraction pipeline was evaluated twice:
+once with the paper-style transformation pipeline but no RC curve fitting, and
+once with RC curve fitting enabled.  The table includes the recognition targets
+reported by the paper for context.
+
+\begin{table}[H]
+\centering
+\caption{MNIST reconstruction and recognition results.}
+\begin{tabular}{lccc}
+\toprule
+Metric & No curve fit & Curve fit & Paper target \\
+\midrule
+Original-image recognition & 0.975 & 0.975 & -- \\
+Background pixel accuracy & 0.586 & 0.635 & -- \\
+Background recognition & 0.140 & 0.085 & 0.816 \\
+Template mean pixel distance & 31.077 & 31.777 & -- \\
+Template recognition & 0.130 & 0.130 & 0.898 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Curve fitting improves the background pixel metric from 0.586 to 0.635, but it
+does not improve the final attack objective.  Background recognition drops from
+14.0\% to 8.5\%, and template recognition remains at 13.0\%.  This means the
+curve-fit stage is not producing features that preserve digit-level structure
+well enough for recognition.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{figs/mnist_metric_summary.png}
+\caption{Recognition and pixel-level metrics for the corrected MNIST hardware
+run compared with the paper's reported recognition targets.}
+\end{figure}
+
+\section{Trace Transformation Pipeline}
+The implemented processing path follows the paper's Section 5 structure as
+closely as the CW-Lite data permits:
+
+\begin{enumerate}
+  \item Capture analog power traces from the CW305 while the BNN convolution
+  core runs on hardware.
+  \item Restore the trace baseline using the inverse high-pass approximation.
+  \item Apply a low-pass filter.  The nominal paper cutoff is 60 MHz, but the
+  CW-Lite's 105 MS/s sampling rate makes the usable cutoff lower than a 2.5 GHz
+  oscilloscope setup.
+  \item Align cycle windows using a Pearson-correlation cycle template.
+  \item Sum or curve-fit each cycle to obtain one power feature per FPGA cycle.
+  \item Apply the 62-cycle output offset and remap the extended $30 \times 30$
+  raster into the $28 \times 28$ MNIST output grid.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figs/mnist_trace_transformations.png}
+\caption{Actual hardware trace from image 0300 and kernel 0 as it moves through
+raw capture, baseline restoration, low-pass filtering, cycle alignment,
+per-cycle extraction, and output-grid remapping.}
+\end{figure}
+
+\section{Recovered Images}
+The recovered images explain why recognition is poor.  The originals are clean
+MNIST digits, but both reconstruction modes mostly produce row-structured or
+sparse artifacts.  The template output often collapses to weak partial strokes
+or biased shapes; it does not consistently reconstruct the original digit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{figs/mnist_recovery_examples.png}
+\caption{Original MNIST digits and recovered images from the corrected hardware
+captures.  The template column is independently scaled per image so weak
+template artifacts remain visible.}
+\end{figure}
+
+\section{Why Performance Is Bad}
+The failure is not because the MNIST classifier is broken.  The original-image
+recognition rate is 97.5\%, and the hardware functional check passed with all
+784 outputs bit-exact.  The failure is in the measured side-channel signal and
+the resulting reconstruction features.
+
+First, the measurement setup is much weaker than the paper setup.  The paper
+uses a high-bandwidth oscilloscope workflow, while this run uses CW-Lite analog
+capture at 105 MS/s.  At a 5 MHz FPGA clock this gives only about 21 samples per
+cycle.  That is enough to segment cycles, but it is not equivalent to a 2.5 GHz
+oscilloscope waveform.  The paper's 60 MHz low-pass step is also not faithfully
+available here because the CW-Lite Nyquist limit is 52.5 MHz.
+
+Second, the CW305 Artix-7 power measurement contains a large amount of unrelated
+activity: clock network power, static FPGA power, I/O effects, board power
+distribution effects, and non-convolution control activity.  The useful dynamic
+power caused by a single MNIST convolution output bit is small compared with
+that background.  The row bands visible in the remapped power image indicate
+that board-level or schedule-level structure dominates over pixel-level leakage.
+
+Third, the current HLS target is functionally correct but not identical to the
+paper's target implementation.  The present core includes a fanout-based leakage
+amplifier to make the signal more visible.  Even with that amplifier, the
+recovered images do not reach the paper's recognition quality, which suggests
+the acquisition path is the limiting factor.
+
+Fourth, the curve-fitting transform is not automatically helpful at CW-Lite
+resolution.  It was intended for denser analog waveforms.  In this run it raises
+the background pixel score but damages background recognition, which means it is
+changing the statistics in a way that does not preserve the digit shape.
+
+\section{Review}
+\textbf{What is correct now.}
+The run is MNIST-aligned.  The HLS C-simulation passed, the CW305 functional
+check passed, and the output trigger now starts at the first useful write rather
+than the broad busy window.  The trace metadata records trigger source, sample
+rate, FPGA clock, samples per cycle, averaging, and the 62-cycle remap offset.
+The attack pipeline is reproducible from saved trace files and saved evaluation
+directories.
+
+\textbf{What remains risky.}
+The implementation is aligned with the paper at the algorithmic-processing
+level, but the measurement instrument and FPGA board are not paper-equivalent.
+The CW-Lite bandwidth and ADC rate are the biggest mismatch.  The Artix-7 target
+and CW305 power path are also likely noisier and more diluted than the smaller
+FPGA setup in the paper.  The fanout leakage amplifier helps observability but
+also means the target is not a strict reproduction of the paper's hardware.
+
+\section{Problems}
+\begin{enumerate}
+  \item The old busy-window captures should be treated as invalid for MNIST
+  reconstruction because they were not aligned to the first useful output cycle.
+  \item The corrected captures are real hardware captures, but their signal to
+  noise ratio is too low for high-quality digit recovery.
+  \item The CW-Lite sampling rate prevents a faithful reproduction of the
+  paper's 2.5 GHz oscilloscope processing path.
+  \item The CW305 board-level power rail mixes the small BNN leakage with large
+  unrelated FPGA and board activity.
+  \item The template method is statistically unstable on this data and tends to
+  produce sparse, biased reconstructions.
+  \item The curve-fit stage is computationally expensive and, on this capture
+  setup, does not improve recognition.
+\end{enumerate}
+
+\section{Recommended Next Steps}
+For a stronger reproduction of the paper, the best next move is measurement
+improvement rather than more software tuning.  Use a higher-bandwidth capture
+instrument, a better-isolated power rail, an EM probe close to the active FPGA
+region, or a smaller target implementation with less unrelated dynamic power.
+If staying with CW-Lite, the next useful experiments are SNR/TVLA-style leakage
+checks per cycle, frequency-domain inspection, and target modifications that
+isolate only the convolution datapath during the capture window.
+
+\section{Conclusion}
+The MNIST hardware path is now functionally correct and actually running on the
+CW305 hardware.  The bad recognition numbers are real and expected from the
+current measurement quality.  The capture trigger and data alignment are fixed,
+but the recovered images show that the trace features are dominated by
+measurement noise and board-level structure rather than clean MNIST pixel
+leakage.  The experiment is therefore aligned enough to diagnose the problem,
+but not yet strong enough to reproduce the paper's recognition rates.
+
+\end{document}

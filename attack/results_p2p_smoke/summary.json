@@ -1,0 +1,93 @@
+{
+  "kind": "cw305_power2picture_generator",
+  "created_utc": "2026-08-27T18:41:02Z",
+  "trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_p2p_9k",
+  "capture_manifest": {
+    "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_leakage_d8_l63.bit",
+    "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+    "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+    "images_sha256": "bf416a1b7a7f6f00b46aa90d76b62efa9d15ac8e0773d93d53dcaa8315005ce9",
+    "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+    "kernel_index": 0,
+    "kernel_bits": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    "probe_kernels": "file",
+    "trace_source": "cw_lite_analog_sync_x4",
+    "design": "cw305_leakage_top",
+    "purpose": "power2picture_generative",
+    "line": 28,
+    "out_side": 26,
+    "n_windows": 676,
+    "n_kernels": 1,
+    "avg": 1,
+    "threshold": 127,
+    "fpga_freq_hz": 5000000.0,
+    "adc_src": "extclk_x4",
+    "samples_per_cycle": 4,
+    "dwell": 8,
+    "samples_per_window": 32,
+    "samples": 22144,
+    "useful_samples": 21632,
+    "gain_db": 40,
+    "trace_dtype": "int16",
+    "trace_scale": 32767.0,
+    "start_index": 1000,
+    "n_images": 9000,
+    "shard_size": 500,
+    "status": "complete",
+    "started_utc": "2026-08-27T18:22:58Z",
+    "shards": 18,
+    "completed_utc": "2026-08-27T18:27:15Z"
+  },
+  "feature_mode": "clock_abs",
+  "loss": "gradmse",
+  "epochs": 3,
+  "batch": 256,
+  "lr": 0.001,
+  "n_train": 1600,
+  "n_val": 200,
+  "n_test": 200,
+  "params": 3304513,
+  "metrics": {
+    "bit_acc": 0.7937755102040817,
+    "foreground_precision": 0.33983074538107705,
+    "foreground_recall": 0.6777152703867011,
+    "foreground_f1": 0.45267433987813144,
+    "foreground_iou": 0.29255272599982496,
+    "all_zero_bit_acc": 0.8741645408163266,
+    "mssim": 0.12632820602027056,
+    "pixel_level_distance": 84.9442367553711,
+    "recognition_accuracy_original": 0.985,
+    "recognition_accuracy_recovered": 0.15,
+    "recognition_accuracy_recovered_gray": 0.135
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "train_loss": 0.5955321061611175,
+      "val_mse": 0.49257564544677734,
+      "val_bit_acc": 0.3272767961025238
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.33129347920417784,
+      "val_mse": 0.26977425813674927,
+      "val_bit_acc": 0.6661096811294556
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.29436126828193665,
+      "val_mse": 0.16810528934001923,
+      "val_bit_acc": 0.7974872589111328
+    }
+  ]
+}

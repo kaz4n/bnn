@@ -14,7 +14,7 @@
 #include "bnn_conv1.h"
 
 void bnn_conv1(const uint8_t img[IMG], const uint8_t packed_kern[(KSIZE*KSIZE+7)/8],
-               int16_t out[IMG]);
+               int16_t out[IMG], uint8_t *leak);
 
 int main(int argc, char** argv) {
     const char* dir = (argc > 1) ? argv[1] : "data";
@@ -43,7 +43,8 @@ int main(int argc, char** argv) {
     fclose(f);
 
     int16_t out[IMG];
-    bnn_conv1(img, packed, out);
+    uint8_t leak = 0;
+    bnn_conv1(img, packed, out, &leak);
 
     int errors = 0;
     for (int i = 0; i < IMG; i++)

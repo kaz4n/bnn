@@ -1,0 +1,16 @@
+{
+  "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_bnn_3_f16_trigfix.bit",
+  "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+  "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+  "ksize": 3,
+  "n_kernels": 9,
+  "avg": 20,
+  "fpga_freq_hz": 5000000.0,
+  "sample_rate_hz": 105000000.0,
+  "samples_per_cycle_nominal": 21,
+  "samples": 19200,
+  "cycle0_offset": 62,
+  "trigger_source": "first_output_write",
+  "trace_source": "analog",
+  "started_utc": "2026-07-04T13:35:05Z"
+}

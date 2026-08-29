@@ -1,0 +1,38 @@
+(ChipWhisperer NAEUSB ERROR|File naeusb.py:828) Your firmware (0.51.0) is outdated - latest is 0.54.0 See https://chipwhisperer.readthedocs.io/en/latest/firmware.html for more information
+(ChipWhisperer Target WARNING|File CW305.py:591) Using default Verilog defines (C:\Users\narut\ChipWhisperer\chipwhisperer\software\chipwhisperer/hardware/firmware/cw305/cw305_aes_defines.v); if this is not what you want, provide them via the defines_files argument
+scope.gain.mode                          changed from low                       to high                     
+scope.gain.gain                          changed from 0                         to 30                       
+scope.gain.db                            changed from 5.5                       to 24.8359375               
+scope.adc.basic_mode                     changed from low                       to rising_edge              
+scope.adc.samples                        changed from 24400                     to 5000                     
+scope.adc.trig_count                     changed from 1226365                   to 12849317                 
+scope.clock.adc_src                      changed from clkgen_x1                 to clkgen_x4                
+scope.clock.adc_freq                     changed from 5526020                   to 29538459                 
+scope.clock.adc_rate                     changed from 5526020.0                 to 29538459.0               
+scope.clock.freq_ctr                     changed from 1381507                   to 5000175                  
+scope.clock.clkgen_div                   changed from 1                         to 26                       
+scope.clock.clkgen_freq                  changed from 192000000.0               to 7384615.384615385        
+scope.io.tio1                            changed from serial_tx                 to serial_rx                
+scope.io.tio2                            changed from serial_rx                 to serial_tx                
+scope.io.hs2                             changed from None                      to clkgen                   
+scope.io.tio_states                      changed from (1, 0, 0, 0)              to (0, 1, 0, 0)             
+PASS: 676 outputs bit-exact
+capture: images=9000 kidx=0 avg=1 samples=22144 adc_locked=True
+shard000 images=500 total=500 rate=34.0 img/s
+shard001 images=500 total=1000 rate=33.9 img/s
+shard002 images=500 total=1500 rate=33.4 img/s
+shard003 images=500 total=2000 rate=33.1 img/s
+shard004 images=500 total=2500 rate=33.1 img/s
+shard005 images=500 total=3000 rate=33.1 img/s
+shard006 images=500 total=3500 rate=33.1 img/s
+shard007 images=500 total=4000 rate=33.5 img/s
+shard008 images=500 total=4500 rate=33.9 img/s
+shard009 images=500 total=5000 rate=34.3 img/s
+shard010 images=500 total=5500 rate=34.7 img/s
+shard011 images=500 total=6000 rate=34.6 img/s
+shard012 images=500 total=6500 rate=34.6 img/s
+shard013 images=500 total=7000 rate=34.7 img/s
+shard014 images=500 total=7500 rate=34.8 img/s
+shard015 images=500 total=8000 rate=34.9 img/s
+shard016 images=500 total=8500 rate=35.0 img/s
+shard017 images=500 total=9000 rate=35.1 img/s

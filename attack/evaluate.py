@@ -68,9 +68,21 @@ def main():
     ap.add_argument("--n-profile", type=int, default=20)
     ap.add_argument("--n-eval", type=int, default=8)
     ap.add_argument("--n-kernels", type=int, default=9)
-    ap.add_argument("--delta", type=float, default=1.0)
+    ap.add_argument("--delta", type=float, default=0.1,
+                    help="template match radius (delta^0.5) on z-scored rho; paper delta=1.0 "
+                         "in raw units maps to ~0.1 after per-kernel normalization")
     ap.add_argument("--gsize", type=int, default=3)
-    ap.add_argument("--noise", type=float, default=0.5)
+    ap.add_argument("--metric", default="squared_l2", choices=["squared_l2", "paper_l1"],
+                    help="candidate distance metric; squared_l2+delta0.1+union is the "
+                         "validated config that reproduces paper-level S7 (paper_l1+strict "
+                         "at delta0.1 starves candidates -> ~0.24)")
+    ap.add_argument("--empty-policy", default="union", choices=["union", "strict"],
+                    help="empty group-intersection handling; union falls back to the group "
+                         "union (validated), strict returns no-match (paper-literal)")
+    ap.add_argument("--noise", type=float, default=2.0,
+                    help="per-sample Gaussian trace noise (sim stand-in for CW-Lite SNR)")
+    ap.add_argument("--no-normalize", action="store_true",
+                    help="disable per-kernel z-score of power features before S7")
     ap.add_argument("--kernels", default=None,
                     help="P2 layer1_kernels.npy; omit -> random kernels")
     ap.add_argument("--out", default="results")
@@ -92,54 +104,80 @@ def main():
 
     # ---- S7 build template (profiling) ----
     print(f"[template] building from {len(prof)} images ...")
-    tmpl = pt.build_template([xte[i] for i in prof],
-                             lambda im: pfn(im, seed=1000 + hash(im.tobytes()) % 9999),
-                             kernels)
-    print(f"[template] {tmpl['rho'].shape[0]} entries")
+    prof_pcs = [pfn(xte[i], seed=1000 + i) for i in prof]     # deterministic per-image seed
+    # Normalize per-kernel power features (z-score) using the profiling set so the template
+    # match radius delta is invariant to the ABSOLUTE leakage scale (FANOUT gain, bench LNA
+    # gain, ADC range). Mirrors run_on_hardware.py --normalize-rho; lets the paper's fixed
+    # delta port across hardware without re-tuning.
+    rho_mu = rho_sd = None
+    if not args.no_normalize:
+        stack = np.concatenate(prof_pcs, axis=1)
+        rho_mu = stack.mean(axis=1, keepdims=True)
+        rho_sd = stack.std(axis=1, keepdims=True)
+        rho_sd = np.where(rho_sd < 1e-9, 1.0, rho_sd)
+        prof_pcs = [(p - rho_mu) / rho_sd for p in prof_pcs]
 
-    res = {"ksize": args.ksize, "n_profile": args.n_profile, "n_eval": args.n_eval,
-           "kernel_src": ksrc, "images": []}
-    bg_pix, tm_dist, bg_recog_ok, tm_recog_ok, orig_recog_ok = [], [], 0, 0, 0
+    def nrm(pc):
+        return pc if rho_mu is None else (pc - rho_mu) / rho_sd
+
+    tmpl = pt.build_template2([xte[i] for i in prof], prof_pcs, args.ksize)
+    print(f"[template] {tmpl['rho'].shape[0]} entries")
+    search = pt.build_search(tmpl, args.gsize)         # KDTree per kernel-group
+
+    # RESUMABLE: per-image metrics appended to metrics.jsonl; already-done images are
+    # skipped on relaunch. Robust to the machine killing the long CPU job mid-run.
+    mpath = os.path.join(args.out, "metrics.jsonl")
+    done = {}
+    if os.path.exists(mpath):
+        with open(mpath) as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    r = json.loads(line); done[r["idx"]] = r
+        print(f"[resume] {len(done)} images already done, skipping them")
 
     for n in ev:
+        if n in done:
+            continue
         img = xte[n]; label = int(yte[n])
         pc = pfn(img, seed=5000 + n)                     # attack-time traces
+        pc_s7 = nrm(pc)
 
-        # S6 background detection (one kernel)
-        bimg, marker, thr = bg.recover_background(pc[0])
-        bg_pix.append(bg.pixel_accuracy(marker, img))
+        bimg, marker, thr = bg.recover_background(pc[0])           # S6 (raw power)
+        bg_pixel = bg.pixel_accuracy(marker, img)
 
-        # S7 power template
-        cands = [pt.generate_candidates(tmpl, pc[:, c], c, args.delta, args.gsize)
-                 for c in range(NCYC)]
+        cands = [pt.generate_candidates(tmpl, search, pc_s7[:, c], c, args.delta,
+                                        metric=args.metric, empty_policy=args.empty_policy)
+                 for c in range(NCYC)]                              # S7 (normalized rho)
         rimg = pt.reconstruct(cands, args.ksize)
-        tm_dist.append(pt.pixel_distance(rimg, img))
+        tm_d = pt.pixel_distance(rimg, img)
 
-        # recognition
         ro = recog(golden, img); rb = recog(golden, bimg); rt = recog(golden, rimg)
-        orig_recog_ok += (ro == label)
-        bg_recog_ok += (rb == label); tm_recog_ok += (rt == label)
 
         np.savez(os.path.join(args.out, f"recovered_{n:04d}.npz"),
                  original=img, background=bimg, template=rimg, label=label)
-        res["images"].append({"idx": n, "label": label,
-                              "bg_pixel_acc": bg_pix[-1], "tm_pixel_dist": tm_dist[-1],
-                              "recog_orig": ro, "recog_bg": rb, "recog_tm": rt})
-        print(f"  img {n} (label {label}): bg_pix={bg_pix[-1]:.3f} "
-              f"tm_dist={tm_dist[-1]:.2f} recog(orig/bg/tm)={ro}/{rb}/{rt}")
+        rec = {"idx": n, "label": label, "bg_pixel_acc": bg_pixel,
+               "tm_pixel_dist": tm_d, "recog_orig": ro, "recog_bg": rb, "recog_tm": rt}
+        with open(mpath, "a") as f:                                 # append = durable
+            f.write(json.dumps(rec) + "\n")
+        done[n] = rec
+        print(f"  img {n} (label {label}): bg_pix={bg_pixel:.3f} "
+              f"tm_dist={tm_d:.2f} recog(orig/bg/tm)={ro}/{rb}/{rt}", flush=True)
 
-    ne = len(ev)
-    res["summary"] = {
-        "bg_pixel_acc_mean": float(np.mean(bg_pix)),
-        "tm_pixel_dist_mean": float(np.mean(tm_dist)),
-        "recog_acc_orig": orig_recog_ok / ne if golden else None,
-        "recog_acc_background": bg_recog_ok / ne if golden else None,
-        "recog_acc_template": tm_recog_ok / ne if golden else None,
+    recs = [done[n] for n in ev if n in done]
+    ne = len(recs)
+    has_g = golden is not None
+    res = {"ksize": args.ksize, "n_profile": args.n_profile, "n_eval": ne,
+           "kernel_src": ksrc, "images": recs, "summary": {
+        "bg_pixel_acc_mean": float(np.mean([r["bg_pixel_acc"] for r in recs])),
+        "tm_pixel_dist_mean": float(np.mean([r["tm_pixel_dist"] for r in recs])),
+        "recog_acc_orig": sum(r["recog_orig"] == r["label"] for r in recs)/ne if has_g else None,
+        "recog_acc_background": sum(r["recog_bg"] == r["label"] for r in recs)/ne if has_g else None,
+        "recog_acc_template": sum(r["recog_tm"] == r["label"] for r in recs)/ne if has_g else None,
         "paper_targets": {"bg_pixel_acc": 0.862, "recog_background": 0.816,
                           "recog_template": 0.898} if args.ksize == 3 else
                          {"bg_pixel_acc": 0.746, "recog_background": 0.646,
-                          "recog_template": 0.790},
-    }
+                          "recog_template": 0.790}}}
     with open(os.path.join(args.out, "summary.json"), "w") as f:
         json.dump(res, f, indent=2)
     print("\n[summary]", json.dumps(res["summary"], indent=2))

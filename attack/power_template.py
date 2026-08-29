@@ -10,19 +10,16 @@ Reconstruct: Algorithm 2 (greedy, consistency/variance-minimizing) then average.
 Defaults follow the paper S7.3: 9 kernels, 3 groups of 3, delta=1.0.
 """
 import numpy as np
+from scipy.spatial import cKDTree
 from common import LINE, NCYC, related_pixels
 
 
-def build_template(images, per_cycle_power_fn, kernels):
-    """
-    images: list of 28x28 uint8. per_cycle_power_fn(img)-> [n_kernels, 784] per-cycle pw.
-    Returns dict with rho [M, nk], pxvals [M, P], cyc [M] (cycle index per entry).
-    """
-    K = kernels.shape[1]
+def build_template2(images, pcs, K):
+    """images: list 28x28 uint8; pcs: parallel list of [n_kernels,784] per-cycle power
+    (from sim OR real CW captures). The template is source-agnostic."""
     P = K * (K + 1)
     rho_all, px_all, cyc_all = [], [], []
-    for img in images:
-        pc = per_cycle_power_fn(img)                     # [nk, 784]
+    for img, pc in zip(images, pcs):
         for c in range(NCYC):
             _, vals = related_pixels(img, c, K)
             px_all.append(vals); rho_all.append(pc[:, c]); cyc_all.append(c)
@@ -31,81 +28,125 @@ def build_template(images, per_cycle_power_fn, kernels):
             "cyc": np.asarray(cyc_all, np.int32), "K": K, "P": P}
 
 
+def build_template(images, per_cycle_power_fn, kernels):
+    """Convenience wrapper: compute per-cycle power per image then build_template2."""
+    pcs = [per_cycle_power_fn(img) for img in images]
+    return build_template2(images, pcs, kernels.shape[1])
+
+
 def _groups(nk, gsize):
     return [list(range(i, i + gsize)) for i in range(0, (nk // gsize) * gsize, gsize)]
 
 
-def generate_candidates(template, rho_attack, c, delta=1.0, gsize=3):
+def build_search(template, gsize=3):
+    """Build one KDTree per kernel-group over the template's rho columns (fast ball
+    search) plus integer codes for each distinct related-pixel vector, so group
+    intersection is pure-numpy (np.intersect1d) instead of Python set-of-tuples."""
+    rho = template["rho"]; nk = rho.shape[1]
+    groups = _groups(nk, gsize)
+    trees = [cKDTree(rho[:, Km]) for Km in groups]
+    # factorize px rows -> integer code per template entry + representative row per code
+    pv = np.ascontiguousarray(template["pxvals"])
+    void = pv.view(np.dtype((np.void, pv.dtype.itemsize * pv.shape[1]))).ravel()
+    _, first, inv = np.unique(void, return_index=True, return_inverse=True)
+    return {"trees": trees, "groups": groups,
+            "codes": inv.astype(np.int64),          # (N,) code per entry
+            "rep_row": template["pxvals"][first],    # (n_uniq, P) row per code
+            "P": template["P"]}
+
+
+def generate_candidates(template, search, rho_attack, c, delta=1.0,
+                        metric="paper_l1", empty_policy="strict"):
     """
     rho_attack: [nk] measured power-feature-vector at cycle c of the attack image.
     Returns array of candidate Px-value vectors [n_cand, P] (intersection over groups).
+    metric="paper_l1" follows the paper's written distance. Each rho_i is a scalar, so
+    sum_i ||rho_i-rho'_i||_2 is L1 across the kernel group and the search radius is delta.
+    metric="squared_l2" preserves the earlier adapted implementation.
+
+    empty_policy="strict" follows the paper: an empty intersection is a no-match.
+    empty_policy="union" preserves the earlier adapted fallback.
     """
-    rho = template["rho"]; px = template["pxvals"]
-    nk = rho.shape[1]
-    groups = _groups(nk, gsize)
-    sets = []
-    for Km in groups:
-        d = ((rho[:, Km] - rho_attack[Km]) ** 2).sum(axis=1)   # group distance (Eq.)
-        idx = np.where(d < delta)[0]
-        sets.append({tuple(v) for v in px[idx]})
-    if not sets:
-        return np.empty((0, template["P"]), np.int32)
-    inter = set.intersection(*sets) if len(sets) > 1 else sets[0]
-    if not inter:                                               # fall back to union
-        inter = set.union(*sets)
-    return np.array(sorted(inter), dtype=np.int32) if inter else \
-        np.empty((0, template["P"]), np.int32)
+    if metric == "paper_l1":
+        p, r = 1, float(delta)
+    elif metric == "squared_l2":
+        p, r = 2, float(np.sqrt(delta))
+    else:
+        raise ValueError(f"unknown candidate metric: {metric}")
+    if empty_policy not in ("strict", "union"):
+        raise ValueError(f"unknown empty-intersection policy: {empty_policy}")
+
+    codes = search["codes"]
+    code_sets = []
+    for tree, Km in zip(search["trees"], search["groups"]):
+        idx = tree.query_ball_point(rho_attack[Km], r, p=p)    # fast radius search
+        code_sets.append(np.unique(codes[np.asarray(idx, dtype=np.int64)])
+                         if idx else np.empty(0, np.int64))
+    if not code_sets:
+        return np.empty((0, search["P"]), np.int32)
+    inter = code_sets[0]
+    for s in code_sets[1:]:
+        inter = np.intersect1d(inter, s, assume_unique=True)
+    if inter.size == 0 and empty_policy == "union":             # adapted fallback
+        inter = np.unique(np.concatenate(code_sets)) if code_sets else inter
+    return search["rep_row"][inter].astype(np.int32)
 
 
-def reconstruct(cand_per_cycle, K, seeds=5, rng=None):
+def reconstruct(cand_per_cycle, K, seeds=6, rng=None):
     """
-    Algorithm 2 (faithful adaptation). cand_per_cycle: list length 784; each is
-    [n_cand, P] candidate Px-value vectors for that cycle. Returns 28x28 float image.
+    Algorithm 2 (faithful). cand_per_cycle: list length 784; each [n_cand, P] candidate
+    Px-value vectors for that cycle. Returns 28x28 float image.
 
-    Per cycle c, the P candidate values map to fixed positions = related_pixels(.,c).
-    We pick one candidate per cycle to minimize cross-cycle pixel-value variance, then
-    average the chosen candidates per pixel (paper: average of selected candidates).
+    Paper Algorithm 2 grows the image by OVERLAP (SelectCycle = max overlap with the
+    placed region) and at each step picks the candidate of minimal discrepancy with the
+    current estimate, then averages the selected candidates per pixel. Scan order already
+    maximizes overlap (consecutive line-buffer windows overlap), so we grow in scan order
+    from varied seed starts and keep the selector with minimal total consistency error.
     """
     rng = rng or np.random.default_rng(0)
-    P = None
-    # precompute positions per cycle (independent of image content)
+    # precompute, per cycle, the flat pixel indices in-bounds + their slot in the cand vec
+    posflat, slot = [], []
     dummy = np.zeros((LINE, LINE), np.int32)
-    positions = []
     for c in range(NCYC):
         pos, _ = related_pixels(dummy, c, K)
-        positions.append(pos)
-        if P is None and len(cand_per_cycle[c]):
-            P = cand_per_cycle[c].shape[1]
+        pf, sl = [], []
+        for k, (yy, xx) in enumerate(pos):
+            if 0 <= yy < LINE and 0 <= xx < LINE:
+                pf.append(yy * LINE + xx); sl.append(k)
+        posflat.append(np.asarray(pf, np.int64)); slot.append(np.asarray(sl, np.int64))
 
-    best_img, best_var = None, np.inf
-    order = [c for c in range(NCYC) if len(cand_per_cycle[c])]
-    for _ in range(seeds):
-        acc = np.zeros((LINE, LINE), np.float64)
-        cnt = np.zeros((LINE, LINE), np.float64)
-        rng.shuffle(order)
+    valid = [c for c in range(NCYC) if len(cand_per_cycle[c])]
+    if not valid:
+        return np.zeros((LINE, LINE))
+    starts = [valid[int(i * len(valid) / seeds)] for i in range(seeds)]
+
+    best_img, best_score = None, np.inf
+    for c0 in starts:
+        acc = np.zeros(NCYC, np.float64); cnt = np.zeros(NCYC, np.float64)
+        i0 = valid.index(c0)
+        order = valid[i0:] + valid[:i0]                  # scan order rotated to seed
+        chosen = {}
         for c in order:
-            cands = cand_per_cycle[c]
-            pos = positions[c]
-            # discrepancy of each candidate vs current estimate over in-bounds positions
-            best_k, best_d = 0, np.inf
-            for ci, cv in enumerate(cands):
-                d = 0.0; n = 0
-                for (yy, xx), val in zip(pos, cv):
-                    if 0 <= yy < LINE and 0 <= xx < LINE and cnt[yy, xx] > 0:
-                        d += (val - acc[yy, xx] / cnt[yy, xx]) ** 2; n += 1
-                d = d / n if n else 0.0
-                if d < best_d:
-                    best_d, best_k = d, ci
-            cv = cands[best_k]
-            for (yy, xx), val in zip(pos, cv):
-                if 0 <= yy < LINE and 0 <= xx < LINE:
-                    acc[yy, xx] += val; cnt[yy, xx] += 1
-        img = np.divide(acc, cnt, out=np.zeros_like(acc), where=cnt > 0)
-        # variance proxy = mean residual already minimized; recompute total
-        var = float(np.nanmean((acc / np.where(cnt > 0, cnt, 1) - img) ** 2))
-        if var < best_var:
-            best_var, best_img = var, img
-    return np.clip(best_img, 0, 255) if best_img is not None else np.zeros((LINE, LINE))
+            cands = cand_per_cycle[c]; pf = posflat[c]; sl = slot[c]
+            cvals = cands[:, sl]                           # (n_cand, n_inb)
+            placed = cnt[pf] > 0
+            if not placed.any() or len(cands) == 1:
+                k = 0 if len(cands) == 1 else int(rng.integers(len(cands)))
+            else:
+                est = acc[pf][placed] / cnt[pf][placed]
+                d = ((cvals[:, placed] - est) ** 2).sum(axis=1)   # min discrepancy
+                k = int(d.argmin())
+            np.add.at(acc, pf, cvals[k]); np.add.at(cnt, pf, 1.0)
+            chosen[c] = k
+        img = np.divide(acc, cnt, out=np.zeros(NCYC), where=cnt > 0)
+        # consistency score: total squared error of selected candidates vs final image
+        score = 0.0
+        for c in valid:
+            pf = posflat[c]; sl = slot[c]
+            score += float(((cand_per_cycle[c][chosen[c]][sl] - img[pf]) ** 2).sum())
+        if score < best_score:
+            best_score, best_img = score, img.reshape(LINE, LINE)
+    return np.clip(best_img, 0, 255)
 
 
 def pixel_distance(recovered, original):

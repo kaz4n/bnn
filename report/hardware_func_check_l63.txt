@@ -1,0 +1,4 @@
+bitstream=C:\Users\narut\OneDrive\Desktop\Project\bnn\build\cw305_leakage_d8_l63.bit
+freq=5e+06 image_bits=71 kernel_bits=100000000
+hw range=-9..9 golden range=-9..9
+PASS: 676 outputs bit-exact

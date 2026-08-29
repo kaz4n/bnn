@@ -1,0 +1,148 @@
+{
+  "kind": "cw305_active_power_template_attack_result",
+  "created_utc": "2026-08-27T03:44:04Z",
+  "template": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\active_template_hw\\profile_template.npz",
+  "template_manifest": {
+    "kind": "cw305_active_power_template",
+    "created_utc": "2026-08-27T03:27:49Z",
+    "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_leakage_60_l63",
+    "capture_manifest": {
+      "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_leakage_d8_l63.bit",
+      "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+      "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+      "images_sha256": "bf416a1b7a7f6f00b46aa90d76b62efa9d15ac8e0773d93d53dcaa8315005ce9",
+      "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+      "kernels_sha256": "0a5938f8638dcd79691fbb2d5eae72e38186113b2d4c40bc0bd5e9fb4e2f52fd",
+      "probe_kernels": "onehot",
+      "trace_source": "cw_lite_analog_sync_x4",
+      "design": "cw305_leakage_top",
+      "line": 28,
+      "out_side": 26,
+      "n_windows": 676,
+      "n_kernels": 9,
+      "avg": 5,
+      "threshold": 127,
+      "fpga_freq_hz": 5000000.0,
+      "adc_src": "extclk_x4",
+      "samples_per_cycle": 4,
+      "dwell": 8,
+      "samples_per_window": 32,
+      "samples": 22144,
+      "useful_samples": 21632,
+      "presamples": 0,
+      "gain_db": 40.0,
+      "status": "complete",
+      "started_utc": "2026-08-26T19:25:06Z",
+      "completed_utc": "2026-08-26T19:25:39Z"
+    },
+    "profile_count": 30,
+    "entries": 20280,
+    "n_kernels": 9,
+    "related_pixels": "3x3 valid convolution patch",
+    "feature": "mean_abs",
+    "normalization": "per-trace robust median/MAD normalization",
+    "uses_profile_images": true,
+    "attack_stage_uses_ground_truth": false,
+    "note": "Profile stage uses known image pixels to build PT. Attack stage should use only trace-only bundles."
+  },
+  "attack_bundle": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\active_template_hw\\fresh2_trace_only",
+  "attack_manifest": {
+    "kind": "cw305_trace_only_attack_bundle",
+    "created_utc": "2026-08-27T03:43:07Z",
+    "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_active_template_fresh2",
+    "capture_manifest": {
+      "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_leakage_d8_l63.bit",
+      "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+      "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+      "images_sha256": "bf416a1b7a7f6f00b46aa90d76b62efa9d15ac8e0773d93d53dcaa8315005ce9",
+      "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+      "kernels_sha256": "0a5938f8638dcd79691fbb2d5eae72e38186113b2d4c40bc0bd5e9fb4e2f52fd",
+      "probe_kernels": "onehot",
+      "trace_source": "cw_lite_analog_sync_x4",
+      "design": "cw305_leakage_top",
+      "line": 28,
+      "out_side": 26,
+      "n_windows": 676,
+      "n_kernels": 9,
+      "avg": 3,
+      "threshold": 127,
+      "fpga_freq_hz": 5000000.0,
+      "adc_src": "extclk_x4",
+      "samples_per_cycle": 4,
+      "dwell": 8,
+      "samples_per_window": 32,
+      "samples": 22144,
+      "useful_samples": 21632,
+      "presamples": 0,
+      "gain_db": 40.0,
+      "status": "complete",
+      "started_utc": "2026-08-27T03:42:55Z",
+      "completed_utc": "2026-08-27T03:42:56Z"
+    },
+    "items": [
+      {
+        "file": "img0062.npz",
+        "source_file": "img0062.npz",
+        "source_sha256": "6254e89fbd3a9bc5ead5a36b3362e92c801888f4f6c58cbef8904693fd4b000e",
+        "trace_only_sha256": "ce655b5316a1c94887280b43380d32a701401ee8f5193a183ef5f416eb6e4247"
+      },
+      {
+        "file": "img0063.npz",
+        "source_file": "img0063.npz",
+        "source_sha256": "5083afbd270ee8d44e736c7ccf10db275034701027f4f0fadfe2742b1e2c8591",
+        "trace_only_sha256": "51c490accdb59c22e3747d9b5c895fabf527f66e9938e2708c581d3ff4a24a43"
+      },
+      {
+        "file": "img0064.npz",
+        "source_file": "img0064.npz",
+        "source_sha256": "34159f3727814bc89067b5a9fda2ca91e0c82970ca81cdce9ac5fa91660e7bdc",
+        "trace_only_sha256": "dc7cf58f91b861e07393e22ead6c64f228fa0ed2bdabc03152b0d80aa406a87b"
+      }
+    ],
+    "contains_ground_truth_images": false,
+    "contains_labels": false
+  },
+  "parameters": {
+    "delta": 1.0,
+    "group_size": 3,
+    "fallback_k": 128,
+    "max_candidates": 48,
+    "max_seed_windows": 8,
+    "feature": "mean_abs"
+  },
+  "attack_stage_inputs": "trace-only npz files plus template; no image/label arrays",
+  "images": [
+    {
+      "file": "img0062.npz",
+      "recovered_file": "recovered_0062.npz",
+      "mean_candidates": 31.9896449704142,
+      "median_candidates": 38.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.016161056771197207
+    },
+    {
+      "file": "img0063.npz",
+      "recovered_file": "recovered_0063.npz",
+      "mean_candidates": 35.05917159763314,
+      "median_candidates": 43.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.00995407813934289
+    },
+    {
+      "file": "img0064.npz",
+      "recovered_file": "recovered_0064.npz",
+      "mean_candidates": 37.710059171597635,
+      "median_candidates": 46.5,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.006831884370301568
+    }
+  ],
+  "summary": {
+    "n_images": 3,
+    "mean_candidates": 34.91962524654833,
+    "mean_fallback_windows": 0.6666666666666666
+  }
+}

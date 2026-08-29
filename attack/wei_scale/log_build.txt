@@ -1,0 +1,6 @@
+{
+  "template": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\wei_scale\\profile_template_300.npz",
+  "entries": 202800,
+  "unique_patch_codes": 353,
+  "profile_count": 300
+}

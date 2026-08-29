@@ -1,0 +1,716 @@
+[hw] profiling from 300 captures ...
+[extract] profile 5/300 img0004.npz 334.8s
+[extract] profile 8/300 img0007.npz 334.3s
+[extract] profile 1/300 img0000.npz 342.3s
+[extract] profile 4/300 img0003.npz 343.1s
+[extract] profile 6/300 img0005.npz 342.9s
+[extract] profile 7/300 img0006.npz 343.4s
+[extract] profile 3/300 img0002.npz 349.9s
+[extract] profile 2/300 img0001.npz 352.2s
+[extract] profile 13/300 img0012.npz 248.9s
+[extract] profile 11/300 img0010.npz 259.7s
+[extract] profile 10/300 img0009.npz 267.0s
+[extract] profile 9/300 img0008.npz 272.3s
+[extract] profile 15/300 img0014.npz 261.7s
+[extract] profile 12/300 img0011.npz 269.9s
+[extract] profile 16/300 img0015.npz 268.0s
+[extract] profile 14/300 img0013.npz 280.0s
+[extract] profile 20/300 img0019.npz 270.3s
+[extract] profile 17/300 img0016.npz 288.4s
+[extract] profile 19/300 img0018.npz 288.3s
+[extract] profile 24/300 img0023.npz 271.0s
+[extract] profile 18/300 img0017.npz 293.4s
+[extract] profile 21/300 img0020.npz 285.3s
+[extract] profile 22/300 img0021.npz 284.0s
+[extract] profile 23/300 img0022.npz 283.8s
+[extract] profile 27/300 img0026.npz 335.4s
+[extract] profile 26/300 img0025.npz 350.9s
+[extract] profile 25/300 img0024.npz 356.3s
+[extract] profile 30/300 img0029.npz 355.9s
+[extract] profile 29/300 img0028.npz 365.5s
+[extract] profile 31/300 img0030.npz 367.7s
+[extract] profile 28/300 img0027.npz 370.7s
+[extract] profile 32/300 img0031.npz 367.0s
+[extract] profile 33/300 img0032.npz 256.9s
+[extract] profile 35/300 img0034.npz 249.0s
+[extract] profile 36/300 img0035.npz 241.3s
+[extract] profile 34/300 img0033.npz 262.8s
+[extract] profile 39/300 img0038.npz 254.2s
+[extract] profile 40/300 img0039.npz 251.0s
+[extract] profile 38/300 img0037.npz 261.1s
+[extract] profile 37/300 img0036.npz 268.0s
+[extract] profile 42/300 img0041.npz 382.8s
+[extract] profile 43/300 img0042.npz 391.7s
+[extract] profile 44/300 img0043.npz 397.4s
+[extract] profile 41/300 img0040.npz 416.5s
+[extract] profile 45/300 img0044.npz 403.3s
+[extract] profile 47/300 img0046.npz 408.1s
+[extract] profile 48/300 img0047.npz 412.9s
+[extract] profile 46/300 img0045.npz 425.9s
+[extract] profile 50/300 img0049.npz 365.3s
+[extract] profile 49/300 img0048.npz 387.3s
+[extract] profile 51/300 img0050.npz 373.6s
+[extract] profile 52/300 img0051.npz 381.5s
+[extract] profile 53/300 img0052.npz 373.9s
+[extract] profile 54/300 img0053.npz 367.7s
+[extract] profile 55/300 img0054.npz 364.6s
+[extract] profile 56/300 img0055.npz 360.2s
+[extract] profile 57/300 img0056.npz 249.8s
+[extract] profile 58/300 img0057.npz 253.7s
+[extract] profile 59/300 img0058.npz 257.2s
+[extract] profile 60/300 img0059.npz 248.0s
+[extract] profile 61/300 img0060.npz 239.5s
+[extract] profile 62/300 img0061.npz 245.0s
+[extract] profile 64/300 img0063.npz 243.2s
+[extract] profile 63/300 img0062.npz 249.7s
+[extract] profile 65/300 img0064.npz 230.3s
+[extract] profile 66/300 img0065.npz 244.5s
+[extract] profile 67/300 img0066.npz 234.3s
+[extract] profile 68/300 img0067.npz 257.5s
+[extract] profile 69/300 img0068.npz 254.2s
+[extract] profile 70/300 img0069.npz 256.2s
+[extract] profile 71/300 img0070.npz 263.5s
+[extract] profile 72/300 img0071.npz 273.4s
+[extract] profile 73/300 img0072.npz 260.7s
+[extract] profile 75/300 img0074.npz 263.8s
+[extract] profile 74/300 img0073.npz 271.7s
+[extract] profile 76/300 img0075.npz 260.8s
+[extract] profile 77/300 img0076.npz 267.2s
+[extract] profile 79/300 img0078.npz 268.0s
+[extract] profile 78/300 img0077.npz 286.0s
+[extract] profile 80/300 img0079.npz 263.8s
+[extract] profile 81/300 img0080.npz 255.2s
+[extract] profile 83/300 img0082.npz 267.7s
+[extract] profile 82/300 img0081.npz 270.2s
+[extract] profile 84/300 img0083.npz 260.1s
+[extract] profile 85/300 img0084.npz 276.1s
+[extract] profile 87/300 img0086.npz 261.5s
+[extract] profile 88/300 img0087.npz 269.2s
+[extract] profile 86/300 img0085.npz 282.2s
+[extract] profile 89/300 img0088.npz 268.0s
+[extract] profile 91/300 img0090.npz 274.3s
+[extract] profile 92/300 img0091.npz 261.8s
+[extract] profile 90/300 img0089.npz 284.9s
+[extract] profile 93/300 img0092.npz 254.8s
+[extract] profile 94/300 img0093.npz 256.8s
+[extract] profile 95/300 img0094.npz 251.0s
+[extract] profile 96/300 img0095.npz 275.6s
+[extract] profile 97/300 img0096.npz 256.6s
+[extract] profile 99/300 img0098.npz 270.3s
+[extract] profile 98/300 img0097.npz 282.6s
+[extract] profile 100/300 img0099.npz 273.8s
+[extract] profile 101/300 img0100.npz 263.5s
+[extract] profile 103/300 img0102.npz 250.2s
+[extract] profile 102/300 img0101.npz 260.7s
+[extract] profile 104/300 img0103.npz 272.3s
+[extract] profile 105/300 img0104.npz 255.7s
+[extract] profile 106/300 img0105.npz 249.3s
+[extract] profile 108/300 img0107.npz 260.4s
+[extract] profile 107/300 img0106.npz 265.1s
+[extract] profile 110/300 img0109.npz 258.3s
+[extract] profile 109/300 img0108.npz 278.1s
+[extract] profile 111/300 img0110.npz 266.3s
+[extract] profile 112/300 img0111.npz 279.5s
+[extract] profile 113/300 img0112.npz 262.2s
+[extract] profile 114/300 img0113.npz 263.7s
+[extract] profile 115/300 img0114.npz 261.3s
+[extract] profile 117/300 img0116.npz 256.9s
+[extract] profile 116/300 img0115.npz 269.2s
+[extract] profile 118/300 img0117.npz 257.1s
+[extract] profile 119/300 img0118.npz 264.8s
+[extract] profile 120/300 img0119.npz 262.7s
+[extract] profile 121/300 img0120.npz 268.1s
+[extract] profile 122/300 img0121.npz 259.4s
+[extract] profile 123/300 img0122.npz 254.7s
+[extract] profile 125/300 img0124.npz 246.0s
+[extract] profile 126/300 img0125.npz 253.0s
+[extract] profile 124/300 img0123.npz 269.2s
+[extract] profile 127/300 img0126.npz 265.3s
+[extract] profile 128/300 img0127.npz 249.9s
+[extract] profile 129/300 img0128.npz 267.0s
+[extract] profile 130/300 img0129.npz 268.6s
+[extract] profile 131/300 img0130.npz 275.8s
+[extract] profile 132/300 img0131.npz 277.5s
+[extract] profile 133/300 img0132.npz 278.7s
+[extract] profile 134/300 img0133.npz 283.6s
+[extract] profile 135/300 img0134.npz 277.5s
+[extract] profile 136/300 img0135.npz 280.0s
+[extract] profile 137/300 img0136.npz 316.7s
+[extract] profile 138/300 img0137.npz 352.8s
+[extract] profile 139/300 img0138.npz 367.5s
+[extract] profile 141/300 img0140.npz 381.4s
+[extract] profile 140/300 img0139.npz 400.3s
+[extract] profile 142/300 img0141.npz 374.5s
+[extract] profile 143/300 img0142.npz 415.4s
+[extract] profile 144/300 img0143.npz 395.5s
+[extract] profile 145/300 img0144.npz 451.6s
+[extract] profile 146/300 img0145.npz 427.2s
+[extract] profile 147/300 img0146.npz 397.5s
+[extract] profile 148/300 img0147.npz 381.9s
+[extract] profile 150/300 img0149.npz 383.8s
+[extract] profile 151/300 img0150.npz 351.4s
+[extract] profile 149/300 img0148.npz 415.1s
+[extract] profile 152/300 img0151.npz 369.7s
+[extract] profile 153/300 img0152.npz 264.5s
+[extract] profile 154/300 img0153.npz 260.7s
+[extract] profile 155/300 img0154.npz 267.7s
+[extract] profile 157/300 img0156.npz 266.8s
+[extract] profile 156/300 img0155.npz 276.0s
+[extract] profile 158/300 img0157.npz 308.4s
+[extract] profile 159/300 img0158.npz 316.4s
+[extract] profile 160/300 img0159.npz 327.5s
+[extract] profile 161/300 img0160.npz 312.0s
+[extract] profile 162/300 img0161.npz 317.7s
+[extract] profile 163/300 img0162.npz 328.8s
+[extract] profile 164/300 img0163.npz 317.4s
+[extract] profile 165/300 img0164.npz 315.7s
+[extract] profile 166/300 img0165.npz 306.9s
+[extract] profile 167/300 img0166.npz 293.3s
+[extract] profile 168/300 img0167.npz 291.4s
+[extract] profile 169/300 img0168.npz 289.4s
+[extract] profile 170/300 img0169.npz 278.8s
+[extract] profile 171/300 img0170.npz 274.8s
+[extract] profile 173/300 img0172.npz 276.8s
+[extract] profile 172/300 img0171.npz 300.3s
+[extract] profile 174/300 img0173.npz 270.0s
+[extract] profile 175/300 img0174.npz 280.8s
+[extract] profile 176/300 img0175.npz 267.9s
+[extract] profile 177/300 img0176.npz 280.4s
+[extract] profile 178/300 img0177.npz 264.5s
+[extract] profile 179/300 img0178.npz 268.6s
+[extract] profile 180/300 img0179.npz 266.5s
+[extract] profile 181/300 img0180.npz 265.0s
+[extract] profile 182/300 img0181.npz 264.0s
+[extract] profile 183/300 img0182.npz 270.9s
+[extract] profile 184/300 img0183.npz 265.5s
+[extract] profile 185/300 img0184.npz 250.5s
+[extract] profile 186/300 img0185.npz 264.0s
+[extract] profile 187/300 img0186.npz 258.4s
+[extract] profile 188/300 img0187.npz 272.6s
+[extract] profile 189/300 img0188.npz 274.2s
+[extract] profile 190/300 img0189.npz 261.1s
+[extract] profile 191/300 img0190.npz 266.5s
+[extract] profile 192/300 img0191.npz 259.7s
+[extract] profile 193/300 img0192.npz 309.5s
+[extract] profile 194/300 img0193.npz 287.3s
+[extract] profile 195/300 img0194.npz 317.8s
+[extract] profile 196/300 img0195.npz 325.8s
+[extract] profile 198/300 img0197.npz 315.0s
+[extract] profile 197/300 img0196.npz 341.4s
+[extract] profile 199/300 img0198.npz 339.2s
+[extract] profile 200/300 img0199.npz 336.9s
+[extract] profile 201/300 img0200.npz 279.3s
+[extract] profile 202/300 img0201.npz 269.9s
+[extract] profile 203/300 img0202.npz 239.5s
+[extract] profile 204/300 img0203.npz 239.1s
+[extract] profile 205/300 img0204.npz 245.3s
+[extract] profile 206/300 img0205.npz 226.6s
+[extract] profile 207/300 img0206.npz 214.0s
+[extract] profile 208/300 img0207.npz 224.2s
+[extract] profile 209/300 img0208.npz 227.5s
+[extract] profile 210/300 img0209.npz 258.3s
+[extract] profile 211/300 img0210.npz 307.6s
+[extract] profile 212/300 img0211.npz 338.8s
+[extract] profile 214/300 img0213.npz 360.4s
+[extract] profile 215/300 img0214.npz 344.6s
+[extract] profile 213/300 img0212.npz 370.7s
+[extract] profile 216/300 img0215.npz 359.0s
+[extract] profile 217/300 img0216.npz 365.2s
+[extract] profile 218/300 img0217.npz 342.7s
+[extract] profile 219/300 img0218.npz 308.8s
+[extract] profile 220/300 img0219.npz 276.3s
+[extract] profile 221/300 img0220.npz 276.9s
+[extract] profile 222/300 img0221.npz 272.5s
+[extract] profile 224/300 img0223.npz 255.7s
+[extract] profile 223/300 img0222.npz 288.3s
+[extract] profile 225/300 img0224.npz 274.3s
+[extract] profile 226/300 img0225.npz 278.6s
+[extract] profile 227/300 img0226.npz 287.3s
+[extract] profile 228/300 img0227.npz 308.2s
+[extract] profile 229/300 img0228.npz 291.8s
+[extract] profile 230/300 img0229.npz 297.5s
+[extract] profile 231/300 img0230.npz 291.4s
+[extract] profile 232/300 img0231.npz 300.5s
+[extract] profile 233/300 img0232.npz 304.1s
+[extract] profile 234/300 img0233.npz 280.2s
+[extract] profile 235/300 img0234.npz 284.3s
+[extract] profile 236/300 img0235.npz 285.7s
+[extract] profile 238/300 img0237.npz 302.3s
+[extract] profile 239/300 img0238.npz 289.6s
+[extract] profile 237/300 img0236.npz 308.9s
+[extract] profile 240/300 img0239.npz 285.2s
+[extract] profile 241/300 img0240.npz 292.1s
+[extract] profile 242/300 img0241.npz 286.8s
+[extract] profile 243/300 img0242.npz 316.1s
+[extract] profile 244/300 img0243.npz 292.3s
+[extract] profile 246/300 img0245.npz 270.1s
+[extract] profile 245/300 img0244.npz 285.5s
+[extract] profile 248/300 img0247.npz 286.6s
+[extract] profile 247/300 img0246.npz 294.8s
+[extract] profile 249/300 img0248.npz 294.4s
+[extract] profile 250/300 img0249.npz 288.7s
+[extract] profile 251/300 img0250.npz 293.5s
+[extract] profile 252/300 img0251.npz 285.2s
+[extract] profile 253/300 img0252.npz 275.3s
+[extract] profile 254/300 img0253.npz 291.6s
+[extract] profile 255/300 img0254.npz 292.8s
+[extract] profile 256/300 img0255.npz 311.9s
+[extract] profile 257/300 img0256.npz 315.8s
+[extract] profile 258/300 img0257.npz 317.6s
+[extract] profile 259/300 img0258.npz 291.0s
+[extract] profile 260/300 img0259.npz 305.6s
+[extract] profile 261/300 img0260.npz 295.2s
+[extract] profile 262/300 img0261.npz 301.3s
+[extract] profile 263/300 img0262.npz 304.4s
+[extract] profile 264/300 img0263.npz 302.8s
+[extract] profile 266/300 img0265.npz 277.8s
+[extract] profile 265/300 img0264.npz 307.9s
+[extract] profile 267/300 img0266.npz 287.2s
+[extract] profile 268/300 img0267.npz 293.3s
+[extract] profile 269/300 img0268.npz 305.1s
+[extract] profile 270/300 img0269.npz 271.4s
+[extract] profile 271/300 img0270.npz 286.6s
+[extract] profile 272/300 img0271.npz 278.8s
+[extract] profile 273/300 img0272.npz 297.7s
+[extract] profile 274/300 img0273.npz 309.7s
+[extract] profile 275/300 img0274.npz 272.7s
+[extract] profile 276/300 img0275.npz 278.9s
+[extract] profile 278/300 img0277.npz 282.0s
+[extract] profile 277/300 img0276.npz 292.6s
+[extract] profile 279/300 img0278.npz 265.7s
+[extract] profile 280/300 img0279.npz 290.1s
+[extract] profile 281/300 img0280.npz 294.0s
+[extract] profile 282/300 img0281.npz 285.7s
+[extract] profile 283/300 img0282.npz 288.4s
+[extract] profile 284/300 img0283.npz 296.9s
+[extract] profile 285/300 img0284.npz 269.6s
+[extract] profile 286/300 img0285.npz 273.1s
+[extract] profile 287/300 img0286.npz 297.8s
+[extract] profile 288/300 img0287.npz 278.6s
+[extract] profile 289/300 img0288.npz 284.4s
+[extract] profile 291/300 img0290.npz 282.6s
+[extract] profile 290/300 img0289.npz 312.6s
+[extract] profile 292/300 img0291.npz 325.9s
+[extract] profile 293/300 img0292.npz 328.7s
+[extract] profile 294/300 img0293.npz 337.8s
+[extract] profile 295/300 img0294.npz 331.9s
+[extract] profile 296/300 img0295.npz 333.9s
+[extract] profile 297/300 img0296.npz 299.5s
+[extract] profile 298/300 img0297.npz 288.6s
+[extract] profile 299/300 img0298.npz 270.2s
+[extract] profile 300/300 img0299.npz 218.4s
+[hw] normalized rho features with profiling mean/std
+[hw] template 235200 entries
+[recognition] golden MLP unavailable (No module named 'tensorflow'); reporting pixel metrics only
+[extract] eval 1/200 img0300.npz 294.5s
+[extract] eval 4/200 img0303.npz 295.8s
+[extract] eval 5/200 img0304.npz 301.9s
+[extract] eval 8/200 img0307.npz 307.1s
+[extract] eval 2/200 img0301.npz 307.8s
+[extract] eval 6/200 img0305.npz 313.8s
+[extract] eval 7/200 img0306.npz 320.6s
+[extract] eval 3/200 img0302.npz 321.9s
+[extract] eval 9/200 img0308.npz 234.3s
+[extract] eval 10/200 img0309.npz 244.0s
+[extract] eval 13/200 img0312.npz 233.1s
+[extract] eval 12/200 img0311.npz 233.8s
+[extract] eval 11/200 img0310.npz 257.3s
+[extract] eval 15/200 img0314.npz 241.2s
+[extract] eval 14/200 img0313.npz 256.7s
+[extract] eval 16/200 img0315.npz 249.5s
+[extract] eval 17/200 img0316.npz 299.4s
+[extract] eval 20/200 img0319.npz 292.7s
+[extract] eval 19/200 img0318.npz 300.5s
+[extract] eval 21/200 img0320.npz 287.6s
+[extract] eval 22/200 img0321.npz 289.7s
+[extract] eval 18/200 img0317.npz 313.4s
+[extract] eval 24/200 img0323.npz 299.5s
+[extract] eval 23/200 img0322.npz 302.6s
+[extract] eval 25/200 img0324.npz 324.2s
+[extract] eval 26/200 img0325.npz 334.4s
+[extract] eval 28/200 img0327.npz 324.2s
+[extract] eval 29/200 img0328.npz 332.0s
+[extract] eval 27/200 img0326.npz 343.7s
+[extract] eval 30/200 img0329.npz 359.0s
+[extract] eval 32/200 img0331.npz 347.0s
+[extract] eval 31/200 img0330.npz 361.6s
+[extract] eval 35/200 img0334.npz 289.9s
+[extract] eval 34/200 img0333.npz 300.7s
+[extract] eval 33/200 img0332.npz 317.3s
+[extract] eval 36/200 img0335.npz 301.7s
+[extract] eval 37/200 img0336.npz 301.7s
+[extract] eval 38/200 img0337.npz 299.5s
+[extract] eval 39/200 img0338.npz 315.1s
+[extract] eval 40/200 img0339.npz 320.9s
+[extract] eval 41/200 img0340.npz 250.0s
+[extract] eval 42/200 img0341.npz 247.3s
+[extract] eval 45/200 img0344.npz 233.9s
+[extract] eval 44/200 img0343.npz 241.7s
+[extract] eval 43/200 img0342.npz 257.7s
+[extract] eval 46/200 img0345.npz 234.2s
+[extract] eval 47/200 img0346.npz 254.9s
+[extract] eval 48/200 img0347.npz 256.3s
+[extract] eval 51/200 img0350.npz 307.6s
+[extract] eval 49/200 img0348.npz 318.1s
+[extract] eval 52/200 img0351.npz 313.2s
+[extract] eval 50/200 img0349.npz 326.0s
+[extract] eval 53/200 img0352.npz 315.5s
+[extract] eval 54/200 img0353.npz 324.1s
+[extract] eval 55/200 img0354.npz 366.4s
+[extract] eval 56/200 img0355.npz 361.1s
+[extract] eval 58/200 img0357.npz 307.2s
+[extract] eval 57/200 img0356.npz 308.4s
+[extract] eval 59/200 img0358.npz 305.3s
+[extract] eval 61/200 img0360.npz 305.4s
+[extract] eval 60/200 img0359.npz 314.6s
+[extract] eval 62/200 img0361.npz 295.4s
+[extract] eval 64/200 img0363.npz 237.3s
+[extract] eval 63/200 img0362.npz 268.6s
+[extract] eval 66/200 img0365.npz 250.1s
+[extract] eval 65/200 img0364.npz 264.6s
+[extract] eval 67/200 img0366.npz 260.5s
+[extract] eval 68/200 img0367.npz 291.5s
+[extract] eval 70/200 img0369.npz 281.3s
+[extract] eval 69/200 img0368.npz 313.7s
+[extract] eval 72/200 img0371.npz 276.6s
+[extract] eval 71/200 img0370.npz 295.4s
+[extract] eval 73/200 img0372.npz 292.5s
+[extract] eval 74/200 img0373.npz 297.3s
+[extract] eval 76/200 img0375.npz 267.6s
+[extract] eval 75/200 img0374.npz 303.7s
+[extract] eval 77/200 img0376.npz 274.4s
+[extract] eval 78/200 img0377.npz 272.2s
+[extract] eval 79/200 img0378.npz 277.7s
+[extract] eval 80/200 img0379.npz 295.3s
+[extract] eval 81/200 img0380.npz 265.3s
+[extract] eval 82/200 img0381.npz 269.2s
+[extract] eval 85/200 img0384.npz 272.9s
+[extract] eval 84/200 img0383.npz 289.8s
+[extract] eval 83/200 img0382.npz 299.0s
+[extract] eval 86/200 img0385.npz 304.8s
+[extract] eval 87/200 img0386.npz 283.5s
+[extract] eval 88/200 img0387.npz 272.6s
+[extract] eval 89/200 img0388.npz 275.6s
+[extract] eval 92/200 img0391.npz 267.1s
+[extract] eval 91/200 img0390.npz 272.7s
+[extract] eval 90/200 img0389.npz 301.8s
+[extract] eval 93/200 img0392.npz 286.9s
+[extract] eval 94/200 img0393.npz 271.8s
+[extract] eval 96/200 img0395.npz 269.0s
+[extract] eval 95/200 img0394.npz 306.4s
+[extract] eval 97/200 img0396.npz 288.5s
+[extract] eval 98/200 img0397.npz 273.6s
+[extract] eval 100/200 img0399.npz 290.8s
+[extract] eval 99/200 img0398.npz 297.5s
+[extract] eval 101/200 img0400.npz 291.2s
+[extract] eval 103/200 img0402.npz 277.2s
+[extract] eval 102/200 img0401.npz 309.4s
+[extract] eval 104/200 img0403.npz 284.2s
+[extract] eval 105/200 img0404.npz 278.9s
+[extract] eval 106/200 img0405.npz 289.1s
+[extract] eval 108/200 img0407.npz 272.4s
+[extract] eval 107/200 img0406.npz 280.7s
+[extract] eval 109/200 img0408.npz 269.9s
+[extract] eval 110/200 img0409.npz 277.2s
+[extract] eval 111/200 img0410.npz 290.3s
+[extract] eval 112/200 img0411.npz 298.0s
+[extract] eval 113/200 img0412.npz 255.4s
+[extract] eval 114/200 img0413.npz 281.1s
+[extract] eval 116/200 img0415.npz 284.5s
+[extract] eval 117/200 img0416.npz 283.7s
+[extract] eval 115/200 img0414.npz 308.2s
+[extract] eval 118/200 img0417.npz 274.1s
+[extract] eval 119/200 img0418.npz 304.2s
+[extract] eval 120/200 img0419.npz 284.5s
+[extract] eval 121/200 img0420.npz 296.3s
+[extract] eval 124/200 img0423.npz 270.7s
+[extract] eval 122/200 img0421.npz 300.9s
+[extract] eval 125/200 img0424.npz 269.6s
+[extract] eval 123/200 img0422.npz 294.4s
+[extract] eval 126/200 img0425.npz 278.2s
+[extract] eval 127/200 img0426.npz 279.2s
+[extract] eval 128/200 img0427.npz 289.5s
+[extract] eval 129/200 img0428.npz 274.6s
+[extract] eval 133/200 img0432.npz 261.0s
+[extract] eval 131/200 img0430.npz 273.3s
+[extract] eval 132/200 img0431.npz 281.6s
+[extract] eval 130/200 img0429.npz 293.7s
+[extract] eval 134/200 img0433.npz 300.7s
+[extract] eval 135/200 img0434.npz 281.0s
+[extract] eval 136/200 img0435.npz 287.7s
+[extract] eval 137/200 img0436.npz 289.6s
+[extract] eval 139/200 img0438.npz 278.5s
+[extract] eval 138/200 img0437.npz 291.6s
+[extract] eval 140/200 img0439.npz 290.5s
+[extract] eval 141/200 img0440.npz 313.6s
+[extract] eval 142/200 img0441.npz 273.5s
+[extract] eval 143/200 img0442.npz 268.2s
+[extract] eval 144/200 img0443.npz 292.2s
+[extract] eval 145/200 img0444.npz 277.6s
+[extract] eval 146/200 img0445.npz 291.2s
+[extract] eval 147/200 img0446.npz 305.3s
+[extract] eval 148/200 img0447.npz 295.7s
+[extract] eval 150/200 img0449.npz 270.8s
+[extract] eval 149/200 img0448.npz 301.0s
+[extract] eval 151/200 img0450.npz 306.8s
+[extract] eval 152/200 img0451.npz 290.4s
+[extract] eval 153/200 img0452.npz 306.9s
+[extract] eval 154/200 img0453.npz 287.5s
+[extract] eval 156/200 img0455.npz 285.7s
+[extract] eval 155/200 img0454.npz 296.5s
+[extract] eval 157/200 img0456.npz 287.0s
+[extract] eval 158/200 img0457.npz 279.1s
+[extract] eval 159/200 img0458.npz 275.9s
+[extract] eval 160/200 img0459.npz 284.2s
+[extract] eval 161/200 img0460.npz 288.7s
+[extract] eval 162/200 img0461.npz 274.5s
+[extract] eval 163/200 img0462.npz 285.2s
+[extract] eval 165/200 img0464.npz 277.7s
+[extract] eval 164/200 img0463.npz 291.6s
+[extract] eval 166/200 img0465.npz 295.4s
+[extract] eval 167/200 img0466.npz 290.6s
+[extract] eval 168/200 img0467.npz 283.7s
+[extract] eval 169/200 img0468.npz 275.0s
+[extract] eval 170/200 img0469.npz 282.0s
+[extract] eval 172/200 img0471.npz 268.1s
+[extract] eval 171/200 img0470.npz 292.9s
+[extract] eval 173/200 img0472.npz 291.7s
+[extract] eval 174/200 img0473.npz 278.4s
+[extract] eval 175/200 img0474.npz 272.9s
+[extract] eval 176/200 img0475.npz 298.8s
+[extract] eval 177/200 img0476.npz 274.4s
+[extract] eval 178/200 img0477.npz 273.6s
+[extract] eval 179/200 img0478.npz 273.1s
+[extract] eval 181/200 img0480.npz 264.8s
+[extract] eval 180/200 img0479.npz 288.9s
+[extract] eval 182/200 img0481.npz 270.6s
+[extract] eval 183/200 img0482.npz 304.8s
+[extract] eval 184/200 img0483.npz 283.9s
+[extract] eval 185/200 img0484.npz 298.6s
+[extract] eval 186/200 img0485.npz 282.4s
+[extract] eval 187/200 img0486.npz 290.8s
+[extract] eval 188/200 img0487.npz 283.4s
+[extract] eval 189/200 img0488.npz 274.9s
+[extract] eval 190/200 img0489.npz 297.5s
+[extract] eval 191/200 img0490.npz 288.1s
+[extract] eval 192/200 img0491.npz 271.5s
+[extract] eval 193/200 img0492.npz 273.7s
+[extract] eval 194/200 img0493.npz 277.2s
+[extract] eval 195/200 img0494.npz 279.4s
+[extract] eval 196/200 img0495.npz 284.7s
+[extract] eval 198/200 img0497.npz 260.0s
+[extract] eval 197/200 img0496.npz 288.7s
+[extract] eval 199/200 img0498.npz 229.1s
+[extract] eval 200/200 img0499.npz 210.1s
+  img0300.npz (label 4): bg_pix=0.593 tm_dist=22.57 recog(o/b/t)=None/None/None
+  img0301.npz (label 7): bg_pix=0.749 tm_dist=40.89 recog(o/b/t)=None/None/None
+  img0302.npz (label 1): bg_pix=0.829 tm_dist=16.22 recog(o/b/t)=None/None/None
+  img0303.npz (label 2): bg_pix=0.744 tm_dist=19.93 recog(o/b/t)=None/None/None
+  img0304.npz (label 4): bg_pix=0.653 tm_dist=31.50 recog(o/b/t)=None/None/None
+  img0305.npz (label 0): bg_pix=0.645 tm_dist=40.09 recog(o/b/t)=None/None/None
+  img0306.npz (label 2): bg_pix=0.626 tm_dist=27.75 recog(o/b/t)=None/None/None
+  img0307.npz (label 7): bg_pix=0.526 tm_dist=24.73 recog(o/b/t)=None/None/None
+  img0308.npz (label 4): bg_pix=0.640 tm_dist=38.93 recog(o/b/t)=None/None/None
+  img0309.npz (label 3): bg_pix=0.668 tm_dist=22.86 recog(o/b/t)=None/None/None
+  img0310.npz (label 3): bg_pix=0.427 tm_dist=23.46 recog(o/b/t)=None/None/None
+  img0311.npz (label 0): bg_pix=0.579 tm_dist=72.26 recog(o/b/t)=None/None/None
+  img0312.npz (label 0): bg_pix=0.636 tm_dist=42.28 recog(o/b/t)=None/None/None
+  img0313.npz (label 3): bg_pix=0.691 tm_dist=32.44 recog(o/b/t)=None/None/None
+  img0314.npz (label 1): bg_pix=0.765 tm_dist=18.88 recog(o/b/t)=None/None/None
+  img0315.npz (label 9): bg_pix=0.673 tm_dist=39.70 recog(o/b/t)=None/None/None
+  img0316.npz (label 6): bg_pix=0.601 tm_dist=28.13 recog(o/b/t)=None/None/None
+  img0317.npz (label 5): bg_pix=0.497 tm_dist=30.61 recog(o/b/t)=None/None/None
+  img0318.npz (label 2): bg_pix=0.578 tm_dist=39.84 recog(o/b/t)=None/None/None
+  img0319.npz (label 5): bg_pix=0.532 tm_dist=38.43 recog(o/b/t)=None/None/None
+  img0320.npz (label 9): bg_pix=0.759 tm_dist=22.70 recog(o/b/t)=None/None/None
+  img0321.npz (label 2): bg_pix=0.700 tm_dist=24.43 recog(o/b/t)=None/None/None
+  img0322.npz (label 9): bg_pix=0.659 tm_dist=32.46 recog(o/b/t)=None/None/None
+  img0323.npz (label 3): bg_pix=0.568 tm_dist=26.22 recog(o/b/t)=None/None/None
+  img0324.npz (label 0): bg_pix=0.736 tm_dist=24.49 recog(o/b/t)=None/None/None
+  img0325.npz (label 4): bg_pix=0.746 tm_dist=23.64 recog(o/b/t)=None/None/None
+  img0326.npz (label 2): bg_pix=0.675 tm_dist=28.04 recog(o/b/t)=None/None/None
+  img0327.npz (label 0): bg_pix=0.735 tm_dist=46.44 recog(o/b/t)=None/None/None
+  img0328.npz (label 7): bg_pix=0.737 tm_dist=30.17 recog(o/b/t)=None/None/None
+  img0329.npz (label 1): bg_pix=0.620 tm_dist=20.40 recog(o/b/t)=None/None/None
+  img0330.npz (label 1): bg_pix=0.874 tm_dist=16.49 recog(o/b/t)=None/None/None
+  img0331.npz (label 2): bg_pix=0.622 tm_dist=26.10 recog(o/b/t)=None/None/None
+  img0332.npz (label 1): bg_pix=0.662 tm_dist=16.95 recog(o/b/t)=None/None/None
+  img0333.npz (label 5): bg_pix=0.605 tm_dist=28.70 recog(o/b/t)=None/None/None
+  img0334.npz (label 3): bg_pix=0.781 tm_dist=25.44 recog(o/b/t)=None/None/None
+  img0335.npz (label 3): bg_pix=0.695 tm_dist=26.02 recog(o/b/t)=None/None/None
+  img0336.npz (label 9): bg_pix=0.537 tm_dist=36.90 recog(o/b/t)=None/None/None
+  img0337.npz (label 7): bg_pix=0.717 tm_dist=25.29 recog(o/b/t)=None/None/None
+  img0338.npz (label 8): bg_pix=0.602 tm_dist=47.08 recog(o/b/t)=None/None/None
+  img0339.npz (label 6): bg_pix=0.744 tm_dist=29.98 recog(o/b/t)=None/None/None
+  img0340.npz (label 5): bg_pix=0.647 tm_dist=43.95 recog(o/b/t)=None/None/None
+  img0341.npz (label 6): bg_pix=0.696 tm_dist=17.25 recog(o/b/t)=None/None/None
+  img0342.npz (label 1): bg_pix=0.487 tm_dist=25.23 recog(o/b/t)=None/None/None
+  img0343.npz (label 3): bg_pix=0.679 tm_dist=36.84 recog(o/b/t)=None/None/None
+  img0344.npz (label 8): bg_pix=0.639 tm_dist=31.08 recog(o/b/t)=None/None/None
+  img0345.npz (label 1): bg_pix=0.583 tm_dist=30.47 recog(o/b/t)=None/None/None
+  img0346.npz (label 0): bg_pix=0.598 tm_dist=37.50 recog(o/b/t)=None/None/None
+  img0347.npz (label 5): bg_pix=0.531 tm_dist=48.03 recog(o/b/t)=None/None/None
+  img0348.npz (label 1): bg_pix=0.676 tm_dist=18.68 recog(o/b/t)=None/None/None
+  img0349.npz (label 3): bg_pix=0.587 tm_dist=24.68 recog(o/b/t)=None/None/None
+  img0350.npz (label 1): bg_pix=0.611 tm_dist=25.62 recog(o/b/t)=None/None/None
+  img0351.npz (label 5): bg_pix=0.727 tm_dist=39.89 recog(o/b/t)=None/None/None
+  img0352.npz (label 5): bg_pix=0.555 tm_dist=44.68 recog(o/b/t)=None/None/None
+  img0353.npz (label 6): bg_pix=0.602 tm_dist=61.13 recog(o/b/t)=None/None/None
+  img0354.npz (label 1): bg_pix=0.515 tm_dist=15.78 recog(o/b/t)=None/None/None
+  img0355.npz (label 8): bg_pix=0.583 tm_dist=34.31 recog(o/b/t)=None/None/None
+  img0356.npz (label 5): bg_pix=0.621 tm_dist=41.12 recog(o/b/t)=None/None/None
+  img0357.npz (label 1): bg_pix=0.834 tm_dist=9.63 recog(o/b/t)=None/None/None
+  img0358.npz (label 7): bg_pix=0.666 tm_dist=24.40 recog(o/b/t)=None/None/None
+  img0359.npz (label 9): bg_pix=0.575 tm_dist=36.64 recog(o/b/t)=None/None/None
+  img0360.npz (label 4): bg_pix=0.626 tm_dist=39.64 recog(o/b/t)=None/None/None
+  img0361.npz (label 6): bg_pix=0.570 tm_dist=37.30 recog(o/b/t)=None/None/None
+  img0362.npz (label 2): bg_pix=0.598 tm_dist=30.82 recog(o/b/t)=None/None/None
+  img0363.npz (label 2): bg_pix=0.589 tm_dist=24.07 recog(o/b/t)=None/None/None
+  img0364.npz (label 5): bg_pix=0.538 tm_dist=34.39 recog(o/b/t)=None/None/None
+  img0365.npz (label 0): bg_pix=0.620 tm_dist=27.71 recog(o/b/t)=None/None/None
+  img0366.npz (label 6): bg_pix=0.527 tm_dist=31.65 recog(o/b/t)=None/None/None
+  img0367.npz (label 5): bg_pix=0.532 tm_dist=30.76 recog(o/b/t)=None/None/None
+  img0368.npz (label 6): bg_pix=0.591 tm_dist=26.11 recog(o/b/t)=None/None/None
+  img0369.npz (label 3): bg_pix=0.684 tm_dist=24.18 recog(o/b/t)=None/None/None
+  img0370.npz (label 7): bg_pix=0.608 tm_dist=25.12 recog(o/b/t)=None/None/None
+  img0371.npz (label 2): bg_pix=0.528 tm_dist=34.23 recog(o/b/t)=None/None/None
+  img0372.npz (label 0): bg_pix=0.542 tm_dist=30.42 recog(o/b/t)=None/None/None
+  img0373.npz (label 8): bg_pix=0.599 tm_dist=41.21 recog(o/b/t)=None/None/None
+  img0374.npz (label 8): bg_pix=0.565 tm_dist=32.22 recog(o/b/t)=None/None/None
+  img0375.npz (label 5): bg_pix=0.744 tm_dist=33.88 recog(o/b/t)=None/None/None
+  img0376.npz (label 4): bg_pix=0.839 tm_dist=24.08 recog(o/b/t)=None/None/None
+  img0377.npz (label 1): bg_pix=0.585 tm_dist=13.18 recog(o/b/t)=None/None/None
+  img0378.npz (label 1): bg_pix=0.723 tm_dist=13.81 recog(o/b/t)=None/None/None
+  img0379.npz (label 4): bg_pix=0.719 tm_dist=30.72 recog(o/b/t)=None/None/None
+  img0380.npz (label 0): bg_pix=0.564 tm_dist=35.40 recog(o/b/t)=None/None/None
+  img0381.npz (label 3): bg_pix=0.480 tm_dist=24.01 recog(o/b/t)=None/None/None
+  img0382.npz (label 3): bg_pix=0.705 tm_dist=40.27 recog(o/b/t)=None/None/None
+  img0383.npz (label 7): bg_pix=0.832 tm_dist=16.35 recog(o/b/t)=None/None/None
+  img0384.npz (label 6): bg_pix=0.644 tm_dist=46.73 recog(o/b/t)=None/None/None
+  img0385.npz (label 1): bg_pix=0.747 tm_dist=12.37 recog(o/b/t)=None/None/None
+  img0386.npz (label 6): bg_pix=0.598 tm_dist=28.30 recog(o/b/t)=None/None/None
+  img0387.npz (label 2): bg_pix=0.760 tm_dist=20.07 recog(o/b/t)=None/None/None
+  img0388.npz (label 1): bg_pix=0.466 tm_dist=15.05 recog(o/b/t)=None/None/None
+  img0389.npz (label 9): bg_pix=0.746 tm_dist=32.67 recog(o/b/t)=None/None/None
+  img0390.npz (label 2): bg_pix=0.603 tm_dist=51.81 recog(o/b/t)=None/None/None
+  img0391.npz (label 8): bg_pix=0.588 tm_dist=42.32 recog(o/b/t)=None/None/None
+  img0392.npz (label 6): bg_pix=0.709 tm_dist=28.02 recog(o/b/t)=None/None/None
+  img0393.npz (label 1): bg_pix=0.759 tm_dist=15.67 recog(o/b/t)=None/None/None
+  img0394.npz (label 9): bg_pix=0.667 tm_dist=21.77 recog(o/b/t)=None/None/None
+  img0395.npz (label 5): bg_pix=0.596 tm_dist=37.78 recog(o/b/t)=None/None/None
+  img0396.npz (label 2): bg_pix=0.751 tm_dist=38.58 recog(o/b/t)=None/None/None
+  img0397.npz (label 5): bg_pix=0.588 tm_dist=26.25 recog(o/b/t)=None/None/None
+  img0398.npz (label 4): bg_pix=0.769 tm_dist=25.06 recog(o/b/t)=None/None/None
+  img0399.npz (label 4): bg_pix=0.666 tm_dist=32.66 recog(o/b/t)=None/None/None
+  img0400.npz (label 2): bg_pix=0.730 tm_dist=42.86 recog(o/b/t)=None/None/None
+  img0401.npz (label 8): bg_pix=0.714 tm_dist=29.96 recog(o/b/t)=None/None/None
+  img0402.npz (label 3): bg_pix=0.617 tm_dist=37.96 recog(o/b/t)=None/None/None
+  img0403.npz (label 8): bg_pix=0.707 tm_dist=30.31 recog(o/b/t)=None/None/None
+  img0404.npz (label 2): bg_pix=0.644 tm_dist=33.10 recog(o/b/t)=None/None/None
+  img0405.npz (label 4): bg_pix=0.510 tm_dist=45.14 recog(o/b/t)=None/None/None
+  img0406.npz (label 5): bg_pix=0.634 tm_dist=55.86 recog(o/b/t)=None/None/None
+  img0407.npz (label 0): bg_pix=0.652 tm_dist=51.85 recog(o/b/t)=None/None/None
+  img0408.npz (label 3): bg_pix=0.528 tm_dist=35.96 recog(o/b/t)=None/None/None
+  img0409.npz (label 1): bg_pix=0.495 tm_dist=20.27 recog(o/b/t)=None/None/None
+  img0410.npz (label 7): bg_pix=0.654 tm_dist=27.33 recog(o/b/t)=None/None/None
+  img0411.npz (label 7): bg_pix=0.575 tm_dist=20.81 recog(o/b/t)=None/None/None
+  img0412.npz (label 5): bg_pix=0.538 tm_dist=54.25 recog(o/b/t)=None/None/None
+  img0413.npz (label 7): bg_pix=0.702 tm_dist=41.98 recog(o/b/t)=None/None/None
+  img0414.npz (label 9): bg_pix=0.566 tm_dist=27.76 recog(o/b/t)=None/None/None
+  img0415.npz (label 7): bg_pix=0.624 tm_dist=25.44 recog(o/b/t)=None/None/None
+  img0416.npz (label 1): bg_pix=0.750 tm_dist=19.67 recog(o/b/t)=None/None/None
+  img0417.npz (label 9): bg_pix=0.589 tm_dist=28.22 recog(o/b/t)=None/None/None
+  img0418.npz (label 2): bg_pix=0.704 tm_dist=35.79 recog(o/b/t)=None/None/None
+  img0419.npz (label 1): bg_pix=0.700 tm_dist=12.65 recog(o/b/t)=None/None/None
+  img0420.npz (label 4): bg_pix=0.550 tm_dist=17.71 recog(o/b/t)=None/None/None
+  img0421.npz (label 2): bg_pix=0.736 tm_dist=31.92 recog(o/b/t)=None/None/None
+  img0422.npz (label 9): bg_pix=0.714 tm_dist=35.61 recog(o/b/t)=None/None/None
+  img0423.npz (label 2): bg_pix=0.763 tm_dist=43.35 recog(o/b/t)=None/None/None
+  img0424.npz (label 0): bg_pix=0.663 tm_dist=35.30 recog(o/b/t)=None/None/None
+  img0425.npz (label 4): bg_pix=0.559 tm_dist=35.60 recog(o/b/t)=None/None/None
+  img0426.npz (label 9): bg_pix=0.562 tm_dist=29.88 recog(o/b/t)=None/None/None
+  img0427.npz (label 1): bg_pix=0.721 tm_dist=13.84 recog(o/b/t)=None/None/None
+  img0428.npz (label 4): bg_pix=0.607 tm_dist=30.77 recog(o/b/t)=None/None/None
+  img0429.npz (label 8): bg_pix=0.606 tm_dist=31.02 recog(o/b/t)=None/None/None
+  img0430.npz (label 1): bg_pix=0.551 tm_dist=15.94 recog(o/b/t)=None/None/None
+  img0431.npz (label 8): bg_pix=0.509 tm_dist=29.12 recog(o/b/t)=None/None/None
+  img0432.npz (label 4): bg_pix=0.760 tm_dist=23.77 recog(o/b/t)=None/None/None
+  img0433.npz (label 5): bg_pix=0.536 tm_dist=31.88 recog(o/b/t)=None/None/None
+  img0434.npz (label 9): bg_pix=0.658 tm_dist=24.62 recog(o/b/t)=None/None/None
+  img0435.npz (label 8): bg_pix=0.631 tm_dist=34.67 recog(o/b/t)=None/None/None
+  img0436.npz (label 8): bg_pix=0.682 tm_dist=30.40 recog(o/b/t)=None/None/None
+  img0437.npz (label 3): bg_pix=0.444 tm_dist=62.79 recog(o/b/t)=None/None/None
+  img0438.npz (label 7): bg_pix=0.698 tm_dist=23.14 recog(o/b/t)=None/None/None
+  img0439.npz (label 6): bg_pix=0.589 tm_dist=24.31 recog(o/b/t)=None/None/None
+  img0440.npz (label 0): bg_pix=0.517 tm_dist=70.81 recog(o/b/t)=None/None/None
+  img0441.npz (label 0): bg_pix=0.564 tm_dist=33.96 recog(o/b/t)=None/None/None
+  img0442.npz (label 3): bg_pix=0.531 tm_dist=39.51 recog(o/b/t)=None/None/None
+  img0443.npz (label 0): bg_pix=0.768 tm_dist=19.43 recog(o/b/t)=None/None/None
+  img0444.npz (label 2): bg_pix=0.617 tm_dist=33.97 recog(o/b/t)=None/None/None
+  img0445.npz (label 6): bg_pix=0.767 tm_dist=36.56 recog(o/b/t)=None/None/None
+  img0446.npz (label 6): bg_pix=0.560 tm_dist=45.25 recog(o/b/t)=None/None/None
+  img0447.npz (label 4): bg_pix=0.624 tm_dist=42.43 recog(o/b/t)=None/None/None
+  img0448.npz (label 9): bg_pix=0.651 tm_dist=39.32 recog(o/b/t)=None/None/None
+  img0449.npz (label 3): bg_pix=0.648 tm_dist=52.22 recog(o/b/t)=None/None/None
+  img0450.npz (label 3): bg_pix=0.633 tm_dist=48.40 recog(o/b/t)=None/None/None
+  img0451.npz (label 3): bg_pix=0.517 tm_dist=51.00 recog(o/b/t)=None/None/None
+  img0452.npz (label 2): bg_pix=0.709 tm_dist=27.01 recog(o/b/t)=None/None/None
+  img0453.npz (label 3): bg_pix=0.688 tm_dist=35.81 recog(o/b/t)=None/None/None
+  img0454.npz (label 9): bg_pix=0.693 tm_dist=29.32 recog(o/b/t)=None/None/None
+  img0455.npz (label 1): bg_pix=0.784 tm_dist=21.28 recog(o/b/t)=None/None/None
+  img0456.npz (label 2): bg_pix=0.444 tm_dist=27.93 recog(o/b/t)=None/None/None
+  img0457.npz (label 6): bg_pix=0.688 tm_dist=28.99 recog(o/b/t)=None/None/None
+  img0458.npz (label 8): bg_pix=0.487 tm_dist=34.06 recog(o/b/t)=None/None/None
+  img0459.npz (label 0): bg_pix=0.768 tm_dist=36.15 recog(o/b/t)=None/None/None
+  img0460.npz (label 5): bg_pix=0.329 tm_dist=25.19 recog(o/b/t)=None/None/None
+  img0461.npz (label 6): bg_pix=0.665 tm_dist=48.31 recog(o/b/t)=None/None/None
+  img0462.npz (label 6): bg_pix=0.569 tm_dist=57.67 recog(o/b/t)=None/None/None
+  img0463.npz (label 6): bg_pix=0.625 tm_dist=45.79 recog(o/b/t)=None/None/None
+  img0464.npz (label 3): bg_pix=0.640 tm_dist=37.77 recog(o/b/t)=None/None/None
+  img0465.npz (label 8): bg_pix=0.635 tm_dist=46.52 recog(o/b/t)=None/None/None
+  img0466.npz (label 8): bg_pix=0.528 tm_dist=33.92 recog(o/b/t)=None/None/None
+  img0467.npz (label 2): bg_pix=0.588 tm_dist=35.82 recog(o/b/t)=None/None/None
+  img0468.npz (label 7): bg_pix=0.582 tm_dist=41.23 recog(o/b/t)=None/None/None
+  img0469.npz (label 5): bg_pix=0.598 tm_dist=39.01 recog(o/b/t)=None/None/None
+  img0470.npz (label 8): bg_pix=0.718 tm_dist=33.31 recog(o/b/t)=None/None/None
+  img0471.npz (label 9): bg_pix=0.629 tm_dist=18.72 recog(o/b/t)=None/None/None
+  img0472.npz (label 6): bg_pix=0.589 tm_dist=32.93 recog(o/b/t)=None/None/None
+  img0473.npz (label 1): bg_pix=0.726 tm_dist=14.36 recog(o/b/t)=None/None/None
+  img0474.npz (label 8): bg_pix=0.548 tm_dist=46.52 recog(o/b/t)=None/None/None
+  img0475.npz (label 4): bg_pix=0.642 tm_dist=51.37 recog(o/b/t)=None/None/None
+  img0476.npz (label 1): bg_pix=0.668 tm_dist=19.30 recog(o/b/t)=None/None/None
+  img0477.npz (label 2): bg_pix=0.773 tm_dist=31.81 recog(o/b/t)=None/None/None
+  img0478.npz (label 5): bg_pix=0.815 tm_dist=24.84 recog(o/b/t)=None/None/None
+  img0479.npz (label 9): bg_pix=0.680 tm_dist=28.94 recog(o/b/t)=None/None/None
+  img0480.npz (label 1): bg_pix=0.679 tm_dist=13.69 recog(o/b/t)=None/None/None
+  img0481.npz (label 9): bg_pix=0.786 tm_dist=28.81 recog(o/b/t)=None/None/None
+  img0482.npz (label 7): bg_pix=0.372 tm_dist=25.96 recog(o/b/t)=None/None/None
+  img0483.npz (label 5): bg_pix=0.601 tm_dist=16.51 recog(o/b/t)=None/None/None
+  img0484.npz (label 4): bg_pix=0.598 tm_dist=24.59 recog(o/b/t)=None/None/None
+  img0485.npz (label 0): bg_pix=0.548 tm_dist=29.89 recog(o/b/t)=None/None/None
+  img0486.npz (label 8): bg_pix=0.680 tm_dist=33.31 recog(o/b/t)=None/None/None
+  img0487.npz (label 9): bg_pix=0.459 tm_dist=31.19 recog(o/b/t)=None/None/None
+  img0488.npz (label 9): bg_pix=0.773 tm_dist=23.78 recog(o/b/t)=None/None/None
+  img0489.npz (label 1): bg_pix=0.647 tm_dist=12.49 recog(o/b/t)=None/None/None
+  img0490.npz (label 0): bg_pix=0.592 tm_dist=26.94 recog(o/b/t)=None/None/None
+  img0491.npz (label 5): bg_pix=0.717 tm_dist=27.46 recog(o/b/t)=None/None/None
+  img0492.npz (label 2): bg_pix=0.750 tm_dist=35.63 recog(o/b/t)=None/None/None
+  img0493.npz (label 3): bg_pix=0.626 tm_dist=47.91 recog(o/b/t)=None/None/None
+  img0494.npz (label 7): bg_pix=0.454 tm_dist=33.63 recog(o/b/t)=None/None/None
+  img0495.npz (label 8): bg_pix=0.545 tm_dist=63.92 recog(o/b/t)=None/None/None
+  img0496.npz (label 9): bg_pix=0.629 tm_dist=26.01 recog(o/b/t)=None/None/None
+  img0497.npz (label 4): bg_pix=0.528 tm_dist=23.85 recog(o/b/t)=None/None/None
+  img0498.npz (label 0): bg_pix=0.527 tm_dist=31.09 recog(o/b/t)=None/None/None
+  img0499.npz (label 6): bg_pix=0.756 tm_dist=16.29 recog(o/b/t)=None/None/None
+
+[hw summary] {
+  "bg_pixel_acc_mean": 0.6352423469387755,
+  "tm_pixel_dist_mean": 31.777397516298187,
+  "recog_acc_orig": null,
+  "recog_acc_background": null,
+  "recog_acc_template": null,
+  "paper_targets": {
+    "recog_background": 0.816,
+    "recog_template": 0.898
+  }
+}

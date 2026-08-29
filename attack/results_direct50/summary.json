@@ -1,0 +1,153 @@
+{
+  "ksize": 3,
+  "source": "../host/traces_sim20",
+  "frontend": "direct",
+  "images": [
+    {
+      "file": "img0050.npz",
+      "label": 6,
+      "bg_pixel_acc": 0.7155612244897959,
+      "tm_pixel_dist": 23.80108731263068,
+      "recog_orig": 6,
+      "recog_bg": 5,
+      "recog_tm": 6
+    },
+    {
+      "file": "img0051.npz",
+      "label": 3,
+      "bg_pixel_acc": 0.5510204081632653,
+      "tm_pixel_dist": 43.89773928240127,
+      "recog_orig": 3,
+      "recog_bg": 0,
+      "recog_tm": 4
+    },
+    {
+      "file": "img0052.npz",
+      "label": 5,
+      "bg_pixel_acc": 0.5433673469387755,
+      "tm_pixel_dist": 29.642587132255507,
+      "recog_orig": 5,
+      "recog_bg": 5,
+      "recog_tm": 5
+    },
+    {
+      "file": "img0053.npz",
+      "label": 5,
+      "bg_pixel_acc": 0.5165816326530612,
+      "tm_pixel_dist": 22.52503059936096,
+      "recog_orig": 5,
+      "recog_bg": 5,
+      "recog_tm": 5
+    },
+    {
+      "file": "img0054.npz",
+      "label": 6,
+      "bg_pixel_acc": 0.4107142857142857,
+      "tm_pixel_dist": 36.36086769664576,
+      "recog_orig": 6,
+      "recog_bg": 9,
+      "recog_tm": 6
+    },
+    {
+      "file": "img0055.npz",
+      "label": 0,
+      "bg_pixel_acc": 0.45918367346938777,
+      "tm_pixel_dist": 25.410792831743088,
+      "recog_orig": 0,
+      "recog_bg": 0,
+      "recog_tm": 0
+    },
+    {
+      "file": "img0056.npz",
+      "label": 4,
+      "bg_pixel_acc": 0.6147959183673469,
+      "tm_pixel_dist": 26.8730986983538,
+      "recog_orig": 4,
+      "recog_bg": 8,
+      "recog_tm": 4
+    },
+    {
+      "file": "img0057.npz",
+      "label": 1,
+      "bg_pixel_acc": 0.7525510204081632,
+      "tm_pixel_dist": 10.885866500279766,
+      "recog_orig": 1,
+      "recog_bg": 2,
+      "recog_tm": 1
+    },
+    {
+      "file": "img0058.npz",
+      "label": 9,
+      "bg_pixel_acc": 0.5573979591836735,
+      "tm_pixel_dist": 28.600513885207764,
+      "recog_orig": 9,
+      "recog_bg": 9,
+      "recog_tm": 7
+    },
+    {
+      "file": "img0059.npz",
+      "label": 5,
+      "bg_pixel_acc": 0.6645408163265306,
+      "tm_pixel_dist": 15.291499865638896,
+      "recog_orig": 5,
+      "recog_bg": 8,
+      "recog_tm": 5
+    },
+    {
+      "file": "img0060.npz",
+      "label": 7,
+      "bg_pixel_acc": 0.6581632653061225,
+      "tm_pixel_dist": 32.29222224062785,
+      "recog_orig": 7,
+      "recog_bg": 9,
+      "recog_tm": 7
+    },
+    {
+      "file": "img0061.npz",
+      "label": 8,
+      "bg_pixel_acc": 0.8252551020408163,
+      "tm_pixel_dist": 35.66834926340666,
+      "recog_orig": 8,
+      "recog_bg": 8,
+      "recog_tm": 8
+    },
+    {
+      "file": "img0062.npz",
+      "label": 9,
+      "bg_pixel_acc": 0.29464285714285715,
+      "tm_pixel_dist": 17.161552017993344,
+      "recog_orig": 9,
+      "recog_bg": 8,
+      "recog_tm": 4
+    },
+    {
+      "file": "img0063.npz",
+      "label": 3,
+      "bg_pixel_acc": 0.24872448979591838,
+      "tm_pixel_dist": 25.150516369967896,
+      "recog_orig": 3,
+      "recog_bg": 9,
+      "recog_tm": 2
+    },
+    {
+      "file": "img0064.npz",
+      "label": 7,
+      "bg_pixel_acc": 0.5573979591836735,
+      "tm_pixel_dist": 36.843214948316984,
+      "recog_orig": 7,
+      "recog_bg": 3,
+      "recog_tm": 6
+    }
+  ],
+  "summary": {
+    "bg_pixel_acc_mean": 0.5579931972789115,
+    "tm_pixel_dist_mean": 27.360329242988676,
+    "recog_acc_orig": 1.0,
+    "recog_acc_background": 0.3333333333333333,
+    "recog_acc_template": 0.6666666666666666,
+    "paper_targets": {
+      "recog_background": 0.816,
+      "recog_template": 0.898
+    }
+  }
+}
