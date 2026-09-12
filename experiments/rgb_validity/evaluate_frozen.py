@@ -81,6 +81,58 @@ def split_by_scene(scene_id, frac_cal=0.5, seed=0):
     return cal, ass
 
 
+def seed_stability(batch, alpha, frac_cal, seeds):
+    """How much of the verdict table is the split seed rather than the data?
+
+    POST-HOC, and a diagnostic only: seed 0 remains the declared primary result. The
+    motivation is visible in that result -- natural/Cr has ratio 0.982, so it is tighter
+    than the prior and fails only because its coverage landed at 0.810. Realized coverage
+    of a conformal radius varies across splits by a few points on its own, so a cell
+    decided by that margin is decided by the seed. This measures how often each verdict
+    survives a re-split, so a table of six verdicts is not read as six findings when some
+    of them are coin flips.
+
+    The frozen predictions are untouched; only the calibration/assessment partition moves.
+    """
+    rows = {}
+    for name in list(T.PRIMARY) + list(T.SECONDARY):
+        e = T.task_scores(batch.prediction, batch.truth, name)
+        ep = (None if batch.prior_prediction is None
+              else T.task_scores(batch.prior_prediction, batch.truth, name))
+        useful, covs, ratios = [], [], []
+        for s in seeds:
+            cal, ass = split_by_scene(batch.scene_id, frac_cal, s)
+            q = C.conformal_radius(e[cal], alpha)
+            cov = C.evaluate_coverage(q["radius"], e[ass], alpha)
+            covs.append(cov["coverage"])
+            if ep is None:
+                continue
+            qp = C.conformal_radius(ep[cal], alpha)
+            ratios.append(q["radius"] / qp["radius"] if qp["radius"] else np.nan)
+            useful.append(bool(q["radius"] < qp["radius"]
+                               and not cov["materially_undercovers"]))
+        rows[name] = {
+            "n_seeds": len(seeds),
+            "fraction_of_seeds_useful": (float(np.mean(useful)) if useful else None),
+            "coverage_min_max": [float(np.min(covs)), float(np.max(covs))],
+            "ratio_min_max": ([float(np.nanmin(ratios)), float(np.nanmax(ratios))]
+                              if ratios else None),
+            "stable": (None if not useful else bool(np.mean(useful) in (0.0, 1.0))),
+            # Guard against the obvious misreading. A high fraction says the verdict does
+            # not depend on which scenes were drawn; it says nothing about the SIZE of the
+            # advantage. natural/Cb fires in most splits because its ratio sits just under
+            # 1.0 in all of them -- consistently, but by ~2%, which the ratio bootstrap
+            # cannot resolve from zero. Consistency and magnitude are separate questions,
+            # and only a ratio range entirely below 1.0 speaks to the second.
+            "note": ("fraction_of_seeds_useful measures seed-sensitivity of the verdict, "
+                     "NOT strength of evidence; check ratio_min_max lies wholly below "
+                     "1.0 before reading a high fraction as support"),
+            "ratio_range_excludes_one": (
+                None if not ratios else bool(np.nanmax(ratios) < 1.0)),
+        }
+    return rows
+
+
 def evaluate_cell(batch, audit, alpha, frac_cal, seed):
     cal, ass = split_by_scene(batch.scene_id, frac_cal, seed)
     cell = {
@@ -152,7 +204,9 @@ def radius_ratio_uncertainty(e, ep, cal, alpha, n_boot=2000, seed=0):
     verdict -- it reports whether the margin behind that verdict is resolvable at all.
 
     Resampling is over calibration examples, which are scenes here, so the unit is the
-    independent one.
+    independent one. The resampled statistic is a high order statistic (k=91 of 100),
+    where the bootstrap is approximate: read the interval as indicative of whether a
+    margin is resolvable, not as an exact confidence statement.
     """
     rng = np.random.default_rng(seed)
     ratios = []
@@ -205,7 +259,9 @@ def main():
                     help="populations are kept separate, never pooled")
     ap.add_argument("--alpha", type=float, default=0.10, help="per task, not joint")
     ap.add_argument("--frac-cal", type=float, default=0.5)
-    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--seed", type=int, default=0, help="the declared primary split")
+    ap.add_argument("--stability-seeds", type=int, default=20,
+                    help="post-hoc re-splits; 0 or 1 disables the diagnostic")
     ap.add_argument("--out", default="experiments/rgb_validity/results/frozen_pilot")
     args = ap.parse_args()
 
@@ -239,6 +295,20 @@ def main():
             cell = evaluate_cell(batch, audit, args.alpha, args.frac_cal, args.seed)
             print(f"  split: {cell['n_cal']} calibration / {cell['n_assess']} "
                   f"assessment scenes, disjoint")
+            if args.stability_seeds > 1:
+                stab = seed_stability(batch, args.alpha, args.frac_cal,
+                                      range(args.stability_seeds))
+                cell["post_hoc_seed_stability"] = stab
+                print(f"  post-hoc stability over {args.stability_seeds} re-splits "
+                      f"(seed 0 remains the declared result):")
+                for name, r in stab.items():
+                    f = r["fraction_of_seeds_useful"]
+                    print(f"    {name:10s} useful in {f:5.0%} of splits   "
+                          f"coverage {r['coverage_min_max'][0]:.2f}-"
+                          f"{r['coverage_min_max'][1]:.2f}   "
+                          f"ratio {r['ratio_min_max'][0]:.2f}-"
+                          f"{r['ratio_min_max'][1]:.2f}"
+                          f"{'  <- ratio range below 1' if r['ratio_range_excludes_one'] else ''}")
             out["cells"][key] = cell
             out["verdicts"][key] = decide(cell)
 

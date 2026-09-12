@@ -4,7 +4,7 @@
  "hardware_used": false,
  "retrained": false,
  "predictions_modified": false,
- "created_utc": "2026-09-12T13:15:46Z",
+ "created_utc": "2026-09-12T13:20:52Z",
  "protocol": {
   "alpha_per_task": 0.1,
   "joint_guarantee_across_tasks": false,
@@ -485,6 +485,68 @@
       "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
      }
     }
+   },
+   "post_hoc_seed_stability": {
+    "Y": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 1.0,
+     "coverage_min_max": [
+      0.9,
+      0.97
+     ],
+     "ratio_min_max": [
+      0.5975654995782953,
+      0.749625219358951
+     ],
+     "stable": true,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": true
+    },
+    "Cb": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.15,
+     "coverage_min_max": [
+      0.84,
+      0.95
+     ],
+     "ratio_min_max": [
+      0.959428170469657,
+      1.1048277970159153
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
+    },
+    "Cr": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.3,
+     "coverage_min_max": [
+      0.77,
+      0.97
+     ],
+     "ratio_min_max": [
+      0.9765995828978905,
+      1.1144884811641436
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
+    },
+    "Y_coarse8": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 1.0,
+     "coverage_min_max": [
+      0.89,
+      0.97
+     ],
+     "ratio_min_max": [
+      0.5838978925659288,
+      0.7809324469576756
+     ],
+     "stable": true,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": true
+    }
    }
   },
   "summed/natural": {
@@ -949,6 +1011,68 @@
       "resolvably_tighter": false,
       "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
      }
+    }
+   },
+   "post_hoc_seed_stability": {
+    "Y": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.05,
+     "coverage_min_max": [
+      0.81,
+      0.99
+     ],
+     "ratio_min_max": [
+      0.9690636198356799,
+      1.1403788687628171
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
+    },
+    "Cb": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.8,
+     "coverage_min_max": [
+      0.84,
+      0.96
+     ],
+     "ratio_min_max": [
+      0.9011168632792673,
+      1.0481826003191963
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
+    },
+    "Cr": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.65,
+     "coverage_min_max": [
+      0.81,
+      0.96
+     ],
+     "ratio_min_max": [
+      0.903338466587605,
+      1.0681693575831321
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
+    },
+    "Y_coarse8": {
+     "n_seeds": 20,
+     "fraction_of_seeds_useful": 0.05,
+     "coverage_min_max": [
+      0.81,
+      0.97
+     ],
+     "ratio_min_max": [
+      0.9522713953964761,
+      1.2201665330249634
+     ],
+     "stable": false,
+     "note": "fraction_of_seeds_useful measures seed-sensitivity of the verdict, NOT strength of evidence; check ratio_min_max lies wholly below 1.0 before reading a high fraction as support",
+     "ratio_range_excludes_one": false
     }
    }
   }

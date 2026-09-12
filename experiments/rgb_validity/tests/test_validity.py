@@ -241,3 +241,66 @@ def test_usefulness_is_false_when_covered_but_wider_than_prior():
     cov = C.evaluate_coverage(q["radius"], e[ass], 0.10)
     assert cov["coverage"] == 1.0                 # covers perfectly
     assert not (q["radius"] < qp["radius"])       # but is wider than the prior
+
+
+# ---------------------------------------------------------------- seed stability
+
+def _stab_batch(n=40, gain=1.0, seed=0):
+    """Prediction is truth plus noise scaled by `gain`; prior is truth plus fixed noise.
+
+    gain < 1 makes the prediction genuinely better than the prior, gain == 1 makes them
+    statistically identical.
+    """
+    rng = np.random.default_rng(seed)
+    t = rng.random((n, 3, 8, 8)) * 0.5 + 0.25
+    return FrozenPredictionBatch(
+        mode="summed", group="g", truth=t,
+        prediction=np.clip(t + gain * 0.05 * rng.standard_normal(t.shape), 0, 1),
+        prior_prediction=np.clip(t + 0.05 * rng.standard_normal(t.shape), 0, 1),
+        source_id=np.arange(n), scene_id=np.arange(n), session_id=None)
+
+
+def test_stability_reports_one_row_per_task_with_ranges():
+    r = E.seed_stability(_stab_batch(), 0.10, 0.5, range(4))
+    assert set(r) == set(T.ALL)
+    for row in r.values():
+        assert row["n_seeds"] == 4
+        assert row["coverage_min_max"][0] <= row["coverage_min_max"][1]
+        assert 0.0 <= row["fraction_of_seeds_useful"] <= 1.0
+
+
+def test_a_clearly_better_predictor_is_useful_in_every_split():
+    # n matches the real pilot. At n=40 the calibration set is 20 examples and the
+    # coverage gate is dominated by split noise -- which is exactly what this diagnostic
+    # exists to expose, so it must not be what this test measures.
+    r = E.seed_stability(_stab_batch(n=200, gain=0.1), 0.10, 0.5, range(8))
+    assert r["Y"]["fraction_of_seeds_useful"] == 1.0
+    assert r["Y"]["stable"] is True
+    assert r["Y"]["ratio_range_excludes_one"] is True
+
+
+def test_an_equivalent_predictor_does_not_hold_across_splits():
+    """gain==1: prediction and prior are the same quality, so the verdict must waver."""
+    r = E.seed_stability(_stab_batch(n=200, gain=1.0), 0.10, 0.5, range(20))
+    assert 0.0 <= r["Y"]["fraction_of_seeds_useful"] < 1.0
+    assert r["Y"]["ratio_range_excludes_one"] is False
+
+
+def test_stability_never_touches_the_predictions():
+    b = _stab_batch()
+    before = b.hashes()
+    E.seed_stability(b, 0.10, 0.5, range(4))
+    assert b.hashes() == before
+
+
+def test_high_stability_fraction_is_not_claimed_as_strength_of_evidence():
+    """The misreading this diagnostic invites, encoded.
+
+    A predictor a hair better than the prior fires the rule in most splits while its
+    ratio range still straddles 1.0. The row must expose both facts, so a high fraction
+    cannot be quoted as support on its own.
+    """
+    r = E.seed_stability(_stab_batch(n=200, gain=0.97, seed=3), 0.10, 0.5,
+                         range(20))["Y"]
+    assert r["ratio_range_excludes_one"] is False
+    assert "NOT strength of evidence" in r["note"]
