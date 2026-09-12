@@ -1,0 +1,10 @@
+{
+  "source": "fpga",
+  "pattern": "RGGB",
+  "status": "failed",
+  "created_utc": "2026-09-11T06:20:12.085125+00:00",
+  "python_version": "3.12.9",
+  "frames": [],
+  "scope": "intentional FPGA imaging measurements; not physical side-channel recovery",
+  "error": "TimeoutError: FPGA frame incomplete: 01000000"
+}

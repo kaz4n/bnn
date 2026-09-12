@@ -1,0 +1,18 @@
+{
+  "name": "rerun_trained_80_eval40_heldout",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\rerun_20260830\\results_trained_80_eval40_heldout",
+  "metrics": {
+    "bit_acc": 0.9600446428571429,
+    "foreground_precision": 0.9480570975416336,
+    "foreground_recall": 0.6806148590947908,
+    "foreground_f1": 0.7923777961888981,
+    "foreground_iou": 0.6561470911086718,
+    "all_zero_bit_acc": 0.8879783163265306,
+    "mssim": 0.7686466349546259,
+    "pixel_level_distance": 10.188615798950195,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.9,
+    "n_images": 40
+  }
+}

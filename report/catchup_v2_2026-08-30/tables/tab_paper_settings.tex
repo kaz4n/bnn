@@ -1,0 +1,16 @@
+\begin{tabular}{lll}
+\hline
+Aspect & Power2Picture & This work \\
+\hline
+Generator architecture & Table I: 128, 128, 12544, 3 transposed convs & identical \\
+Optimiser, learning rate & Adam, $0.001$ & identical \\
+Loss & \texttt{gradmse} (MSE + gradient MSE) & identical \\
+Batch size & 256 & identical \\
+Profiling set & 60k train split & identical \\
+Dataset & Fashion-MNIST & identical \\
+Victim network & quantised LeNet, full & one $3\times3$ conv layer \\
+Measurement & 5 on-chip TDC sensors & external shunt, CW-Lite \\
+Window rate & streaming, one window per cycle & $2$ cycles per window (\texttt{DWELL}), min. supported \\
+Leakage amplifier & none & none ($1$ flop output register) \\
+\hline
+\end{tabular}

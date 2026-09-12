@@ -1,0 +1,189 @@
+{
+  "kind": "cw305_active_power_template_recognition_score",
+  "created_utc": "2026-08-30T08:50:52Z",
+  "n": 20,
+  "orig_recognition_acc": 1.0,
+  "recovered_recognition_acc": 0.45,
+  "rows": [
+    {
+      "file": "recovered_0960.npz",
+      "attack_file": "img0960.npz",
+      "label": 7,
+      "orig_pred": 7,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0961.npz",
+      "attack_file": "img0961.npz",
+      "label": 8,
+      "orig_pred": 8,
+      "recovered_pred": 6,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0962.npz",
+      "attack_file": "img0962.npz",
+      "label": 9,
+      "orig_pred": 9,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0963.npz",
+      "attack_file": "img0963.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0964.npz",
+      "attack_file": "img0964.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0965.npz",
+      "attack_file": "img0965.npz",
+      "label": 6,
+      "orig_pred": 6,
+      "recovered_pred": 7,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0966.npz",
+      "attack_file": "img0966.npz",
+      "label": 9,
+      "orig_pred": 9,
+      "recovered_pred": 3,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0967.npz",
+      "attack_file": "img0967.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0968.npz",
+      "attack_file": "img0968.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 4,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0969.npz",
+      "attack_file": "img0969.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0970.npz",
+      "attack_file": "img0970.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0971.npz",
+      "attack_file": "img0971.npz",
+      "label": 4,
+      "orig_pred": 4,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0972.npz",
+      "attack_file": "img0972.npz",
+      "label": 0,
+      "orig_pred": 0,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0973.npz",
+      "attack_file": "img0973.npz",
+      "label": 6,
+      "orig_pred": 6,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0974.npz",
+      "attack_file": "img0974.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 2,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0975.npz",
+      "attack_file": "img0975.npz",
+      "label": 2,
+      "orig_pred": 2,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0976.npz",
+      "attack_file": "img0976.npz",
+      "label": 3,
+      "orig_pred": 3,
+      "recovered_pred": 0,
+      "orig_ok": true,
+      "recovered_ok": false
+    },
+    {
+      "file": "recovered_0977.npz",
+      "attack_file": "img0977.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0978.npz",
+      "attack_file": "img0978.npz",
+      "label": 5,
+      "orig_pred": 5,
+      "recovered_pred": 5,
+      "orig_ok": true,
+      "recovered_ok": true
+    },
+    {
+      "file": "recovered_0979.npz",
+      "attack_file": "img0979.npz",
+      "label": 1,
+      "orig_pred": 1,
+      "recovered_pred": 1,
+      "orig_ok": true,
+      "recovered_ok": true
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "kind": "cw305_hardware_capture_validation",
+  "created_utc": "2026-08-30T05:52:06Z",
+  "trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_rerun_20260830_p2p_2000",
+  "capture_kind": "shards",
+  "passed": true,
+  "issues": [],
+  "warnings": [],
+  "manifest_summary": {
+    "status": "complete",
+    "trace_source": "cw_lite_analog_sync_x4",
+    "capture_mode": "live_cw305_chipwhisperer",
+    "design": "cw305_leakage_top",
+    "chipwhisperer_version": "6.0.0",
+    "scope_serial": "50203220415447303030313238323035",
+    "target_serial": "5020322030384a583330343234303030",
+    "bitstream_sha256": "a5bb029e693174a3a6e63384ba5baa1f464de675c9dc1c16daf290087babf353",
+    "adc_locked_initial": true,
+    "adc_locked_final": true,
+    "n_images": 2000,
+    "n_kernels": 1,
+    "avg": 1,
+    "shuffle_seed": 8302028
+  },
+  "functional_check": {
+    "passed": true,
+    "n_outputs": 676,
+    "hw_min": -7,
+    "hw_max": 9,
+    "golden_min": -7,
+    "golden_max": 9,
+    "mismatches": 0,
+    "checked_utc": "2026-08-30T05:51:04Z"
+  },
+  "sample_files": [
+    {
+      "file": "shard000.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": 362.98349783236995,
+        "std": 1753.5517841178253,
+        "min": -15967.0,
+        "max": 8991.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard001.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": 363.069383941474,
+        "std": 1752.6776359628975,
+        "min": -16191.0,
+        "max": 8991.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard002.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": 363.58598229768785,
+        "std": 1756.3401086859294,
+        "min": -15775.0,
+        "max": 8863.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard003.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": 363.1158778901734,
+        "std": 1752.1073505950694,
+        "min": -16031.0,
+        "max": 8927.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    }
+  ]
+}

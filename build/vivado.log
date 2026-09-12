@@ -2,51 +2,51 @@
 # Vivado v2016.4 (64-bit)
 # SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
 # IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
-# Start of session at: Wed Aug 26 23:00:54 2026
-# Process ID: 2400
+# Start of session at: Wed Sep 09 06:51:32 2026
+# Process ID: 39344
 # Current directory: C:/Users/narut/OneDrive/Desktop/Project/bnn/build
-# Command line: vivado.exe -mode batch -source run_vivado_leakage.tcl
+# Command line: vivado.exe -mode batch -source run_vivado_leakage_grey_noamp.tcl
 # Log file: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado.log
 # Journal file: C:/Users/narut/OneDrive/Desktop/Project/bnn/build\vivado.jou
 #-----------------------------------------------------------
-source run_vivado_leakage.tcl
+source run_vivado_leakage_grey_noamp.tcl
 # set DWELL 8
 # if {[info exists ::env(DWELL)]} { set DWELL $::env(DWELL) }
 # set LEAK_LANES 63
 # if {[info exists ::env(LEAK_LANES)]} { set LEAK_LANES $::env(LEAK_LANES) }
-# set BUILD_NAME leakage_d${DWELL}_l${LEAK_LANES}
+# set BUILD_NAME leakage_greynoamp_d${DWELL}
 # set part xc7a100tftg256-2
 # set CWHDL "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl"
 # set CWXDC "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc"
 # if {[info exists ::env(CW305_SRC)]} { set CWHDL $::env(CW305_SRC) }
 # foreach f [list \
 #     "$CWHDL/cw305_usb_reg_fe.v" "$CWHDL/clocks.v" \
-#     ../cw305/cdc_pulse.v ../cw305/mnist_leakage_core.sv \
-#     ../cw305/cw305_reg_leakage_demo.sv ../cw305/cw305_leakage_top.sv \
-#     $CWXDC ../cw305/cw305_leakage.xdc] {
+#     ../cw305/cdc_pulse.v ../cw305/mnist_leakage_core_grey_noamp.sv \
+#     ../cw305/cw305_reg_leakage_grey.sv ../cw305/cw305_leakage_grey_top.sv \
+#     $CWXDC ../cw305/cw305_leakage_grey.xdc] {
 #     if {![file exists $f]} { error "Required input missing: $f" }
 # }
 # create_project -force cw305_${BUILD_NAME} ./vivado_${BUILD_NAME} -part $part
 # add_files "$CWHDL/cw305_usb_reg_fe.v"
 # add_files "$CWHDL/clocks.v"
 # add_files ../cw305/cdc_pulse.v
-# add_files -fileset sources_1 ../cw305/mnist_leakage_core.sv
-# add_files -fileset sources_1 ../cw305/cw305_reg_leakage_demo.sv
-# add_files -fileset sources_1 ../cw305/cw305_leakage_top.sv
+# add_files -fileset sources_1 ../cw305/mnist_leakage_core_grey_noamp.sv
+# add_files -fileset sources_1 ../cw305/cw305_reg_leakage_grey.sv
+# add_files -fileset sources_1 ../cw305/cw305_leakage_grey_top.sv
 # set_property file_type SystemVerilog [get_files *.sv]
-# set_property top cw305_leakage_top [current_fileset]
+# set_property top cw305_leakage_grey_top [current_fileset]
 # set_property generic "DWELL=$DWELL LEAK_LANES=$LEAK_LANES" [current_fileset]
 # add_files -fileset constrs_1 $CWXDC
-# add_files -fileset constrs_1 ../cw305/cw305_leakage.xdc
+# add_files -fileset constrs_1 ../cw305/cw305_leakage_grey.xdc
 # update_compile_order -fileset sources_1
 # launch_runs synth_1 -jobs 4
-[Wed Aug 26 23:01:01 2026] Launched synth_1...
-Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/synth_1/runme.log
+[Wed Sep 09 06:51:43 2026] Launched synth_1...
+Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/synth_1/runme.log
 # wait_on_run synth_1
-[Wed Aug 26 23:01:01 2026] Waiting for synth_1 to finish...
+[Wed Sep 09 06:51:44 2026] Waiting for synth_1 to finish...
 
 *** Running vivado
-    with args -log cw305_leakage_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source cw305_leakage_top.tcl
+    with args -log cw305_leakage_grey_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source cw305_leakage_grey_top.tcl
 
 
 ****** Vivado v2016.4 (64-bit)
@@ -54,53 +54,58 @@ Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/bu
   **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
     ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 
-source cw305_leakage_top.tcl -notrace
-Command: synth_design -top cw305_leakage_top -part xc7a100tftg256-2
+source cw305_leakage_grey_top.tcl -notrace
+Command: synth_design -top cw305_leakage_grey_top -part xc7a100tftg256-2
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 28692 
+INFO: Helper process launched with PID 19532 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 282.957 ; gain = 72.250
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:09 . Memory (MB): peak = 282.695 ; gain = 72.160
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'cw305_leakage_top' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_top.sv:4]
+INFO: [Synth 8-638] synthesizing module 'cw305_leakage_grey_top' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey_top.sv:4]
 	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
 	Parameter pADDR_WIDTH bound to: 21 - type: integer 
-	Parameter DWELL bound to: 8 - type: integer 
+	Parameter DWELL bound to: 2 - type: integer 
 	Parameter LEAK_LANES bound to: 63 - type: integer 
+	Parameter CLOCK_SETTINGS bound to: 5'b01101 
 INFO: [Synth 8-638] synthesizing module 'cw305_usb_reg_fe' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
 	Parameter pADDR_WIDTH bound to: 21 - type: integer 
 	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
 	Parameter pREG_RDDLY_LEN bound to: 3 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'cw305_usb_reg_fe' (1#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
-INFO: [Synth 8-638] synthesizing module 'cw305_reg_leakage_demo' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:4]
+INFO: [Synth 8-638] synthesizing module 'cw305_reg_leakage_grey' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:15]
 	Parameter pADDR_WIDTH bound to: 21 - type: integer 
 	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
-	Parameter DWELL bound to: 8 - type: integer 
+	Parameter DWELL bound to: 2 - type: integer 
 	Parameter LEAK_LANES bound to: 63 - type: integer 
 	Parameter N_IMAGE bound to: 784 - type: integer 
 	Parameter N_OUTPUT bound to: 676 - type: integer 
+	Parameter N_OUT_BYTE bound to: 1352 - type: integer 
 	Parameter OUT_BASE bound to: 21'b000000000100000000000 
 	Parameter KRN_BASE bound to: 21'b000000001000000000000 
 	Parameter GO_ADDR bound to: 33 - type: integer 
 	Parameter STAT_ADDR bound to: 34 - type: integer 
-INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:77]
-INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:105]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:62]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:63]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:64]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:65]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:134]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:193]
 INFO: [Synth 8-638] synthesizing module 'cdc_pulse' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
 INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:17]
 INFO: [Synth 8-256] done synthesizing module 'cdc_pulse' (2#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
-INFO: [Synth 8-638] synthesizing module 'mnist_leakage_core' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:11]
-	Parameter DWELL bound to: 8 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'mnist_leakage_core_grey' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:32]
+	Parameter DWELL bound to: 2 - type: integer 
 	Parameter LEAK_LANES bound to: 63 - type: integer 
 	Parameter OUT_SIDE bound to: 26 - type: integer 
 	Parameter N_WINDOWS bound to: 676 - type: integer 
-	Parameter LEAK_BITS bound to: 567 - type: integer 
-	Parameter DWELL_W bound to: 3 - type: integer 
-INFO: [Synth 8-5534] Detected attribute (* DONT_TOUCH = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:56]
-INFO: [Synth 8-5534] Detected attribute (* KEEP = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:56]
-INFO: [Synth 8-256] done synthesizing module 'mnist_leakage_core' (3#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:11]
-INFO: [Synth 8-256] done synthesizing module 'cw305_reg_leakage_demo' (4#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:4]
+	Parameter LEAK_BITS bound to: 4536 - type: integer 
+	Parameter DWELL_W bound to: 1 - type: integer 
+WARNING: [Synth 8-693] zero replication count - replication ignored [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:154]
+INFO: [Synth 8-256] done synthesizing module 'mnist_leakage_core_grey' (3#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:32]
+INFO: [Synth 8-256] done synthesizing module 'cw305_reg_leakage_grey' (4#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_grey.sv:15]
 INFO: [Synth 8-638] synthesizing module 'clocks' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
 INFO: [Synth 8-638] synthesizing module 'BUFGMUX_CTRL' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
 INFO: [Synth 8-256] done synthesizing module 'BUFGMUX_CTRL' (5#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
@@ -121,14 +126,14 @@ INFO: [Synth 8-256] done synthesizing module 'IBUFG' (7#1) [C:/Xilinx/Vivado/201
 INFO: [Synth 8-638] synthesizing module 'BUFG' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
 INFO: [Synth 8-256] done synthesizing module 'BUFG' (8#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
 INFO: [Synth 8-256] done synthesizing module 'clocks' (9#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
-INFO: [Synth 8-256] done synthesizing module 'cw305_leakage_top' (10#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_top.sv:4]
-WARNING: [Synth 8-3917] design cw305_leakage_top has port led2 driven by constant 0
-WARNING: [Synth 8-3331] design cw305_reg_leakage_demo has unconnected port reg_read
+INFO: [Synth 8-256] done synthesizing module 'cw305_leakage_grey_top' (10#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey_top.sv:4]
+WARNING: [Synth 8-3917] design cw305_leakage_grey_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design cw305_reg_leakage_grey has unconnected port reg_read
 WARNING: [Synth 8-3331] design cw305_usb_reg_fe has unconnected port usb_alen
-WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port k15_sel
-WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port l14_sel
+WARNING: [Synth 8-3331] design cw305_leakage_grey_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_leakage_grey_top has unconnected port l14_sel
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 320.398 ; gain = 109.691
+Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 411.441 ; gain = 200.906
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -138,7 +143,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 320.398 ; gain = 109.691
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:17 . Memory (MB): peak = 411.441 ; gain = 200.906
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 3 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -149,10 +154,10 @@ Processing XDC Constraints
 Initializing timing engine
 Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
 Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/cw305_leakage_top_propImpl.xdc].
-Resolution: To avoid this warning, move constraints listed in [.Xil/cw305_leakage_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
-Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
-Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/cw305_leakage_grey_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/cw305_leakage_grey_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc]
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc]
 Completed Processing XDC Constraints
 
 INFO: [Project 1-111] Unisim Transformation Summary:
@@ -160,81 +165,188 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
   IBUFG => IBUF: 1 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 636.270 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 709.242 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:15 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished Constraint Validation : Time (s): cpu = 00:00:31 ; elapsed = 00:00:55 . Memory (MB): peak = 709.242 ; gain = 498.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tftg256-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:15 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:31 ; elapsed = 00:00:55 . Memory (MB): peak = 709.242 ; gain = 498.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:15 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:55 . Memory (MB): peak = 709.242 ; gain = 498.707
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:87]
 INFO: [Synth 8-5546] ROM "busy" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "out_addr" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5544] ROM "out_data" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "out_we" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "row" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[31]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[32]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[33]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[34]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[35]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[36]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[37]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[38]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[39]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[40]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[41]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[42]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[43]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[44]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[45]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[46]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[47]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[48]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[49]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[50]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[51]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[52]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[53]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[54]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[55]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[56]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[57]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[58]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[59]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[60]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[61]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[62]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[63]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[64]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[65]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[66]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[67]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[68]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[69]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[70]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[71]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[72]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[73]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[74]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[75]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[76]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[77]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[78]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[79]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[80]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[81]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[82]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[83]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[84]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[85]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[86]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[87]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[88]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[89]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[90]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[91]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[92]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[93]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[94]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[95]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "image_mem_reg[96]" won't be mapped to RAM because it is too sparse
+INFO: [Common 17-14] Message 'Synth 8-5546' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:21 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:48 ; elapsed = 00:01:24 . Memory (MB): peak = 709.242 ; gain = 498.707
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+-+--------------+------------+----------+
-| |RTL Partition |Replication |Instances |
-+-+--------------+------------+----------+
-+-+--------------+------------+----------+
++------+----------------------------+------------+----------+
+|      |RTL Partition               |Replication |Instances |
++------+----------------------------+------------+----------+
+|1     |cw305_reg_leakage_grey__GB0 |           1|     33992|
+|2     |cw305_reg_leakage_grey__GB1 |           1|     12528|
+|3     |cw305_reg_leakage_grey__GB2 |           1|     12561|
+|4     |cw305_reg_leakage_grey__GB3 |           1|     24937|
+|5     |clocks__GC0                 |           1|        15|
+|6     |cw305_leakage_grey_top__GC0 |           1|        54|
++------+----------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
+	   2 Input     24 Bit       Adders := 1     
+	  18 Input     16 Bit       Adders := 1     
+	   2 Input     16 Bit       Adders := 1     
 	   2 Input     10 Bit       Adders := 9     
-	   2 Input      8 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 2     
 	   2 Input      5 Bit       Adders := 3     
-	   9 Input      4 Bit       Adders := 1     
-	   2 Input      3 Bit       Adders := 1     
+	   2 Input      1 Bit       Adders := 1     
 +---XORs : 
-	   2 Input      9 Bit         XORs := 1     
 	   2 Input      1 Bit         XORs := 1     
 +---XORs : 
-	              567 Bit    Wide XORs := 1     
+	               16 Bit    Wide XORs := 1     
 +---Registers : 
-	              784 Bit    Registers := 1     
-	              567 Bit    Registers := 1     
+	               24 Bit    Registers := 2     
 	               21 Bit    Registers := 1     
-	               10 Bit    Registers := 1     
+	               16 Bit    Registers := 3     
+	               10 Bit    Registers := 3     
 	                9 Bit    Registers := 1     
-	                8 Bit    Registers := 3     
+	                8 Bit    Registers := 789   
 	                5 Bit    Registers := 3     
-	                3 Bit    Registers := 4     
+	                3 Bit    Registers := 3     
 	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 10    
+	                1 Bit    Registers := 12    
 +---RAMs : 
-	               5K Bit         RAMs := 1     
+	              10K Bit         RAMs := 1     
 +---Muxes : 
-	   2 Input    784 Bit        Muxes := 2     
-	   2 Input    567 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 9     
 	   2 Input      9 Bit        Muxes := 3     
-	   2 Input      8 Bit        Muxes := 2     
-	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 6     
+	   2 Input      5 Bit        Muxes := 2     
 	   2 Input      4 Bit        Muxes := 1     
 	   3 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 1     
 	   3 Input      2 Bit        Muxes := 1     
 	   2 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 22    
-	   3 Input      1 Bit        Muxes := 2     
-	   4 Input      1 Bit        Muxes := 10    
+	   2 Input      1 Bit        Muxes := 803   
+	   3 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -242,13 +354,6 @@ Finished RTL Component Statistics
 Start RTL Hierarchical Component Statistics 
 ---------------------------------------------------------------------------------
 Hierarchical RTL Component report 
-Module cw305_usb_reg_fe 
-Detailed RTL Component Info : 
-+---Registers : 
-	               21 Bit    Registers := 1     
-	                8 Bit    Registers := 1     
-	                3 Bit    Registers := 1     
-	                1 Bit    Registers := 4     
 Module cdc_pulse 
 Detailed RTL Component Info : 
 +---XORs : 
@@ -256,49 +361,46 @@ Detailed RTL Component Info :
 +---Registers : 
 	                3 Bit    Registers := 1     
 	                1 Bit    Registers := 1     
-Module mnist_leakage_core 
+Module mnist_leakage_core_grey 
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     10 Bit       Adders := 9     
-	   2 Input      8 Bit       Adders := 1     
+	  18 Input     16 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
 	   2 Input      5 Bit       Adders := 3     
-	   9 Input      4 Bit       Adders := 1     
-	   2 Input      3 Bit       Adders := 1     
+	   2 Input      1 Bit       Adders := 1     
 +---XORs : 
-	   2 Input      9 Bit         XORs := 1     
-+---XORs : 
-	              567 Bit    Wide XORs := 1     
+	               16 Bit    Wide XORs := 1     
 +---Registers : 
-	              567 Bit    Registers := 1     
+	               16 Bit    Registers := 1     
 	               10 Bit    Registers := 1     
-	                8 Bit    Registers := 1     
 	                5 Bit    Registers := 3     
-	                3 Bit    Registers := 1     
-	                1 Bit    Registers := 3     
+	                1 Bit    Registers := 5     
 +---Muxes : 
-	   2 Input    567 Bit        Muxes := 1     
-	   2 Input      5 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 13    
-	   3 Input      1 Bit        Muxes := 1     
-	   4 Input      1 Bit        Muxes := 9     
-Module cw305_reg_leakage_demo 
+	   2 Input     16 Bit        Muxes := 9     
+	   2 Input      5 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 8     
+Module cw305_reg_leakage_grey 
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     24 Bit       Adders := 1     
+	   2 Input     16 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 8     
+	   2 Input      8 Bit       Adders := 2     
 +---Registers : 
-	              784 Bit    Registers := 1     
+	               24 Bit    Registers := 2     
+	               16 Bit    Registers := 2     
+	               10 Bit    Registers := 2     
 	                9 Bit    Registers := 1     
-	                8 Bit    Registers := 1     
+	                8 Bit    Registers := 788   
 	                3 Bit    Registers := 1     
 	                2 Bit    Registers := 1     
 	                1 Bit    Registers := 2     
 +---RAMs : 
-	               5K Bit         RAMs := 1     
+	              10K Bit         RAMs := 1     
 +---Muxes : 
-	   2 Input    784 Bit        Muxes := 2     
 	   2 Input      9 Bit        Muxes := 3     
-	   2 Input      8 Bit        Muxes := 2     
-	   4 Input      1 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 9     
+	   2 Input      8 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 795   
 	   3 Input      1 Bit        Muxes := 1     
 Module clocks 
 Detailed RTL Component Info : 
@@ -307,6 +409,13 @@ Detailed RTL Component Info :
 	   3 Input      4 Bit        Muxes := 1     
 	   3 Input      2 Bit        Muxes := 1     
 	   2 Input      2 Bit        Muxes := 1     
+Module cw305_usb_reg_fe 
+Detailed RTL Component Info : 
++---Registers : 
+	               21 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -322,33 +431,29 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-4471] merging register 'row_reg[4:0]' into 'row_reg[4:0]' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:36]
-INFO: [Synth 8-4471] merging register 'col_reg[4:0]' into 'col_reg[4:0]' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:36]
-INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
-WARNING: [Synth 8-3917] design cw305_leakage_top has port led2 driven by constant 0
-WARNING: [Synth 8-3331] design cw305_reg_leakage_demo has unconnected port reg_read
-WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port k15_sel
-WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port l14_sel
-INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[5]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
-INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[6]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
-WARNING: [Synth 8-3332] Sequential element (U_usb_reg_fe/reg_read_reg) is unused and will be removed from module cw305_leakage_top.
-INFO: [Synth 8-3886] merging instance 'U_regi_0/U_reg/read_data_reg[6]' (FD) to 'U_regi_0/U_reg/read_data_reg[7]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg/O_user_led_reg )
-WARNING: [Synth 8-3332] Sequential element (U_reg/O_user_led_reg) is unused and will be removed from module cw305_leakage_top.
+INFO: [Synth 8-4471] merging register 'row_reg[4:0]' into 'row_reg[4:0]' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core_grey_noamp.sv:63]
+WARNING: [Synth 8-3917] design cw305_leakage_grey_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design cw305_leakage_grey_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_leakage_grey_top has unconnected port l14_sel
+INFO: [Synth 8-3886] merging instance 'U_regi_0/U_core/col_reg[1]__0' (FDRE) to 'U_regi_0/U_core/col_reg[1]'
+INFO: [Synth 8-3886] merging instance 'U_regi_0/U_core/col_reg[2]' (FDRE) to 'U_regi_0/U_core/col_reg[2]__0'
+INFO: [Synth 8-3886] merging instance 'U_regi_0/U_core/col_reg[3]' (FDRE) to 'U_regi_0/U_core/col_reg[3]__0'
+INFO: [Synth 8-3886] merging instance 'U_regi_0/U_core/col_reg[4]' (FDRE) to 'U_regi_0/U_core/col_reg[4]__0'
+INFO: [Synth 8-3886] merging instance 'U_regi_0/U_core/col_reg[0]' (FDRE) to 'U_regi_0/U_core/col_reg[0]__0'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (U_regi_0/O_user_led_reg)
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:29 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:36 ; elapsed = 00:04:01 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Preliminary Mapping  Report (see note below)
-+------------------+-------------------+-----------+----------------------+------------------------------+
-|Module Name       | RTL Object        | Inference | Size (Depth x Width) | Primitives                   | 
-+------------------+-------------------+-----------+----------------------+------------------------------+
-|cw305_leakage_top | U_reg/out_mem_reg | Implied   | 1 K x 8              | RAM64X1D x 22  RAM64M x 22   | 
-+------------------+-------------------+-----------+----------------------+------------------------------+
++-----------------------+-------------+-----------+----------------------+------------------------------+
+|Module Name            | RTL Object  | Inference | Size (Depth x Width) | Primitives                   | 
++-----------------------+-------------+-----------+----------------------+------------------------------+
+|cw305_leakage_grey_top | out_mem_reg | Implied   | 1 K x 16             | RAM64X1D x 11  RAM64M x 55   | 
++-----------------------+-------------+-----------+----------------------+------------------------------+
 
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
@@ -356,36 +461,45 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+-+--------------+------------+----------+
-| |RTL Partition |Replication |Instances |
-+-+--------------+------------+----------+
-+-+--------------+------------+----------+
++------+----------------------------+------------+----------+
+|      |RTL Partition               |Replication |Instances |
++------+----------------------------+------------+----------+
+|1     |cw305_reg_leakage_grey__GB0 |           1|     19597|
+|2     |cw305_reg_leakage_grey__GB1 |           1|      9392|
+|3     |cw305_reg_leakage_grey__GB2 |           1|      9425|
+|4     |cw305_reg_leakage_grey__GB3 |           1|     14560|
+|5     |clocks__GC0                 |           1|         3|
+|6     |cw305_leakage_grey_top__GC0 |           1|        49|
++------+----------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
-CRITICAL WARNING: [Synth 8-3321] create_clock attempting to set clock on an unknown port/pin for constraint at line 2 of C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:2]
-WARNING: [Synth 8-3321] Empty to list for constraint at line 9 of C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:9]
+INFO: [Synth 8-5578] Moved timing constraint from pin 'crypto_clk' to pin 'CCLK_MUX/O'
+INFO: [Synth 8-5819] Moved 1 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:32 ; elapsed = 00:00:37 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:46 ; elapsed = 00:04:12 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 636.270 ; gain = 425.563
+Finished Timing Optimization : Time (s): cpu = 00:03:56 ; elapsed = 00:05:23 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+-+--------------+------------+----------+
-| |RTL Partition |Replication |Instances |
-+-+--------------+------------+----------+
-+-+--------------+------------+----------+
++------+----------------------------+------------+----------+
+|      |RTL Partition               |Replication |Instances |
++------+----------------------------+------------+----------+
+|1     |cw305_reg_leakage_grey__GB3 |           1|     14560|
+|2     |clocks__GC0                 |           1|         3|
+|3     |cw305_leakage_grey_top__GC0 |           1|        49|
+|4     |cw305_leakage_grey_top_GT0  |           1|     38376|
++------+----------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[4]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:34 ; elapsed = 00:00:39 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Technology Mapping : Time (s): cpu = 00:04:06 ; elapsed = 00:05:33 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -409,7 +523,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:35 ; elapsed = 00:00:39 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished IO Insertion : Time (s): cpu = 00:04:09 ; elapsed = 00:05:36 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -422,7 +536,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:35 ; elapsed = 00:00:39 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Renaming Generated Instances : Time (s): cpu = 00:04:09 ; elapsed = 00:05:36 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -434,25 +548,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:04:11 ; elapsed = 00:05:38 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Renaming Generated Ports : Time (s): cpu = 00:04:11 ; elapsed = 00:05:38 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Handling Custom Attributes : Time (s): cpu = 00:04:18 ; elapsed = 00:05:45 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Renaming Generated Nets : Time (s): cpu = 00:04:18 ; elapsed = 00:05:45 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -470,76 +584,76 @@ Report Cell Usage:
 +------+-------------+------+
 |1     |BUFG         |     1|
 |2     |BUFGMUX_CTRL |     1|
-|3     |CARRY4       |     3|
-|4     |LUT1         |    17|
-|5     |LUT2         |    31|
-|6     |LUT3         |   667|
-|7     |LUT4         |   835|
-|8     |LUT5         |    87|
-|9     |LUT6         |  1563|
-|10    |MUXF7        |   235|
-|11    |MUXF8        |   113|
+|3     |CARRY4       |    26|
+|4     |LUT1         |    48|
+|5     |LUT2         |   118|
+|6     |LUT3         |  5296|
+|7     |LUT4         |   127|
+|8     |LUT5         |   211|
+|9     |LUT6         | 10634|
+|10    |MUXF7        |  3526|
+|11    |MUXF8        |  1021|
 |12    |ODDR         |     1|
-|13    |RAM64M       |    22|
+|13    |RAM64M       |    55|
 |14    |RAM64X1D     |    11|
 |15    |FDCE         |     4|
-|16    |FDRE         |  1466|
-|17    |IBUF         |    30|
+|16    |FDRE         |  6634|
+|17    |IBUF         |    28|
 |18    |IBUFG        |     1|
 |19    |IOBUF        |     8|
 |20    |OBUF         |     5|
 +------+-------------+------+
 
 Report Instance Areas: 
-+------+---------------+-----------------------+------+
-|      |Instance       |Module                 |Cells |
-+------+---------------+-----------------------+------+
-|1     |top            |                       |  5101|
-|2     |  U_clocks     |clocks                 |     4|
-|3     |  U_reg        |cw305_reg_leakage_demo |  4124|
-|4     |    U_core     |mnist_leakage_core     |  2891|
-|5     |    U_go       |cdc_pulse              |     7|
-|6     |  U_usb_reg_fe |cw305_usb_reg_fe       |   930|
-+------+---------------+-----------------------+------+
++------+---------------+------------------------+------+
+|      |Instance       |Module                  |Cells |
++------+---------------+------------------------+------+
+|1     |top            |                        | 27756|
+|2     |  U_clocks     |clocks                  |     4|
+|3     |  U_reg        |cw305_reg_leakage_grey  | 26478|
+|4     |    U_core     |mnist_leakage_core_grey | 16872|
+|5     |    U_go       |cdc_pulse               |     7|
+|6     |  U_usb_reg_fe |cw305_usb_reg_fe        |  1227|
++------+---------------+------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Finished Writing Synthesis Report : Time (s): cpu = 00:04:18 ; elapsed = 00:05:45 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 1 critical warnings and 7 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 673.430 ; gain = 146.852
-Synthesis Optimization Complete : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 673.430 ; gain = 462.723
+Synthesis finished with 0 errors, 0 critical warnings and 3 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:03:55 ; elapsed = 00:05:25 . Memory (MB): peak = 1243.559 ; gain = 735.223
+Synthesis Optimization Complete : Time (s): cpu = 00:04:18 ; elapsed = 00:05:46 . Memory (MB): peak = 1243.559 ; gain = 1033.023
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 77 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 131 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 43 instances were transformed.
+  A total of 76 instances were transformed.
   BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
   IBUFG => IBUF: 1 instances
   IOBUF => IOBUF (IBUF, OBUFT): 8 instances
-  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 22 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 55 instances
   RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 11 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-61 Infos, 12 Warnings, 1 Critical Warnings and 0 Errors encountered.
+166 Infos, 9 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 673.430 ; gain = 462.723
-INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/synth_1/cw305_leakage_top.dcp' has been generated.
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.033 . Memory (MB): peak = 673.430 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Wed Aug 26 23:01:45 2026...
-[Wed Aug 26 23:01:46 2026] synth_1 finished
-wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:00:45 . Memory (MB): peak = 220.699 ; gain = 5.430
+synth_design: Time (s): cpu = 00:04:21 ; elapsed = 00:05:47 . Memory (MB): peak = 1243.559 ; gain = 1033.023
+INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/synth_1/cw305_leakage_grey_top.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.149 . Memory (MB): peak = 1243.559 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 09 06:57:41 2026...
+[Wed Sep 09 06:57:46 2026] synth_1 finished
+wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:06:03 . Memory (MB): peak = 221.129 ; gain = 5.441
 # if {[get_property PROGRESS [get_runs synth_1]] != "100%"} {
 #     error "Synthesis failed"
 # }
 # launch_runs impl_1 -to_step write_bitstream -jobs 4
-[Wed Aug 26 23:01:46 2026] Launched impl_1...
-Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/runme.log
+[Wed Sep 09 06:57:46 2026] Launched impl_1...
+Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/runme.log
 # wait_on_run impl_1
-[Wed Aug 26 23:01:46 2026] Waiting for impl_1 to finish...
+[Wed Sep 09 06:57:46 2026] Waiting for impl_1 to finish...
 
 *** Running vivado
-    with args -log cw305_leakage_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source cw305_leakage_top.tcl -notrace
+    with args -log cw305_leakage_grey_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source cw305_leakage_grey_top.tcl -notrace
 
 
 ****** Vivado v2016.4 (64-bit)
@@ -547,28 +661,28 @@ Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/bu
   **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
     ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 
-source cw305_leakage_top.tcl -notrace
+source cw305_leakage_grey_top.tcl -notrace
 Design is defaulting to srcset: sources_1
 Design is defaulting to constrset: constrs_1
-INFO: [Netlist 29-17] Analyzing 75 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 129 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2016.4
 INFO: [Device 21-403] Loading part xc7a100tftg256-2
 INFO: [Project 1-570] Preparing netlist for logic optimization
 Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
 Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
-Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
-INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:4]
-get_clocks: Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 995.570 ; gain = 514.145
-Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc]
+INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc:13]
+get_clocks: Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1033.727 ; gain = 520.379
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc]
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 41 instances were transformed.
+  A total of 74 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 8 instances
-  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 22 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 55 instances
   RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 11 instances
 
-link_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 995.570 ; gain = 785.914
+link_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1033.727 ; gain = 823.949
 INFO: [Vivado_Tcl 4-424] Cannot write hardware definition file as there are no IPI block design hardware handoff files present
 Command: opt_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
@@ -580,63 +694,64 @@ INFO: [DRC 23-27] Running DRC with 2 threads
 INFO: [Project 1-461] DRC finished with 0 Errors
 INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.425 . Memory (MB): peak = 995.570 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.953 . Memory (MB): peak = 1033.727 ; gain = 0.000
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 
 Starting Logic Optimization Task
-Implement Debug Cores | Checksum: 1a06d9fee
+Implement Debug Cores | Checksum: 2474a1ce7
 
 Phase 1 Retarget
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Opt 31-49] Retargeted 0 cell(s).
-Phase 1 Retarget | Checksum: 11ea54968
+Phase 1 Retarget | Checksum: 1324b31a5
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.128 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.874 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Phase 2 Constant propagation
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Opt 31-10] Eliminated 0 cells.
-Phase 2 Constant propagation | Checksum: 11ea54968
+Phase 2 Constant propagation | Checksum: 1324b31a5
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.243 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Phase 3 Sweep
-INFO: [Opt 31-12] Eliminated 6 unconnected nets.
-INFO: [Opt 31-11] Eliminated 0 unconnected cells.
-Phase 3 Sweep | Checksum: 72cbe6ec
+INFO: [Opt 31-12] Eliminated 67 unconnected nets.
+INFO: [Opt 31-11] Eliminated 16 unconnected cells.
+Phase 3 Sweep | Checksum: 1de0f69e3
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.306 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Phase 4 BUFG optimization
 INFO: [Opt 31-12] Eliminated 0 unconnected nets.
 INFO: [Opt 31-11] Eliminated 0 unconnected cells.
-Phase 4 BUFG optimization | Checksum: 72cbe6ec
+Phase 4 BUFG optimization | Checksum: 1de0f69e3
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.488 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Starting Connectivity Check Task
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 999.480 ; gain = 0.000
-Ending Logic Optimization Task | Checksum: 72cbe6ec
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.057 . Memory (MB): peak = 1033.727 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 1de0f69e3
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.524 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Starting Power Optimization Task
 INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
-Ending Power Optimization Task | Checksum: 72cbe6ec
+Ending Power Optimization Task | Checksum: 1de0f69e3
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 999.480 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.040 . Memory (MB): peak = 1033.727 ; gain = 0.000
 INFO: [Common 17-83] Releasing license: Implementation
 24 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 1033.727 ; gain = 0.000
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.056 . Memory (MB): peak = 999.480 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_opt.dcp' has been generated.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 1033.727 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_opt.dcp' has been generated.
 INFO: [DRC 23-27] Running DRC with 2 threads
-INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_drc_opted.rpt.
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_drc_opted.rpt.
 INFO: [Chipscope 16-241] No debug cores found in the current design.
 Before running the implement_debug_core command, either use the Set Up Debug wizard (GUI mode)
 or use the create_debug_core and connect_debug_core Tcl commands to insert debug cores into the design.
@@ -655,77 +770,77 @@ Starting Placer Task
 INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
 
 Phase 1 Placer Initialization
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 999.480 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 999.480 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1033.727 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1033.727 ; gain = 0.000
 
 Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device | Checksum: ceb99a7a
+Phase 1.1 IO Placement/ Clock Placement/ Build Placer Device | Checksum: eac78d2b
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 1057.570 ; gain = 23.844
 
 Phase 1.2 Build Placer Netlist Model
-Phase 1.2 Build Placer Netlist Model | Checksum: f75857f4
+Phase 1.2 Build Placer Netlist Model | Checksum: 14a5238b0
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 1.3 Constrain Clocks/Macros
-Phase 1.3 Constrain Clocks/Macros | Checksum: f75857f4
+Phase 1.3 Constrain Clocks/Macros | Checksum: 14a5238b0
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1023.496 ; gain = 24.016
-Phase 1 Placer Initialization | Checksum: f75857f4
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1106.727 ; gain = 73.000
+Phase 1 Placer Initialization | Checksum: 14a5238b0
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 2 Global Placement
-Phase 2 Global Placement | Checksum: f9625ff2
+Phase 2 Global Placement | Checksum: 1e9505e97
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:29 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3 Detail Placement
 
 Phase 3.1 Commit Multi Column Macros
-Phase 3.1 Commit Multi Column Macros | Checksum: f9625ff2
+Phase 3.1 Commit Multi Column Macros | Checksum: 1e9505e97
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:40 ; elapsed = 00:00:29 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.2 Commit Most Macros & LUTRAMs
-Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 2045cc0d0
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1bdb41877
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:38 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.3 Area Swap Optimization
-Phase 3.3 Area Swap Optimization | Checksum: 14cabdea5
+Phase 3.3 Area Swap Optimization | Checksum: 1b8dbffa8
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:38 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.4 Pipeline Register Optimization
-Phase 3.4 Pipeline Register Optimization | Checksum: 14cabdea5
+Phase 3.4 Pipeline Register Optimization | Checksum: 1b8dbffa8
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:52 ; elapsed = 00:00:38 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.5 Timing Path Optimizer
-Phase 3.5 Timing Path Optimizer | Checksum: 1714fef13
+Phase 3.5 Timing Path Optimizer | Checksum: 21c33eb51
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:40 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.6 Small Shape Detail Placement
-Phase 3.6 Small Shape Detail Placement | Checksum: 17ca68174
+Phase 3.6 Small Shape Detail Placement | Checksum: bd349470
 
-Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:01:09 ; elapsed = 00:00:55 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.7 Re-assign LUT pins
-Phase 3.7 Re-assign LUT pins | Checksum: 183220349
+Phase 3.7 Re-assign LUT pins | Checksum: a4cf3194
 
-Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:01:10 ; elapsed = 00:00:56 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 3.8 Pipeline Register Optimization
-Phase 3.8 Pipeline Register Optimization | Checksum: 183220349
+Phase 3.8 Pipeline Register Optimization | Checksum: a4cf3194
 
-Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 1023.496 ; gain = 24.016
-Phase 3 Detail Placement | Checksum: 183220349
+Time (s): cpu = 00:01:11 ; elapsed = 00:00:57 . Memory (MB): peak = 1106.727 ; gain = 73.000
+Phase 3 Detail Placement | Checksum: a4cf3194
 
-Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 1023.496 ; gain = 24.016
+Time (s): cpu = 00:01:11 ; elapsed = 00:00:57 . Memory (MB): peak = 1106.727 ; gain = 73.000
 
 Phase 4 Post Placement Optimization and Clean-Up
 
@@ -733,47 +848,47 @@ Phase 4.1 Post Commit Optimization
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 
 Phase 4.1.1 Post Placement Optimization
-INFO: [Place 30-746] Post Placement Timing Summary WNS=3.931. For the most accurate timing information please run report_timing.
-Phase 4.1.1 Post Placement Optimization | Checksum: 1032b3938
+INFO: [Place 30-746] Post Placement Timing Summary WNS=1.443. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: daf95637
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
-Phase 4.1 Post Commit Optimization | Checksum: 1032b3938
+Time (s): cpu = 00:01:21 ; elapsed = 00:01:03 . Memory (MB): peak = 1148.781 ; gain = 115.055
+Phase 4.1 Post Commit Optimization | Checksum: daf95637
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
+Time (s): cpu = 00:01:21 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.781 ; gain = 115.055
 
 Phase 4.2 Post Placement Cleanup
-Phase 4.2 Post Placement Cleanup | Checksum: 1032b3938
+Phase 4.2 Post Placement Cleanup | Checksum: daf95637
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
+Time (s): cpu = 00:01:22 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.883 ; gain = 115.156
 
 Phase 4.3 Placer Reporting
-Phase 4.3 Placer Reporting | Checksum: 1032b3938
+Phase 4.3 Placer Reporting | Checksum: daf95637
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
+Time (s): cpu = 00:01:22 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.883 ; gain = 115.156
 
 Phase 4.4 Final Placement Cleanup
-Phase 4.4 Final Placement Cleanup | Checksum: 9c8f1c02
+Phase 4.4 Final Placement Cleanup | Checksum: 166a26281
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
-Phase 4 Post Placement Optimization and Clean-Up | Checksum: 9c8f1c02
+Time (s): cpu = 00:01:22 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.883 ; gain = 115.156
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 166a26281
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
-Ending Placer Task | Checksum: 897e9a2a
+Time (s): cpu = 00:01:22 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.883 ; gain = 115.156
+Ending Placer Task | Checksum: e798fbbc
 
-Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1025.844 ; gain = 26.363
+Time (s): cpu = 00:01:22 ; elapsed = 00:01:04 . Memory (MB): peak = 1148.883 ; gain = 115.156
 INFO: [Common 17-83] Releasing license: Implementation
 40 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 place_design completed successfully
-place_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:09 . Memory (MB): peak = 1025.844 ; gain = 26.363
+place_design: Time (s): cpu = 00:01:26 ; elapsed = 00:01:07 . Memory (MB): peak = 1148.883 ; gain = 115.156
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.404 . Memory (MB): peak = 1025.844 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_placed.dcp' has been generated.
-report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 1025.844 ; gain = 0.000
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.040 . Memory (MB): peak = 1025.844 ; gain = 0.000
-report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1025.844 ; gain = 0.000
+Write XDEF Complete: Time (s): cpu = 00:00:07 ; elapsed = 00:00:03 . Memory (MB): peak = 1148.883 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_placed.dcp' has been generated.
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.051 . Memory (MB): peak = 1148.883 ; gain = 0.000
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.168 . Memory (MB): peak = 1148.883 ; gain = 0.000
+report_control_sets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.074 . Memory (MB): peak = 1148.883 ; gain = 0.000
 Command: route_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
@@ -785,103 +900,106 @@ INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more in
 
 Starting Routing Task
 INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
-Checksum: PlaceDB: 28b179f0 ConstDB: 0 ShapeSum: 60cd203a RouteDB: 0
+Checksum: PlaceDB: 22633ea6 ConstDB: 0 ShapeSum: c535bd16 RouteDB: 0
 
 Phase 1 Build RT Design
-Phase 1 Build RT Design | Checksum: 9a2b42b0
+Phase 1 Build RT Design | Checksum: cae6f973
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:22 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:30 . Memory (MB): peak = 1253.563 ; gain = 104.680
 
 Phase 2 Router Initialization
 
 Phase 2.1 Create Timer
-Phase 2.1 Create Timer | Checksum: 9a2b42b0
+Phase 2.1 Create Timer | Checksum: cae6f973
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:23 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:30 . Memory (MB): peak = 1253.563 ; gain = 104.680
 
 Phase 2.2 Fix Topology Constraints
-Phase 2.2 Fix Topology Constraints | Checksum: 9a2b42b0
+Phase 2.2 Fix Topology Constraints | Checksum: cae6f973
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:23 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:00:38 ; elapsed = 00:00:30 . Memory (MB): peak = 1253.563 ; gain = 104.680
 
 Phase 2.3 Pre Route Cleanup
-Phase 2.3 Pre Route Cleanup | Checksum: 9a2b42b0
+Phase 2.3 Pre Route Cleanup | Checksum: cae6f973
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:23 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:00:38 ; elapsed = 00:00:30 . Memory (MB): peak = 1253.563 ; gain = 104.680
  Number of Nodes with overlaps = 0
 
 Phase 2.4 Update Timing
-Phase 2.4 Update Timing | Checksum: 11fa3abdf
+Phase 2.4 Update Timing | Checksum: 1e3284da8
 
-Time (s): cpu = 00:00:28 ; elapsed = 00:00:24 . Memory (MB): peak = 1185.621 ; gain = 159.777
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.971  | TNS=0.000  | WHS=-0.890 | THS=-436.402|
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:38 . Memory (MB): peak = 1283.035 ; gain = 134.152
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=1.616  | TNS=0.000  | WHS=-0.542 | THS=-210.731|
 
-Phase 2 Router Initialization | Checksum: 1e7988a73
+Phase 2 Router Initialization | Checksum: 24dca644f
 
-Time (s): cpu = 00:00:28 ; elapsed = 00:00:24 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:41 . Memory (MB): peak = 1289.449 ; gain = 140.566
 
 Phase 3 Initial Routing
-Phase 3 Initial Routing | Checksum: 7bd706a5
+Phase 3 Initial Routing | Checksum: 1ece3ad0c
 
-Time (s): cpu = 00:00:29 ; elapsed = 00:00:24 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:01:06 ; elapsed = 00:00:47 . Memory (MB): peak = 1316.941 ; gain = 168.059
 
 Phase 4 Rip-up And Reroute
 
 Phase 4.1 Global Iteration 0
- Number of Nodes with overlaps = 493
- Number of Nodes with overlaps = 6
+ Number of Nodes with overlaps = 6208
+ Number of Nodes with overlaps = 469
+ Number of Nodes with overlaps = 40
+ Number of Nodes with overlaps = 9
+ Number of Nodes with overlaps = 2
  Number of Nodes with overlaps = 0
 
 Phase 4.1.1 Update Timing
-Phase 4.1.1 Update Timing | Checksum: 1b26eba75
+Phase 4.1.1 Update Timing | Checksum: 14e1241b1
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.259  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+Time (s): cpu = 00:01:49 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=1.192  | TNS=0.000  | WHS=N/A    | THS=N/A    |
 
-Phase 4.1 Global Iteration 0 | Checksum: 1c1d901f3
+Phase 4.1 Global Iteration 0 | Checksum: 135c48fc3
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
-Phase 4 Rip-up And Reroute | Checksum: 1c1d901f3
+Time (s): cpu = 00:01:49 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
+Phase 4 Rip-up And Reroute | Checksum: 135c48fc3
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:01:49 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
 
 Phase 5 Delay and Skew Optimization
 
 Phase 5.1 Delay CleanUp
-Phase 5.1 Delay CleanUp | Checksum: 1c1d901f3
+Phase 5.1 Delay CleanUp | Checksum: 135c48fc3
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:01:50 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
 
 Phase 5.2 Clock Skew Optimization
-Phase 5.2 Clock Skew Optimization | Checksum: 1c1d901f3
+Phase 5.2 Clock Skew Optimization | Checksum: 135c48fc3
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
-Phase 5 Delay and Skew Optimization | Checksum: 1c1d901f3
+Time (s): cpu = 00:01:50 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
+Phase 5 Delay and Skew Optimization | Checksum: 135c48fc3
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
+Time (s): cpu = 00:01:50 ; elapsed = 00:01:13 . Memory (MB): peak = 1316.941 ; gain = 168.059
 
 Phase 6 Post Hold Fix
 
 Phase 6.1 Hold Fix Iter
 
 Phase 6.1.1 Update Timing
-Phase 6.1.1 Update Timing | Checksum: 146d9ba3e
+Phase 6.1.1 Update Timing | Checksum: 162f3a317
 
-Time (s): cpu = 00:00:32 ; elapsed = 00:00:26 . Memory (MB): peak = 1185.621 ; gain = 159.777
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=3.324  | TNS=0.000  | WHS=-0.921 | THS=-22.961|
+Time (s): cpu = 00:01:52 ; elapsed = 00:01:15 . Memory (MB): peak = 1316.941 ; gain = 168.059
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=1.192  | TNS=0.000  | WHS=-0.994 | THS=-2.254 |
 
-Phase 6.1 Hold Fix Iter | Checksum: 1666f60a7
+Phase 6.1 Hold Fix Iter | Checksum: 1ce241112
 
-Time (s): cpu = 00:00:35 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
-Phase 6 Post Hold Fix | Checksum: 9f8c8630
+Time (s): cpu = 00:01:54 ; elapsed = 00:01:16 . Memory (MB): peak = 1382.750 ; gain = 233.867
+Phase 6 Post Hold Fix | Checksum: 1e764f464
 
-Time (s): cpu = 00:00:35 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:01:54 ; elapsed = 00:01:16 . Memory (MB): peak = 1382.750 ; gain = 233.867
 
 Phase 7 Route finalize
 
 Router Utilization Summary
-  Global Vertical Routing Utilization    = 0.795491 %
-  Global Horizontal Routing Utilization  = 0.85493 %
+  Global Vertical Routing Utilization    = 8.85699 %
+  Global Horizontal Routing Utilization  = 9.97101 %
   Routable Net Status*
   *Does not include unroutable nets such as driverless and loadless.
   Run report_route_status for detailed report.
@@ -890,67 +1008,69 @@ Router Utilization Summary
   Number of Partially Routed Nets     = 0
   Number of Node Overlaps             = 0
 
-Phase 7 Route finalize | Checksum: 101855985
+Phase 7 Route finalize | Checksum: 136d12a3a
 
-Time (s): cpu = 00:00:35 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:01:54 ; elapsed = 00:01:17 . Memory (MB): peak = 1382.750 ; gain = 233.867
 
 Phase 8 Verifying routed nets
 
  Verification completed successfully
-Phase 8 Verifying routed nets | Checksum: 101855985
+Phase 8 Verifying routed nets | Checksum: 136d12a3a
 
-Time (s): cpu = 00:00:35 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:01:54 ; elapsed = 00:01:17 . Memory (MB): peak = 1382.750 ; gain = 233.867
 
 Phase 9 Depositing Routes
-Phase 9 Depositing Routes | Checksum: 10f39618f
+Phase 9 Depositing Routes | Checksum: 16e084ac1
 
-Time (s): cpu = 00:00:35 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:01:56 ; elapsed = 00:01:19 . Memory (MB): peak = 1382.750 ; gain = 233.867
 
 Phase 10 Post Router Timing
 
 Phase 10.1 Update Timing
-Phase 10.1 Update Timing | Checksum: 181984fac
+Phase 10.1 Update Timing | Checksum: 1309145ee
 
-Time (s): cpu = 00:00:36 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
-INFO: [Route 35-57] Estimated Timing Summary | WNS=3.324  | TNS=0.000  | WHS=0.067  | THS=0.000  |
+Time (s): cpu = 00:01:59 ; elapsed = 00:01:21 . Memory (MB): peak = 1382.750 ; gain = 233.867
+INFO: [Route 35-57] Estimated Timing Summary | WNS=1.192  | TNS=0.000  | WHS=0.069  | THS=0.000  |
 
 INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
-Phase 10 Post Router Timing | Checksum: 181984fac
+Phase 10 Post Router Timing | Checksum: 1309145ee
 
-Time (s): cpu = 00:00:36 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:02:00 ; elapsed = 00:01:21 . Memory (MB): peak = 1382.750 ; gain = 233.867
 INFO: [Route 35-16] Router Completed Successfully
 
-Time (s): cpu = 00:00:36 ; elapsed = 00:00:28 . Memory (MB): peak = 1267.781 ; gain = 241.938
+Time (s): cpu = 00:02:00 ; elapsed = 00:01:21 . Memory (MB): peak = 1382.750 ; gain = 233.867
 
 Routing Is Done.
 INFO: [Common 17-83] Releasing license: Implementation
 53 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 route_design completed successfully
-route_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:29 . Memory (MB): peak = 1267.781 ; gain = 241.938
+route_design: Time (s): cpu = 00:02:03 ; elapsed = 00:01:23 . Memory (MB): peak = 1382.750 ; gain = 233.867
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.530 . Memory (MB): peak = 1267.781 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_routed.dcp' has been generated.
+Write XDEF Complete: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 1382.750 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_routed.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 1382.750 ; gain = 0.000
 INFO: [DRC 23-27] Running DRC with 2 threads
-INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_drc_routed.rpt.
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_drc_routed.rpt.
+report_drc: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 1382.750 ; gain = 0.000
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 INFO: [DRC 23-133] Running Methodology with 2 threads
-INFO: [Coretcl 2-1520] The results of Report Methodology are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/cw305_leakage_top_methodology_drc_routed.rpt.
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_greynoamp_d2/cw305_leakage_greynoamp_d2.runs/impl_1/cw305_leakage_grey_top_methodology_drc_routed.rpt.
+report_methodology: Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 1382.750 ; gain = 0.000
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Command: report_power -file cw305_leakage_top_power_routed.rpt -pb cw305_leakage_top_power_summary_routed.pb -rpx cw305_leakage_top_power_routed.rpx
+Command: report_power -file cw305_leakage_grey_top_power_routed.rpt -pb cw305_leakage_grey_top_power_summary_routed.pb -rpx cw305_leakage_grey_top_power_routed.rpx
 Running Vector-less Activity Propagation...
 
 Finished Running Vector-less Activity Propagation
-WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
-Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
-63 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+63 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 report_power completed successfully
-Command: write_bitstream -force -no_partial_bitfile cw305_leakage_top.bit
+report_power: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 1406.023 ; gain = 23.273
+Command: write_bitstream -force -no_partial_bitfile cw305_leakage_grey_top.bit
 Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
 Running DRC as a precondition to command write_bitstream
@@ -961,59 +1081,60 @@ Loading data files...
 Loading site data...
 Loading route data...
 Processing options...
-Overwriting "TIMESTAMP" with "D43570C5" for option USR_ACCESS
+Overwriting "TIMESTAMP" with "4CB47079" for option USR_ACCESS
 Creating bitmap...
 Creating bitstream...
-Bitstream compression saved 23738976 bits.
-Writing bitstream ./cw305_leakage_top.bit...
+Bitstream compression saved 17957152 bits.
+Writing bitstream ./cw305_leakage_grey_top.bit...
 INFO: [Vivado 12-1842] Bitgen Completed Successfully.
 INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
 INFO: [Common 17-83] Releasing license: Implementation
-70 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+70 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 write_bitstream completed successfully
-write_bitstream: Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1580.758 ; gain = 312.977
-INFO: [Vivado_Tcl 4-395] Unable to parse hwdef file cw305_leakage_top.hwdef
-INFO: [Common 17-206] Exiting Vivado at Wed Aug 26 23:03:14 2026...
-[Wed Aug 26 23:03:16 2026] impl_1 finished
-wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:01:30 . Memory (MB): peak = 220.723 ; gain = 0.016
+write_bitstream: Time (s): cpu = 00:00:28 ; elapsed = 00:00:28 . Memory (MB): peak = 1809.328 ; gain = 403.305
+INFO: [Vivado_Tcl 4-395] Unable to parse hwdef file cw305_leakage_grey_top.hwdef
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 09 07:02:14 2026...
+[Wed Sep 09 07:02:18 2026] impl_1 finished
+wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:04:32 . Memory (MB): peak = 221.129 ; gain = 0.000
 # if {[get_property PROGRESS [get_runs impl_1]] != "100%"} {
 #     error "Implementation failed"
 # }
 # open_run impl_1
-INFO: [Netlist 29-17] Analyzing 75 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 129 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2016.4
 INFO: [Device 21-403] Loading part xc7a100tftg256-2
 INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/.Xil/Vivado-2400-kaz4n/dcp/cw305_leakage_top.xdc]
-INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:4]
-get_clocks: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 997.227 ; gain = 514.070
-Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/.Xil/Vivado-2400-kaz4n/dcp/cw305_leakage_top.xdc]
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/.Xil/Vivado-39344-kaz4n/dcp/cw305_leakage_grey_top.xdc]
+INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_grey.xdc:13]
+get_clocks: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1033.801 ; gain = 519.500
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/build/.Xil/Vivado-39344-kaz4n/dcp/cw305_leakage_grey_top.xdc]
 Reading XDEF placement.
 Reading placer database...
 Reading XDEF routing.
-Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.310 . Memory (MB): peak = 1001.582 ; gain = 4.355
-Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.310 . Memory (MB): peak = 1001.582 ; gain = 4.355
+Read XDEF File: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1065.609 ; gain = 31.805
+Restored from archive | CPU: 2.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1065.609 ; gain = 31.805
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 41 instances were transformed.
+  A total of 74 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 8 instances
-  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 22 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 55 instances
   RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 11 instances
 
-open_run: Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1001.582 ; gain = 780.859
+open_run: Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1065.609 ; gain = 844.480
 # report_utilization -file ${BUILD_NAME}_utilization.rpt
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.329 . Memory (MB): peak = 1005.398 ; gain = 3.816
+report_utilization: Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1070.887 ; gain = 5.277
 # report_timing_summary -file ${BUILD_NAME}_timing.rpt
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+report_timing_summary: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 1095.848 ; gain = 24.961
 # report_clock_interaction -file ${BUILD_NAME}_clock_interaction.rpt
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
 WARNING: [Timing 38-164] This design has multiple clocks. Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
-# set bitfile ./vivado_${BUILD_NAME}/cw305_${BUILD_NAME}.runs/impl_1/cw305_leakage_top.bit
+# set bitfile ./vivado_${BUILD_NAME}/cw305_${BUILD_NAME}.runs/impl_1/cw305_leakage_grey_top.bit
 # file copy -force $bitfile ./cw305_${BUILD_NAME}.bit
 # puts "BITSTREAM: build/cw305_${BUILD_NAME}.bit"
-BITSTREAM: build/cw305_leakage_d8_l63.bit
+BITSTREAM: build/cw305_leakage_greynoamp_d2.bit
 # exit
-INFO: [Common 17-206] Exiting Vivado at Wed Aug 26 23:03:31 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 09 07:02:44 2026...

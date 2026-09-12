@@ -1,0 +1,23 @@
+{
+  "kind": "cw305_extra_no_program_challenge",
+  "created_local_date": "2026-08-30",
+  "purpose": "extra live hardware check after the hard avg=1 capture; verify the already-programmed FPGA is still the custom leakage design and not a host-only/software result",
+  "command": "host/cw305_leakage_func_check.py --bitstream build/cw305_leakage_d8_l63.bit --images host/mnist_test.npz --kernels training/artifacts/model_3x3/layer1_kernels.npy --probe-kernels file --img 1234 --kidx 4 --clock-source cw_lite --freq 5000000 --no-program",
+  "bitstream_programming": "already programmed; --no-program was used",
+  "design_signature_pages_2_3_4": [1, 0, 0],
+  "stock_aes_signature_pages_2_3_4": [2, 5, 46],
+  "verified_not_stock_aes": true,
+  "image_index": 1234,
+  "image_bits": 125,
+  "kernel_index": 4,
+  "kernel_bits": "011001011",
+  "fpga_freq_hz": 5000000,
+  "hardware_output_range": [-7, 7],
+  "golden_output_range": [-7, 7],
+  "functional_check": {
+    "passed": true,
+    "n_outputs": 676,
+    "mismatches": 0
+  },
+  "note": "The custom design does not expose a clean fixed build-ID at pages 2/3/4, so the exact non-AES values may change with datapath state. The acceptance rule is: not the AES signature, and 676 FPGA outputs match the CPU golden model."
+}

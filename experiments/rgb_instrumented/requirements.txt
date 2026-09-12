@@ -1,0 +1,5 @@
+# Versions used by the physical capture runtime; isolated environment advised.
+numpy==1.26.4
+scipy==1.15.2
+Pillow==11.1.0
+chipwhisperer==6.0.0

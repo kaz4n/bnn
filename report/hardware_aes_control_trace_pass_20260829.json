@@ -1,0 +1,13 @@
+{
+  "capture_mode": "live_cw305_chipwhisperer_stock_aes_control",
+  "source_script": "host/cw305_p0_selftest.py",
+  "samples": 5000,
+  "trace_min": -0.0654296875,
+  "trace_max": 0.0244140625,
+  "trace_mean": -0.0014957031235098839,
+  "trace_std": 0.007702683098614216,
+  "adc_locked": true,
+  "ciphertext_hex_from_run": "5aea53c65894c3f145f06e41b50b940a",
+  "valid_trigger": true,
+  "utc": "2026-08-29T19:57:23Z"
+}

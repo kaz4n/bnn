@@ -1,0 +1,558 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+# IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+# Start of session at: Sat Aug 29 23:26:41 2026
+# Process ID: 30656
+# Current directory: C:/Users/narut/OneDrive/Desktop/Project/bnn/build
+# Command line: vivado.exe -mode batch -source run_vivado_leakage.tcl -log vivado_status_debug.log -journal vivado_status_debug.jou
+# Log file: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_status_debug.log
+# Journal file: C:/Users/narut/OneDrive/Desktop/Project/bnn/build\vivado_status_debug.jou
+#-----------------------------------------------------------
+source run_vivado_leakage.tcl
+# set DWELL 8
+# if {[info exists ::env(DWELL)]} { set DWELL $::env(DWELL) }
+# set LEAK_LANES 63
+# if {[info exists ::env(LEAK_LANES)]} { set LEAK_LANES $::env(LEAK_LANES) }
+# set BUILD_NAME leakage_d${DWELL}_l${LEAK_LANES}
+# set part xc7a100tftg256-2
+# set CWHDL "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl"
+# set CWXDC "C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc"
+# if {[info exists ::env(CW305_SRC)]} { set CWHDL $::env(CW305_SRC) }
+# foreach f [list \
+#     "$CWHDL/cw305_usb_reg_fe.v" "$CWHDL/clocks.v" \
+#     ../cw305/cdc_pulse.v ../cw305/mnist_leakage_core.sv \
+#     ../cw305/cw305_reg_leakage_demo.sv ../cw305/cw305_leakage_top.sv \
+#     $CWXDC ../cw305/cw305_leakage.xdc] {
+#     if {![file exists $f]} { error "Required input missing: $f" }
+# }
+# create_project -force cw305_${BUILD_NAME} ./vivado_${BUILD_NAME} -part $part
+# add_files "$CWHDL/cw305_usb_reg_fe.v"
+# add_files "$CWHDL/clocks.v"
+# add_files ../cw305/cdc_pulse.v
+# add_files -fileset sources_1 ../cw305/mnist_leakage_core.sv
+# add_files -fileset sources_1 ../cw305/cw305_reg_leakage_demo.sv
+# add_files -fileset sources_1 ../cw305/cw305_leakage_top.sv
+# set_property file_type SystemVerilog [get_files *.sv]
+# set_property top cw305_leakage_top [current_fileset]
+# set_property generic "DWELL=$DWELL LEAK_LANES=$LEAK_LANES" [current_fileset]
+# add_files -fileset constrs_1 $CWXDC
+# add_files -fileset constrs_1 ../cw305/cw305_leakage.xdc
+# update_compile_order -fileset sources_1
+# launch_runs synth_1 -jobs 4
+[Sat Aug 29 23:26:46 2026] Launched synth_1...
+Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/synth_1/runme.log
+# wait_on_run synth_1
+[Sat Aug 29 23:26:46 2026] Waiting for synth_1 to finish...
+
+*** Running vivado
+    with args -log cw305_leakage_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source cw305_leakage_top.tcl
+
+
+****** Vivado v2016.4 (64-bit)
+  **** SW Build 1756540 on Mon Jan 23 19:11:23 MST 2017
+  **** IP Build 1755317 on Mon Jan 23 20:30:07 MST 2017
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source cw305_leakage_top.tcl -notrace
+Command: synth_design -top cw305_leakage_top -part xc7a100tftg256-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 16408 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 283.145 ; gain = 73.203
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'cw305_leakage_top' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_top.sv:4]
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter DWELL bound to: 8 - type: integer 
+	Parameter LEAK_LANES bound to: 63 - type: integer 
+	Parameter CLOCK_SETTINGS bound to: 5'b01101 
+INFO: [Synth 8-638] synthesizing module 'cw305_usb_reg_fe' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter pREG_RDDLY_LEN bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'cw305_usb_reg_fe' (1#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/cw305_usb_reg_fe.v:31]
+INFO: [Synth 8-638] synthesizing module 'cw305_reg_leakage_demo' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:4]
+	Parameter pADDR_WIDTH bound to: 21 - type: integer 
+	Parameter pBYTECNT_SIZE bound to: 7 - type: integer 
+	Parameter DWELL bound to: 8 - type: integer 
+	Parameter LEAK_LANES bound to: 63 - type: integer 
+	Parameter N_IMAGE bound to: 784 - type: integer 
+	Parameter N_OUTPUT bound to: 676 - type: integer 
+	Parameter OUT_BASE bound to: 21'b000000000100000000000 
+	Parameter KRN_BASE bound to: 21'b000000001000000000000 
+	Parameter GO_ADDR bound to: 33 - type: integer 
+	Parameter STAT_ADDR bound to: 34 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:51]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:52]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:53]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:54]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:113]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:159]
+INFO: [Synth 8-638] synthesizing module 'cdc_pulse' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
+INFO: [Synth 8-5534] Detected attribute (* ASYNC_REG = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:17]
+INFO: [Synth 8-256] done synthesizing module 'cdc_pulse' (2#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cdc_pulse.v:5]
+INFO: [Synth 8-638] synthesizing module 'mnist_leakage_core' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:11]
+	Parameter DWELL bound to: 8 - type: integer 
+	Parameter LEAK_LANES bound to: 63 - type: integer 
+	Parameter OUT_SIDE bound to: 26 - type: integer 
+	Parameter N_WINDOWS bound to: 676 - type: integer 
+	Parameter LEAK_BITS bound to: 567 - type: integer 
+	Parameter DWELL_W bound to: 3 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* DONT_TOUCH = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:56]
+INFO: [Synth 8-5534] Detected attribute (* KEEP = "TRUE" *) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:56]
+INFO: [Synth 8-256] done synthesizing module 'mnist_leakage_core' (3#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:11]
+INFO: [Synth 8-256] done synthesizing module 'cw305_reg_leakage_demo' (4#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_reg_leakage_demo.sv:4]
+INFO: [Synth 8-638] synthesizing module 'clocks' [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
+INFO: [Synth 8-638] synthesizing module 'BUFGMUX_CTRL' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
+INFO: [Synth 8-256] done synthesizing module 'BUFGMUX_CTRL' (5#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:722]
+INFO: [Synth 8-638] synthesizing module 'ODDR' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:25305]
+	Parameter DDR_CLK_EDGE bound to: OPPOSITE_EDGE - type: string 
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D1_INVERTED bound to: 1'b0 
+	Parameter IS_D2_INVERTED bound to: 1'b0 
+	Parameter SRTYPE bound to: SYNC - type: string 
+INFO: [Synth 8-256] done synthesizing module 'ODDR' (6#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:25305]
+INFO: [Synth 8-638] synthesizing module 'IBUFG' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:14570]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-256] done synthesizing module 'IBUFG' (7#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:14570]
+INFO: [Synth 8-638] synthesizing module 'BUFG' [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'BUFG' (8#1) [C:/Xilinx/Vivado/2016.4/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'clocks' (9#1) [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/hdl/clocks.v:32]
+INFO: [Synth 8-256] done synthesizing module 'cw305_leakage_top' (10#1) [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage_top.sv:4]
+WARNING: [Synth 8-3917] design cw305_leakage_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design cw305_reg_leakage_demo has unconnected port reg_read
+WARNING: [Synth 8-3331] design cw305_usb_reg_fe has unconnected port usb_alen
+WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port l14_sel
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 319.613 ; gain = 109.672
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 319.613 ; gain = 109.672
+---------------------------------------------------------------------------------
+INFO: [Netlist 29-17] Analyzing 3 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Device 21-403] Loading part xc7a100tftg256-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+Finished Parsing XDC File [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/narut/ChipWhisperer/chipwhisperer/firmware/fpgas/aes/vivado/cw305.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/cw305_leakage_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/cw305_leakage_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
+Finished Parsing XDC File [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
+  IBUFG => IBUF: 1 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 637.684 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tftg256-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "busy" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "out_addr" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "out_data" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "out_we" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "row" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:27 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     24 Bit       Adders := 1     
+	   2 Input     16 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 9     
+	   2 Input      8 Bit       Adders := 3     
+	   2 Input      5 Bit       Adders := 3     
+	   9 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 1     
++---XORs : 
+	   2 Input      9 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 1     
++---XORs : 
+	              567 Bit    Wide XORs := 1     
++---Registers : 
+	              784 Bit    Registers := 1     
+	              567 Bit    Registers := 1     
+	               24 Bit    Registers := 2     
+	               21 Bit    Registers := 1     
+	               16 Bit    Registers := 2     
+	               10 Bit    Registers := 3     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 6     
+	                5 Bit    Registers := 3     
+	                3 Bit    Registers := 4     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 10    
++---RAMs : 
+	               5K Bit         RAMs := 1     
++---Muxes : 
+	   2 Input    784 Bit        Muxes := 2     
+	   2 Input    567 Bit        Muxes := 1     
+	   2 Input      9 Bit        Muxes := 3     
+	   2 Input      8 Bit        Muxes := 5     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   3 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 23    
+	   3 Input      1 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 10    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module cw305_usb_reg_fe 
+Detailed RTL Component Info : 
++---Registers : 
+	               21 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
+Module cdc_pulse 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
+Module mnist_leakage_core 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     10 Bit       Adders := 9     
+	   2 Input      8 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 3     
+	   9 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 1     
++---XORs : 
+	   2 Input      9 Bit         XORs := 1     
++---XORs : 
+	              567 Bit    Wide XORs := 1     
++---Registers : 
+	              567 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 3     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input    567 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 13    
+	   3 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 9     
+Module cw305_reg_leakage_demo 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     24 Bit       Adders := 1     
+	   2 Input     16 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 2     
++---Registers : 
+	              784 Bit    Registers := 1     
+	               24 Bit    Registers := 2     
+	               16 Bit    Registers := 2     
+	               10 Bit    Registers := 2     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---RAMs : 
+	               5K Bit         RAMs := 1     
++---Muxes : 
+	   2 Input    784 Bit        Muxes := 2     
+	   2 Input      9 Bit        Muxes := 3     
+	   2 Input      8 Bit        Muxes := 5     
+	   4 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 10    
+	   3 Input      1 Bit        Muxes := 1     
+Module clocks 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 1     
+	   3 Input      4 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4471] merging register 'row_reg[4:0]' into 'row_reg[4:0]' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:36]
+INFO: [Synth 8-4471] merging register 'col_reg[4:0]' into 'col_reg[4:0]' [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/mnist_leakage_core.sv:36]
+INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "go_pulse_usb" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3917] design cw305_leakage_top has port led2 driven by constant 0
+WARNING: [Synth 8-3331] design cw305_reg_leakage_demo has unconnected port reg_read
+WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port k15_sel
+WARNING: [Synth 8-3331] design cw305_leakage_top has unconnected port l14_sel
+INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[5]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
+INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[6]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
+WARNING: [Synth 8-3332] Sequential element (U_usb_reg_fe/reg_read_reg) is unused and will be removed from module cw305_leakage_top.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U_reg/O_user_led_reg )
+WARNING: [Synth 8-3332] Sequential element (U_reg/O_user_led_reg) is unused and will be removed from module cw305_leakage_top.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:38 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++------------------+-------------------+-----------+----------------------+------------------------------+
+|Module Name       | RTL Object        | Inference | Size (Depth x Width) | Primitives                   | 
++------------------+-------------------+-----------+----------------------+------------------------------+
+|cw305_leakage_top | U_reg/out_mem_reg | Implied   | 1 K x 8              | RAM64X1D x 22  RAM64M x 22   | 
++------------------+-------------------+-----------+----------------------+------------------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-3321] create_clock attempting to set clock on an unknown port/pin for constraint at line 2 of C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:2]
+WARNING: [Synth 8-3321] Empty to list for constraint at line 9 of C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc. [C:/Users/narut/OneDrive/Desktop/Project/bnn/cw305/cw305_leakage.xdc:9]
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:49 . Memory (MB): peak = 637.684 ; gain = 427.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3886] merging instance 'U_reg/U_core/out_data_reg[4]' (FDRE) to 'U_reg/U_core/out_data_reg[7]'
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:46 ; elapsed = 00:00:51 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:47 ; elapsed = 00:00:52 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:47 ; elapsed = 00:00:52 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:48 ; elapsed = 00:00:52 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:48 ; elapsed = 00:00:52 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:48 ; elapsed = 00:00:52 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |BUFG         |     1|
+|2     |BUFGMUX_CTRL |     1|
+|3     |CARRY4       |    13|
+|4     |LUT1         |    59|
+|5     |LUT2         |    34|
+|6     |LUT3         |   674|
+|7     |LUT4         |   815|
+|8     |LUT5         |   101|
+|9     |LUT6         |  1607|
+|10    |MUXF7        |   241|
+|11    |MUXF8        |   111|
+|12    |ODDR         |     1|
+|13    |RAM64M       |    22|
+|14    |RAM64X1D     |    11|
+|15    |FDCE         |     4|
+|16    |FDRE         |  1586|
+|17    |IBUF         |    28|
+|18    |IBUFG        |     1|
+|19    |IOBUF        |     8|
+|20    |OBUF         |     5|
++------+-------------+------+
+
+Report Instance Areas: 
++------+---------------+-----------------------+------+
+|      |Instance       |Module                 |Cells |
++------+---------------+-----------------------+------+
+|1     |top            |                       |  5323|
+|2     |  U_clocks     |clocks                 |     4|
+|3     |  U_reg        |cw305_reg_leakage_demo |  4357|
+|4     |    U_core     |mnist_leakage_core     |  2890|
+|5     |    U_go       |cdc_pulse              |     8|
+|6     |  U_usb_reg_fe |cw305_usb_reg_fe       |   921|
++------+---------------+-----------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 684.137 ; gain = 474.195
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 1 critical warnings and 7 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:37 ; elapsed = 00:00:43 . Memory (MB): peak = 684.137 ; gain = 156.125
+Synthesis Optimization Complete : Time (s): cpu = 00:00:48 ; elapsed = 00:00:53 . Memory (MB): peak = 684.137 ; gain = 474.195
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 85 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 43 instances were transformed.
+  BUFGMUX_CTRL => BUFGCTRL (inverted pins: S0): 1 instances
+  IBUFG => IBUF: 1 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 8 instances
+  RAM64M => RAM64M (RAMD64E, RAMD64E, RAMD64E, RAMD64E): 22 instances
+  RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 11 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+64 Infos, 12 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 684.137 ; gain = 474.195
+INFO: [Common 17-1381] The checkpoint 'C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/synth_1/cw305_leakage_top.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.056 . Memory (MB): peak = 684.137 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sat Aug 29 23:27:45 2026...
+[Sat Aug 29 23:27:46 2026] synth_1 finished
+wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:01:00 . Memory (MB): peak = 221.180 ; gain = 5.445
+# if {[get_property PROGRESS [get_runs synth_1]] != "100%"} {
+#     error "Synthesis failed"
+# }
+# launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sat Aug 29 23:27:47 2026] Launched impl_1...
+Run output will be captured here: C:/Users/narut/OneDrive/Desktop/Project/bnn/build/vivado_leakage_d8_l63/cw305_leakage_d8_l63.runs/impl_1/runme.log
+# wait_on_run impl_1
+[Sat Aug 29 23:27:47 2026] Waiting for impl_1 to finish...
+
+*** Running vivado
+    with args -log cw305_leakage_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source cw305_leakage_top.tcl -notrace
+

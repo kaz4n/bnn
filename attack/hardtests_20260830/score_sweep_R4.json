@@ -1,0 +1,18 @@
+{
+  "name": "sweep_R4",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\sweep_results_R4",
+  "metrics": {
+    "bit_acc": 0.9577487244897959,
+    "foreground_precision": 0.9458027709861451,
+    "foreground_recall": 0.6606888699117563,
+    "foreground_f1": 0.7779453661806603,
+    "foreground_iou": 0.6365880416895228,
+    "all_zero_bit_acc": 0.8879783163265306,
+    "mssim": 0.7518977001564588,
+    "pixel_level_distance": 10.774075508117676,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.925,
+    "n_images": 40
+  }
+}

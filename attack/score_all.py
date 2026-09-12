@@ -52,7 +52,9 @@ def load_active(results_dir, truth_path):
 
 def load_npz_dir(results_dir, name):
     d = np.load(os.path.join(results_dir, name))
-    return (d["recovered"].astype(np.float32), d["truth"].astype(np.uint8),
+    # keep the truth in float: a grey truth lives in [0,1] and casting to uint8
+    # would floor every pixel to zero.  image_metrics thresholds it itself.
+    return (d["recovered"].astype(np.float32), d["truth"].astype(np.float32),
             d["labels"].astype(np.int64))
 
 
@@ -76,7 +78,8 @@ def main():
 
     m = image_metrics(rec, gt.astype(np.float32))
     clf = GoldenMLP()
-    m["recognition_accuracy_original"] = float(np.mean(clf.predict(gt.astype(np.float32)) == labels))
+    m["recognition_accuracy_original"] = float(
+        np.mean(clf.predict((np.asarray(gt, dtype=np.float32) >= 0.5).astype(np.float32)) == labels))
     m["recognition_accuracy_recovered"] = float(
         np.mean(clf.predict((rec >= 0.5).astype(np.float32)) == labels))
     m["n_images"] = int(len(rec))

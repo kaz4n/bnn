@@ -1,0 +1,26 @@
+{
+  "name": "ds2_mnist_mnist_0.01",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\ds2_mnist_mnist_0p01",
+  "metrics": {
+    "grey_mae_255": 20.076370239257812,
+    "grey_rmse_255": 71.55050659179688,
+    "grey_corr": 0.530176315347101,
+    "bit_acc": 0.9212691326530612,
+    "foreground_precision": 0.8556499020248204,
+    "foreground_recall": 0.36818437324339515,
+    "foreground_f1": 0.514835920613087,
+    "foreground_iou": 0.34665255358560465,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "foreground_rate": 0.11345663265306122,
+    "f1_chance": 0.2037917406495217,
+    "f1_excess": 0.39065681159512894,
+    "bit_acc_chance": 0.8865433673469387,
+    "bit_acc_excess": 0.3060708263069141,
+    "mssim": 0.5000725484432395,
+    "pixel_level_distance": 20.076370239257812,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.675,
+    "n_images": 40
+  }
+}

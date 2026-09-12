@@ -1,0 +1,18 @@
+{
+  "name": "mix_10m_vs_C1_control",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\mix_results_10m_vs_C1_control",
+  "metrics": {
+    "bit_acc": 0.9495535714285714,
+    "foreground_precision": 0.7214253697893321,
+    "foreground_recall": 0.9047217537942664,
+    "foreground_f1": 0.8027431421446385,
+    "foreground_iou": 0.6704853155592585,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.6388992430910776,
+    "pixel_level_distance": 12.863839149475098,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

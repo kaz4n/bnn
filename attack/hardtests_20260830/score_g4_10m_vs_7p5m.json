@@ -1,0 +1,21 @@
+{
+  "name": "g4_10m_vs_7p5m",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\tmp_g4_10m_vs_7p5m",
+  "metrics": {
+    "grey_mae_255": 6.318080425262451,
+    "grey_rmse_255": 40.138641357421875,
+    "grey_corr": 0.8786549896314657,
+    "bit_acc": 0.9752232142857142,
+    "foreground_precision": 0.8787796240806319,
+    "foreground_recall": 0.9066891512085441,
+    "foreground_f1": 0.8925162539770369,
+    "foreground_iou": 0.8058955783162628,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.8587188565225414,
+    "pixel_level_distance": 6.318080425262451,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

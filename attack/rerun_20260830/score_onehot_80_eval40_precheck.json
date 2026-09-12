@@ -1,0 +1,18 @@
+{
+  "name": "rerun_onehot_80_eval40_precheck",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\rerun_20260830\\results_onehot_80_eval40",
+  "metrics": {
+    "bit_acc": 0.9397002551020408,
+    "foreground_precision": 0.8491379310344828,
+    "foreground_recall": 0.6631401779273864,
+    "foreground_f1": 0.7447009585527206,
+    "foreground_iou": 0.593245859324586,
+    "all_zero_bit_acc": 0.8673788265306123,
+    "mssim": 0.7077362481939505,
+    "pixel_level_distance": 15.376435279846191,
+    "recognition_accuracy_original": 0.975,
+    "recognition_accuracy_recovered": 0.95,
+    "n_images": 40
+  }
+}

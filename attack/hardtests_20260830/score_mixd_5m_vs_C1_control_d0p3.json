@@ -1,0 +1,21 @@
+{
+  "name": "mixd_5m_vs_C1_control_d0p3",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\mixd_results_5m_vs_C1_control_d0p3",
+  "metrics": {
+    "grey_mae_255": 3.9681122303009033,
+    "grey_rmse_255": 31.80988311767578,
+    "grey_corr": 0.9219246945517593,
+    "bit_acc": 0.9844387755102041,
+    "foreground_precision": 0.9418537708693149,
+    "foreground_recall": 0.9196177627880832,
+    "foreground_f1": 0.9306029579067121,
+    "foreground_iou": 0.8702127659574468,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.9152169259411668,
+    "pixel_level_distance": 3.9681122303009033,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.975,
+    "n_images": 40
+  }
+}

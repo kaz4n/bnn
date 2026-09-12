@@ -9,6 +9,8 @@ ROWS = [
     ("n_images", "N", "{:d}"),
     ("bit_acc", "pixel acc", "{:.4f}"),
     ("all_zero_bit_acc", "all-zero baseline", "{:.4f}"),
+    ("f1_chance", "F1 chance ceiling", "{:.4f}"),
+    ("f1_excess", "F1 above chance", "{:.4f}"),
     ("foreground_f1", "fg F1", "{:.4f}"),
     ("foreground_iou", "fg IoU", "{:.4f}"),
     ("mssim", "MSSIM", "{:.3f}"),

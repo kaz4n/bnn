@@ -1,0 +1,21 @@
+{
+  "name": "ilv_10m_C1_control_1.0",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\ilvr_10m_C1_control_1p0",
+  "metrics": {
+    "grey_mae_255": 14.54703426361084,
+    "grey_rmse_255": 60.90561294555664,
+    "grey_corr": 0.7608470599627801,
+    "bit_acc": 0.942952806122449,
+    "foreground_precision": 0.6882315386252394,
+    "foreground_recall": 0.9089376053962901,
+    "foreground_f1": 0.783335351822696,
+    "foreground_iou": 0.643838343619351,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.618587777806611,
+    "pixel_level_distance": 14.54703426361084,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

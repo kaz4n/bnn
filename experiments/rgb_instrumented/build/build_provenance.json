@@ -1,0 +1,30 @@
+{
+  "status": "physical_experiment_complete",
+  "board": "CW305 / xc7a100tftg256-2",
+  "bitstream_sha256": "a73420d7dfa56fc6f977af9e0bc737a209efc528778cc6ec332e5ffb91bb5ea1",
+  "vivado_version": "2016.4",
+  "setup_slack_ns": 0.541,
+  "hold_slack_ns": 0.128,
+  "drc_violations": 0,
+  "lut_count": 100,
+  "register_count": 138,
+  "bram36_count": 4,
+  "timing_scope": "Under hardware/TIMING.md bus model; not board-level signoff",
+  "final_build_method": "Synth/place/route via build.tcl, then checkpoint hold repair/reroute and bitstream via finish_hold.tcl",
+  "hardware_frames": 21,
+  "hardware_samples": 150528,
+  "capture_source": "fpga",
+  "runtime_observed_firmware": "0.51.0 per connection diagnostic",
+  "source_sha256": {
+    "rtl/rgb_bayer_capture.sv": "931e2cf64db179a41f9b80b72e842bb98e1d571fe482b86a7c0d06f3212dfeb6",
+    "hardware/cw305_rgb_top.sv": "f829ad55bd48869214bce2ac00499f37aef31ec090c3d27385c26223cf48b7da",
+    "hardware/cw305_rgb.xdc": "b0b8de2e1e8e8868ac4d9c733c34bcd234480be3ae4d6979959b5106c5f55dd4",
+    "hardware/build.tcl": "3ce391fd81fdf8f8c9a3ff913aaf543ec074325b16bf4e83fac209e877e79ce3",
+    "hardware/finish_hold.tcl": "7971aff7eeee4e5356e2177c208c12653357e02ce00663b9dd7eeed5c6b6e9dd",
+    "capture.py": "d0d1228ec7bf3168cfee2fae04e9b46f7d1b2b9d046584f3c0b6b0316e156f0f",
+    "data.py": "91617887836c9fd7e4d64c3f7faa8bbd0af5cd8ca498e56d05123c6ddc71ff27",
+    "reconstruction.py": "36cf1bda00eb55837a903b6a35d07b6f8d12586213870c2dc2433f82054da767",
+    "evaluate.py": "8384ffc2eb5bb357c4e42c7670e3ae657ea7feb07de53c4ee78465f92f7c1a45",
+    "EVALUATION_PROTOCOL.md": "6a79996c94d4e7f8abe655623c30ac552766c9e5be0546c508afce639e0d0f2b"
+  }
+}

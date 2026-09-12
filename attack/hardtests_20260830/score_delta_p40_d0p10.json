@@ -1,0 +1,21 @@
+{
+  "name": "d_p40_0.10",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\dx_p40_0p10",
+  "metrics": {
+    "grey_mae_255": 5.740752696990967,
+    "grey_rmse_255": 38.260841369628906,
+    "grey_corr": 0.8839502877527101,
+    "bit_acc": 0.9774872448979591,
+    "foreground_precision": 0.9657086871325931,
+    "foreground_recall": 0.8310848791455874,
+    "foreground_f1": 0.8933534743202416,
+    "foreground_iou": 0.8072618072618073,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.8719948361896428,
+    "pixel_level_distance": 5.740752696990967,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "mx2_mixed_vs_10m_d0p03",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\tmp_mx2_mixed_vs_10m_d0p03",
+  "metrics": {
+    "grey_mae_255": 23.019929885864258,
+    "grey_rmse_255": 76.61646270751953,
+    "grey_corr": 0.42875664234041794,
+    "bit_acc": 0.9097257653061225,
+    "foreground_precision": 0.9438339438339438,
+    "foreground_recall": 0.21725688589094996,
+    "foreground_f1": 0.35320996116061226,
+    "foreground_iou": 0.21448390677025528,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.4168757263695831,
+    "pixel_level_distance": 23.019929885864258,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.5,
+    "n_images": 40
+  }
+}

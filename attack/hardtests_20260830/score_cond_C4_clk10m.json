@@ -1,0 +1,18 @@
+{
+  "name": "cond_C4_clk10m",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\cond_results_C4_clk10m",
+  "metrics": {
+    "bit_acc": 0.886734693877551,
+    "foreground_precision": 0.65,
+    "foreground_recall": 0.0036537380550871277,
+    "foreground_f1": 0.007266629401900503,
+    "foreground_iou": 0.0036465638148667602,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.2888132740566565,
+    "pixel_level_distance": 28.882652282714844,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.125,
+    "n_images": 40
+  }
+}

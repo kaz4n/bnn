@@ -5,7 +5,11 @@ module cw305_leakage_top #(
     parameter integer pBYTECNT_SIZE = 7,
     parameter integer pADDR_WIDTH   = 21,
     parameter integer DWELL         = 8,
-    parameter integer LEAK_LANES    = 63
+    parameter integer LEAK_LANES    = 63,
+    // Current bench default:
+    //   bits [2:0] = 3'b101 -> crypto clock = 20-pin CW-Lite clock input
+    //   bits [4:3] = 2'b01  -> export crypto clock on TIO clockout
+    parameter [4:0] CLOCK_SETTINGS  = 5'b01101
 )(
     input  wire                   usb_clk,
     inout  wire [7:0]             usb_data,
@@ -37,7 +41,7 @@ module cw305_leakage_top #(
     wire [7:0] write_data;
     wire [7:0] read_data;
     wire reg_read, reg_write, reg_addrvalid;
-    wire [4:0] clk_settings = 5'b0;
+    wire [4:0] clk_settings = CLOCK_SETTINGS;
     wire crypto_clk;
     wire reset = !pushbutton;
     wire leak_led;

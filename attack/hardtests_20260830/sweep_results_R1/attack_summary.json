@@ -1,0 +1,927 @@
+{
+  "kind": "cw305_active_power_template_attack_result",
+  "created_utc": "2026-08-30T09:54:21Z",
+  "template": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\sweep_profile_R1.npz",
+  "template_manifest": {
+    "kind": "cw305_active_power_template",
+    "created_utc": "2026-08-30T09:51:56Z",
+    "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_sweep_R1",
+    "capture_manifest": {
+      "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_leakage_d8_l63.bit",
+      "bitstream_sha256": "a5bb029e693174a3a6e63384ba5baa1f464de675c9dc1c16daf290087babf353",
+      "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+      "images_sha256": "bf416a1b7a7f6f00b46aa90d76b62efa9d15ac8e0773d93d53dcaa8315005ce9",
+      "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+      "kernels_sha256": "0a5938f8638dcd79691fbb2d5eae72e38186113b2d4c40bc0bd5e9fb4e2f52fd",
+      "probe_kernels": "file",
+      "trace_source": "cw_lite_analog_sync_x4",
+      "design": "cw305_leakage_top",
+      "line": 28,
+      "out_side": 26,
+      "n_windows": 676,
+      "n_kernels": 9,
+      "avg": 1,
+      "threshold": 127,
+      "fpga_freq_hz": 5000000.0,
+      "clock_source": "cw_lite",
+      "adc_src": "clkgen_x4",
+      "samples_per_cycle": 4,
+      "dwell": 8,
+      "samples_per_window": 32,
+      "samples": 22144,
+      "useful_samples": 21632,
+      "presamples": 0,
+      "gain_db": 40.0,
+      "adc_locked_initial": true,
+      "capture_mode": "live_cw305_chipwhisperer",
+      "design_check": {
+        "fpga_done": true,
+        "stock_aes_signature_pages_2_3_4": [
+          0,
+          0,
+          0
+        ],
+        "verified_not_stock_aes": true
+      },
+      "functional_check": {
+        "passed": true,
+        "n_outputs": 676,
+        "hw_min": -9,
+        "hw_max": 9,
+        "golden_min": -9,
+        "golden_max": 9,
+        "mismatches": 0,
+        "checked_utc": "2026-08-30T08:16:34Z"
+      },
+      "capture_order": [
+        824,
+        843,
+        803,
+        827,
+        806,
+        856,
+        850,
+        826,
+        804,
+        792,
+        851,
+        831,
+        822,
+        786,
+        818,
+        852,
+        841,
+        796,
+        788,
+        782,
+        855,
+        828,
+        801,
+        813,
+        784,
+        845,
+        789,
+        849,
+        794,
+        802,
+        809,
+        853,
+        833,
+        795,
+        859,
+        823,
+        810,
+        839,
+        785,
+        858,
+        820,
+        797,
+        790,
+        815,
+        791,
+        830,
+        805,
+        799,
+        814,
+        844,
+        780,
+        798,
+        842,
+        846,
+        819,
+        840,
+        793,
+        836,
+        800,
+        838,
+        817,
+        783,
+        848,
+        837,
+        821,
+        781,
+        857,
+        854,
+        835,
+        816,
+        807,
+        832,
+        825,
+        847,
+        812,
+        834,
+        829,
+        811,
+        787,
+        808
+      ],
+      "shuffle_seed": 8302030,
+      "status": "complete",
+      "started_utc": "2026-08-30T08:16:34Z",
+      "hardware_run": true,
+      "chipwhisperer_version": "6.0.0",
+      "scope_serial": "50203220415447303030313238323035",
+      "target_serial": "5020322030384a583330343234303030",
+      "adc_locked_final": true,
+      "completed_utc": "2026-08-30T08:17:14Z",
+      "derived_from": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_rerun_20260830_trained_80",
+      "derivation": "first 1 of 1 captured hardware repeats; no recapture, identical images/thermal state/gain"
+    },
+    "profile_count": 40,
+    "entries": 27040,
+    "n_kernels": 9,
+    "related_pixels": "3x3 valid convolution patch",
+    "feature": "mean_abs",
+    "normalization": "per-trace robust median/MAD normalization",
+    "uses_profile_images": true,
+    "attack_stage_uses_ground_truth": false,
+    "note": "Profile stage uses known image pixels to build PT. Attack stage should use only trace-only bundles."
+  },
+  "attack_bundle": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\sweep_bundle_R1",
+  "attack_manifest": {
+    "kind": "cw305_trace_only_attack_bundle",
+    "created_utc": "2026-08-30T09:51:57Z",
+    "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_sweep_R1",
+    "capture_manifest": {
+      "bitstream": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\build\\cw305_leakage_d8_l63.bit",
+      "bitstream_sha256": "a5bb029e693174a3a6e63384ba5baa1f464de675c9dc1c16daf290087babf353",
+      "images": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\mnist_test.npz",
+      "images_sha256": "bf416a1b7a7f6f00b46aa90d76b62efa9d15ac8e0773d93d53dcaa8315005ce9",
+      "kernels": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\training\\artifacts\\model_3x3\\layer1_kernels.npy",
+      "kernels_sha256": "0a5938f8638dcd79691fbb2d5eae72e38186113b2d4c40bc0bd5e9fb4e2f52fd",
+      "probe_kernels": "file",
+      "trace_source": "cw_lite_analog_sync_x4",
+      "design": "cw305_leakage_top",
+      "line": 28,
+      "out_side": 26,
+      "n_windows": 676,
+      "n_kernels": 9,
+      "avg": 1,
+      "threshold": 127,
+      "fpga_freq_hz": 5000000.0,
+      "clock_source": "cw_lite",
+      "adc_src": "clkgen_x4",
+      "samples_per_cycle": 4,
+      "dwell": 8,
+      "samples_per_window": 32,
+      "samples": 22144,
+      "useful_samples": 21632,
+      "presamples": 0,
+      "gain_db": 40.0,
+      "adc_locked_initial": true,
+      "capture_mode": "live_cw305_chipwhisperer",
+      "design_check": {
+        "fpga_done": true,
+        "stock_aes_signature_pages_2_3_4": [
+          0,
+          0,
+          0
+        ],
+        "verified_not_stock_aes": true
+      },
+      "functional_check": {
+        "passed": true,
+        "n_outputs": 676,
+        "hw_min": -9,
+        "hw_max": 9,
+        "golden_min": -9,
+        "golden_max": 9,
+        "mismatches": 0,
+        "checked_utc": "2026-08-30T08:16:34Z"
+      },
+      "capture_order": [
+        824,
+        843,
+        803,
+        827,
+        806,
+        856,
+        850,
+        826,
+        804,
+        792,
+        851,
+        831,
+        822,
+        786,
+        818,
+        852,
+        841,
+        796,
+        788,
+        782,
+        855,
+        828,
+        801,
+        813,
+        784,
+        845,
+        789,
+        849,
+        794,
+        802,
+        809,
+        853,
+        833,
+        795,
+        859,
+        823,
+        810,
+        839,
+        785,
+        858,
+        820,
+        797,
+        790,
+        815,
+        791,
+        830,
+        805,
+        799,
+        814,
+        844,
+        780,
+        798,
+        842,
+        846,
+        819,
+        840,
+        793,
+        836,
+        800,
+        838,
+        817,
+        783,
+        848,
+        837,
+        821,
+        781,
+        857,
+        854,
+        835,
+        816,
+        807,
+        832,
+        825,
+        847,
+        812,
+        834,
+        829,
+        811,
+        787,
+        808
+      ],
+      "shuffle_seed": 8302030,
+      "status": "complete",
+      "started_utc": "2026-08-30T08:16:34Z",
+      "hardware_run": true,
+      "chipwhisperer_version": "6.0.0",
+      "scope_serial": "50203220415447303030313238323035",
+      "target_serial": "5020322030384a583330343234303030",
+      "adc_locked_final": true,
+      "completed_utc": "2026-08-30T08:17:14Z",
+      "derived_from": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_rerun_20260830_trained_80",
+      "derivation": "first 1 of 1 captured hardware repeats; no recapture, identical images/thermal state/gain"
+    },
+    "items": [
+      {
+        "file": "img0820.npz",
+        "source_file": "img0820.npz",
+        "source_sha256": "de387ebe2c6e0e0c4cab75013d84f4d926b93ecdb225cdbc7129666b5c4252fd",
+        "trace_only_sha256": "ce36e9102444bce09b8fd33030fe2c0ebe0a12290cddb8fcb327d048b96283ae"
+      },
+      {
+        "file": "img0821.npz",
+        "source_file": "img0821.npz",
+        "source_sha256": "5958f3ae7b6854bd3d60417f90090ad89ea2da7915170cb4395f29031242efaf",
+        "trace_only_sha256": "e04aa174def839dbde94efc7bec8354ef4a9e388f6cba4bd80091f0c36cdac56"
+      },
+      {
+        "file": "img0822.npz",
+        "source_file": "img0822.npz",
+        "source_sha256": "3d99ad9c6d9f29faf17c680cb228d179c88d7a9a37937f178e5d754108f39616",
+        "trace_only_sha256": "10bcb44d30082d8a681649775f37d792388454c9f3b4a96d7eb233f1e3a3c92f"
+      },
+      {
+        "file": "img0823.npz",
+        "source_file": "img0823.npz",
+        "source_sha256": "9a53e7b6bd22629790530a90f99caff50c7b6d37b9e0973235ca3b02caffde93",
+        "trace_only_sha256": "7c2416eb54fd56a21b8ab4ab4e637efbdd11f2352b4cecff2d7e370e175972ef"
+      },
+      {
+        "file": "img0824.npz",
+        "source_file": "img0824.npz",
+        "source_sha256": "f6dcae4646f10dd8cfdd670da3cb65fe5c8894d3b775845ade9860d2c0c770ec",
+        "trace_only_sha256": "f1d011f177463eb46bdd513828451b47adb63b2e37391733c64e8e3ce5b83cdd"
+      },
+      {
+        "file": "img0825.npz",
+        "source_file": "img0825.npz",
+        "source_sha256": "bc1457f5554b34c1ea689393c1ea4284a2c1a5a3b6830c98faae8d19d4859dac",
+        "trace_only_sha256": "101325bccafb2a6323a80c6c9d84b4f6956f553467214c11c9a7aae549621946"
+      },
+      {
+        "file": "img0826.npz",
+        "source_file": "img0826.npz",
+        "source_sha256": "b840f75994c7b4b75b3fbbabad7fa1f17d1c84e96d527c9cb4c3b801bef29d3f",
+        "trace_only_sha256": "53f4be548cdf6f263ac4daae03f449ef55b0fa39a1a7c3a71bd8eb9a9484d42c"
+      },
+      {
+        "file": "img0827.npz",
+        "source_file": "img0827.npz",
+        "source_sha256": "46f29b13ce1959065661a568f9bb52276a4ff5172fdfb6d045b66500b3c9cd4c",
+        "trace_only_sha256": "174c049cd64b8645e2cef0ad3935828a5ec23ebf720bc6480f08c8a7d041b0c5"
+      },
+      {
+        "file": "img0828.npz",
+        "source_file": "img0828.npz",
+        "source_sha256": "c05f9ebb239ee895ba8003d251b5e89c400f3404247c8e9f15d9e9ff3e9a6702",
+        "trace_only_sha256": "1f3d07edcb347ce38efaa4637a1019592ad706d8acc273b08db7f58a73a01792"
+      },
+      {
+        "file": "img0829.npz",
+        "source_file": "img0829.npz",
+        "source_sha256": "1afe1bbe7dec066a9bc98bd5b50d210c025c3760c94e7188d867050800d59c81",
+        "trace_only_sha256": "850dffd3335a30b607566573ea85da5dd52c466c419e6a940e3d242e71909f8c"
+      },
+      {
+        "file": "img0830.npz",
+        "source_file": "img0830.npz",
+        "source_sha256": "4690cfa78a5820439d62b1bfbb5965103988e3fae95f6d148e6fc8851c0b6137",
+        "trace_only_sha256": "153fd2f9750640db934afead8fcfd16386e65851f7e1e1ca570b5f4ec8eb0d2a"
+      },
+      {
+        "file": "img0831.npz",
+        "source_file": "img0831.npz",
+        "source_sha256": "2596ca823ed35a7ebb33042935108938157819fa6cba8b1f2c756e3fc7d7f546",
+        "trace_only_sha256": "564d0bad4a4bffca16b37050bd211884ad574d0897ee37179f6ea6653ee2ebde"
+      },
+      {
+        "file": "img0832.npz",
+        "source_file": "img0832.npz",
+        "source_sha256": "68b8f81845729da9ba0cec306c32c126e976cdda430b03fd635c71e22c4312d0",
+        "trace_only_sha256": "2981b4bc512e44b80c52d00e7469221741c7072703cd226c1a4e35905c912676"
+      },
+      {
+        "file": "img0833.npz",
+        "source_file": "img0833.npz",
+        "source_sha256": "495493a2fb64409c1126c6f128bbde16cee677761a4213fbaddc18d0ab52391c",
+        "trace_only_sha256": "6518511036f8d8e84eaa39a62eec9329376d1181847c1551e6f50ce61758b79e"
+      },
+      {
+        "file": "img0834.npz",
+        "source_file": "img0834.npz",
+        "source_sha256": "87e9e969f1af2ae658eca2a41298121f4c179553dc8f32b7b05f0bbdd76de88f",
+        "trace_only_sha256": "c3b325b8419354aecfd773070be47024ace2843716d4dc8bc7fcf79c74376dcc"
+      },
+      {
+        "file": "img0835.npz",
+        "source_file": "img0835.npz",
+        "source_sha256": "4c322ee56c1717446f4e5606aea66877430ed0efce85cdba833edc78596c833d",
+        "trace_only_sha256": "ce194f08fd5142255c88e47247179a89c5eed0e6d2f51c5577a6f446f53d5702"
+      },
+      {
+        "file": "img0836.npz",
+        "source_file": "img0836.npz",
+        "source_sha256": "808fc6de5e5443e0b4723e65e36d6c6412bf75c5b8bc64ef06c600669d2eed39",
+        "trace_only_sha256": "ce0ae01191ec3b6d8995a654c6c11397844c0d8d6574d0ad886bb43c4e996494"
+      },
+      {
+        "file": "img0837.npz",
+        "source_file": "img0837.npz",
+        "source_sha256": "36b5e7e2ec1f79e18b0c0ef509f99d32cc43421be163bcbf3de49691709cb0c4",
+        "trace_only_sha256": "dc9206d2eedb21fb3ab7141fc405abeca1ca7ac910154cab71cd245cee466638"
+      },
+      {
+        "file": "img0838.npz",
+        "source_file": "img0838.npz",
+        "source_sha256": "0679dc67a161c4721c9ab04bdeef0d309f8048b4b583c2c42ecdcdc4f44b1a9d",
+        "trace_only_sha256": "212a3d5671ade60cea6ec6d4f11ba2647aa506b23d299aa7cc882a15de1bee86"
+      },
+      {
+        "file": "img0839.npz",
+        "source_file": "img0839.npz",
+        "source_sha256": "5746e51e5b80e440dd5b1bcfa823896b5bfb4f5eec36d8da1a761e0609dd369d",
+        "trace_only_sha256": "7f262fb426976860bf22dfa055685abe16f3c0f688b2c1370f66fc06ea86b08b"
+      },
+      {
+        "file": "img0840.npz",
+        "source_file": "img0840.npz",
+        "source_sha256": "cbfd823b1d85649be4c176b27b821f44e9320f60ac69ae1bf6f3c1f98c5a690b",
+        "trace_only_sha256": "3cb523e8af2e99df7a8700cc4adec00f8f6acc574f54e86dc8185f1e10566f0f"
+      },
+      {
+        "file": "img0841.npz",
+        "source_file": "img0841.npz",
+        "source_sha256": "120fb0209261e862a30002ee5f5a04d70459cba32a7daa6826e2f90a81b2e255",
+        "trace_only_sha256": "6519f9c74d4b91ab96514d4b51666a6b8aff00cb23be05a7af5b4e3c03e6f09c"
+      },
+      {
+        "file": "img0842.npz",
+        "source_file": "img0842.npz",
+        "source_sha256": "7347372b8f20035949e7415fef82109209364dc0276f856090b38132c46686e7",
+        "trace_only_sha256": "78064a0af8b588fc7818d50fa391acd66fb97f668a640987b92dee63b3eb9677"
+      },
+      {
+        "file": "img0843.npz",
+        "source_file": "img0843.npz",
+        "source_sha256": "7a022af78f9abd2ff004ba7a7f691c82b258178844ffe85b47181e3ad324179f",
+        "trace_only_sha256": "31030df3b4efd89d1a83b3bd88a47171cacb9701c13c1deced41e7815a2e597a"
+      },
+      {
+        "file": "img0844.npz",
+        "source_file": "img0844.npz",
+        "source_sha256": "0e5a4711dd4bc3da20120b75c28be4b8d398fe7aa7ab9b8e4288ebc061c57f2e",
+        "trace_only_sha256": "552c9d996a8a045e6d66f3ede955f04bacc164a68cddbe3823fed309cfb2ed61"
+      },
+      {
+        "file": "img0845.npz",
+        "source_file": "img0845.npz",
+        "source_sha256": "ce7c48c76c4af56d3f332ae0d375d035461e3c16e2c1030a59b0ba536846b5db",
+        "trace_only_sha256": "335780ad3bcbaa2632ddf18fe1dbe2f63c4eb048e3194939a8afe9b9456dcf01"
+      },
+      {
+        "file": "img0846.npz",
+        "source_file": "img0846.npz",
+        "source_sha256": "f02845a6058d25a9974f8b88d00ec676f266c16f94eaba0070b217d18cacf07f",
+        "trace_only_sha256": "90152282f78c6dcb298d1b2c7ed11b8f9cf002ef73207eed0451cdf79c44d7bf"
+      },
+      {
+        "file": "img0847.npz",
+        "source_file": "img0847.npz",
+        "source_sha256": "3f39dc0a7e0322281f6eebbce5b6b0051f84fd3ef6f67a9f7b883235d84fcc6b",
+        "trace_only_sha256": "5e06d575c5e5a7e7b54520d0fa4f393247913d34e0738d15fd8ae53ffbd7d7b6"
+      },
+      {
+        "file": "img0848.npz",
+        "source_file": "img0848.npz",
+        "source_sha256": "a5c45791337286e2b2076bb9b3aef190c535a9a4727654bbaf76df2e68bf4251",
+        "trace_only_sha256": "85e4d04f96199c5db797596ca228a998507937ed6031121b4ad8be87d549e527"
+      },
+      {
+        "file": "img0849.npz",
+        "source_file": "img0849.npz",
+        "source_sha256": "114e6e0c078e5131e37f22c326973433ceae96c1a6300e04fbeb7a35be2afc60",
+        "trace_only_sha256": "abf88eb2d6fbb4566f544e304881140534ecc01fcc8f3bcba2f637bce33a7b9d"
+      },
+      {
+        "file": "img0850.npz",
+        "source_file": "img0850.npz",
+        "source_sha256": "4e6d808e298fb689f9b0b6a228cef05a32d1c5b189918f5ec0e015ba02b6a8f1",
+        "trace_only_sha256": "1c6107ba5d489938c5859579eabcc8d0378d36e8dba9a8c424baa72e06e4d629"
+      },
+      {
+        "file": "img0851.npz",
+        "source_file": "img0851.npz",
+        "source_sha256": "1e36b73785418de5733ea9f9fb80ee358e3c188d2f4a7d2eb9094df8d4afcf7c",
+        "trace_only_sha256": "32848c476c6b839863b00eb6cfc0f0d33a46f561b4489dcf1f78454b8589ff75"
+      },
+      {
+        "file": "img0852.npz",
+        "source_file": "img0852.npz",
+        "source_sha256": "d0d9b68c53ea65df6c81bf05c7af34cd75ba2ff339b1e680731ea1d81ac9cdf7",
+        "trace_only_sha256": "9b912c99f23fce03d7127cce1db533914847c359767f90f42cfc488395aa38ef"
+      },
+      {
+        "file": "img0853.npz",
+        "source_file": "img0853.npz",
+        "source_sha256": "88d7c0ed798bd0a129aaf6fd7e3a45dc684fba38d9d7a9f734c27614ab4d8f60",
+        "trace_only_sha256": "71690fea78935ad00fb70e8955804d288987b856be44f8e8d0ae21bb07d6375f"
+      },
+      {
+        "file": "img0854.npz",
+        "source_file": "img0854.npz",
+        "source_sha256": "e35c80be2707b3ec6f67a01f7a1038862f27c7c5bb5a360f1c4da72dd6e45c37",
+        "trace_only_sha256": "f9ae2b94250d0753648141b23d521cb0775046763ced9f2c2f6418689de73f2c"
+      },
+      {
+        "file": "img0855.npz",
+        "source_file": "img0855.npz",
+        "source_sha256": "1803d60df89c620abc351d9c333cb274cab6f1d2b11bd9d1de4deb0cbf4d9691",
+        "trace_only_sha256": "dc5088e0452325c5d058fee46e375bcab987beb546a526228d17b24ac3a523ae"
+      },
+      {
+        "file": "img0856.npz",
+        "source_file": "img0856.npz",
+        "source_sha256": "67e94af78c78ef2e1194a1afc51e137ee1603e2bae2d4846604b49df070adb58",
+        "trace_only_sha256": "5d6ff49f482f2fbe22751bed97ddf739e3b80d06a6a3c1141ce5f520306c5539"
+      },
+      {
+        "file": "img0857.npz",
+        "source_file": "img0857.npz",
+        "source_sha256": "f8bb2c096b970b6b27800f13f62b567a6b6504f8348eba59693287955a960fd0",
+        "trace_only_sha256": "f3d3930352814d72b734987c9d3a8b827b6a787f1cd70ad60ad95444f3e03868"
+      },
+      {
+        "file": "img0858.npz",
+        "source_file": "img0858.npz",
+        "source_sha256": "cf11919b5073aa2885585b85cb0633b095ca9a3f47d5d4c579c44fcb59673ef8",
+        "trace_only_sha256": "3b4ba1d4d2570d609418585dd50a226cdebecaf5510d28b212b4df3a5aa2b4ac"
+      },
+      {
+        "file": "img0859.npz",
+        "source_file": "img0859.npz",
+        "source_sha256": "7486835d019d8254dbc458a41702df45ce9ac3fb457e1022f6bbaceb25114c61",
+        "trace_only_sha256": "220ca0b6789dbc80b3a14419b2f8215940021cab6c42b5d18c9587fe06ea5fdd"
+      }
+    ],
+    "contains_ground_truth_images": false,
+    "contains_labels": false
+  },
+  "parameters": {
+    "delta": 1.0,
+    "group_size": 3,
+    "fallback_k": 128,
+    "max_candidates": 48,
+    "max_seed_windows": 8,
+    "feature": "mean_abs"
+  },
+  "attack_stage_inputs": "trace-only npz files plus template; no image/label arrays",
+  "images": [
+    {
+      "file": "img0820.npz",
+      "recovered_file": "recovered_0820.npz",
+      "mean_candidates": 30.051775147928993,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.00925584388986409
+    },
+    {
+      "file": "img0821.npz",
+      "recovered_file": "recovered_0821.npz",
+      "mean_candidates": 30.12130177514793,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.00946398626265489
+    },
+    {
+      "file": "img0822.npz",
+      "recovered_file": "recovered_0822.npz",
+      "mean_candidates": 28.70414201183432,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.008952256013364327
+    },
+    {
+      "file": "img0823.npz",
+      "recovered_file": "recovered_0823.npz",
+      "mean_candidates": 29.393491124260354,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.008124812801147878
+    },
+    {
+      "file": "img0824.npz",
+      "recovered_file": "recovered_0824.npz",
+      "mean_candidates": 28.331360946745562,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.012070389709105586
+    },
+    {
+      "file": "img0825.npz",
+      "recovered_file": "recovered_0825.npz",
+      "mean_candidates": 30.10207100591716,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.00833449040087777
+    },
+    {
+      "file": "img0826.npz",
+      "recovered_file": "recovered_0826.npz",
+      "mean_candidates": 29.11242603550296,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.010561634737956627
+    },
+    {
+      "file": "img0827.npz",
+      "recovered_file": "recovered_0827.npz",
+      "mean_candidates": 30.69526627218935,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.010162830892056851
+    },
+    {
+      "file": "img0828.npz",
+      "recovered_file": "recovered_0828.npz",
+      "mean_candidates": 30.214497041420117,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.009206421611521307
+    },
+    {
+      "file": "img0829.npz",
+      "recovered_file": "recovered_0829.npz",
+      "mean_candidates": 28.890532544378697,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.010480674047945114
+    },
+    {
+      "file": "img0830.npz",
+      "recovered_file": "recovered_0830.npz",
+      "mean_candidates": 30.892011834319526,
+      "median_candidates": 32.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.008002053198433588
+    },
+    {
+      "file": "img0831.npz",
+      "recovered_file": "recovered_0831.npz",
+      "mean_candidates": 29.967455621301774,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.013821453239986112
+    },
+    {
+      "file": "img0832.npz",
+      "recovered_file": "recovered_0832.npz",
+      "mean_candidates": 27.693786982248522,
+      "median_candidates": 27.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.011325367738978596
+    },
+    {
+      "file": "img0833.npz",
+      "recovered_file": "recovered_0833.npz",
+      "mean_candidates": 29.664201183431953,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.008906898010411108
+    },
+    {
+      "file": "img0834.npz",
+      "recovered_file": "recovered_0834.npz",
+      "mean_candidates": 29.411242603550296,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.010182836743846155
+    },
+    {
+      "file": "img0835.npz",
+      "recovered_file": "recovered_0835.npz",
+      "mean_candidates": 29.328402366863905,
+      "median_candidates": 28.5,
+      "max_candidates": 48,
+      "fallback_windows": 3,
+      "mean_group_min_dist": 0.012613296357055886
+    },
+    {
+      "file": "img0836.npz",
+      "recovered_file": "recovered_0836.npz",
+      "mean_candidates": 30.201183431952664,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 3,
+      "mean_group_min_dist": 0.011062900802087657
+    },
+    {
+      "file": "img0837.npz",
+      "recovered_file": "recovered_0837.npz",
+      "mean_candidates": 29.585798816568047,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.00908564318959276
+    },
+    {
+      "file": "img0838.npz",
+      "recovered_file": "recovered_0838.npz",
+      "mean_candidates": 28.86094674556213,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.009314266007227583
+    },
+    {
+      "file": "img0839.npz",
+      "recovered_file": "recovered_0839.npz",
+      "mean_candidates": 29.99112426035503,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.007298148265874379
+    },
+    {
+      "file": "img0840.npz",
+      "recovered_file": "recovered_0840.npz",
+      "mean_candidates": 30.106508875739646,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.010028011236983917
+    },
+    {
+      "file": "img0841.npz",
+      "recovered_file": "recovered_0841.npz",
+      "mean_candidates": 30.035502958579883,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.009112977018606591
+    },
+    {
+      "file": "img0842.npz",
+      "recovered_file": "recovered_0842.npz",
+      "mean_candidates": 29.312130177514792,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.009826007275835314
+    },
+    {
+      "file": "img0843.npz",
+      "recovered_file": "recovered_0843.npz",
+      "mean_candidates": 29.89792899408284,
+      "median_candidates": 29.5,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.00954147317241983
+    },
+    {
+      "file": "img0844.npz",
+      "recovered_file": "recovered_0844.npz",
+      "mean_candidates": 30.338757396449704,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.009766180569049925
+    },
+    {
+      "file": "img0845.npz",
+      "recovered_file": "recovered_0845.npz",
+      "mean_candidates": 30.9792899408284,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.008075825187566695
+    },
+    {
+      "file": "img0846.npz",
+      "recovered_file": "recovered_0846.npz",
+      "mean_candidates": 29.7707100591716,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.010995582306424393
+    },
+    {
+      "file": "img0847.npz",
+      "recovered_file": "recovered_0847.npz",
+      "mean_candidates": 28.11390532544379,
+      "median_candidates": 27.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.010803604577617967
+    },
+    {
+      "file": "img0848.npz",
+      "recovered_file": "recovered_0848.npz",
+      "mean_candidates": 30.473372781065088,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.011116091177721929
+    },
+    {
+      "file": "img0849.npz",
+      "recovered_file": "recovered_0849.npz",
+      "mean_candidates": 29.350591715976332,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.008535424812499927
+    },
+    {
+      "file": "img0850.npz",
+      "recovered_file": "recovered_0850.npz",
+      "mean_candidates": 29.680473372781066,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 4,
+      "mean_group_min_dist": 0.013046505040852075
+    },
+    {
+      "file": "img0851.npz",
+      "recovered_file": "recovered_0851.npz",
+      "mean_candidates": 30.967455621301774,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.0071239181251180695
+    },
+    {
+      "file": "img0852.npz",
+      "recovered_file": "recovered_0852.npz",
+      "mean_candidates": 30.109467455621303,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.009405350964106994
+    },
+    {
+      "file": "img0853.npz",
+      "recovered_file": "recovered_0853.npz",
+      "mean_candidates": 29.164201183431953,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.008141790589941762
+    },
+    {
+      "file": "img0854.npz",
+      "recovered_file": "recovered_0854.npz",
+      "mean_candidates": 30.53846153846154,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.007820798856436712
+    },
+    {
+      "file": "img0855.npz",
+      "recovered_file": "recovered_0855.npz",
+      "mean_candidates": 28.948224852071007,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.00790307954351316
+    },
+    {
+      "file": "img0856.npz",
+      "recovered_file": "recovered_0856.npz",
+      "mean_candidates": 28.223372781065088,
+      "median_candidates": 28.0,
+      "max_candidates": 48,
+      "fallback_windows": 2,
+      "mean_group_min_dist": 0.011781053503061734
+    },
+    {
+      "file": "img0857.npz",
+      "recovered_file": "recovered_0857.npz",
+      "mean_candidates": 30.152366863905325,
+      "median_candidates": 31.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.008234514131049808
+    },
+    {
+      "file": "img0858.npz",
+      "recovered_file": "recovered_0858.npz",
+      "mean_candidates": 30.39644970414201,
+      "median_candidates": 30.0,
+      "max_candidates": 48,
+      "fallback_windows": 0,
+      "mean_group_min_dist": 0.007854291866838597
+    },
+    {
+      "file": "img0859.npz",
+      "recovered_file": "recovered_0859.npz",
+      "mean_candidates": 28.715976331360945,
+      "median_candidates": 29.0,
+      "max_candidates": 48,
+      "fallback_windows": 1,
+      "mean_group_min_dist": 0.011981177223391445
+    }
+  ],
+  "summary": {
+    "n_images": 40,
+    "mean_candidates": 29.66220414201183,
+    "mean_fallback_windows": 0.725
+  }
+}

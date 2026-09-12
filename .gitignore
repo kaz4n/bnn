@@ -44,3 +44,11 @@ host/mnist_*.npz
 *.aux
 *.out
 report/**/*.log
+
+# Bulk reconstruction/trace arrays from the Aug-2026 sessions: 831 MB, which would
+# consume GitHub's entire 1 GB LFS allowance in one push. These are MODEL OUTPUTS --
+# the score/summary JSONs alongside them are committed and carry the numbers, and the
+# arrays regenerate from the capture plus the recorded config.
+attack/hardtests_20260830/**/*.npz
+attack/rerun_20260830/**/*.npz
+host/fashion_test.npz

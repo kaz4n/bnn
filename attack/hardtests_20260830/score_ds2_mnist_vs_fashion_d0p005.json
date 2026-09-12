@@ -1,0 +1,26 @@
+{
+  "name": "ds2_mnist_fashion_0.005",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\ds2_mnist_fashion_0p005",
+  "metrics": {
+    "grey_mae_255": 59.65178680419922,
+    "grey_rmse_255": 123.3337173461914,
+    "grey_corr": 0.26612812978054406,
+    "bit_acc": 0.7660714285714286,
+    "foreground_precision": 0.9123711340206185,
+    "foreground_recall": 0.10877581120943952,
+    "foreground_f1": 0.19437733362618054,
+    "foreground_iou": 0.10765113733122492,
+    "all_zero_bit_acc": 0.7405612244897959,
+    "foreground_rate": 0.25943877551020406,
+    "f1_chance": 0.411991087705084,
+    "f1_excess": -0.3700858091241979,
+    "bit_acc_chance": 0.7405612244897959,
+    "bit_acc_excess": 0.09832841691248802,
+    "mssim": 0.28957939717229636,
+    "pixel_level_distance": 59.65178680419922,
+    "recognition_accuracy_original": 0.9,
+    "recognition_accuracy_recovered": 0.3,
+    "n_images": 40
+  }
+}

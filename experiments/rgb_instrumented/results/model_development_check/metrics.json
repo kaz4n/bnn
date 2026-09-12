@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "run_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\experiments\\rgb_instrumented\\results\\model_development_check",
+  "status": "ok",
+  "sources": [
+    "software_model"
+  ],
+  "method_parameters": {
+    "nearest": {},
+    "bilinear": {},
+    "smooth_ridge": {
+      "ridge": 0.05,
+      "rtol": 1e-07,
+      "atol": 1e-10,
+      "maxiter": 1000
+    },
+    "tv": {
+      "weight": 0.05,
+      "rtol": 1e-05,
+      "atol": 1e-08,
+      "maxiter": 2000,
+      "check_every": 10
+    }
+  },
+  "metric_definitions": {
+    "rgb_mse": "Mean squared error across all H*W*3 normalized RGB components, before PNG rounding.",
+    "rgb_psnr_db": "10*log10(1/rgb_mse), with fixed peak=1; null and is_infinite=true for zero MSE.",
+    "channel_mae_rgb": "Mean absolute normalized error separately in R, G, B order.",
+    "missing_mse": "Mean squared error over the 2*H*W unmeasured RGB components only.",
+    "measurement_max_abs_error": "Maximum absolute normalized difference at the H*W measured components.",
+    "pooled_psnr": "PSNR computed from total squared error divided by total component count.",
+    "mean_per_image_psnr": "Arithmetic mean of per-image PSNR; infinite if any image has zero MSE.",
+    "runtime_seconds": "Wall-clock reconstruction call only; excludes input/output, validation, and metrics."
+  },
+  "cases": [
+    {
+      "id": "control_gradient_32",
+      "source": "software_model",
+      "provenance": {
+        "image_source_url": "procedural:gradient:v1",
+        "color_space": "encoded RGB8 numeric test pattern",
+        "acquisition_kind": "software_model_only",
+        "captured_sample_count": 1024,
+        "acquisition_seconds": 0.0,
+        "source": "software_model",
+        "pattern": "RGGB",
+        "case_id": "control_gradient_32",
+        "width": 32,
+        "height": 32,
+        "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+        "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+        "hardware_validation_passed": false,
+        "reference_mismatch_count": 0,
+        "captured_utc": "2026-09-11T06:12:56.782191+00:00"
+      },
+      "status": "ok",
+      "height": 32,
+      "width": 32,
+      "resolution": "32x32",
+      "category": "control"
+    }
+  ],
+  "results": [
+    {
+      "id": "control_gradient_32",
+      "source": "software_model",
+      "provenance": {
+        "image_source_url": "procedural:gradient:v1",
+        "color_space": "encoded RGB8 numeric test pattern",
+        "acquisition_kind": "software_model_only",
+        "captured_sample_count": 1024,
+        "acquisition_seconds": 0.0,
+        "source": "software_model",
+        "pattern": "RGGB",
+        "case_id": "control_gradient_32",
+        "width": 32,
+        "height": 32,
+        "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+        "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+        "hardware_validation_passed": false,
+        "reference_mismatch_count": 0,
+        "captured_utc": "2026-09-11T06:12:56.782191+00:00"
+      },
+      "category": "control",
+      "resolution": "32x32",
+      "method": "nearest",
+      "parameters": {},
+      "status": "ok",
+      "runtime_seconds": 0.0011606999978539534,
+      "metrics": {
+        "rgb_mse": 0.00030148660771498126,
+        "rgb_psnr_db": 35.207319748162405,
+        "rgb_psnr_is_infinite": false,
+        "channel_mae_rgb": [
+          0.016176470588235244,
+          0.0005016850490196078,
+          0.015245863970588186
+        ],
+        "missing_mse": 0.0004522299115724718,
+        "missing_psnr_db": 33.4464071576056,
+        "missing_psnr_is_infinite": false,
+        "measurement_max_abs_error": 0.0,
+        "rgb_squared_error_sum": 0.9261668589004224,
+        "rgb_component_count": 3072,
+        "missing_squared_error_sum": 0.9261668589004223,
+        "missing_component_count": 2048
+      },
+      "output_png": "outputs/nearest/control_gradient_32.png"
+    },
+    {
+      "id": "control_gradient_32",
+      "source": "software_model",
+      "provenance": {
+        "image_source_url": "procedural:gradient:v1",
+        "color_space": "encoded RGB8 numeric test pattern",
+        "acquisition_kind": "software_model_only",
+        "captured_sample_count": 1024,
+        "acquisition_seconds": 0.0,
+        "source": "software_model",
+        "pattern": "RGGB",
+        "case_id": "control_gradient_32",
+        "width": 32,
+        "height": 32,
+        "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+        "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+        "hardware_validation_passed": false,
+        "reference_mismatch_count": 0,
+        "captured_utc": "2026-09-11T06:12:56.782191+00:00"
+      },
+      "category": "control",
+      "resolution": "32x32",
+      "method": "bilinear",
+      "parameters": {},
+      "status": "ok",
+      "runtime_seconds": 0.0008711999980732799,
+      "metrics": {
+        "rgb_mse": 1.7554227885553267e-05,
+        "rgb_psnr_db": 47.55618268016805,
+        "rgb_psnr_is_infinite": false,
+        "channel_mae_rgb": [
+          0.001409313725490195,
+          0.0005559385212418274,
+          0.0013183593750000044
+        ],
+        "missing_mse": 2.6331341828329903e-05,
+        "missing_psnr_db": 45.795270089611236,
+        "missing_psnr_is_infinite": false,
+        "measurement_max_abs_error": 0.0,
+        "rgb_squared_error_sum": 0.05392658806441964,
+        "rgb_component_count": 3072,
+        "missing_squared_error_sum": 0.05392658806441964,
+        "missing_component_count": 2048
+      },
+      "output_png": "outputs/bilinear/control_gradient_32.png"
+    },
+    {
+      "id": "control_gradient_32",
+      "source": "software_model",
+      "provenance": {
+        "image_source_url": "procedural:gradient:v1",
+        "color_space": "encoded RGB8 numeric test pattern",
+        "acquisition_kind": "software_model_only",
+        "captured_sample_count": 1024,
+        "acquisition_seconds": 0.0,
+        "source": "software_model",
+        "pattern": "RGGB",
+        "case_id": "control_gradient_32",
+        "width": 32,
+        "height": 32,
+        "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+        "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+        "hardware_validation_passed": false,
+        "reference_mismatch_count": 0,
+        "captured_utc": "2026-09-11T06:12:56.782191+00:00"
+      },
+      "category": "control",
+      "resolution": "32x32",
+      "method": "smooth_ridge",
+      "parameters": {
+        "ridge": 0.05,
+        "rtol": 1e-07,
+        "atol": 1e-10,
+        "maxiter": 1000
+      },
+      "status": "ok",
+      "runtime_seconds": 0.009050900000147521,
+      "metrics": {
+        "rgb_mse": 2.5911978396897994e-05,
+        "rgb_psnr_db": 45.86499427073825,
+        "rgb_psnr_is_infinite": false,
+        "channel_mae_rgb": [
+          0.0022640112650576466,
+          0.0005559385212418274,
+          0.00198187302804554
+        ],
+        "missing_mse": 3.8867967595347e-05,
+        "missing_psnr_db": 44.10408168018144,
+        "missing_psnr_is_infinite": false,
+        "measurement_max_abs_error": 0.0,
+        "rgb_squared_error_sum": 0.07960159763527064,
+        "rgb_component_count": 3072,
+        "missing_squared_error_sum": 0.07960159763527065,
+        "missing_component_count": 2048
+      },
+      "output_png": "outputs/smooth_ridge/control_gradient_32.png"
+    },
+    {
+      "id": "control_gradient_32",
+      "source": "software_model",
+      "provenance": {
+        "image_source_url": "procedural:gradient:v1",
+        "color_space": "encoded RGB8 numeric test pattern",
+        "acquisition_kind": "software_model_only",
+        "captured_sample_count": 1024,
+        "acquisition_seconds": 0.0,
+        "source": "software_model",
+        "pattern": "RGGB",
+        "case_id": "control_gradient_32",
+        "width": 32,
+        "height": 32,
+        "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+        "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+        "hardware_validation_passed": false,
+        "reference_mismatch_count": 0,
+        "captured_utc": "2026-09-11T06:12:56.782191+00:00"
+      },
+      "category": "control",
+      "resolution": "32x32",
+      "method": "tv",
+      "parameters": {
+        "weight": 0.05,
+        "rtol": 1e-05,
+        "atol": 1e-08,
+        "maxiter": 2000,
+        "check_every": 10
+      },
+      "status": "ok",
+      "runtime_seconds": 0.01328119999379851,
+      "metrics": {
+        "rgb_mse": 2.94536083838152e-05,
+        "rgb_psnr_db": 45.3086149187239,
+        "rgb_psnr_is_infinite": false,
+        "channel_mae_rgb": [
+          0.001691326542861431,
+          0.00026740857411421283,
+          0.0030136476243373457
+        ],
+        "missing_mse": 4.41804125757228e-05,
+        "missing_psnr_db": 43.547702328167084,
+        "missing_psnr_is_infinite": false,
+        "measurement_max_abs_error": 0.0,
+        "rgb_squared_error_sum": 0.0904814849550803,
+        "rgb_component_count": 3072,
+        "missing_squared_error_sum": 0.0904814849550803,
+        "missing_component_count": 2048
+      },
+      "output_png": "outputs/tv/control_gradient_32.png"
+    }
+  ],
+  "summaries": [
+    {
+      "source": "software_model",
+      "category": "control",
+      "resolution": "32x32",
+      "method": "bilinear",
+      "successful_images": 1,
+      "failed_images": 0,
+      "pooled_rgb_mse": 1.7554227885553267e-05,
+      "pooled_rgb_psnr_db": 47.55618268016805,
+      "pooled_rgb_psnr_is_infinite": false,
+      "mean_per_image_rgb_psnr_db": 47.55618268016805,
+      "mean_per_image_rgb_psnr_is_infinite": false,
+      "pooled_missing_mse": 2.6331341828329903e-05,
+      "pooled_missing_psnr_db": 45.795270089611236,
+      "pooled_missing_psnr_is_infinite": false,
+      "mean_per_image_missing_psnr_db": 45.795270089611236,
+      "mean_per_image_missing_psnr_is_infinite": false,
+      "mean_runtime_seconds": 0.0008711999980732799
+    },
+    {
+      "source": "software_model",
+      "category": "control",
+      "resolution": "32x32",
+      "method": "nearest",
+      "successful_images": 1,
+      "failed_images": 0,
+      "pooled_rgb_mse": 0.00030148660771498126,
+      "pooled_rgb_psnr_db": 35.207319748162405,
+      "pooled_rgb_psnr_is_infinite": false,
+      "mean_per_image_rgb_psnr_db": 35.207319748162405,
+      "mean_per_image_rgb_psnr_is_infinite": false,
+      "pooled_missing_mse": 0.0004522299115724718,
+      "pooled_missing_psnr_db": 33.4464071576056,
+      "pooled_missing_psnr_is_infinite": false,
+      "mean_per_image_missing_psnr_db": 33.4464071576056,
+      "mean_per_image_missing_psnr_is_infinite": false,
+      "mean_runtime_seconds": 0.0011606999978539534
+    },
+    {
+      "source": "software_model",
+      "category": "control",
+      "resolution": "32x32",
+      "method": "smooth_ridge",
+      "successful_images": 1,
+      "failed_images": 0,
+      "pooled_rgb_mse": 2.5911978396897994e-05,
+      "pooled_rgb_psnr_db": 45.86499427073825,
+      "pooled_rgb_psnr_is_infinite": false,
+      "mean_per_image_rgb_psnr_db": 45.86499427073825,
+      "mean_per_image_rgb_psnr_is_infinite": false,
+      "pooled_missing_mse": 3.8867967595347e-05,
+      "pooled_missing_psnr_db": 44.10408168018144,
+      "pooled_missing_psnr_is_infinite": false,
+      "mean_per_image_missing_psnr_db": 44.10408168018144,
+      "mean_per_image_missing_psnr_is_infinite": false,
+      "mean_runtime_seconds": 0.009050900000147521
+    },
+    {
+      "source": "software_model",
+      "category": "control",
+      "resolution": "32x32",
+      "method": "tv",
+      "successful_images": 1,
+      "failed_images": 0,
+      "pooled_rgb_mse": 2.94536083838152e-05,
+      "pooled_rgb_psnr_db": 45.3086149187239,
+      "pooled_rgb_psnr_is_infinite": false,
+      "mean_per_image_rgb_psnr_db": 45.3086149187239,
+      "mean_per_image_rgb_psnr_is_infinite": false,
+      "pooled_missing_mse": 4.41804125757228e-05,
+      "pooled_missing_psnr_db": 43.547702328167084,
+      "pooled_missing_psnr_is_infinite": false,
+      "mean_per_image_missing_psnr_db": 43.547702328167084,
+      "mean_per_image_missing_psnr_is_infinite": false,
+      "mean_runtime_seconds": 0.01328119999379851
+    }
+  ],
+  "failures": [],
+  "montage_case_ids": [
+    "control_gradient_32"
+  ]
+}

@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.4 (win64) Build 1756540 Mon Jan 23 19:11:23 MST 2017
-| Date         : Wed Aug 26 23:03:31 2026
+| Date         : Sat Aug 29 23:39:16 2026
 | Host         : kaz4n running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -file leakage_d8_l63_timing.rpt
 | Design       : cw305_leakage_top
@@ -126,7 +126,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-      3.326        0.000                      0                 3770        0.071        0.000                      0                 3770        4.500        0.000                       0                  1584  
+      2.599        0.000                      0                 3876        0.078        0.000                      0                 3876        4.500        0.000                       0                  1688  
 
 
 All user specified timing constraints are met.
@@ -152,10 +152,10 @@ usb_clk             {0.000 5.000}      10.000          100.000
 
 Clock                   WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----                   -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-leakage_crypto_clk       23.427        0.000                      0                 2102        0.071        0.000                      0                 2102       18.870        0.000                       0                   725  
+leakage_crypto_clk       22.417        0.000                      0                 2194        0.106        0.000                      0                 2194       18.870        0.000                       0                   783  
 pll_clk1                                                                                                                                                              8.408        0.000                       0                     1  
 tio_clkin                                                                                                                                                             8.408        0.000                       0                     1  
-usb_clk                   3.326        0.000                      0                 1667        0.104        0.000                      0                 1667        4.500        0.000                       0                   857  
+usb_clk                   2.599        0.000                      0                 1681        0.078        0.000                      0                 1681        4.500        0.000                       0                   903  
 
 
 ------------------------------------------------------------------------------------------------
@@ -174,7 +174,7 @@ From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS
 
 Path Group         From Clock         To Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
 ----------         ----------         --------               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
-**async_default**  usb_clk            usb_clk                  7.365        0.000                      0                    1        1.064        0.000                      0                    1  
+**async_default**  usb_clk            usb_clk                  5.289        0.000                      0                    1        2.187        0.000                      0                    1  
 
 
 ------------------------------------------------------------------------------------------------
@@ -187,28 +187,28 @@ Path Group         From Clock         To Clock               WNS(ns)      TNS(ns
 From Clock:  leakage_crypto_clk
   To Clock:  leakage_crypto_clk
 
-Setup :            0  Failing Endpoints,  Worst Slack       23.427ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.071ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       22.417ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.106ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack       18.870ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             23.427ns  (required time - arrival time)
-  Source:                 U_reg/U_core/col_reg[0]_rep__3/C
+Slack (MET) :             22.417ns  (required time - arrival time)
+  Source:                 U_reg/U_core/row_reg[0]/C
                             (rising edge-triggered cell FDRE clocked by leakage_crypto_clk  {rise@0.000ns fall@20.000ns period=40.000ns})
-  Destination:            U_reg/U_core/leak_bank_reg[499]/D
+  Destination:            U_reg/U_core/leak_bank_reg[312]/D
                             (rising edge-triggered cell FDRE clocked by leakage_crypto_clk  {rise@0.000ns fall@20.000ns period=40.000ns})
   Path Group:             leakage_crypto_clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            40.000ns  (leakage_crypto_clk rise@40.000ns - leakage_crypto_clk rise@0.000ns)
-  Data Path Delay:        16.384ns  (logic 2.021ns (12.335%)  route 14.363ns (87.665%))
-  Logic Levels:           9  (LUT2=1 LUT3=1 LUT6=3 MUXF7=2 MUXF8=2)
-  Clock Path Skew:        -0.142ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    1.309ns = ( 41.309 - 40.000 ) 
-    Source Clock Delay      (SCD):    1.451ns
-    Clock Pessimism Removal (CPR):    0.000ns
+  Data Path Delay:        17.470ns  (logic 1.446ns (8.277%)  route 16.024ns (91.723%))
+  Logic Levels:           8  (CARRY4=1 LUT2=2 LUT6=5)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.323ns = ( 41.323 - 40.000 ) 
+    Source Clock Delay      (SCD):    1.428ns
+    Clock Pessimism Removal (CPR):    0.066ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Total Input Jitter      (TIJ):    0.000ns
@@ -220,45 +220,44 @@ Slack (MET) :             23.427ns  (required time - arrival time)
                          (clock leakage_crypto_clk rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFGCTRL                     0.000     0.000 r  U_clocks/CCLK_MUX/O
-                         net (fo=725, routed)         1.451     1.451    U_reg/U_core/crypto_clk
-    SLICE_X78Y91         FDRE                                         r  U_reg/U_core/col_reg[0]_rep__3/C
+                         net (fo=783, routed)         1.428     1.428    U_reg/U_core/crypto_clk
+    SLICE_X79Y118        FDRE                                         r  U_reg/U_core/row_reg[0]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X78Y91         FDRE (Prop_fdre_C_Q)         0.433     1.884 r  U_reg/U_core/col_reg[0]_rep__3/Q
-                         net (fo=123, routed)         5.824     7.708    U_reg/U_core/col_reg[0]_rep__3_n_0
-    SLICE_X83Y73         LUT3 (Prop_lut3_I1_O)        0.119     7.827 r  U_reg/U_core/out_data[7]_i_562/O
-                         net (fo=2, routed)           0.988     8.814    U_reg/U_core/out_data[7]_i_562_n_0
-    SLICE_X84Y75         LUT6 (Prop_lut6_I1_O)        0.267     9.081 r  U_reg/U_core/out_data[7]_i_683/O
-                         net (fo=1, routed)           0.000     9.081    U_reg/U_core/out_data[7]_i_683_n_0
-    SLICE_X84Y75         MUXF7 (Prop_muxf7_I0_O)      0.201     9.282 r  U_reg/U_core/out_data_reg[7]_i_237/O
-                         net (fo=1, routed)           0.000     9.282    U_reg/U_core/out_data_reg[7]_i_237_n_0
-    SLICE_X84Y75         MUXF8 (Prop_muxf8_I0_O)      0.082     9.364 r  U_reg/U_core/out_data_reg[7]_i_110/O
-                         net (fo=1, routed)           1.082    10.447    U_reg/U_core/out_data_reg[7]_i_110_n_0
-    SLICE_X73Y90         LUT6 (Prop_lut6_I3_O)        0.259    10.706 r  U_reg/U_core/out_data[7]_i_39/O
-                         net (fo=1, routed)           0.000    10.706    U_reg/U_core/out_data[7]_i_39_n_0
-    SLICE_X73Y90         MUXF7 (Prop_muxf7_I1_O)      0.206    10.912 r  U_reg/U_core/out_data_reg[7]_i_17/O
-                         net (fo=2, routed)           0.000    10.912    U_reg/U_core/out_data_reg[7]_i_17_n_0
-    SLICE_X73Y90         MUXF8 (Prop_muxf8_I0_O)      0.085    10.997 r  U_reg/U_core/leak_bank_reg[562]_i_4/O
-                         net (fo=1, routed)           0.857    11.854    U_reg/U_core/leak_bank_reg[562]_i_4_n_0
-    SLICE_X77Y94         LUT6 (Prop_lut6_I1_O)        0.264    12.118 f  U_reg/U_core/leak_bank[562]_i_2/O
-                         net (fo=1, routed)           0.983    13.100    U_reg/U_core/leak_bank[562]_i_2_n_0
-    SLICE_X77Y105        LUT2 (Prop_lut2_I0_O)        0.105    13.205 r  U_reg/U_core/leak_bank[562]_i_1/O
-                         net (fo=63, routed)          4.630    17.835    U_reg/U_core/leak_bank[562]_i_1_n_0
-    SLICE_X76Y124        FDRE                                         r  U_reg/U_core/leak_bank_reg[499]/D
+    SLICE_X79Y118        FDRE (Prop_fdre_C_Q)         0.379     1.807 r  U_reg/U_core/row_reg[0]/Q
+                         net (fo=14, routed)          0.957     2.764    U_reg/U_core/row_reg__0[0]
+    SLICE_X79Y115        LUT2 (Prop_lut2_I0_O)        0.105     2.869 r  U_reg/U_core/leak_bank[566]_i_20/O
+                         net (fo=1, routed)           0.000     2.869    U_reg/U_core/leak_bank[566]_i_20_n_0
+    SLICE_X79Y115        CARRY4 (Prop_carry4_S[1]_O[1])
+                                                      0.187     3.056 r  U_reg/U_core/leak_bank_reg[566]_i_8/O[1]
+                         net (fo=222, routed)         6.757     9.813    U_reg/U_core/leak_bank_reg[566]_i_8_n_6
+    SLICE_X67Y83         LUT6 (Prop_lut6_I2_O)        0.250    10.063 r  U_reg/U_core/leak_bank[564]_i_116/O
+                         net (fo=2, routed)           0.439    10.502    U_reg/U_core/leak_bank[564]_i_116_n_0
+    SLICE_X71Y84         LUT6 (Prop_lut6_I4_O)        0.105    10.607 r  U_reg/U_core/leak_bank[564]_i_35/O
+                         net (fo=1, routed)           1.319    11.926    U_reg/U_core/leak_bank[564]_i_35_n_0
+    SLICE_X76Y96         LUT6 (Prop_lut6_I3_O)        0.105    12.031 r  U_reg/U_core/leak_bank[564]_i_12/O
+                         net (fo=1, routed)           0.494    12.524    U_reg/U_core/leak_bank[564]_i_12_n_0
+    SLICE_X76Y102        LUT6 (Prop_lut6_I5_O)        0.105    12.629 r  U_reg/U_core/leak_bank[564]_i_4/O
+                         net (fo=1, routed)           0.647    13.276    U_reg/U_core/leak_bank[564]_i_4_n_0
+    SLICE_X76Y110        LUT6 (Prop_lut6_I1_O)        0.105    13.381 f  U_reg/U_core/leak_bank[564]_i_2/O
+                         net (fo=3, routed)           1.181    14.562    U_reg/U_core/leak_bank[564]_i_2_n_0
+    SLICE_X76Y121        LUT2 (Prop_lut2_I0_O)        0.105    14.667 r  U_reg/U_core/leak_bank[564]_i_1/O
+                         net (fo=63, routed)          4.231    18.898    U_reg/U_core/leak_bank[564]_i_1_n_0
+    SLICE_X77Y141        FDRE                                         r  U_reg/U_core/leak_bank_reg[312]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock leakage_crypto_clk rise edge)
                                                      40.000    40.000 r  
     BUFGCTRL_X0Y0        BUFGCTRL                     0.000    40.000 r  U_clocks/CCLK_MUX/O
-                         net (fo=725, routed)         1.309    41.309    U_reg/U_core/crypto_clk
-    SLICE_X76Y124        FDRE                                         r  U_reg/U_core/leak_bank_reg[499]/C
-                         clock pessimism              0.000    41.309    
-                         clock uncertainty           -0.035    41.274    
-    SLICE_X76Y124        FDRE (Setup_fdre_C_D)       -0.012    41.262    U_reg/U_core/leak_bank_reg[499]
+                         net (fo=783, routed)         1.323    41.323    U_reg/U_core/crypto_clk
+    SLICE_X77Y141        FDRE                                         r  U_reg/U_core/leak_bank_reg[312]/C
+                         clock pessimism              0.066    41.389    
+                         clock uncertainty           -0.035    41.354    
+    SLICE_X77Y141        FDRE (Setup_fdre_C_D)       -0.039    41.315    U_reg/U_core/leak_bank_reg[312]
   -------------------------------------------------------------------
-                         required time                         41.262    
-                         arrival time                         -17.835    
+                         required time                         41.315    
+                         arrival time                         -18.898    
   -------------------------------------------------------------------
-                         slack                                 23.427    
+                         slack                                 22.417    
 
 
 
@@ -266,47 +265,47 @@ Slack (MET) :             23.427ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.071ns  (arrival time - required time)
-  Source:                 U_reg/U_core/out_data_reg[0]/C
+Slack (MET) :             0.106ns  (arrival time - required time)
+  Source:                 U_reg/U_core/out_data_reg[3]/C
                             (rising edge-triggered cell FDRE clocked by leakage_crypto_clk  {rise@0.000ns fall@20.000ns period=40.000ns})
-  Destination:            U_reg/out_mem_reg_192_255_0_2/RAMA/I
+  Destination:            U_reg/out_mem_reg_128_191_3_5/RAMA/I
                             (rising edge-triggered cell RAMD64E clocked by leakage_crypto_clk  {rise@0.000ns fall@20.000ns period=40.000ns})
   Path Group:             leakage_crypto_clk
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (leakage_crypto_clk rise@0.000ns - leakage_crypto_clk rise@0.000ns)
-  Data Path Delay:        0.231ns  (logic 0.141ns (60.988%)  route 0.090ns (39.012%))
+  Data Path Delay:        0.266ns  (logic 0.141ns (53.002%)  route 0.125ns (46.998%))
   Logic Levels:           0  
   Clock Path Skew:        0.013ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    0.867ns
-    Source Clock Delay      (SCD):    0.596ns
-    Clock Pessimism Removal (CPR):    0.259ns
+    Destination Clock Delay (DCD):    0.856ns
+    Source Clock Delay      (SCD):    0.587ns
+    Clock Pessimism Removal (CPR):    0.257ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
                          (clock leakage_crypto_clk rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFGCTRL                     0.000     0.000 r  U_clocks/CCLK_MUX/O
-                         net (fo=725, routed)         0.596     0.596    U_reg/U_core/crypto_clk
-    SLICE_X79Y105        FDRE                                         r  U_reg/U_core/out_data_reg[0]/C
+                         net (fo=783, routed)         0.587     0.587    U_reg/U_core/crypto_clk
+    SLICE_X79Y120        FDRE                                         r  U_reg/U_core/out_data_reg[3]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X79Y105        FDRE (Prop_fdre_C_Q)         0.141     0.737 r  U_reg/U_core/out_data_reg[0]/Q
-                         net (fo=11, routed)          0.090     0.827    U_reg/out_mem_reg_192_255_0_2/DIA
-    SLICE_X78Y105        RAMD64E                                      r  U_reg/out_mem_reg_192_255_0_2/RAMA/I
+    SLICE_X79Y120        FDRE (Prop_fdre_C_Q)         0.141     0.728 r  U_reg/U_core/out_data_reg[3]/Q
+                         net (fo=11, routed)          0.125     0.853    U_reg/out_mem_reg_128_191_3_5/DIA
+    SLICE_X78Y120        RAMD64E                                      r  U_reg/out_mem_reg_128_191_3_5/RAMA/I
   -------------------------------------------------------------------    -------------------
 
                          (clock leakage_crypto_clk rise edge)
                                                       0.000     0.000 r  
     BUFGCTRL_X0Y0        BUFGCTRL                     0.000     0.000 r  U_clocks/CCLK_MUX/O
-                         net (fo=725, routed)         0.867     0.867    U_reg/out_mem_reg_192_255_0_2/WCLK
-    SLICE_X78Y105        RAMD64E                                      r  U_reg/out_mem_reg_192_255_0_2/RAMA/CLK
-                         clock pessimism             -0.259     0.609    
-    SLICE_X78Y105        RAMD64E (Hold_ramd64e_CLK_I)
-                                                      0.147     0.756    U_reg/out_mem_reg_192_255_0_2/RAMA
+                         net (fo=783, routed)         0.856     0.856    U_reg/out_mem_reg_128_191_3_5/WCLK
+    SLICE_X78Y120        RAMD64E                                      r  U_reg/out_mem_reg_128_191_3_5/RAMA/CLK
+                         clock pessimism             -0.257     0.600    
+    SLICE_X78Y120        RAMD64E (Hold_ramd64e_CLK_I)
+                                                      0.147     0.747    U_reg/out_mem_reg_128_191_3_5/RAMA
   -------------------------------------------------------------------
-                         required time                         -0.756    
-                         arrival time                           0.827    
+                         required time                         -0.747    
+                         arrival time                           0.853    
   -------------------------------------------------------------------
-                         slack                                  0.071    
+                         slack                                  0.106    
 
 
 
@@ -321,8 +320,8 @@ Sources:            { U_clocks/CCLK_MUX/O }
 
 Check Type        Corner  Lib Pin      Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
 Min Period        n/a     ODDR/C       n/a            1.474         40.000      38.526     OLOGIC_X0Y86   U_clocks/CWOUT_ODDR/C
-Low Pulse Width   Slow    RAMD64E/CLK  n/a            1.130         20.000      18.870     SLICE_X78Y106  U_reg/out_mem_reg_384_447_0_2/RAMA/CLK
-High Pulse Width  Slow    RAMD64E/CLK  n/a            1.130         20.000      18.870     SLICE_X84Y110  U_reg/out_mem_reg_192_255_3_5/RAMD/CLK
+Low Pulse Width   Fast    RAMD64E/CLK  n/a            1.130         20.000      18.870     SLICE_X84Y124  U_reg/out_mem_reg_0_63_0_2/RAMD/CLK
+High Pulse Width  Slow    RAMD64E/CLK  n/a            1.130         20.000      18.870     SLICE_X78Y120  U_reg/out_mem_reg_128_191_3_5/RAMD/CLK
 
 
 
@@ -374,28 +373,28 @@ Min Period  n/a     BUFGCTRL/I1  n/a            1.592         10.000      8.408 
 From Clock:  usb_clk
   To Clock:  usb_clk
 
-Setup :            0  Failing Endpoints,  Worst Slack        3.326ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.104ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        2.599ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.078ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        4.500ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             3.326ns  (required time - arrival time)
-  Source:                 U_usb_reg_fe/usb_addr_r_reg[3]/C
+Slack (MET) :             2.599ns  (required time - arrival time)
+  Source:                 U_usb_reg_fe/usb_addr_r_reg[1]/C
                             (rising edge-triggered cell FDRE clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Destination:            U_reg/read_data_reg[0]/D
                             (rising edge-triggered cell FDRE clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             usb_clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            10.000ns  (usb_clk rise@10.000ns - usb_clk rise@0.000ns)
-  Data Path Delay:        6.654ns  (logic 1.570ns (23.595%)  route 5.084ns (76.405%))
-  Logic Levels:           6  (LUT6=2 MUXF7=2 MUXF8=2)
-  Clock Path Skew:        -0.045ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    4.366ns = ( 14.366 - 10.000 ) 
-    Source Clock Delay      (SCD):    4.634ns
-    Clock Pessimism Removal (CPR):    0.224ns
+  Data Path Delay:        7.371ns  (logic 1.676ns (22.738%)  route 5.695ns (77.262%))
+  Logic Levels:           8  (LUT6=5 MUXF7=2 MUXF8=1)
+  Clock Path Skew:        -0.025ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.360ns = ( 14.360 - 10.000 ) 
+    Source Clock Delay      (SCD):    4.625ns
+    Clock Pessimism Removal (CPR):    0.241ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Total Input Jitter      (TIJ):    0.000ns
@@ -410,24 +409,28 @@ Slack (MET) :             3.326ns  (required time - arrival time)
     F5                   IBUF (Prop_ibuf_I_O)         1.392     1.392 r  U_clocks/clkibuf/O
                          net (fo=1, routed)           1.717     3.109    U_clocks/usb_clk_bufg
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.081     3.190 r  U_clocks/clkbuf/O
-                         net (fo=856, routed)         1.444     4.634    U_usb_reg_fe/usb_clk_buf
-    SLICE_X89Y109        FDRE                                         r  U_usb_reg_fe/usb_addr_r_reg[3]/C
+                         net (fo=902, routed)         1.435     4.625    U_usb_reg_fe/usb_clk_buf
+    SLICE_X89Y118        FDRE                                         r  U_usb_reg_fe/usb_addr_r_reg[1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X89Y109        FDRE (Prop_fdre_C_Q)         0.379     5.013 r  U_usb_reg_fe/usb_addr_r_reg[3]/Q
-                         net (fo=159, routed)         2.208     7.221    U_reg/Q[3]
-    SLICE_X86Y74         MUXF8 (Prop_muxf8_S_O)       0.224     7.445 r  U_reg/read_data_reg[0]_i_80/O
-                         net (fo=1, routed)           1.170     8.615    U_reg/read_data_reg[0]_i_80_n_0
-    SLICE_X71Y79         LUT6 (Prop_lut6_I0_O)        0.264     8.879 r  U_reg/read_data[0]_i_34/O
-                         net (fo=1, routed)           0.000     8.879    U_reg/read_data[0]_i_34_n_0
-    SLICE_X71Y79         MUXF7 (Prop_muxf7_I0_O)      0.178     9.057 r  U_reg/read_data_reg[0]_i_21/O
-                         net (fo=1, routed)           0.000     9.057    U_reg/read_data_reg[0]_i_21_n_0
-    SLICE_X71Y79         MUXF8 (Prop_muxf8_I1_O)      0.079     9.136 r  U_reg/read_data_reg[0]_i_10/O
-                         net (fo=1, routed)           1.706    10.842    U_usb_reg_fe/usb_addr_r_reg[7]_2
-    SLICE_X85Y106        LUT6 (Prop_lut6_I5_O)        0.264    11.106 r  U_usb_reg_fe/read_data[0]_i_3/O
-                         net (fo=1, routed)           0.000    11.106    U_usb_reg_fe/U_reg/p_2_in
-    SLICE_X85Y106        MUXF7 (Prop_muxf7_I1_O)      0.182    11.288 r  U_usb_reg_fe/read_data_reg[0]_i_1/O
-                         net (fo=1, routed)           0.000    11.288    U_reg/D[0]
-    SLICE_X85Y106        FDRE                                         r  U_reg/read_data_reg[0]/D
+    SLICE_X89Y118        FDRE (Prop_fdre_C_Q)         0.379     5.004 r  U_usb_reg_fe/usb_addr_r_reg[1]/Q
+                         net (fo=325, routed)         2.008     7.012    U_reg/usb_addr_r_reg[9][1]
+    SLICE_X61Y105        LUT6 (Prop_lut6_I2_O)        0.105     7.117 r  U_reg/read_data[0]_i_201/O
+                         net (fo=1, routed)           0.000     7.117    U_reg/read_data[0]_i_201_n_0
+    SLICE_X61Y105        MUXF7 (Prop_muxf7_I0_O)      0.199     7.316 r  U_reg/read_data_reg[0]_i_97/O
+                         net (fo=1, routed)           0.000     7.316    U_reg/read_data_reg[0]_i_97_n_0
+    SLICE_X61Y105        MUXF8 (Prop_muxf8_I0_O)      0.085     7.401 r  U_reg/read_data_reg[0]_i_41/O
+                         net (fo=1, routed)           1.037     8.438    U_reg/read_data_reg[0]_i_41_n_0
+    SLICE_X69Y100        LUT6 (Prop_lut6_I0_O)        0.264     8.702 r  U_reg/read_data[0]_i_23/O
+                         net (fo=1, routed)           0.000     8.702    U_reg/read_data[0]_i_23_n_0
+    SLICE_X69Y100        MUXF7 (Prop_muxf7_I1_O)      0.182     8.884 r  U_reg/read_data_reg[0]_i_11/O
+                         net (fo=1, routed)           1.056     9.941    U_reg/read_data_reg[0]_i_11_n_0
+    SLICE_X77Y93         LUT6 (Prop_lut6_I0_O)        0.252    10.193 r  U_reg/read_data[0]_i_5/O
+                         net (fo=1, routed)           1.192    11.385    U_reg/read_data[0]_i_5_n_0
+    SLICE_X87Y118        LUT6 (Prop_lut6_I0_O)        0.105    11.490 r  U_reg/read_data[0]_i_2/O
+                         net (fo=1, routed)           0.401    11.891    U_reg/read_data[0]_i_2_n_0
+    SLICE_X86Y118        LUT6 (Prop_lut6_I0_O)        0.105    11.996 r  U_reg/read_data[0]_i_1/O
+                         net (fo=1, routed)           0.000    11.996    U_reg/read_data2_out[0]
+    SLICE_X86Y118        FDRE                                         r  U_reg/read_data_reg[0]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock usb_clk rise edge)   10.000    10.000 r  
@@ -436,16 +439,16 @@ Slack (MET) :             3.326ns  (required time - arrival time)
     F5                   IBUF (Prop_ibuf_I_O)         1.326    11.326 r  U_clocks/clkibuf/O
                          net (fo=1, routed)           1.628    12.954    U_clocks/usb_clk_bufg
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.077    13.031 r  U_clocks/clkbuf/O
-                         net (fo=856, routed)         1.334    14.366    U_reg/usb_clk_buf
-    SLICE_X85Y106        FDRE                                         r  U_reg/read_data_reg[0]/C
-                         clock pessimism              0.224    14.589    
-                         clock uncertainty           -0.035    14.554    
-    SLICE_X85Y106        FDRE (Setup_fdre_C_D)        0.060    14.614    U_reg/read_data_reg[0]
+                         net (fo=902, routed)         1.328    14.360    U_reg/usb_clk_buf
+    SLICE_X86Y118        FDRE                                         r  U_reg/read_data_reg[0]/C
+                         clock pessimism              0.241    14.600    
+                         clock uncertainty           -0.035    14.565    
+    SLICE_X86Y118        FDRE (Setup_fdre_C_D)        0.030    14.595    U_reg/read_data_reg[0]
   -------------------------------------------------------------------
-                         required time                         14.614    
-                         arrival time                         -11.288    
+                         required time                         14.595    
+                         arrival time                         -11.996    
   -------------------------------------------------------------------
-                         slack                                  3.326    
+                         slack                                  2.599    
 
 
 
@@ -453,19 +456,19 @@ Slack (MET) :             3.326ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.104ns  (arrival time - required time)
+Slack (MET) :             0.078ns  (arrival time - required time)
   Source:                 usb_data[0]
                             (input port clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            U_usb_reg_fe/reg_datao_reg[0]_rep__10/D
+  Destination:            U_usb_reg_fe/reg_datao_reg[0]_rep__3/D
                             (rising edge-triggered cell FDRE clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             usb_clk
   Path Type:              Hold (Min at Slow Process Corner)
   Requirement:            0.000ns  (usb_clk rise@0.000ns - usb_clk rise@0.000ns)
-  Data Path Delay:        2.952ns  (logic 1.353ns (45.842%)  route 1.599ns (54.158%))
+  Data Path Delay:        2.886ns  (logic 1.353ns (46.883%)  route 1.533ns (53.117%))
   Logic Levels:           1  (IBUF=1)
   Input Delay:            2.000ns
-  Clock Path Skew:        4.655ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    4.655ns
+  Clock Path Skew:        4.615ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    4.615ns
     Source Clock Delay      (SCD):    0.000ns
     Clock Pessimism Removal (CPR):    -0.000ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
@@ -481,8 +484,8 @@ Slack (MET) :             0.104ns  (arrival time - required time)
     A7                                                0.000     2.000 r  usb_data[0] (INOUT)
                          net (fo=1, unset)            0.000     2.000    usb_data_IOBUF[0]_inst/IO
     A7                   IBUF (Prop_ibuf_I_O)         1.353     3.353 r  usb_data_IOBUF[0]_inst/IBUF/O
-                         net (fo=13, routed)          1.599     4.952    U_usb_reg_fe/read_data_reg[7]_1[0]
-    SLICE_X85Y99         FDRE                                         r  U_usb_reg_fe/reg_datao_reg[0]_rep__10/D
+                         net (fo=13, routed)          1.533     4.886    U_usb_reg_fe/read_data_reg[7][0]
+    SLICE_X72Y113        FDRE                                         r  U_usb_reg_fe/reg_datao_reg[0]_rep__3/D
   -------------------------------------------------------------------    -------------------
 
                          (clock usb_clk rise edge)    0.000     0.000 r  
@@ -491,16 +494,16 @@ Slack (MET) :             0.104ns  (arrival time - required time)
     F5                   IBUF (Prop_ibuf_I_O)         1.392     1.392 r  U_clocks/clkibuf/O
                          net (fo=1, routed)           1.717     3.109    U_clocks/usb_clk_bufg
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.081     3.190 r  U_clocks/clkbuf/O
-                         net (fo=856, routed)         1.465     4.655    U_usb_reg_fe/usb_clk_buf
-    SLICE_X85Y99         FDRE                                         r  U_usb_reg_fe/reg_datao_reg[0]_rep__10/C
-                         clock pessimism              0.000     4.655    
-                         clock uncertainty            0.035     4.690    
-    SLICE_X85Y99         FDRE (Hold_fdre_C_D)         0.158     4.848    U_usb_reg_fe/reg_datao_reg[0]_rep__10
+                         net (fo=902, routed)         1.425     4.615    U_usb_reg_fe/usb_clk_buf
+    SLICE_X72Y113        FDRE                                         r  U_usb_reg_fe/reg_datao_reg[0]_rep__3/C
+                         clock pessimism              0.000     4.615    
+                         clock uncertainty            0.035     4.651    
+    SLICE_X72Y113        FDRE (Hold_fdre_C_D)         0.158     4.809    U_usb_reg_fe/reg_datao_reg[0]_rep__3
   -------------------------------------------------------------------
-                         required time                         -4.848    
-                         arrival time                           4.952    
+                         required time                         -4.808    
+                         arrival time                           4.886    
   -------------------------------------------------------------------
-                         slack                                  0.104    
+                         slack                                  0.078    
 
 
 
@@ -515,8 +518,8 @@ Sources:            { usb_clk }
 
 Check Type        Corner  Lib Pin  Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location        Pin
 Min Period        n/a     BUFG/I   n/a            1.592         10.000      8.408      BUFGCTRL_X0Y16  U_clocks/clkbuf/I
-Low Pulse Width   Slow    FDRE/C   n/a            0.500         5.000       4.500      SLICE_X69Y103   U_reg/image_bits_reg[560]/C
-High Pulse Width  Fast    FDRE/C   n/a            0.500         5.000       4.500      SLICE_X72Y87    U_reg/image_bits_reg[280]/C
+Low Pulse Width   Slow    FDRE/C   n/a            0.500         5.000       4.500      SLICE_X69Y106   U_reg/image_bits_reg[368]/C
+High Pulse Width  Fast    FDRE/C   n/a            0.500         5.000       4.500      SLICE_X70Y113   U_reg/image_bits_reg[324]/C
 
 
 
@@ -525,14 +528,14 @@ Path Group:  **async_default**
 From Clock:  usb_clk
   To Clock:  usb_clk
 
-Setup :            0  Failing Endpoints,  Worst Slack        7.365ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        1.064ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        5.289ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        2.187ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             7.365ns  (required time - arrival time)
+Slack (MET) :             5.289ns  (required time - arrival time)
   Source:                 pushbutton
                             (input port clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Destination:            U_reg/U_go/src_tog_reg/CLR
@@ -540,11 +543,11 @@ Slack (MET) :             7.365ns  (required time - arrival time)
   Path Group:             **async_default**
   Path Type:              Recovery (Max at Slow Process Corner)
   Requirement:            10.000ns  (usb_clk rise@10.000ns - usb_clk rise@0.000ns)
-  Data Path Delay:        6.134ns  (logic 1.537ns (25.057%)  route 4.597ns (74.943%))
+  Data Path Delay:        8.198ns  (logic 1.537ns (18.749%)  route 6.661ns (81.251%))
   Logic Levels:           2  (IBUF=1 LUT1=1)
   Input Delay:            0.500ns
-  Clock Path Skew:        4.366ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    4.366ns = ( 14.366 - 10.000 ) 
+  Clock Path Skew:        4.354ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.354ns = ( 14.354 - 10.000 ) 
     Source Clock Delay      (SCD):    0.000ns
     Clock Pessimism Removal (CPR):    0.000ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
@@ -560,10 +563,10 @@ Slack (MET) :             7.365ns  (required time - arrival time)
     R1                                                0.000     0.500 r  pushbutton (IN)
                          net (fo=0)                   0.000     0.500    pushbutton
     R1                   IBUF (Prop_ibuf_I_O)         1.432     1.932 r  pushbutton_IBUF_inst/O
-                         net (fo=5, routed)           2.590     4.522    U_reg/U_core/pushbutton_IBUF
-    SLICE_X86Y102        LUT1 (Prop_lut1_I0_O)        0.105     4.627 f  U_reg/U_core/trigger_i_1/O
-                         net (fo=811, routed)         2.008     6.634    U_reg/U_go/AR[0]
-    SLICE_X83Y103        FDCE                                         f  U_reg/U_go/src_tog_reg/CLR
+                         net (fo=4, routed)           2.910     4.842    U_reg/U_core/pushbutton_IBUF
+    SLICE_X89Y105        LUT1 (Prop_lut1_I0_O)        0.105     4.947 f  U_reg/U_core/busy_i_1/O
+                         net (fo=878, routed)         3.751     8.698    U_reg/U_go/AR[0]
+    SLICE_X83Y122        FDCE                                         f  U_reg/U_go/src_tog_reg/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock usb_clk rise edge)   10.000    10.000 r  
@@ -572,16 +575,16 @@ Slack (MET) :             7.365ns  (required time - arrival time)
     F5                   IBUF (Prop_ibuf_I_O)         1.326    11.326 r  U_clocks/clkibuf/O
                          net (fo=1, routed)           1.628    12.954    U_clocks/usb_clk_bufg
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.077    13.031 r  U_clocks/clkbuf/O
-                         net (fo=856, routed)         1.334    14.366    U_reg/U_go/usb_clk_buf
-    SLICE_X83Y103        FDCE                                         r  U_reg/U_go/src_tog_reg/C
-                         clock pessimism              0.000    14.366    
-                         clock uncertainty           -0.035    14.330    
-    SLICE_X83Y103        FDCE (Recov_fdce_C_CLR)     -0.331    13.999    U_reg/U_go/src_tog_reg
+                         net (fo=902, routed)         1.322    14.354    U_reg/U_go/usb_clk_buf
+    SLICE_X83Y122        FDCE                                         r  U_reg/U_go/src_tog_reg/C
+                         clock pessimism              0.000    14.354    
+                         clock uncertainty           -0.035    14.318    
+    SLICE_X83Y122        FDCE (Recov_fdce_C_CLR)     -0.331    13.987    U_reg/U_go/src_tog_reg
   -------------------------------------------------------------------
-                         required time                         13.999    
-                         arrival time                          -6.634    
+                         required time                         13.987    
+                         arrival time                          -8.698    
   -------------------------------------------------------------------
-                         slack                                  7.365    
+                         slack                                  5.289    
 
 
 
@@ -589,7 +592,7 @@ Slack (MET) :             7.365ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             1.064ns  (arrival time - required time)
+Slack (MET) :             2.187ns  (arrival time - required time)
   Source:                 pushbutton
                             (input port clocked by usb_clk  {rise@0.000ns fall@5.000ns period=10.000ns})
   Destination:            U_reg/U_go/src_tog_reg/CLR
@@ -597,11 +600,11 @@ Slack (MET) :             1.064ns  (arrival time - required time)
   Path Group:             **async_default**
   Path Type:              Removal (Min at Fast Process Corner)
   Requirement:            0.000ns  (usb_clk rise@0.000ns - usb_clk rise@0.000ns)
-  Data Path Delay:        2.524ns  (logic 0.314ns (12.429%)  route 2.210ns (87.571%))
+  Data Path Delay:        3.634ns  (logic 0.314ns (8.633%)  route 3.320ns (91.367%))
   Logic Levels:           2  (IBUF=1 LUT1=1)
   Input Delay:            0.500ns
-  Clock Path Skew:        2.016ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    2.016ns
+  Clock Path Skew:        2.003ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.003ns
     Source Clock Delay      (SCD):    0.000ns
     Clock Pessimism Removal (CPR):    -0.000ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
@@ -617,10 +620,10 @@ Slack (MET) :             1.064ns  (arrival time - required time)
     R1                                                0.000     0.500 r  pushbutton (IN)
                          net (fo=0)                   0.000     0.500    pushbutton
     R1                   IBUF (Prop_ibuf_I_O)         0.269     0.769 r  pushbutton_IBUF_inst/O
-                         net (fo=5, routed)           1.164     1.932    U_reg/U_core/pushbutton_IBUF
-    SLICE_X86Y102        LUT1 (Prop_lut1_I0_O)        0.045     1.977 f  U_reg/U_core/trigger_i_1/O
-                         net (fo=811, routed)         1.047     3.024    U_reg/U_go/AR[0]
-    SLICE_X83Y103        FDCE                                         f  U_reg/U_go/src_tog_reg/CLR
+                         net (fo=4, routed)           1.376     2.144    U_reg/U_core/pushbutton_IBUF
+    SLICE_X89Y105        LUT1 (Prop_lut1_I0_O)        0.045     2.189 f  U_reg/U_core/busy_i_1/O
+                         net (fo=878, routed)         1.944     4.134    U_reg/U_go/AR[0]
+    SLICE_X83Y122        FDCE                                         f  U_reg/U_go/src_tog_reg/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock usb_clk rise edge)    0.000     0.000 r  
@@ -629,16 +632,16 @@ Slack (MET) :             1.064ns  (arrival time - required time)
     F5                   IBUF (Prop_ibuf_I_O)         0.417     0.417 r  U_clocks/clkibuf/O
                          net (fo=1, routed)           0.699     1.115    U_clocks/usb_clk_bufg
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.144 r  U_clocks/clkbuf/O
-                         net (fo=856, routed)         0.871     2.016    U_reg/U_go/usb_clk_buf
-    SLICE_X83Y103        FDCE                                         r  U_reg/U_go/src_tog_reg/C
-                         clock pessimism              0.000     2.016    
-                         clock uncertainty            0.035     2.051    
-    SLICE_X83Y103        FDCE (Remov_fdce_C_CLR)     -0.092     1.959    U_reg/U_go/src_tog_reg
+                         net (fo=902, routed)         0.859     2.003    U_reg/U_go/usb_clk_buf
+    SLICE_X83Y122        FDCE                                         r  U_reg/U_go/src_tog_reg/C
+                         clock pessimism              0.000     2.003    
+                         clock uncertainty            0.035     2.038    
+    SLICE_X83Y122        FDCE (Remov_fdce_C_CLR)     -0.092     1.946    U_reg/U_go/src_tog_reg
   -------------------------------------------------------------------
-                         required time                         -1.959    
-                         arrival time                           3.024    
+                         required time                         -1.946    
+                         arrival time                           4.134    
   -------------------------------------------------------------------
-                         slack                                  1.064    
+                         slack                                  2.187    
 
 
 

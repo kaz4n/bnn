@@ -10,7 +10,11 @@ module cw305_bnn_top #(
     parameter pBYTECNT_SIZE = 7,
     parameter pADDR_WIDTH   = 21,
     parameter KSIZE = 3,
-    parameter BPK   = (KSIZE*KSIZE+7)/8
+    parameter BPK   = (KSIZE*KSIZE+7)/8,
+    // Current bench default:
+    //   bits [2:0] = 3'b101 -> crypto clock = 20-pin CW-Lite clock input
+    //   bits [4:3] = 2'b01  -> export crypto clock on TIO clockout
+    parameter [4:0] CLOCK_SETTINGS = 5'b01101
 )(
     // USB Interface
     input  wire                   usb_clk,
@@ -45,7 +49,7 @@ module cw305_bnn_top #(
     wire [pBYTECNT_SIZE-1:0]             reg_bytecnt;
     wire [7:0]  write_data, read_data;
     wire        reg_read, reg_write, reg_addrvalid;
-    wire [4:0]  clk_settings = 5'b0;
+    wire [4:0]  clk_settings = CLOCK_SETTINGS;
     wire        crypt_clk;
 
     wire resetn = pushbutton;

@@ -1,0 +1,521 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+
+\captionsetup{font=small,labelfont=bf,width=0.95\textwidth}
+\setlength{\parskip}{0.6em}
+
+\definecolor{boxgrey}{HTML}{F2F5F8}
+\definecolor{inkblue}{HTML}{12263A}
+
+\title{\vspace{-1.2cm}\textbf{Power side-channel input recovery on the CW305 board\\
+\large Summary of the catch-up report}}
+\author{Tarek Alhafez}
+\date{9 September 2026\\
+\small(condensed from the full catch-up report and its follow-up work)}
+
+\begin{document}
+\maketitle
+\vspace{-0.8cm}
+
+\section*{What this document is}
+
+The short version of the catch-up report. It keeps the goal, the method, the figures and
+the results, and drops the long reasoning. Where the full report later corrected a
+number, only the corrected number appears here. References like ``(full report \S8.3)''
+point into the long version.
+
+\section*{1. Goal of the experiment}
+
+I am reproducing the attack of Wei et al., \emph{I Know What You See} (ACSAC 2018). The
+first convolution layer of a binarised neural network accelerator processes the input
+image window by window. The power drawn by the chip depends on the pixels inside the
+convolution window at that moment, so an attacker who measures only the current can
+recover the input image. The attacker never sees the image.
+
+The paper used a SAKURA-G board with a Spartan-6 FPGA and a 2.5\,GS/s oscilloscope. I do
+not have that equipment. I use a CW305 board with an Artix-7 XC7A100T and a
+ChipWhisperer-Lite. Two questions drive the project: whether the attack still works on
+this cheaper chain, and what happens when the profiling conditions and the attack
+conditions differ. The paper never reports the second one.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig01_signal_chain.png}
+  \caption{The measurement chain. The convolution runs on the FPGA. The PC only writes
+  the input, starts the operation, and does the analysis afterwards. The power signal
+  never passes through the PC before the ADC.}
+  \label{fig:chain}
+\end{figure}
+
+The FPGA computes the convolution, not the host. Before every capture the script writes
+one image and one kernel to the board, reads back all 676 output values and compares
+them with a CPU model. If one value differs, the script refuses the capture. Every
+capture used here came back $676/676$ bit-exact.
+
+\section*{2. What was blocking the project}
+
+\begin{sloppypar}
+For weeks the detection looked weak and unstable. Two older files in the repository,
+\texttt{FINAL\_RESULTS.md} and \texttt{REPORT\_1}, blame per-cycle extraction and
+smearing. That explanation is wrong, and anyone who reads it first will optimise the
+wrong thing.
+\end{sloppypar}
+
+The real cause was simpler. The board was still answering as the \emph{stock AES
+example}: CW305 register pages 2, 3 and 4 returned \texttt{0x02}, \texttt{0x05},
+\texttt{0x2e}, the AES signature. My bitstream had built correctly and met timing, but it
+was not the image running on the FPGA. So the host wrote MNIST pixels and convolution
+kernels into AES registers, and every captured trace held the power of an AES
+encryption. The reconstruction was searching for image structure in traces that contained
+no image.
+
+I added an authenticity gate that reads those pages before any capture and refuses to run
+if the AES signature is there. The gate earns its place because it can fail: it blocked
+every capture attempt until the correct bitstream was on the board, and passed afterwards.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig02_authenticity_gate_nodates.png}
+  \caption{The same gate, before and after the bitstream was fixed. A test that never
+  fails proves nothing. This one refused the AES session and allowed the real one.}
+  \label{fig:gate}
+\end{figure}
+
+\section*{3. Method}
+
+\subsection*{3.1 The signal}
+
+The FPGA runs at 5\,MHz and the ChipWhisperer ADC takes four samples per FPGA clock,
+locked to that clock. Each convolution window takes 8 clock cycles, so 32 ADC samples.
+The 676 windows give 21632 useful samples out of the 22144 captured.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig03_raw_trace.png}
+  \caption{Real captured power signal for one probe kernel and one image. Top: all 676
+  windows, drawn as the envelope of the 32 samples inside each window. Bottom left: the
+  raw samples of four windows, where the window boundaries are visible. Bottom right:
+  the single number that the attack keeps for each window.}
+  \label{fig:raw}
+\end{figure}
+
+My chain has one advantage over the paper's. Their oscilloscope sampled asynchronously,
+which smeared the per-cycle power and cost them a whole section (their Section 5) on DC
+restoration and per-cycle curve fitting. My ADC is phase-locked to the FPGA clock, so I
+read per-cycle power directly. I did not reproduce their Section 5 and I do not need it.
+Skipping it discards no information the attack uses.
+
+From each trace I keep one feature per window: the mean absolute value of its 32 samples.
+Nine probe kernels give a 9-number vector per window. The digit shows up in that feature
+before any attack algorithm runs, which is where I first believed the leakage was real.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig04_feature_map.png}
+  \caption{From the captured signal to the attack feature. The FPGA receives a
+  binarised image, not the grey image. The power feature map of a single kernel already
+  shows the shape of the digit.}
+  \label{fig:feat}
+\end{figure}
+
+\subsection*{3.2 The attack}
+
+The attack has two stages.
+
+\emph{Profiling.} I use images I know. For every convolution window I store the 9-kernel
+power vector together with the true $3\times3$ binary patch that produced it. There are
+$2^9 = 512$ possible patches. Forty profiling images give a template of
+$40 \times 676 = 27040$ rows.
+
+\emph{Attack.} Here I have only traces. The ground truth never enters the attack bundle:
+the code refuses to run if the bundle contains an \texttt{image} or \texttt{label} array.
+For each window I split the 9 kernels into 3 groups of 3, search each group in the
+template with a kD-tree inside radius $\delta$, and intersect the three result sets to get
+candidate patches. A greedy selection, following Algorithm 2 of the paper, picks one
+candidate per window by preferring the one that agrees with its neighbours. The
+overlapping patches then vote on each pixel.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig05_algorithm.png}
+  \caption{The active power-template attack as implemented here. The grouping, $\delta$
+  and the number of probe kernels are the same as in the paper.}
+  \label{fig:algo}
+\end{figure}
+
+\subsection*{3.3 Where this differs from the paper}
+
+I did not reproduce the paper exactly. Three differences change how the results should be
+read.
+
+\begin{itemize}
+\item \textbf{Binary pixels.} In the paper the first layer takes real 0--255 pixels
+      against binary weights, so the power depends on the grey level and the attacker can
+      recover a grey image. My binary design thresholds the pixel at 127 before the
+      convolution, which caps the best possible result at a one-bit silhouette. I
+      therefore score against the \emph{binarised} image and report F1, IoU and MSSIM
+      instead of pixel accuracy alone. A separate grey-pixel design lifts this limit and
+      supplies the generative results in Section 4.
+\item \textbf{The baseline is always printed.} Most MNIST pixels are background, so pixel
+      accuracy looks good even when the attack recovers nothing. Every table prints the
+      accuracy of the trivial ``everything is background'' answer beside it.
+\item \textbf{Geometry.} The paper uses $28\times28$ ``same'' padding, 784 cycles. My
+      hardware does a valid convolution: $26\times26$, 676 windows. The window-to-pixel
+      mapping that the attack depends on works the same way in both.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig06_geometry.png}
+  \caption{The geometry of my layer is not the same as the paper's layer, and my layer
+  binarises the pixel before the convolution.}
+  \label{fig:geom}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig12_comparison.png}
+  \caption{My setup next to the setup of the paper.}
+  \label{fig:cmp}
+\end{figure}
+
+\section*{4. Results}
+
+\begin{table}[H]
+  \centering
+  \small
+  \resizebox{\textwidth}{!}{\input{tables/tab_headline.tex}}
+  \caption{Main results. Every row is a real hardware capture. Compare the
+  ``all-background'' column with the pixel accuracy on its left.}
+  \label{tab:headline}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \resizebox{\textwidth}{!}{\input{tables/tab_provenance.tex}}
+  \caption{Hardware provenance of the captures used here. The functional check writes an
+  image and a kernel to the FPGA, reads back the 676 outputs and compares them with a CPU
+  model.}
+\end{table}
+
+\subsection*{4.1 The attack works on real hardware}
+
+With the search radius tuned, foreground F1 reaches $\mathbf{0.969}$ and the digit
+recogniser reads all 40 test images correctly. No part of the measurement is simulated.
+
+The $0.843$ that runs through the older text came from the radius I carried over from the
+paper, which sits far off the optimum for this hardware. Radius and template size have to
+be tuned together. At a fixed radius, going from 40 to 300 profiling images made the
+attack \emph{worse}; tuned, the larger template wins, $0.969$ against $0.958$. The best
+radius shrinks as the template grows (full report \S8.1).
+
+\begin{table}[H]
+  \centering
+  \small
+  \resizebox{\textwidth}{!}{\input{tables/tab_delta.tex}}
+  \caption{Foreground F1 against the search radius $\delta$. Both curves are unimodal,
+  and the value carried over from the paper sits far off the optimum for this hardware.}
+  \label{tab:delta}
+\end{table}
+
+\subsection*{4.2 Averaging is the main practical cost}
+
+The convolution unit is small next to the rest of the fabric, so everything else on the
+chip dilutes its power. That dilution is the limit on this board. With one hardware
+repeat the attack sits barely above the trivial baseline. F1 and MSSIM move with
+averaging; pixel accuracy hardly does.
+
+The sweep is a fair one. A single capture stored the individual repeats, and each point
+uses only the first $R$ of them, so images, temperature and gain stay identical across the
+sweep and the averaging is the only thing that changes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig07_repeat_sweep.png}
+  \caption{The averaging sweep. The left plot shows why the baseline must be drawn:
+  pixel accuracy is already high at one repeat, but it sits close to the trivial answer.
+  The metrics that move are F1 and MSSIM.}
+  \label{fig:sweep}
+\end{figure}
+
+\subsection*{4.3 What survives a change of conditions, and what does not}
+
+I built one template from 40 images at 5\,MHz and 40\,dB gain, then attacked the
+\emph{same 40 new images} recaptured under several conditions. I checked the evaluation
+sets with SHA-256 over the stacked ground truth and they all hash the same, so differences
+between rows do not come from the images. Every condition passed the functional check
+bit-exact, including 10\,MHz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig08_conditions.png}
+  \caption{Template transfer under changed conditions. One profile, six capture
+  conditions, the same 40 images.}
+  \label{fig:cond}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{figures/fig09_examples.png}
+  \caption{The same six images, recovered under different conditions. The empty row for
+  the 10\,MHz capture is not a drawing mistake: at that clock the reconstruction returns
+  an all-background image for every one of the 40 test images.}
+  \label{fig:ex}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{Amplifier gain does not matter.} I changed it in both directions, to
+      30\,dB and 50\,dB, and F1 held at $0.832$ and $0.831$ against $0.843$ for the
+      control. The feature extraction normalises each trace by its own median and MAD, so
+      a gain change amounts to a change of scale and the normalisation removes it.
+\item \textbf{Clock does matter.} A clock change alters the shape of the power inside the
+      window, and no normalisation undoes that. At 7.5\,MHz F1 falls to about $0.27$. At
+      10\,MHz, attacked with a 5\,MHz template, the reconstruction returns all-background
+      for every test image, and pixel accuracy lands on $0.887$, exactly the trivial
+      baseline. This is the clearest case in the report for printing that column.
+\item \textbf{The ``FPGA reprogrammed'' row is withdrawn.} It reported F1 $0.818$ and I
+      first read it as the template surviving reconfiguration. Reprogramming a CW305 that
+      is already configured does nothing, so that capture almost certainly ran on the same
+      configuration as the control. The number is real; the label is wrong. The test needs
+      redoing with a power cycle (full report \S7.2).
+\end{itemize}
+
+\subsubsection*{The clock-transfer surface}
+
+I tested four frequencies with $\delta$ tuned per cell. The rule I wrote from two
+frequencies, ``profile at the highest clock'', is wrong as stated. What holds instead: a
+template is bound to its clock inside a band of roughly a factor of two, and the binding
+is asymmetric. In all six pairs of distinct clocks, profiling above and attacking below
+beats the reverse. Tuning the radius per cell moved the matched 10\,MHz result from
+$0.675$ to $0.882$.
+
+\begin{table}[H]
+  \centering
+  \small
+  \input{tables/tab_grid_best.tex}
+  \caption{Foreground F1 for every combination of profiling and attack clock, with
+  $\delta$ tuned for each cell and the chosen value shown.}
+  \label{tab:gridbest}
+\end{table}
+
+Two further findings on conditions (full report \S\S8.4, 8.7):
+
+\begin{itemize}
+\item \textbf{Randomising the accelerator clock is a weak defence.} It costs an attacker
+      who profiled at 5\,MHz half his F1, but one who profiled at 10\,MHz keeps $0.737$
+      of $0.882$ and still reads three digits in four, because that template sits within
+      transfer range of the whole band.
+\item \textbf{The template is not what breaks.} In the 5 and 10\,MHz pair, the direction
+      that fails retrieves and ranks the true patch \emph{better} than the direction that
+      works, at every radius I tested. The loss therefore happens in the greedy assembly
+      stage rather than in the leakage or the template match. I cannot yet say what the
+      assembly does wrong, and better features would not have helped.
+\end{itemize}
+
+\subsection*{4.4 The attacker cannot use arbitrary probe kernels}
+
+I profiled with one-hot probe kernels and attacked traces captured while the FPGA ran the
+real trained kernels. The attack collapses: F1 falls to about $0.12$, and pixel accuracy
+falls \emph{below} the all-background baseline, $0.811$ against $0.888$, because the
+reconstruction paints foreground pixels where only background exists. The recogniser then
+reads one image in five. A time gap does not explain this. In \S4.3 a template transferred
+across a comparable gap and still reached $0.84$.
+
+\subsection*{4.5 A template does not transfer to a different dataset, and I can say why}
+
+An MNIST-built template attacking Fashion-MNIST scores at chance, $0.034$ above a
+label-blind predictor, while a Fashion-built template on the same traces reaches $0.662$.
+The template is a dictionary of observed $3\times3$ patches. MNIST covers 156 of the 512
+possible patches and Fashion covers 450, with MNIST very nearly a subset, so transfer
+works only in the direction of increasing coverage.
+
+Raw F1 does not compare across datasets: the label-blind ceiling moves from $0.204$ on
+MNIST to $0.474$ on Fashion. Every cross-dataset number here is reported against its own
+chance baseline for that reason.
+
+\begin{table}[H]
+  \centering
+  \small
+  \input{tables/tab_dataset_grid.tex}
+  \caption{Template dataset against attacked dataset, $\delta$ tuned per cell.
+  ``Excess'' is the margin over the label-blind ceiling for that truth set.}
+  \label{tab:dsgrid}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_dataset_transfer.png}
+  \caption{Fashion-MNIST recovered by the template attack.}
+  \label{fig:dstransfer}
+\end{figure}
+
+\subsection*{4.6 Greyscale: real intensity comes back from power alone}
+
+The template attack classifies 1-bit patches and cannot express a grey level. Removing the
+input binarisation and running the generative (Power2Picture-style) route on the
+grey-pixel design brings real grey levels back: mean absolute error under $10$ on the
+0--255 scale for MNIST, and correlation $0.93$, from a design confirmed bit-exact on
+hardware.
+
+One correction. I first credited this to the input width, but a control bitstream shows
+that most of the apparent gain came from the wider leakage amplifier in the grey design.
+Hold the amplifier equal and grey scores \emph{worse} than binary on foreground F1, better
+only on the intensity measures. That narrower claim is the one that survives (full report
+\S8.6).
+
+The grey pipeline also works on Fashion-MNIST, a dense non-digit dataset nobody had tested
+it on. A Fashion classifier reads the power-recovered images at $0.827$ against $0.830$ on
+the originals, so in classification terms the reconstruction loses almost nothing. Pixel
+correlation is $0.910$ against $0.929$ in the truth.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_fashion_grey.png}
+  \caption{Fashion-MNIST greyscale recovered from power alone.}
+  \label{fig:fashgrey}
+\end{figure}
+
+\subsection*{4.7 The attack does not need the leakage amplifier}
+
+The leakage amplifier is a flop bank I added to the design to make it leak, so a reader
+can fairly ask how much of the result belongs to the accelerator and how much to my own
+circuit. Read in isolation, the sweep from $4536$ flops down to $72$ looks damaging:
+recognition falls $0.857 \to 0.400$ and MSSIM $0.730 \to 0.503$. But every point in that
+sweep used the same small profiling budget of about $1500$ traces, which confounds
+amplifier size with data volume.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_amplifier_sweep.png}
+  \caption{The same test images recovered at each amplifier width.}
+  \label{fig:ampsweep}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \small
+  \resizebox{\textwidth}{!}{\input{tables/tab_amp_data_grid.tex}}
+  \caption{Amplifier size against profiling-set size. Identical loss, batch, epochs,
+  split and seed in every cell.}
+  \label{tab:ampdata}
+\end{table}
+
+Separating the two changes the conclusion. A $63$ times smaller amplifier costs about what
+a $37$ times smaller profiling set costs, and either deficit can be partly bought back
+with the other. \textbf{The amplifier changes how much profiling data an attacker needs;
+it does not decide whether the attack is possible.} A defender should prefer the first
+reading, because profiling traces are the cheap resource in this threat model.
+
+Removing the bank altogether leaves one flop registering the output, against $72$ in the
+smallest amplified build. That build still reaches MSSIM $0.724$ and recognition $0.746$
+on the paper's $60\,000$-trace profiling set, within noise of the $72$-flop build's
+$0.725$ and $0.757$. Three earlier claims in this project were wrong about this, and all
+three failed the same way, by treating a limitation of my own build as a fact about the
+hardware. A combinational path from the convolution datapath to a top-level pad killed the
+bank-free builds, which is my mistake and not the board's. One flop fixes it (full report
+\S9.7).
+
+\subsection*{4.8 Making the victim more realistic did not weaken the attack}
+
+I cut the window dwell from $8$ cycles to $2$, so the accelerator streams closer to the way
+a real one would. The result improved: recognition $0.746 \to 0.807$ and MSSIM
+$0.724 \to 0.762$ on the same test images, with the amplifier absent in both cases. That
+gap is about six standard errors, so it is not noise, and I had predicted the opposite
+before running it. Both bench artifacts I introduced, the leakage amplifier and the slow
+dwell, turned out to be things the attack did not need.
+
+\begin{table}[H]
+  \centering
+  \small
+  \resizebox{\textwidth}{!}{\input{tables/tab_dwell.tex}}
+  \caption{Window dwell at zero amplifier, $56$k training traces.}
+  \label{tab:dwell}
+\end{table}
+
+\subsection*{4.9 Against the published numbers}
+
+Run with Power2Picture's own training protocol, meaning their generator architecture,
+optimiser, loss, batch size and $60\,000$-image profiling set, the attack reaches MSSIM
+$0.861$, pixel distance $14.5$ and recognition $0.919$ against a ceiling of $0.898$.
+Power2Picture report $0.38$, $77$ and $0.53$ on Fashion-MNIST.
+
+\textbf{This is not a fair comparison and I do not present it as one.} They attack a full
+quantised LeNet through five on-chip TDC sensors on a shared FPGA, which is a remote attack
+against a realistic accelerator. I attack a single convolution layer through an external
+shunt. Their measurement is harder in every respect that counts. The comparison
+establishes one thing only: this pipeline leaves nothing obvious on the table relative to
+the published method.
+
+\section*{5. What I take from these numbers}
+
+\begin{itemize}
+\item The attack works on real hardware. In the control condition the digit recogniser
+      reads every recovered image correctly.
+\item Two causes stacked behind the earlier weak results: the traces came from the wrong
+      design, and even correct traces need averaging. Dilution is a physical property of
+      this board and will not go away.
+\item The fragility has a specific shape. The clock matters, gain does not, dataset
+      coverage decides transfer, and the probe kernels must match the deployed ones. The
+      original paper never reports what happens when profiling and attack conditions
+      differ, which puts this closer to a contribution than to a reproduction.
+\item More profiling data does not always help. Template size and search radius have to be
+      tuned together, and I reported an untuned radius twice in this project.
+\item The open result I find most interesting: when cross-clock transfer fails, the
+      template still ranks the true patch well. The greedy assembly stage throws away an
+      answer the earlier stages found. That moves the question from the leakage to the
+      algorithm.
+\end{itemize}
+
+\subsection*{Next steps, in the order I would do them}
+
+\begin{enumerate}
+\item Port the on-chip RO/TDC sensor into the grey design. With the amplifier gone, the
+      external shunt is the largest remaining deviation from Power2Picture. The RO
+      channel's correlation plateaus near $0.33$, so expect the reconstruction to get
+      worse rather than better. That is the point, and it is the honest version of the
+      threat model.
+\item Find out what the greedy assembly does to the cross-condition cells. This is cheap
+      and needs no board: dump the candidate lists and replay the assembly. A
+      reconstruction that resolves disagreement globally instead of greedily would improve
+      on the paper's Algorithm 2 rather than reproduce it.
+\item Recapture at 20\,MHz with two samples per cycle instead of four. That separates
+      weaker leakage at a high clock from the ChipWhisperer-Lite's front end running at
+      80\,MSa/s. Until then I cannot say whether clocking the accelerator faster is a real
+      countermeasure, which is the cheapest defence anyone would try.
+\item Make the template attack regress a grey patch instead of classifying a binary one,
+      which is the missing piece for a direct comparison with the paper.
+\item Redo the reprogramming test with a power cycle and put the withdrawn row back with a
+      real measurement behind it.
+\item Measure transfer across days and temperatures, not only across settings inside one
+      session.
+\end{enumerate}
+
+\section*{Appendix: reproducing this}
+
+All scripts live in the repository. The analysis scripts do not need the board.
+
+\begin{quote}\footnotesize\ttfamily
+host/cw305\_leakage\_capture.py \quad -- capture traces from the CW305\\
+attack/hardtests\_20260830/run\_repeat\_sweep.sh \quad -- the averaging sweep\\
+attack/hardtests\_20260830/run\_conditions.sh \quad -- the condition transfer tests\\
+attack/hardtests\_20260830/run\_probe\_mismatch.sh \quad -- the probe mismatch test\\
+attack/hardtests\_20260830/run\_paperscale.sh \quad -- 500-image capture, 300-image template\\
+report/catchup\_v2\_2026-08-30/make\_figures.py \quad -- all figures\\
+report/catchup\_v2\_2026-08-30/make\_tables.py \quad -- all tables
+\end{quote}
+
+Every figure showing a power signal comes from a real capture file, and \texttt{make\_tables.py}
+generates the tables from the score files, so nobody typed a number in this report by hand.
+
+\end{document}

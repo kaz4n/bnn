@@ -1,0 +1,61 @@
+{
+  "kind": "cw305_active_power_template",
+  "created_utc": "2026-09-01T02:57:15Z",
+  "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_ilv_10m",
+  "capture_manifest": {
+    "kind": "cw305_leakage_capture",
+    "acquisition": "interleaved",
+    "acquisition_note": "every image captured at every condition back to back, so thermal drift is spread evenly across conditions (Glamocanin et al., DATE 2023)",
+    "interleaved_with": [
+      5000000.0
+    ],
+    "design": "cw305_leakage_top",
+    "input_mode": "binary",
+    "fpga_freq_hz": 10000000.0,
+    "gain_db": 40.0,
+    "avg": 5,
+    "n_kernels": 9,
+    "dwell": 8,
+    "out_side": 26,
+    "n_windows": 676,
+    "samples_per_cycle": 4,
+    "samples_per_window": 32,
+    "presamples": 0,
+    "threshold": 127,
+    "probe_kernels": "file",
+    "start_index": 5300,
+    "trace_source": "cw_lite_analog_sync_x4",
+    "design_check": {
+      "fpga_done": true,
+      "stock_aes_signature_pages_2_3_4": [
+        1,
+        1,
+        1
+      ],
+      "verified_not_stock_aes": true
+    },
+    "functional_check": {
+      "passed": true,
+      "input_mode": "binary",
+      "n_outputs": 676,
+      "hw_min": -9,
+      "hw_max": 9,
+      "golden_min": -9,
+      "golden_max": 9,
+      "mismatches": 0,
+      "checked_utc": "2026-09-01T02:53:34Z"
+    },
+    "started_utc": "2026-09-01T02:53:34Z",
+    "completed_utc": "2026-09-01T02:56:44Z",
+    "status": "complete"
+  },
+  "profile_count": 40,
+  "entries": 27040,
+  "n_kernels": 9,
+  "related_pixels": "3x3 valid convolution patch",
+  "feature": "mean_abs",
+  "normalization": "per-trace robust median/MAD normalization",
+  "uses_profile_images": true,
+  "attack_stage_uses_ground_truth": false,
+  "note": "Profile stage uses known image pixels to build PT. Attack stage should use only trace-only bundles."
+}

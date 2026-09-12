@@ -60,9 +60,18 @@ def build_model(ksize):
     return tf.keras.Model(inp, out)
 
 
-def load_mnist():
+def load_mnist(dataset="mnist"):
+    """Load MNIST or Fashion-MNIST.
+
+    Fashion-MNIST has the same 28x28 uint8 geometry and ten classes, so the
+    whole pipeline is dataset-agnostic below this point. It is a much denser
+    image set though (31.5 % foreground against 13.4 %), which matters for the
+    metrics rather than for the loading.
+    """
     import tensorflow as tf
-    (xtr, ytr), (xte, yte) = tf.keras.datasets.mnist.load_data()
+    src = {"mnist": tf.keras.datasets.mnist,
+           "fashion": tf.keras.datasets.fashion_mnist}[dataset]
+    (xtr, ytr), (xte, yte) = src.load_data()
     # Train in [-1,1] for BNN stability. Input scale does NOT affect the binary kernels
     # nor the attack (pixels fed 0..255 to the FPGA at attack time).
     xtr = (xtr.astype("float32") / 127.5 - 1.0)[..., None]

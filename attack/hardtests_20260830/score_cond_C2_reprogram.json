@@ -1,0 +1,18 @@
+{
+  "name": "cond_C2_reprogram",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\cond_results_C2_reprogram",
+  "metrics": {
+    "bit_acc": 0.9636479591836735,
+    "foreground_precision": 0.9448123620309051,
+    "foreground_recall": 0.7217537942664418,
+    "foreground_f1": 0.8183556405353728,
+    "foreground_iou": 0.6925566343042071,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.7898302010706223,
+    "pixel_level_distance": 9.269770622253418,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.975,
+    "n_images": 40
+  }
+}

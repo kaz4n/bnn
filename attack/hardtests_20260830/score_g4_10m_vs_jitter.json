@@ -1,0 +1,21 @@
+{
+  "name": "g4_10m_vs_jitter",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\tmp_g4_10m_vs_jitter",
+  "metrics": {
+    "grey_mae_255": 16.140785217285156,
+    "grey_rmse_255": 64.15528106689453,
+    "grey_corr": 0.6446826498254355,
+    "bit_acc": 0.9367028061224489,
+    "foreground_precision": 0.8547586829048264,
+    "foreground_recall": 0.5326025857223159,
+    "foreground_f1": 0.6562770562770563,
+    "foreground_iou": 0.4884020618556701,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.6170410823195672,
+    "pixel_level_distance": 16.140785217285156,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.675,
+    "n_images": 40
+  }
+}

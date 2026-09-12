@@ -1,0 +1,21 @@
+{
+  "name": "mx2_mixed_vs_5m_d0p15",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\tmp_mx2_mixed_vs_5m_d0p15",
+  "metrics": {
+    "grey_mae_255": 5.77327823638916,
+    "grey_rmse_255": 38.369075775146484,
+    "grey_corr": 0.8845373506583359,
+    "bit_acc": 0.9773596938775511,
+    "foreground_precision": 0.9320388349514563,
+    "foreground_recall": 0.863406408094435,
+    "foreground_f1": 0.8964108549751969,
+    "foreground_iou": 0.8122686409307245,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.8577339503020573,
+    "pixel_level_distance": 5.77327823638916,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.95,
+    "n_images": 40
+  }
+}

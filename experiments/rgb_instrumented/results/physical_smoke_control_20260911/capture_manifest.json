@@ -1,0 +1,38 @@
+{
+  "source": "fpga",
+  "pattern": "RGGB",
+  "status": "complete",
+  "created_utc": "2026-09-11T06:21:53.489684+00:00",
+  "python_version": "3.12.9",
+  "frames": [
+    {
+      "image_source_url": "procedural:gradient:v1",
+      "color_space": "encoded RGB8 numeric test pattern",
+      "board": "CW305",
+      "fpga_part": "xc7a100tftg256-2",
+      "bitstream_sha256": "a73420d7dfa56fc6f977af9e0bc737a209efc528778cc6ec332e5ffb91bb5ea1",
+      "protocol_signature": "RGBBAY01",
+      "chipwhisperer_version": "6.0.0",
+      "usb_transport": "control_transfers_write45_read32",
+      "acquisition_kind": "intentional_digital_RGGB_sampling_in_FPGA",
+      "external_adc_used": false,
+      "capture_clock": "CW305 USB clock; single clock domain",
+      "status_hex": "02000400",
+      "captured_sample_count": 1024,
+      "acquisition_seconds": 0.029469700006302446,
+      "acquisition_time_includes": "host USB upload, FPGA sampling, status and readback",
+      "source": "fpga",
+      "pattern": "RGGB",
+      "case_id": "control_gradient_32",
+      "width": 32,
+      "height": 32,
+      "input_sha256": "c07c56c6174b20448c57799dc3b7d2721f549cbad14b4a093f4a5c23877db4e0",
+      "capture_sha256": "03d339dea0bfcfc714fca34c0ca1326bdaec99d5cd12a171cb6546a57b23bb14",
+      "hardware_validation_passed": true,
+      "reference_mismatch_count": 0,
+      "captured_utc": "2026-09-11T06:21:58.215465+00:00"
+    }
+  ],
+  "scope": "intentional FPGA imaging measurements; not physical side-channel recovery",
+  "total_samples": 1024
+}

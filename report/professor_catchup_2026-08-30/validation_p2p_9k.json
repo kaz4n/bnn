@@ -1,0 +1,127 @@
+{
+  "kind": "cw305_hardware_capture_validation",
+  "created_utc": "2026-08-30T05:21:48Z",
+  "trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_p2p_9k",
+  "capture_kind": "shards",
+  "passed": true,
+  "issues": [],
+  "warnings": [
+    "missing scope_serial; older captures may not have this",
+    "missing target_serial; older captures may not have this",
+    "missing functional_check object"
+  ],
+  "manifest_summary": {
+    "status": "complete",
+    "trace_source": "cw_lite_analog_sync_x4",
+    "capture_mode": null,
+    "design": "cw305_leakage_top",
+    "chipwhisperer_version": null,
+    "scope_serial": null,
+    "target_serial": null,
+    "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+    "adc_locked_initial": null,
+    "adc_locked_final": null,
+    "n_images": 9000,
+    "n_kernels": 1,
+    "avg": 1,
+    "shuffle_seed": null
+  },
+  "functional_check": null,
+  "sample_files": [
+    {
+      "file": "shard000.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": -316.10894093208094,
+        "std": 1833.7028024631993,
+        "min": -14719.0,
+        "max": 7743.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard001.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": -314.147604949422,
+        "std": 1830.548491903323,
+        "min": -14687.0,
+        "max": 7775.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard002.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": -316.6395127348266,
+        "std": 1835.72570272739,
+        "min": -14815.0,
+        "max": 8127.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard003.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": -312.61738457369944,
+        "std": 1829.492866280257,
+        "min": -14495.0,
+        "max": 7999.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    },
+    {
+      "file": "shard004.npz",
+      "array": "traces",
+      "stats": {
+        "shape": [
+          500,
+          22144
+        ],
+        "dtype": "int16",
+        "finite": true,
+        "mean": -313.84081475794795,
+        "std": 1830.9739056096855,
+        "min": -14559.0,
+        "max": 8095.0
+      },
+      "has_images": true,
+      "has_labels": true,
+      "n_items": 500
+    }
+  ]
+}

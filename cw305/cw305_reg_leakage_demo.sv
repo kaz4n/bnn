@@ -28,6 +28,11 @@ module cw305_reg_leakage_demo #(
     localparam [pADDR_WIDTH-1:0] KRN_BASE = 21'd4096;
     localparam integer GO_ADDR   = 33;
     localparam integer STAT_ADDR = 34;
+    // Debug is multiplexed onto STATUS byte offsets instead of separate high
+    // register pages.  Some CW305 setups only exercise low register pages
+    // reliably; keeping byte 0 as the busy flag preserves existing host code:
+    //   fpga_read(34, 1)[0] -> busy
+    //   fpga_read(34, 8)    -> busy, go_count, heartbeat, start_count, ...
 
     wire [pADDR_WIDTH-1:0] byteaddr = {reg_address, reg_bytecnt};
     wire [pADDR_WIDTH-1:0] outoff = byteaddr - OUT_BASE;
@@ -37,6 +42,16 @@ module cw305_reg_leakage_demo #(
     reg [8:0] kernel_bits;
     reg signed [7:0] out_mem [0:N_OUTPUT-1];
     reg go_pulse_usb;
+    reg [7:0] go_count_usb;
+
+    reg [23:0] crypto_heartbeat;
+    reg [7:0] start_count_crypto;
+    reg [15:0] write_count_crypto;
+    reg [9:0] last_out_addr_crypto;
+    (* ASYNC_REG="TRUE" *) reg [23:0] heartbeat_usb;
+    (* ASYNC_REG="TRUE" *) reg [7:0] start_count_usb;
+    (* ASYNC_REG="TRUE" *) reg [15:0] write_count_usb;
+    (* ASYNC_REG="TRUE" *) reg [9:0] last_out_addr_usb;
 
     wire busy_usb;
     always @(posedge usb_clk) begin
@@ -45,6 +60,7 @@ module cw305_reg_leakage_demo #(
             O_user_led <= 1'b0;
             image_bits <= {N_IMAGE{1'b0}};
             kernel_bits <= 9'b0;
+            go_count_usb <= 8'd0;
         end else if (reg_addrvalid && reg_write) begin
             if (byteaddr < N_IMAGE)
                 image_bits[byteaddr[9:0]] <= write_data[0];
@@ -52,18 +68,46 @@ module cw305_reg_leakage_demo #(
                 kernel_bits[7:0] <= write_data;
             else if (byteaddr == KRN_BASE + 1)
                 kernel_bits[8] <= write_data[0];
-            else if (reg_address == GO_ADDR)
+            else if (reg_address == GO_ADDR) begin
                 go_pulse_usb <= 1'b1;
+                go_count_usb <= go_count_usb + 8'd1;
+            end
             else if (reg_address == 14'h01)
                 O_user_led <= write_data[0];
         end
 
+        heartbeat_usb <= crypto_heartbeat;
+        start_count_usb <= start_count_crypto;
+        write_count_usb <= write_count_crypto;
+        last_out_addr_usb <= last_out_addr_crypto;
+
         if (byteaddr < N_IMAGE)
             read_data <= {7'b0, image_bits[byteaddr[9:0]]};
+        else if (byteaddr >= KRN_BASE && byteaddr < KRN_BASE + 2)
+            read_data <= (byteaddr[0] == 1'b0) ? kernel_bits[7:0] : {7'b0, kernel_bits[8]};
         else if (byteaddr >= OUT_BASE && byteaddr < OUT_BASE + N_OUTPUT)
             read_data <= out_mem[outoff[9:0]];
-        else if (reg_address == STAT_ADDR)
-            read_data <= {7'b0, busy_usb};
+        else if (reg_address == STAT_ADDR) begin
+            case (reg_bytecnt)
+                7'd0: read_data <= {7'b0, busy_usb};
+                7'd1: read_data <= go_count_usb;
+                7'd2: read_data <= heartbeat_usb[23:16];
+                7'd3: read_data <= start_count_usb;
+                7'd4: read_data <= write_count_usb[7:0];
+                7'd5: read_data <= write_count_usb[15:8];
+                7'd6: read_data <= last_out_addr_usb[7:0];
+                7'd7: read_data <= {6'b0, last_out_addr_usb[9:8]};
+                7'd8: read_data <= 8'hA5;                    // status-page marker
+                7'd9: read_data <= {7'b0, reset_i};           // reset sanity
+                7'd10: read_data <= reg_address[7:0];         // address sanity
+                7'd11: read_data <= {1'b0, reg_bytecnt};      // byte-count sanity
+                7'd12: read_data <= image_bits[7:0];          // image write sanity
+                7'd13: read_data <= kernel_bits[7:0];         // kernel write sanity
+                7'd14: read_data <= {7'b0, kernel_bits[8]};   // kernel high bit
+                7'd15: read_data <= 8'h5A;                    // end marker
+                default: read_data <= 8'h00;
+            endcase
+        end
         else
             read_data <= 8'h00;
     end
@@ -97,6 +141,24 @@ module cw305_reg_leakage_demo #(
         .out_addr(core_out_addr), .out_data(core_out_data), .out_we(core_out_we),
         .leak_sink(core_leak)
     );
+
+    wire start_event = go_crypto | ext_start;
+    always @(posedge crypto_clk) begin
+        if (reset_i) begin
+            crypto_heartbeat <= 24'd0;
+            start_count_crypto <= 8'd0;
+            write_count_crypto <= 16'd0;
+            last_out_addr_crypto <= 10'd0;
+        end else begin
+            crypto_heartbeat <= crypto_heartbeat + 24'd1;
+            if (start_event)
+                start_count_crypto <= start_count_crypto + 8'd1;
+            if (core_out_we) begin
+                write_count_crypto <= write_count_crypto + 16'd1;
+                last_out_addr_crypto <= core_out_addr;
+            end
+        end
+    end
 
     always @(posedge crypto_clk)
         if (core_out_we)

@@ -1,0 +1,18 @@
+{
+  "name": "cond_C6_gain50",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\cond_results_C6_gain50",
+  "metrics": {
+    "bit_acc": 0.9661989795918368,
+    "foreground_precision": 0.9605457227138643,
+    "foreground_recall": 0.7321528948847668,
+    "foreground_f1": 0.8309409888357258,
+    "foreground_iou": 0.7107776261937244,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.801831034845279,
+    "pixel_level_distance": 8.61925983428955,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.925,
+    "n_images": 40
+  }
+}

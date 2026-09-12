@@ -1,0 +1,10 @@
+build/.Xil/
+sim/build/
+*.jou
+*.str
+*.wdb
+*.pb
+*.backup.log
+__pycache__/
+tool_probe/probe*.log
+tool_probe/probe*.jou

@@ -1,0 +1,21 @@
+{
+  "name": "gd_5m_10m_0.02",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\gd_5m_10m_0p02",
+  "metrics": {
+    "grey_mae_255": 28.500478744506836,
+    "grey_rmse_255": 85.25035095214844,
+    "grey_corr": 0.11410170488881798,
+    "bit_acc": 0.8882334183673469,
+    "foreground_precision": 0.8955223880597015,
+    "foreground_recall": 0.016863406408094434,
+    "foreground_f1": 0.03310344827586206,
+    "foreground_iou": 0.016830294530154277,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.29568017338188185,
+    "pixel_level_distance": 28.500478744506836,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.2,
+    "n_images": 40
+  }
+}

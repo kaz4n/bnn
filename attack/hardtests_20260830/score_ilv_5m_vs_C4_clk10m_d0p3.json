@@ -1,0 +1,21 @@
+{
+  "name": "ilv_5m_C4_clk10m_0.3",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\ilvr_5m_C4_clk10m_0p3",
+  "metrics": {
+    "grey_mae_255": 28.191486358642578,
+    "grey_rmse_255": 84.78695678710938,
+    "grey_corr": 0.15187626673994625,
+    "bit_acc": 0.8894451530612245,
+    "foreground_precision": 0.7757575757575758,
+    "foreground_recall": 0.035975267003934795,
+    "foreground_f1": 0.06876175127585281,
+    "foreground_iou": 0.03560500695410292,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.3027249709679789,
+    "pixel_level_distance": 28.191486358642578,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.15,
+    "n_images": 40
+  }
+}

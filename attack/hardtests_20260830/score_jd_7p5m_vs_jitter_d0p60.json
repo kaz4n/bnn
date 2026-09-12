@@ -1,0 +1,21 @@
+{
+  "name": "jd_7p5m_0.60",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\jd_7p5m_0p60",
+  "metrics": {
+    "grey_mae_255": 21.304208755493164,
+    "grey_rmse_255": 73.70599365234375,
+    "grey_corr": 0.49072927821521317,
+    "bit_acc": 0.9164540816326531,
+    "foreground_precision": 0.8489583333333334,
+    "foreground_recall": 0.3206857785272625,
+    "foreground_f1": 0.46552427580579353,
+    "foreground_iou": 0.3033767614996012,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.49553648254018434,
+    "pixel_level_distance": 21.304208755493164,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.45,
+    "n_images": 40
+  }
+}

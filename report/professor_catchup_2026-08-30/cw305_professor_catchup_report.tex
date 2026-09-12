@@ -1,0 +1,504 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=0.78in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\graphicspath{{figures/}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[itemize]{topsep=0.25em,itemsep=0.15em,leftmargin=1.3em}
+\setlist[enumerate]{topsep=0.25em,itemsep=0.15em,leftmargin=1.4em}
+
+\title{Catch-up Report: Input Recovery from CW305 Power Traces}
+\author{Khalifa University lab work notes}
+\date{30 August 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Short update}
+
+This note is for catching up with the professor. I was trying to recreate the
+main idea of the Power2Picture and active power-template papers on our own
+bench. The bench is not the same as the paper. I used the CW305 FPGA board and
+ChipWhisperer-Lite. The paper used a different FPGA setup and stronger power
+measurement conditions. So I adapted the victim design and the capture method.
+
+The important update is that the earlier blocker was fixed. Before, after
+programming, the board still looked like the stock AES design. This was not safe
+for any final claim. After checking that M0, M1, and M2 were all high, and after
+pressing USB RST/SW3, I reran the hardware checks. The custom design now passed
+the check:
+
+\begin{itemize}
+  \item register pages 2, 3, and 4 read back as \texttt{0x00}, \texttt{0x00},
+  and \texttt{0x00}, so it is not the stock AES readback;
+  \item the hardware functional check passed all 676 convolution outputs against
+  the CPU golden model;
+  \item the new trace sets were captured from live CW305 and ChipWhisperer
+  hardware, not from simulation;
+  \item I added more tests after that: one active-template run with trained
+  kernels, and two P2P feature/loss ablations;
+  \item the active-template and Power2Picture-style runs reconstruct recognizable
+  MNIST digits from the side-channel trace.
+\end{itemize}
+
+So the conclusion changed. I would no longer say the work is blocked by
+programming mode. I would say the old issue was found and fixed, and now we have
+a checked hardware rerun that can be shown as the main result.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig01_status_summary.png}
+  \caption{The current outcome after the post-reset rerun. Normal result figures
+  use color again. Only the flow-chart style diagrams are kept in black, white,
+  and gray.}
+  \label{fig:summary}
+\end{figure}
+
+\section*{What changed after pressing reset}
+
+The older report had one serious warning. The board was giving this readback
+after programming:
+
+\begin{itemize}
+  \item page 2 = \texttt{0x02},
+  \item page 3 = \texttt{0x05},
+  \item page 4 = \texttt{0x2e}.
+\end{itemize}
+
+These values match the stock CW305 AES core. If I continued from that state,
+then the PC scripts could still run, but the FPGA would not be running my neural
+network leakage design. This is dangerous because the software can make numbers
+that look real, while the real board is doing another workload.
+
+After the switch check and USB reset, I reran:
+
+\begin{itemize}
+  \item \path{host/cw305_leakage_func_check.py}
+  \item \path{host/cw305_leakage_capture.py}
+  \item \path{host/cw305_p2p_capture.py}
+\end{itemize}
+
+The new functional check printed:
+
+\begin{quote}
+\texttt{design\_signature\_pages\_2\_3\_4=[0, 0, 0]}\\
+\texttt{PASS: 676 outputs bit-exact}
+\end{quote}
+
+This is the hardware check I now trust. It proves that the custom bitstream is
+active enough for this experiment, and it proves that the FPGA output matches
+the software golden model for the 26 by 26 first-layer window stream.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig03_register_identity_gate.png}
+  \caption{The hardware identity check after the reset. The run is accepted only
+  because the board does not answer like stock AES and the 676-output check
+  passes.}
+  \label{fig:identity}
+\end{figure}
+
+\section*{Evidence that the new data is real hardware data}
+
+I captured two fresh trace sets.
+
+The one-hot active-template set is:
+
+\begin{itemize}
+  \item folder: \path{host/traces_rerun_20260830_onehot_80},
+  \item 80 MNIST images,
+  \item 9 one-hot probe kernels per image,
+  \item 5 repeated captures per kernel,
+  \item 22,144 ADC samples per trace,
+  \item live CW305/ChipWhisperer capture mode,
+  \item ADC locked at the beginning and end,
+  \item bitstream SHA-256 starts with
+  \texttt{a5bb029e693174a3}.
+\end{itemize}
+
+The trained-kernel active-template set is:
+
+\begin{itemize}
+  \item folder: \path{host/traces_rerun_20260830_trained_80},
+  \item 80 MNIST images,
+  \item 9 trained convolution kernels per image,
+  \item 5 repeated captures per kernel,
+  \item 22,144 ADC samples per trace,
+  \item live CW305/ChipWhisperer capture mode,
+  \item the hardware functional check passed with zero mismatches.
+\end{itemize}
+
+The Power2Picture-style set is:
+
+\begin{itemize}
+  \item folder: \path{host/traces_rerun_20260830_p2p_2000},
+  \item 2,000 MNIST images,
+  \item one trained convolution kernel,
+  \item one capture per image,
+  \item 4 trace shards of 500 images,
+  \item about 40 images per second during capture,
+  \item live CW305/ChipWhisperer capture mode,
+  \item the same bit-exact functional check before capture.
+\end{itemize}
+
+The validator passed both folders. It checked the manifest, live capture mode,
+ADC lock, serial metadata, finite trace arrays, and the embedded functional
+check. This matters because it separates the new run from the older pilot runs.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig16_rerun_trace_evidence.png}
+  \caption{Fresh captured power signal data. The upper part shows the
+  active-template trace segmentation and one power feature map. The lower part
+  shows a trace from the P2P shard. The digit image is used after the attack for
+  scoring and explanation.}
+  \label{fig:fresh-trace}
+\end{figure}
+
+\section*{How the reconstruction uses the side-channel trace}
+
+At attack time, I do not give the target image to the reconstruction algorithm.
+The truth image is loaded only after the output exists, so I can score the
+result. This point is important.
+
+For the active-template method, the attack uses:
+
+\begin{itemize}
+  \item the captured power traces,
+  \item timing knowledge: 676 valid 3 by 3 windows for one MNIST image,
+  \item the profile template made from known profiling images,
+  \item the selected one-hot probe kernels.
+\end{itemize}
+
+It does not use the attacked image or its label. In the clean one-hot rerun, I
+profiled images \texttt{0700--0739} and attacked the held-out images
+\texttt{0740--0779}. In the trained-kernel rerun, I profiled images
+\texttt{0780--0819} and attacked \texttt{0820--0859}. I caught one bug here:
+using \texttt{--start-index 40}
+does not mean skip 40 captured files. The script interprets it as the MNIST file
+index. That first precheck overlapped the profile set, so I did not use it in
+the final table. I reran with \texttt{--start-index 740}, which gave the real
+held-out set.
+
+For the Power2Picture-style method, the model is trained with paired traces and
+known images. This is supervised training, same general style as the paper. At
+test time, the model receives only the trace features and outputs the image.
+The test label and truth image are used only for scoring.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig05_algorithm_flow.png}
+  \caption{Active/power-template reconstruction flow. The attack side uses
+  traces and a profile. The truth image is outside the attack path.}
+  \label{fig:algorithm}
+\end{figure}
+
+\section*{Fresh hardware results}
+
+The fresh runs are the main results I would show first. They are smaller than a
+final journal-scale experiment, but they are real checked hardware runs.
+
+\begin{table}[H]
+\centering
+\caption{Fresh post-reset reconstruction results from live CW305 traces.}
+\label{tab:fresh-results}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.28\linewidth}cccccc}
+\toprule
+Method & Test N & Pixel acc. & FG F1 & MSSIM & Rec. bin & Rec. gray \\
+\midrule
+Active template, one-hot held-out & 40 & 0.9455 & 0.7495 & 0.726 & 0.9750 & -- \\
+Active template, trained kernels & 40 & 0.9600 & 0.7924 & 0.769 & 0.9000 & -- \\
+P2P clock-abs, grad loss & 300 & 0.9503 & 0.7951 & 0.522 & 0.8933 & 0.9300 \\
+P2P window-abs, grad loss & 300 & 0.9486 & 0.7796 & 0.508 & 0.8333 & 0.8533 \\
+P2P clock-abs, MSE loss & 300 & 0.9537 & 0.8068 & 0.561 & 0.9033 & 0.9133 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the one-hot active-template result, the all-zero baseline bit accuracy was
+0.8791. The recovered result reached 0.9455, so it is not only predicting black
+background. The recognizer classified 39 out of 40 recovered images correctly.
+
+The trained-kernel active-template run is closer to a normal first convolution.
+It gave better pixel and structure scores than one-hot, but lower recognition:
+36 out of 40 recovered images were classified correctly. This tells me that the
+trained-kernel traces recover the stroke shape well, but some recovered digits
+are shifted or broken in a way that affects the classifier.
+
+For the P2P-style tests, all three models trained on the same 2,000 hardware
+traces. The split was 1,500 train, 200 validation, and 300 test traces. The
+clock-level feature kept more information than the window-level feature. The MSE
+loss gave the best binary test result in this small run. The gradient loss gave
+better gray-output recognition in the first clock-level run. So I would keep
+both losses in the next large capture, and choose after a bigger test set.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig06_pilot_metrics.png}
+  \caption{Fresh checked hardware results and P2P ablations. These entries come
+  from the post-reset live CW305 trace folders.}
+  \label{fig:metrics}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\linewidth]{fig15_rerun_onehot_heldout_examples.png}
+  \caption{Fresh held-out active-template reconstruction examples. The attacked
+  files did not contain the truth image or label.}
+  \label{fig:active-examples}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\linewidth]{fig18_rerun_trained_heldout_examples.png}
+  \caption{Fresh active-template examples using trained convolution kernels.
+  This is a harder and more realistic setting than one-hot probes.}
+  \label{fig:trained-rerun-examples}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\linewidth]{fig17_rerun_p2p_examples.png}
+  \caption{Fresh P2P-style generator examples from live CW305 traces. The middle
+  column is the direct gray generator output. The right column is the thresholded
+  binary image.}
+  \label{fig:p2p-rerun-examples}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\linewidth]{fig19_rerun_p2p_mse_examples.png}
+  \caption{Fresh P2P examples from the clock-absolute feature with MSE loss.
+  This was the best binary P2P result in the small ablation.}
+  \label{fig:p2p-mse-examples}
+\end{figure}
+
+\section*{Older pilot results}
+
+The older pilot results are still useful because they show the direction. But I
+would not mix them with the fresh checked results without labelling them. Their
+trace files pass file validation, but their manifests are not as strong as the
+new ones. Some of them do not store the serials and embedded functional-check
+object.
+
+\begin{table}[H]
+\centering
+\caption{Older pilot outcomes. I keep these as background evidence, not as the
+main final claim.}
+\label{tab:old-results}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.33\linewidth}ccccc}
+\toprule
+Method & N & Pixel acc. & FG F1 & MSSIM & Recognition \\
+\midrule
+Active template, trained kernels & 30 & 0.9676 & 0.8509 & 0.824 & 0.9333 \\
+Active template, one-hot, Wei-scale & 200 & 0.9431 & 0.7779 & 0.704 & 0.9450 \\
+Power2Picture-style generator & 500 & 0.9721 & 0.8909 & 0.803 & 0.9460 \\
+Background detection, mean of 9 kernels & 30 & 0.8754 & 0.4859 & 0.382 & 0.8667 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig09_template_trained_examples.png}
+  \caption{Older pilot active-template examples with trained convolution
+  kernels. These are useful but not as strongly checked as the fresh rerun.}
+  \label{fig:trained-examples}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig10_p2p_generator_examples.png}
+  \caption{Older pilot Power2Picture-style generator examples. The generator can
+  map trace features back to recognizable MNIST-like shapes.}
+  \label{fig:p2p-old-examples}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.58\linewidth]{fig12_background_detection_examples.png}
+  \caption{Older background-detection examples. This method was weaker because
+  the adapted leakage source does not behave like a simple background detector.}
+  \label{fig:bg}
+\end{figure}
+
+\section*{Why the previous implementation stalled and had low detection}
+
+I think the old difficulty came from several issues together.
+
+First, the hardware identity problem was real. If the board answers like stock
+AES, then the PC can still capture traces and run algorithms, but the trace is
+not from the neural-network leakage design. This was the biggest risk. The new
+identity check fixes this by checking the register pages and the 676 hardware
+outputs before capture.
+
+Second, the first version tried to follow the original paper too directly. The
+paper had better analog measurement conditions. Our CW-Lite setup has less
+analog detail per clock cycle. Natural first-layer leakage can be hidden by
+clock tree activity, static current, USB noise, and board-level noise. That is
+why I used an adapted leakage core with a retained XNOR leak bank. It is still a
+side-channel demo, but it must be described as an adapted controlled experiment,
+not a direct clone of the old accelerator.
+
+Third, the passive background method had weak leakage polarity for this design.
+In the older paper, background pixels can appear as lower activity in the line
+buffer or convolution datapath. In my adapted core, the power is closer to match
+count between a window and a kernel. An all-background patch is not always the
+lowest-power patch. So the simple background threshold stayed near the all-zero
+baseline.
+
+Fourth, I found a split issue during the rerun. The active-template script uses
+\texttt{--start-index} as the image file index, not as the count offset inside
+the capture folder. If I used \texttt{40}, the attack overlapped the first
+profile images. I corrected this by using \texttt{740} for the held-out images.
+This is small, but it is important for honest evaluation.
+
+Fifth, one recognition subcommand still expected TensorFlow inside the
+ChipWhisperer Python environment. That environment does not have TensorFlow.
+The compact scorer used the NumPy recognizer, so the reported recognition
+numbers are still valid. But this is another reason why the scripts should keep
+the TensorFlow-free scoring path as the default.
+
+\section*{How this compares with the original papers}
+
+The research question is the same: can power traces from the first layer reveal
+the private input image?
+
+From this bench, the answer is yes, in a controlled and adapted setup. The fresh
+run recovered recognizable digit images from real FPGA power traces. The
+active-template method reached 97.5\% recovered recognition on 40 held-out
+images. The P2P-style method reached 89.33\% binary recognition and 93.0\%
+gray-output recognition on 300 test traces.
+
+But the setup is not identical to the paper:
+
+\begin{itemize}
+  \item the paper target and our FPGA target are different;
+  \item the paper measurement setup is stronger than CW-Lite;
+  \item my active-template run uses one-hot probe kernels to make the profile
+  easier to learn;
+  \item my victim core includes an adapted leakage bank to make the leakage
+  visible on this bench;
+  \item the P2P rerun used only 2,000 traces, not a very large dataset.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig07_reference_vs_our_setup.png}
+  \caption{The work keeps the same research question as the papers, but the
+  hardware and leakage source are adapted for CW305 and ChipWhisperer-Lite.}
+  \label{fig:compare}
+\end{figure}
+
+So I would present this as a strong hardware reproduction in spirit, not as a
+bit-for-bit reproduction. The main research value for our work is the practical
+adaptation:
+showing input recovery on the available CW305/ChipWhisperer bench, with a strict
+hardware identity check, trace-only evaluation bundles, and both template-based
+and generator-based recovery.
+
+\section*{What I would do next}
+
+If we continue this toward a stronger paper, I would do these next steps:
+
+\begin{enumerate}
+  \item Add a build-ID register in the FPGA design, so every trace folder can
+  prove the exact design name, version, dwell cycles, and leak-lane count.
+  \item Repeat the active-template run with more held-out images and trained
+  kernels, not only one-hot kernels.
+  \item Scale the P2P capture to 10,000 or more traces and train longer. The
+  gray generator output already looks useful, so more data should help.
+  \item Add ablation tests: no leak bank, weaker leak bank, different dwell
+  cycles, different gain, and different clock frequencies.
+  \item Test stability across time and temperature, because the P2P generator
+  may learn capture drift if the split is not random.
+  \item Keep the same rule: no result is accepted unless live capture manifest,
+  not-AES identity check, and 676-output functional check all pass.
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{fig08_next_hardware_checklist.png}
+  \caption{The hardware checklist that should stay in the run order for future
+  runs. It prevents the PC from training on traces from the wrong FPGA design.}
+  \label{fig:next}
+\end{figure}
+
+\section*{My final view}
+
+My view is that the experiment now has a good result. It is not only
+simulation and it is not only host-PC reconstruction. The fresh runs used live
+CW305 traces captured with ChipWhisperer. The board passed the custom-design
+check after the switch/reset fix. Then the reconstruction methods recovered
+recognizable digit images from the traces.
+
+I would tell the professor:
+
+\begin{quote}
+I found why the previous run was unsafe to claim: the board could still answer
+as stock AES after programming. After checking the mode switches and pressing
+USB reset, the custom design check passed. I reran the capture on real CW305
+hardware. The one-hot active-template method reached 97.5\% recognition on 40
+held-out images. The trained-kernel template reached 90.0\%. For the P2P-style
+generator, the best binary result was 90.33\%, and the best gray-output result
+was 93.0\% on 300 test traces. The method is adapted for our ChipWhisperer
+setup, but it keeps the same idea: first-layer power traces can leak enough
+information to recover the input image.
+\end{quote}
+
+This is the point where the next student can continue. The next work should
+scale the run, add the build-ID register, and compare the adapted leakage core
+against a more natural accelerator implementation.
+
+\section*{Files behind this report}
+
+The shortened P2P summary names in this list are under
+\path{attack/rerun_20260830/}.
+
+\small
+\begin{itemize}
+  \item Active-template fresh trace folder:
+  \path{host/traces_rerun_20260830_onehot_80}.
+  \item Active-template fresh score:
+  \path{attack/rerun_20260830/score_onehot_80_eval40_heldout.json}.
+  \item Active-template detailed score:
+  \path{score_summary.json} inside the one-hot held-out result folder.
+  \item Trained-kernel fresh trace folder:
+  \path{host/traces_rerun_20260830_trained_80}.
+  \item Trained-kernel fresh score:
+  \path{attack/rerun_20260830/score_trained_80_eval40_heldout.json}.
+  \item P2P fresh trace folder:
+  \path{host/traces_rerun_20260830_p2p_2000}.
+  \item P2P clock-abs gradient-loss summary:
+  \path{p2p_2000_clockabs/summary.json}.
+  \item P2P window-abs gradient-loss summary:
+  \path{p2p_2000_windowabs/summary.json}.
+  \item P2P clock-abs MSE-loss summary:
+  \path{p2p_2000_clockabs_mse/summary.json}.
+  \item Active-template fresh validation output:
+  \path{validation_rerun_onehot_80.json}.
+  \item Trained-kernel fresh validation output:
+  \path{validation_rerun_trained_80.json}.
+  \item P2P fresh validation output:
+  \path{validation_rerun_p2p_2000.json}.
+  \item Real stock AES control trace metadata:
+  \path{report/hardware_aes_control_trace_pass_20260829.json}.
+  \item Older run summary:
+  \path{HARDWARE_RUN_2026-08-27.md}.
+  \item Older result table:
+  \path{report/results_table_2026-08-27.md}.
+\end{itemize}
+
+\end{document}

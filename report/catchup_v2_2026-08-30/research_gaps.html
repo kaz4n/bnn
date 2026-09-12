@@ -1,0 +1,574 @@
+<title>Condition-Transfer Gaps in Power Input Recovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root{
+    --ground:#FBFAF8;
+    --surface:#F4F2EE;
+    --surface-2:#EDEAE4;
+    --ink:#16202B;
+    --ink-soft:#3C4855;
+    --muted:#68717D;
+    --rule:#DCD7CE;
+    --accent:#2F5D7C;
+    --accent-soft:#E2EAF0;
+    --umber:#7A5C48;
+    --umber-soft:#EFE7E0;
+    --measure:68ch;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171D;
+      --surface:#1A2129;
+      --surface-2:#212A33;
+      --ink:#E9E7E2;
+      --ink-soft:#C3C7CC;
+      --muted:#8C949E;
+      --rule:#2C3540;
+      --accent:#84B4D4;
+      --accent-soft:#1C2A35;
+      --umber:#C0997C;
+      --umber-soft:#2A2320;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#12171D;
+    --surface:#1A2129;
+    --surface-2:#212A33;
+    --ink:#E9E7E2;
+    --ink-soft:#C3C7CC;
+    --muted:#8C949E;
+    --rule:#2C3540;
+    --accent:#84B4D4;
+    --accent-soft:#1C2A35;
+    --umber:#C0997C;
+    --umber-soft:#2A2320;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:4rem 1.5rem 6rem;}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:1.6rem;margin-bottom:2.6rem;}
+  .kicker{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .9rem;
+  }
+  h1{
+    font-family:"Newsreader",Georgia,serif;
+    font-weight:500;font-size:clamp(2rem,4.4vw,3rem);
+    line-height:1.1;margin:0 0 .7rem;text-wrap:balance;letter-spacing:-.01em;
+  }
+  .standfirst{
+    font-family:"Newsreader",Georgia,serif;
+    font-size:1.16rem;line-height:1.55;color:var(--ink-soft);
+    max-width:var(--measure);margin:0;font-style:italic;
+  }
+  .meta{
+    display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1.4rem;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.74rem;color:var(--muted);
+  }
+
+  /* ---------- generic prose ---------- */
+  p,ul,ol{max-width:var(--measure);}
+  p{margin:0 0 1.05rem;}
+  h2{
+    font-family:"Newsreader",Georgia,serif;
+    font-weight:600;font-size:1.6rem;line-height:1.2;
+    margin:0 0 1rem;text-wrap:balance;
+  }
+  h3{
+    font-family:"Source Sans 3",sans-serif;
+    font-weight:600;font-size:.82rem;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted);
+    margin:2rem 0 .6rem;
+  }
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;
+    text-decoration-thickness:1px;}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+  strong{font-weight:600;}
+  code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.88em;}
+
+  .lede{
+    background:var(--surface);border-left:3px solid var(--accent);
+    padding:1.2rem 1.4rem;margin:0 0 3rem;max-width:var(--measure);
+  }
+  .lede p:last-child{margin-bottom:0;}
+
+  /* ---------- gap entries ---------- */
+  .gap{
+    display:grid;grid-template-columns:8.5rem 1fr;gap:0 2rem;
+    padding:2.4rem 0;border-top:1px solid var(--rule);
+  }
+  .gap:first-of-type{border-top:2px solid var(--ink);}
+  .gutter{position:sticky;top:1.5rem;align-self:start;}
+  .rank{
+    font-family:"Newsreader",Georgia,serif;
+    font-size:2.6rem;line-height:1;color:var(--accent);
+    display:block;margin-bottom:.5rem;font-weight:500;
+  }
+  .status{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);display:block;line-height:1.5;
+  }
+  .status b{display:block;color:var(--ink-soft);font-weight:500;}
+
+  /* ---------- measurement block ---------- */
+  .evidence{
+    background:var(--surface);border:1px solid var(--rule);
+    padding:1.1rem 1.3rem;margin:1.2rem 0 1.3rem;max-width:var(--measure);
+  }
+  .evidence .label{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .7rem;
+  }
+  table{border-collapse:collapse;width:100%;font-size:.92rem;}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  th,td{text-align:left;padding:.42rem .8rem .42rem 0;border-bottom:1px solid var(--rule);}
+  th{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;white-space:nowrap;
+  }
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;padding-right:1.1rem;}
+  tr:last-child td{border-bottom:none;}
+  .hi{color:var(--accent);font-weight:600;}
+  .dim{color:var(--muted);}
+
+  /* ---------- citation ---------- */
+  .cite{
+    font-size:.9rem;color:var(--ink-soft);border-left:2px solid var(--umber);
+    padding:.15rem 0 .15rem .9rem;margin:1.1rem 0;max-width:var(--measure);
+  }
+  .cite .who{font-weight:600;color:var(--ink);}
+
+  .proposal{
+    background:var(--accent-soft);border:1px solid var(--accent);
+    padding:1.1rem 1.3rem;margin:1.4rem 0 0;max-width:var(--measure);
+  }
+  .proposal .label{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .55rem;font-weight:500;
+  }
+  .proposal p:last-child{margin-bottom:0;}
+
+  .caveat{
+    background:var(--umber-soft);border-left:3px solid var(--umber);
+    padding:.9rem 1.1rem;margin:1.2rem 0;max-width:var(--measure);font-size:.94rem;
+  }
+  .caveat .label{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--umber);margin:0 0 .45rem;font-weight:500;
+  }
+  .caveat p:last-child{margin-bottom:0;}
+
+  section.block{padding:2.6rem 0;border-top:1px solid var(--rule);}
+  ul{padding-left:1.15rem;margin:0 0 1.05rem;}
+  li{margin-bottom:.42rem;}
+
+  footer{
+    margin-top:3rem;padding-top:1.6rem;border-top:2px solid var(--ink);
+    font-size:.88rem;color:var(--muted);max-width:var(--measure);
+  }
+  @media (max-width:680px){
+    .gap{grid-template-columns:1fr;gap:1rem;}
+    .gutter{position:static;display:flex;align-items:baseline;gap:1rem;}
+    .rank{margin-bottom:0;font-size:2rem;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Research direction memo · updated 1 September 2026</p>
+    <h1>Condition-Transfer Gaps in Power Input Recovery</h1>
+    <p class="standfirst">Four openings in FPGA power side-channel input reconstruction, ranked by
+    the evidence I can already put behind them rather than by how large they sound.</p>
+    <div class="meta">
+      <span>Tarek Alhafez</span>
+      <span>CW305 · Artix-7 XC7A100T · ChipWhisperer-Lite</span>
+      <span>10 papers reviewed</span>
+      <span>Gap 3 resolved · Gap 1 thermal-checked</span>
+    </div>
+  </header>
+
+  <div class="lede">
+    <p>Every gap below is one I can support with a measurement already on disk, and each is
+    named as open by at least one of the papers reviewed. Ranking is by strength of existing
+    evidence, not ambition.</p>
+    <p><strong>Gap 3 is now answered</strong>, and answering it revised the other entries. The
+    candidate search radius carried over from the original paper turned out to be badly wrong for
+    this hardware: tuning it moved the project's headline from F1 0.843 to 0.969. Two claims I had
+    made at the old radius did not survive, and both corrections are recorded in place rather than
+    quietly edited out.</p>
+    <p>Where a result still has a confound I cannot remove, the confound is stated and the
+    experiment that would remove it is named. That is the useful part of a document like this.</p>
+  </div>
+
+  <!-- ============ GAP 1 ============ -->
+  <article class="gap">
+    <div class="gutter">
+      <span class="rank">01</span>
+      <span class="status"><b>Measured</b>Thermal check<br>passed</span>
+    </div>
+    <div>
+      <h2>Operating-condition transfer for input reconstruction</h2>
+
+      <p>Profiled power attacks assume the attacker profiles and attacks under the same
+      conditions. The literature has tested that assumption for <em>key recovery</em> and for
+      <em>classification</em>, but not for <em>input reconstruction</em> &mdash; which is the
+      attack class that actually recovers private data.</p>
+
+      <div class="cite">
+        <span class="who">Reibold, Meyers &amp; Tahoori, HOST 2026</span> &mdash; "Talking Traces"
+        recovers spoken audio from an FPGA NN accelerator. Their practical-challenges section
+        names the gap outright: differences between profiling and victim setup "may affect the
+        observed power traces due to measurement setup, environmental conditions, or
+        manufacturing variations," and these "could be addressed in future work by collecting
+        profiling traces under varying conditions."
+      </div>
+
+      <div class="cite">
+        <span class="who">Glamo&ccaron;anin et&nbsp;al., DATE 2023</span> &mdash; temperature does move
+        remote power SCA success, and ignoring it yields "misleading and overly optimistic"
+        ML profiling results. Scope is CPA and workload classification, not reconstruction.
+        Their key qualifier lands squarely on my setup: the effect matters most "when the
+        leakage is limited (e.g., a small victim circuit)."
+      </div>
+
+      <p>I ran the varying-conditions experiment they name. One template, 40 profiling images,
+      attacked against the same 40 evaluation images at two clocks. The result is not the
+      symmetric degradation I expected.</p>
+
+      <div class="evidence">
+        <p class="label">Foreground F1 &middot; same evaluation set &middot; 40 profiling images each</p>
+        <div class="scroll">
+        <table>
+          <tr><th>Template</th><th class="num">@5 MHz, &delta;=1.0</th><th class="num">@5 MHz, &delta;=0.3</th><th class="num">@10 MHz, &delta;=1.0</th><th class="num">@10 MHz, &delta;=0.3</th></tr>
+          <tr><td>Profiled at 5 MHz</td><td class="num">0.781</td><td class="num hi">0.931</td><td class="num dim">0.081</td><td class="num dim">0.039</td></tr>
+          <tr><td>Profiled at 10 MHz</td><td class="num">0.803</td><td class="num">0.873</td><td class="num hi">0.560</td><td class="num hi">0.569</td></tr>
+          <tr><td>Mixed, 20 + 20</td><td class="num">0.790</td><td class="num">0.923</td><td class="num">0.453</td><td class="num dim">0.259</td></tr>
+        </table>
+        </div>
+      </div>
+
+      <p>The finding that survives &delta; tuning is the <strong>asymmetry</strong>. Profiling low
+      and attacking high collapses to near the all-background baseline and gets worse as &delta;
+      tightens (0.081 to 0.039). Profiling high and attacking low keeps working (0.873). A template
+      is bound to the clock it was profiled at, and the binding is one-directional.</p>
+
+      <p>Two claims I made at &delta;&nbsp;=&nbsp;1.0 did <em>not</em> survive, and both corrections
+      matter more than the original claims.</p>
+
+      <div class="caveat">
+        <p class="label">Corrected: "the 10 MHz template is best at both clocks"</p>
+        <p>True at &delta;&nbsp;=&nbsp;1.0 (0.803 against 0.781), false once &delta; is tuned. At
+        &delta;&nbsp;=&nbsp;0.3 the 5 MHz template wins its own clock decisively, 0.931 against
+        0.873. Matched-condition profiling is best on its own clock; what the high-clock template
+        buys is <em>coverage of both</em>, not superiority at either.</p>
+      </div>
+
+      <div class="caveat">
+        <p class="label">Falsified: my explanation for why mixing loses</p>
+        <p>I claimed the mixed template loses because its 5 MHz rows contribute wrong candidates
+        that still fall inside &delta;. That predicts mixing should improve as &delta; tightens.
+        It does the opposite &mdash; 0.453 down to 0.259 at 10 MHz. The likelier explanation is one
+        my experiment design confounded: the mixed template holds only <strong>20</strong> images of
+        10 MHz coverage against the pure template's <strong>40</strong>. A tighter radius punishes
+        thin coverage. So my 20+20 split conflated <em>mixing conditions</em> with <em>halving
+        per-condition coverage</em>, and the honest reading is that mixing has not yet been tested
+        cleanly at all.</p>
+      </div>
+
+      <h3>Ruling out the thermal explanation</h3>
+
+      <p>All the numbers above came from <em>sequential</em> profiling: forty images at 5&nbsp;MHz,
+      then forty at 10&nbsp;MHz. That is precisely the acquisition pattern the DATE&nbsp;2023 work
+      warns about, and its caveat &mdash; the effect is largest when the leakage is weak &mdash;
+      describes this setup exactly. A referee would be right to ask whether the cross-clock collapse
+      is thermal drift between two acquisition blocks rather than anything electrical.</p>
+
+      <p>So I recaptured the same forty profiling images with the two clocks
+      <strong>interleaved</strong>: every image taken at both conditions back to back, so the slow
+      thermal ramp of the session lands on both in the same proportion. Both conditions passed the
+      functional check with 676/676 outputs bit-exact.</p>
+
+      <div class="evidence">
+        <p class="label">Sequential against interleaved profiling &middot; same evaluation sets &middot; &delta; = 0.3</p>
+        <div class="scroll">
+        <table>
+          <tr><th>Template / attack</th><th class="num">Sequential</th><th class="num">Interleaved</th><th class="num">Difference</th></tr>
+          <tr><td>5 MHz @ 5 MHz</td><td class="num">0.931</td><td class="num">0.929</td><td class="num dim">&minus;0.002</td></tr>
+          <tr><td>5 MHz @ 10 MHz</td><td class="num dim">0.039</td><td class="num dim">0.069</td><td class="num dim">+0.030</td></tr>
+          <tr><td>10 MHz @ 5 MHz</td><td class="num hi">0.873</td><td class="num hi">0.868</td><td class="num dim">&minus;0.004</td></tr>
+          <tr><td>10 MHz @ 10 MHz</td><td class="num">0.569</td><td class="num">0.578</td><td class="num dim">+0.008</td></tr>
+        </table>
+        </div>
+      </div>
+
+      <p>The largest discrepancy anywhere in the matrix is <strong>0.039</strong> F1. The asymmetry
+      it would have to explain is <strong>0.799</strong> &mdash; 0.868 against 0.069. Thermal drift
+      therefore accounts for at most about five per cent of the effect, and the transfer failure is
+      electrical. Note also the direction: interleaving made the cross-clock case slightly
+      <em>better</em>, so the sequential captures had been overstating the collapse rather than
+      inventing it.</p>
+
+      <p>This is the check that lets Gap&nbsp;01 be written up. Without it the whole result rests on
+      an acquisition protocol that a reviewer of the temperature paper would reject on sight.</p>
+
+
+      <div class="proposal">
+        <p class="label">What the experiment should have been</p>
+        <p>Hold per-condition image count constant, not the total: 40 images at each clock against
+        40 at one, with &delta; tuned separately for each template since they differ in size. Then
+        add frequencies &mdash; 5, 7.5, 10, 20 MHz, all profile/attack pairs &mdash; to test whether
+        the asymmetry is monotone in frequency or specific to this pair. 7.5 MHz captures already
+        exist and the capture path runs 20 MHz cleanly.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ GAP 2 ============ -->
+  <article class="gap">
+    <div class="gutter">
+      <span class="rank">02</span>
+      <span class="status"><b>Measured</b>One confound<br>named below</span>
+    </div>
+    <div>
+      <h2>Input quantisation as a leakage variable</h2>
+
+      <p>Both foundational works in this line attack a first layer that receives <em>grayscale</em>
+      pixels. Wei et al. multiply real 0&ndash;255 pixels by binary weights; Moini et al. state
+      plainly that "the input to the BNN is a grayscale" image and that every layer except the
+      first receives binary. Nobody has held the hardware constant and varied the input
+      bit-width to see what that choice costs an attacker.</p>
+
+      <div class="cite">
+        <span class="who">Application-Specific Power Side-Channel Attacks &amp; Countermeasures,
+        arXiv 2512.23785 (Dec 2025)</span> &mdash; names the gap from the defence side: existing
+        countermeasures "lack adaptation to ML workloads, where model dynamics and data-dependent
+        sparsity create unique leakage patterns," and calls for "ML-specific leakage models that
+        capture sparsity, pruning, and quantization effects."
+      </div>
+
+      <p>I built two bitstreams that differ only in the input datapath &mdash; one thresholds the
+      pixel to a bit before the convolution, the other multiplies the real 0&ndash;255 pixel by
+      binary weights &mdash; and attacked both with the same generator, the same split and the
+      same number of images.</p>
+
+      <div class="evidence">
+        <p class="label">Generative reconstruction · same generator, split and settings · n = 300</p>
+        <div class="scroll">
+        <table>
+          <tr><th>Input datapath</th><th class="num">MAE (0&ndash;255)</th><th class="num">Corr.</th><th class="num">MSSIM</th><th class="num">F1</th><th class="num">Recog.</th></tr>
+          <tr><td>Real 0&ndash;255 pixels</td><td class="num hi">9.55</td><td class="num hi">0.945</td><td class="num hi">0.842</td><td class="num hi">0.890</td><td class="num hi">0.98</td></tr>
+          <tr><td>Thresholded to 1 bit</td><td class="num">16.76</td><td class="num dim">&mdash;</td><td class="num">0.570</td><td class="num">0.815</td><td class="num">0.91</td></tr>
+        </table>
+        </div>
+      </div>
+
+      <p>Removing the binarisation did not merely make the comparison with the paper fairer, it
+      made the attack <em>better</em> &mdash; mean error under 4&nbsp;% of full scale and 0.945
+      correlation with the true image. The framing that follows is a defensive one, and it is the
+      part worth publishing: <strong>input binarisation degrades reconstruction but does not
+      prevent it</strong>. A defender who quantises the input aggressively buys a real but partial
+      reduction in what an attacker recovers, and that trade has never been quantified on one
+      platform.</p>
+
+      <div class="caveat">
+        <p class="label">The confound a referee will raise first</p>
+        <p>The two designs are not only different in input width. The grey build is materially
+        different silicon: 15,908 LUTs against 2,990, 11,158 flops against 1,574, and a 72-bit
+        leakage-amplifier word against 9-bit. The improvement could come from richer input
+        information or from a bigger, differently routed circuit with a wider toggling bank.</p>
+      </div>
+
+      <div class="proposal">
+        <p class="label">Experiment that would separate them</p>
+        <p>A third build that breaks the correlation: either a grey datapath whose amplifier
+        rides only a thresholded term, or a binary datapath given the full 72-bit amplifier width.
+        Either isolates input information from circuit size, and both are a day of work since the
+        RTL is parameterised already.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ GAP 3 ============ -->
+  <article class="gap">
+    <div class="gutter">
+      <span class="rank">03</span>
+      <span class="status"><b>Resolved</b>27 attack runs<br>1 Sept 2026</span>
+    </div>
+    <div>
+      <h2>The search radius must scale with template size</h2>
+
+      <p>This was the cheapest experiment on the page, so I ran it first. It is answered, and it
+      moved every other number in this document.</p>
+
+      <p>Going from 40 to 300 profiling images at the published &delta;&nbsp;=&nbsp;1.0 made the
+      attack <em>worse</em> (F1 0.843 to 0.759), which is what raised the question. Sweeping
+      &delta; over thirteen values per template shows why: both curves are unimodal, and both peak
+      far below the published value.</p>
+
+      <div class="evidence">
+        <p class="label">Foreground F1 against &delta; &middot; same 40 evaluation images &middot; 27 attack runs</p>
+        <div class="scroll">
+        <table>
+          <tr><th>&delta;</th><th class="num">1.40</th><th class="num">1.00</th><th class="num">0.40</th><th class="num">0.25</th><th class="num">0.12</th><th class="num">0.06</th><th class="num">0.03</th></tr>
+          <tr><td>40 images</td><td class="num dim">0.730</td><td class="num">0.843</td><td class="num">0.940</td><td class="num hi">0.958</td><td class="num">0.916</td><td class="num dim">0.821</td><td class="num dim">0.736</td></tr>
+          <tr><td>300 images</td><td class="num dim">0.696</td><td class="num">0.759</td><td class="num">0.890</td><td class="num">0.926</td><td class="num">0.958</td><td class="num hi">0.969</td><td class="num">0.946</td></tr>
+        </table>
+        </div>
+      </div>
+
+      <p><strong>The published &delta; was costing this project 0.13 F1.</strong> The 40-image
+      template peaks at &delta;&nbsp;=&nbsp;0.25 with F1 0.958; the 300-image template peaks at
+      &delta;&nbsp;=&nbsp;0.06 with F1 <strong>0.969</strong> and MSSIM 0.961. Recognition is 40/40
+      across the whole central range. The headline result of the project moves from 0.843 to 0.969.</p>
+
+      <p>So more profiling data does help &mdash; but only if &delta; shrinks with it. Roughly,
+      7.5&times; the template rows wants 4&times; the tighter radius. At any fixed &delta; the larger
+      template looks strictly worse, which is the trap I fell into, and which anyone reporting
+      reconstruction quality against profiling-set size will fall into unless they co-tune.</p>
+
+      <div class="caveat">
+        <p class="label">Two points is not an exponent</p>
+        <p>Two template sizes give a direction, not a scaling law. Sizes between 40 and 300, and
+        past 300, would show whether the relation is a clean power law or merely monotone.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ GAP 4 ============ -->
+  <article class="gap">
+    <div class="gutter">
+      <span class="rank">04</span>
+      <span class="status"><b>Measured</b>Negative result<br>capability bound</span>
+    </div>
+    <div>
+      <h2>Probe-kernel mismatch as an attacker-capability bound</h2>
+
+      <p>Profiled attacks on NN accelerators quietly assume the attacker profiles with the kernels
+      the victim actually deploys. I tested the assumption by profiling with one-hot probe kernels
+      and attacking traces captured while the FPGA ran the real trained kernels.</p>
+
+      <div class="evidence">
+        <p class="label">One-hot template vs trained-kernel traces · n = 40</p>
+        <div class="scroll">
+        <table>
+          <tr><th>Metric</th><th class="num">Mismatched</th><th class="num">Matched</th><th class="num">Trivial baseline</th></tr>
+          <tr><td>Foreground F1</td><td class="num">0.119</td><td class="num hi">0.843</td><td class="num dim">&mdash;</td></tr>
+          <tr><td>Pixel accuracy</td><td class="num">0.811</td><td class="num hi">0.968</td><td class="num">0.888</td></tr>
+          <tr><td>Recognition</td><td class="num">0.20</td><td class="num hi">1.00</td><td class="num dim">&mdash;</td></tr>
+        </table>
+        </div>
+      </div>
+
+      <p>The attack does not merely weaken, it drops <em>below</em> the all-background baseline:
+      the reconstruction actively paints foreground where there is none. That is a sharper
+      statement than "profiling matters" and it bounds the threat model &mdash; an attacker who
+      cannot learn the deployed weights is worse off than one who guesses blank.</p>
+
+      <p>It also argues that <strong>weight confidentiality is an input-privacy control</strong>,
+      which connects a model-extraction defence to an input-reconstruction defence. Those two
+      literatures are usually kept apart.</p>
+    </div>
+  </article>
+
+  <!-- ============ SECONDARY ============ -->
+  <section class="block">
+    <h2>Two connections worth one experiment each</h2>
+
+    <h3>Frequency scaling as a free defence</h3>
+    <p>Hertzbleed (Wang et al., USENIX Security 2022) turned data-dependent DVFS frequency into a
+    remote timing channel. My clock result points the other way: because a power template is bound
+    to the clock it was profiled at, <em>DVFS is already a partial defence against template
+    reconstruction</em>. A defender who varies the accelerator clock during inference invalidates
+    the attacker's template for free. Nobody appears to have evaluated deliberate clock jitter as
+    an input-reconstruction countermeasure, and it would cost far less than the dual-rail hiding or
+    dynamic bitstream swapping the countermeasure papers propose.</p>
+
+    <div class="cite">
+      For scale of alternative: <span class="who">FPGA-Patch</span> swaps isofunctional bitstream
+      variants at run time for 14.2&nbsp;% area overhead, and the
+      <span class="who">dual-hiding asynchronous-logic AES accelerator</span> reaches &gt;20M
+      traces to disclosure through dual-rail mapping. Both are heavy compared with changing a clock.
+    </div>
+
+    <h3>My own acquisition protocol is not the recommended one</h3>
+    <p>The DATE 2023 temperature work insists on <em>interleaved</em> trace acquisition so thermal
+    drift spreads evenly across classes; acquiring each class consecutively lets a model learn
+    temperature instead of leakage. My captures are sequential. Given their finding that the effect
+    is largest exactly where leakage is weak &mdash; my diluted small-victim case &mdash; some part of
+    my condition-transfer result could be thermal rather than electrical. Re-running the clock
+    matrix with interleaved acquisition is a cheap robustness check I should do before writing
+    Gap&nbsp;01 up.</p>
+  </section>
+
+  <!-- ============ EXCLUDED ============ -->
+  <section class="block">
+    <h2>What stays out</h2>
+    <p>One earlier result of mine is void and must not appear in any comparison: a 9,000-image
+    generative reconstruction run whose capture predates my authenticity gate. It records no design
+    check and no functional check, and its bitstream hash does not match the verified one, so there
+    is no evidence the FPGA was running my design rather than the stock AES example when those
+    traces were taken. Its numbers looked good, which is precisely why they are dangerous.</p>
+    <p>The same caution applies to the "FPGA reprogrammed" condition in my 30 August report.
+    Reprogramming a CW305 whose FPGA is already configured is a silent no-op &mdash; PROGRAM_B never
+    clears the device &mdash; so that row measures the same configuration later in time, not a
+    reconfiguration. Withdrawn until re-run across a real power cycle.</p>
+  </section>
+
+  <!-- ============ ORDER ============ -->
+  <section class="block">
+    <h2>Order I would work in</h2>
+    <p>The first item is done; the rest are in the order I would take them, cheapest and most
+    confound-removing first.</p>
+    <ol>
+      <li><s>&delta; sweep</s> &mdash; <strong>done, 1 Sept.</strong> Twenty-seven attack runs, no
+      board needed. Moved the headline from 0.843 to 0.969 and forced two corrections above.</li>
+      <li><s>Interleaved re-capture of the clock matrix</s> &mdash; <strong>done, 1 Sept.</strong>
+      The asymmetry survives interleaved acquisition intact; thermal drift accounts for at most
+      0.039 F1 against an effect of 0.799. Gap 01 is electrical.</li>
+      <li><strong>The mixing experiment done properly</strong> &mdash; equal per-condition coverage,
+      &delta; tuned per template. The current mixed result measures the wrong thing.</li>
+      <li><strong>Four-frequency transfer grid.</strong> Converts the asymmetry from a two-point
+      observation into a rule. This is the paper.</li>
+      <li><strong>Third bitstream for the quantisation confound.</strong> Built and timing-clean:
+      the binary datapath with the grey design's 72-bit amplifier. Needs a capture run.</li>
+      <li><strong>Clock jitter as a countermeasure</strong> &mdash; the defensive companion, and the
+      result most likely to interest a hardware-security venue.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Sources reviewed: Wei et al., ACSAC 2018 · Moini et al., arXiv 2011.07603 · Reibold, Meyers
+    &amp; Tahoori, HOST 2026 · Glamo&ccaron;anin et al., DATE 2023 · Wang et al., USENIX Security 2022 ·
+    Application-Specific PSC Survey, arXiv 2512.23785 · FPGA-Patch · ML-Based SCA Detection for FPGA
+    SoCs · Side-Channel Analysis on In-Memory Computing · Dual-Hiding Async-Logic AES · Zhang et al.,
+    ACM Computing Surveys 2024.</p>
+    <p>All measurements cited are from gate-passing captures on the CW305: register pages checked
+    against the stock AES signature and 676/676 convolution outputs bit-exact against a CPU model
+    before every capture.</p>
+  </footer>
+
+</div>

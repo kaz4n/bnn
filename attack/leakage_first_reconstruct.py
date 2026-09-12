@@ -188,6 +188,25 @@ def metrics(pred, truth):
     f1 = 2 * prec * rec / max(prec + rec, 1e-12)
     iou = tp / max(tp + fp + fn, 1)
     zero_acc = int(np.count_nonzero(~truth)) / truth.size
+
+    # Chance-relative versions of the two headline numbers.
+    #
+    # Raw F1 and raw pixel accuracy are only comparable between runs that share
+    # a foreground rate. MNIST is 13.4 % foreground and Fashion-MNIST is 31.5 %,
+    # which moves the all-background pixel accuracy from 0.866 to 0.685 and the
+    # best F1 reachable by a predictor that knows nothing from 0.237 to 0.479.
+    # Comparing raw F1 across those two datasets therefore compares the datasets
+    # and not the attack: an F1 of 0.55 is a good result on MNIST and barely
+    # above chance on Fashion-MNIST. These fields rescale each metric so that
+    # 0 is chance and 1 is perfect, and they are the ones to quote whenever the
+    # foreground rate is not held fixed.
+    fg_rate = 1.0 - zero_acc
+    # A predictor marking every pixel foreground gets precision = fg_rate and
+    # recall = 1, which maximises F1 over all label-blind predictors.
+    f1_chance = 2.0 * fg_rate / (1.0 + fg_rate) if fg_rate > 0 else 0.0
+    # Pixel accuracy's chance level is the better of always-background and
+    # always-foreground.
+    acc_chance = max(zero_acc, fg_rate)
     return {
         "bit_acc": bit_acc,
         "foreground_precision": prec,
@@ -195,6 +214,12 @@ def metrics(pred, truth):
         "foreground_f1": f1,
         "foreground_iou": iou,
         "all_zero_bit_acc": zero_acc,
+        "foreground_rate": fg_rate,
+        "f1_chance": f1_chance,
+        "f1_excess": (f1 - f1_chance) / (1.0 - f1_chance) if f1_chance < 1 else 0.0,
+        "bit_acc_chance": acc_chance,
+        "bit_acc_excess": ((bit_acc - acc_chance) / (1.0 - acc_chance)
+                           if acc_chance < 1 else 0.0),
     }
 
 

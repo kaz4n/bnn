@@ -42,14 +42,19 @@ def main():
     ap.add_argument("--epochs", type=int, default=50)
     ap.add_argument("--batch", type=int, default=128)
     ap.add_argument("--outroot", default="artifacts")
+    ap.add_argument("--dataset", choices=["mnist", "fashion"], default="mnist",
+                    help="which 28x28 set to train the recogniser on; the "
+                         "Fashion weights go to a separate artifact directory "
+                         "so the MNIST recogniser is never overwritten")
     args = ap.parse_args()
 
     import tensorflow as tf
     from train_attacked_cnn import load_mnist
-    outdir = os.path.join(args.outroot, "golden_mlp")
+    name = "golden_mlp" if args.dataset == "mnist" else f"golden_mlp_{args.dataset}"
+    outdir = os.path.join(args.outroot, name)
     os.makedirs(outdir, exist_ok=True)
 
-    (xtr, ytr), (xte, yte) = load_mnist()
+    (xtr, ytr), (xte, yte) = load_mnist(args.dataset)
     model = build_mlp()
     model.compile(optimizer=tf.keras.optimizers.Adam(1e-3),
                   loss="sparse_categorical_crossentropy", metrics=["accuracy"])

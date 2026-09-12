@@ -1,0 +1,21 @@
+{
+  "name": "g4_10m_vs_5m",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\tmp_g4_10m_vs_5m",
+  "metrics": {
+    "grey_mae_255": 9.01769733428955,
+    "grey_rmse_255": 47.9532356262207,
+    "grey_corr": 0.8280134353304925,
+    "bit_acc": 0.9646364795918367,
+    "foreground_precision": 0.8287248322147651,
+    "foreground_recall": 0.8676222596964587,
+    "foreground_f1": 0.847727584786489,
+    "foreground_iou": 0.7357006673021925,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.76720975077502,
+    "pixel_level_distance": 9.01769733428955,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.975,
+    "n_images": 40
+  }
+}

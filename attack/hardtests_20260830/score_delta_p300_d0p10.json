@@ -1,0 +1,21 @@
+{
+  "name": "d_p300_0.10",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\dx_p300_0p10",
+  "metrics": {
+    "grey_mae_255": 2.2117347717285156,
+    "grey_rmse_255": 23.748523712158203,
+    "grey_corr": 0.9566829091265284,
+    "bit_acc": 0.9913265306122448,
+    "foreground_precision": 0.967292377701934,
+    "foreground_recall": 0.9558740865654862,
+    "foreground_f1": 0.9615493355951371,
+    "foreground_iou": 0.9259460931118977,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.9515885873503246,
+    "pixel_level_distance": 2.2117347717285156,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

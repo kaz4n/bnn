@@ -555,24 +555,18 @@ def score_run(args):
 def score_recognition_run(args):
     import sys
 
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "training")))
-    from train_golden_mlp import build_mlp
+    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+    from recognize_numpy import GoldenMLP
 
     truth = load_json(args.truth)
     truth_by_file = {item["file"]: item for item in truth["items"]}
     attack_summary = load_json(os.path.join(args.results, "attack_summary.json"))
 
-    model = build_mlp()
-    model.load_weights(os.path.abspath(os.path.join(
-        os.path.dirname(__file__), "..", "training", "artifacts",
-        "golden_mlp", "weights.weights.h5")))
+    model = GoldenMLP()
 
     def recog(img01):
         img01 = np.asarray(img01, dtype=np.float32)
-        # Trace attack reconstructs binary images.  Map 0/1 back to MNIST-like
-        # 0/255 before the same [-1,1] normalization used during training.
-        x = ((img01 * 255.0) / 127.5 - 1.0)[None, ..., None]
-        return int(model.predict(x, verbose=0).argmax())
+        return int(model.predict(img01[None, ...])[0])
 
     rows = []
     orig_ok = 0

@@ -1,0 +1,298 @@
+{
+  "kind": "cw305_trace_only_attack_bundle",
+  "created_utc": "2026-09-01T04:07:04Z",
+  "source_trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_g4e_10m",
+  "capture_manifest": {
+    "kind": "cw305_leakage_capture",
+    "acquisition": "interleaved",
+    "acquisition_note": "every image captured at every condition back to back, so thermal drift is spread evenly across conditions (Glamocanin et al., DATE 2023)",
+    "interleaved_with": [
+      5000000.0,
+      7500000.0,
+      20000000.0
+    ],
+    "design": "cw305_leakage_top",
+    "input_mode": "binary",
+    "fpga_freq_hz": 10000000.0,
+    "gain_db": 40.0,
+    "avg": 5,
+    "n_kernels": 9,
+    "dwell": 8,
+    "out_side": 26,
+    "n_windows": 676,
+    "samples_per_cycle": 4,
+    "samples_per_window": 32,
+    "presamples": 0,
+    "threshold": 127,
+    "probe_kernels": "file",
+    "start_index": 5200,
+    "trace_source": "cw_lite_analog_sync_x4",
+    "design_check": {
+      "fpga_done": true,
+      "stock_aes_signature_pages_2_3_4": [
+        0,
+        0,
+        0
+      ],
+      "verified_not_stock_aes": true
+    },
+    "functional_check": {
+      "passed": true,
+      "input_mode": "binary",
+      "n_outputs": 676,
+      "hw_min": -9,
+      "hw_max": 9,
+      "golden_min": -9,
+      "golden_max": 9,
+      "mismatches": 0,
+      "checked_utc": "2026-09-01T03:58:23Z"
+    },
+    "started_utc": "2026-09-01T03:58:24Z",
+    "completed_utc": "2026-09-01T04:03:34Z",
+    "status": "complete"
+  },
+  "items": [
+    {
+      "file": "img5200.npz",
+      "source_file": "img5200.npz",
+      "source_sha256": "a03ddf33cd55a3d7e5491f4a3fded9fec31ce07e27968deebcf599031c37ad56",
+      "trace_only_sha256": "2018601ccced9a10013d69456907ba1fbdf6441730e79d5c12612f7b78351451"
+    },
+    {
+      "file": "img5201.npz",
+      "source_file": "img5201.npz",
+      "source_sha256": "6be9d265ae6a4fc331479ceb4aced73a9d680ed7d4a6443a5c428081a623852d",
+      "trace_only_sha256": "cb904368505dbf346e60275e8a7c5f89aaa9026098fd0b9a6ca20ef5c57a5a0a"
+    },
+    {
+      "file": "img5202.npz",
+      "source_file": "img5202.npz",
+      "source_sha256": "c53b9b1709eae10cfdc2c6d1aea164c386bea10fc7d4201949c547b9e7749635",
+      "trace_only_sha256": "8a3aca698f1a3b4469383723f24852ab78d28b5e3f125d3faac0b1c44c3d2cde"
+    },
+    {
+      "file": "img5203.npz",
+      "source_file": "img5203.npz",
+      "source_sha256": "3eaa3282b6b864a6bec2e2349260e785a2a97fc973f6bdff746d465de3a3c2c7",
+      "trace_only_sha256": "9539dd211a8281456530b3f65236f2db0a4de96e5ba3ae501743618d89cf09d5"
+    },
+    {
+      "file": "img5204.npz",
+      "source_file": "img5204.npz",
+      "source_sha256": "43e3933b553dd03b76fdf6bbcdfb97634255a76803bd3f9b27bb3377567cc99b",
+      "trace_only_sha256": "49d7cc98e8b6ec42a4754d953fe5d6f1db31895f854c24a9bb9657b2fa6cdbba"
+    },
+    {
+      "file": "img5205.npz",
+      "source_file": "img5205.npz",
+      "source_sha256": "5c5b9687d87eb94f11a7f4c71b16ed615cf6cd2ab019c0a50f6e24423211dfa5",
+      "trace_only_sha256": "f01dc6381742d09eb07fcc4b40de6f9151fdef12472c6ce579805b434c40a10c"
+    },
+    {
+      "file": "img5206.npz",
+      "source_file": "img5206.npz",
+      "source_sha256": "f94abc1ba935836c6614f3abeaf3493534ebf6db940fd9faeece6145449cacb7",
+      "trace_only_sha256": "0a49d2070f9c985ea7cbcba30b7286f9e3e2a3b7e91c7c717d1b989fb0dec5a6"
+    },
+    {
+      "file": "img5207.npz",
+      "source_file": "img5207.npz",
+      "source_sha256": "4e54b6aa6a5f860bc89b8e4374e5cb64aa67ee2747a007fcad2b038b445349cb",
+      "trace_only_sha256": "5ef2bb9b37be9605a1f1d3400e38040c75fd43f590726b9d4dec3f9a8e9f79da"
+    },
+    {
+      "file": "img5208.npz",
+      "source_file": "img5208.npz",
+      "source_sha256": "e5e72196fd89c9488ca00d02e8a453f1ebf2a1d299021cb7f0236e3bf6d576fb",
+      "trace_only_sha256": "f73feb4272f4ab218832679049a353e65d39ed676187a7dbe07e875637432611"
+    },
+    {
+      "file": "img5209.npz",
+      "source_file": "img5209.npz",
+      "source_sha256": "ce62be5fe9404817af4c869c65930523670cdf055b93ea2bd49711f54e4eb50d",
+      "trace_only_sha256": "fca1857683b9beac3c00cc671dba319430db665781dc8e5e2216f6fd8003b5d2"
+    },
+    {
+      "file": "img5210.npz",
+      "source_file": "img5210.npz",
+      "source_sha256": "9e117b96cc1af57368c6fe39b00444c0bd6ff5efe421237b1d19c2d9dedf016d",
+      "trace_only_sha256": "06f6a2a36d2823d11464677b101f329c1d250b19721a0c319a209a0931c74520"
+    },
+    {
+      "file": "img5211.npz",
+      "source_file": "img5211.npz",
+      "source_sha256": "7a33d007dc3afbed0f09159c0a5ac9d50c43b2f49a7b9a58482f00bd17d1d338",
+      "trace_only_sha256": "157f73945f77bc950c2b26c8e909fc3ff721cb676f1ae4cefd196c18dbfc29f5"
+    },
+    {
+      "file": "img5212.npz",
+      "source_file": "img5212.npz",
+      "source_sha256": "ba900f17e652d4b49ff1ae55746b8702f265820f8cc2e287e427f4c0bc4b2b5d",
+      "trace_only_sha256": "fb28480cbe2267feba243f6c4800c211880b8d6abfff07385f2fc0e2ac9387e9"
+    },
+    {
+      "file": "img5213.npz",
+      "source_file": "img5213.npz",
+      "source_sha256": "fd590476e21032fb776a4c30ca41b26c9d209558edf943a376abbb000255cf8b",
+      "trace_only_sha256": "870757e0e3be9235d6b82098e60593b3be4b0b3ea910f2e080cc47916c36e99b"
+    },
+    {
+      "file": "img5214.npz",
+      "source_file": "img5214.npz",
+      "source_sha256": "725344c23d0ed4e34e80559777f411089a6dbc7021daa53b26c2122de99ff4d3",
+      "trace_only_sha256": "88e82c313543cc0d4732ffcf278d865199beae34e75e016f2afe794630306f53"
+    },
+    {
+      "file": "img5215.npz",
+      "source_file": "img5215.npz",
+      "source_sha256": "cef85f86eb9099dd09542251085c7fb0eaa4e625b9e60c1093ef0dc0dbdb897e",
+      "trace_only_sha256": "f3d2ba168b91ee6bce739ae03d6ef29260b625281fe8dec7345346e665cc5e90"
+    },
+    {
+      "file": "img5216.npz",
+      "source_file": "img5216.npz",
+      "source_sha256": "384442b284664aca3fa9407b5a3e4c1df30d23ace2e334eb009938eeabd770e7",
+      "trace_only_sha256": "3162da357913826431af855db643fcefaa2a95689f91f471458e1472f5ccdeca"
+    },
+    {
+      "file": "img5217.npz",
+      "source_file": "img5217.npz",
+      "source_sha256": "2a6bd4b8261ee8c1d7b274deb29b07bb3a6706f7a174b44f5fe9b0b6050ec9b7",
+      "trace_only_sha256": "819b1fce64f192b882555b220ff18b8e775391414eeb554d9bb9e89f235e4e56"
+    },
+    {
+      "file": "img5218.npz",
+      "source_file": "img5218.npz",
+      "source_sha256": "998c5103a96c20b0b22d125a7f5500a7b9f52c3a78f3e7c2580fab682ee82189",
+      "trace_only_sha256": "cb6f644bc2841098b330a1e810aa2c8ad044d22bac0c6e6f18fbc49c5e7b9ead"
+    },
+    {
+      "file": "img5219.npz",
+      "source_file": "img5219.npz",
+      "source_sha256": "586179883d05b94e39cbe2b0a8470e3480e7b2a0a960cc66b4608487c83c1280",
+      "trace_only_sha256": "690541e0630fc87458ed7533b95940695337dc4ea2f6aa6b9662598383083b90"
+    },
+    {
+      "file": "img5220.npz",
+      "source_file": "img5220.npz",
+      "source_sha256": "e98baf5973623931728e9154f1698405e1df1e05ddec45dcfae12187335a8b9a",
+      "trace_only_sha256": "6ef2904358243ce1a061878ea5880db833f169e5f5b3d8307d96f078eb302b30"
+    },
+    {
+      "file": "img5221.npz",
+      "source_file": "img5221.npz",
+      "source_sha256": "65d24982049d675a5d359d625e75f11bb16f7d979143d10c2c478c8a4c4939dc",
+      "trace_only_sha256": "804fd3b77993a074773d9b1f074d894e0ee8e5ff3f7b0a72296dcade14bb1cd8"
+    },
+    {
+      "file": "img5222.npz",
+      "source_file": "img5222.npz",
+      "source_sha256": "b6da541b6d5e9fb8e71bb1a81cc25f0dd98829244d8af59a2933bbea33bb6703",
+      "trace_only_sha256": "895242a0df7918571f83ce1e7a4bf51937a97d57cf9b00e98c8a2434e98bebb0"
+    },
+    {
+      "file": "img5223.npz",
+      "source_file": "img5223.npz",
+      "source_sha256": "ab71d16e32a87903d824e16f04f4b3336cfdefe653d7aa117553f2bcf2f5e22b",
+      "trace_only_sha256": "b25e147738bff77ca258291c20d36b9916de98d02be1b71ba31e854ffb4d0ebe"
+    },
+    {
+      "file": "img5224.npz",
+      "source_file": "img5224.npz",
+      "source_sha256": "976b71e575ae9c8718bfbfa165e0600302e637508e6f773c6925e166e5028fb1",
+      "trace_only_sha256": "1f4db52aced5e193d40fcffe6b655459c332a08168aad8b2db71aaab9fdcc06a"
+    },
+    {
+      "file": "img5225.npz",
+      "source_file": "img5225.npz",
+      "source_sha256": "61d8efa6681784496fe4112997e6f14820f53adbb09d6b146ece4532a9a2919b",
+      "trace_only_sha256": "9fb909f72efe948d6bd9c37b2c3032d77a4453a9ce73b6e949aff93d3045d79e"
+    },
+    {
+      "file": "img5226.npz",
+      "source_file": "img5226.npz",
+      "source_sha256": "1f2d92a7fbf8a7ce98664584938feb37d80fc3d2170ec0ef860ab7d354349287",
+      "trace_only_sha256": "3b9f9c179d3fb143dc4f83f5280960009792fd2cdda75e698777fd438c757482"
+    },
+    {
+      "file": "img5227.npz",
+      "source_file": "img5227.npz",
+      "source_sha256": "080c45a26ee386e7578d3fe99492f4e9135bef9c5a5f971eaa5f43fb66e33957",
+      "trace_only_sha256": "3ac1caad57ead7a076377e084038d5632a52a32732a1229d785dee717836c4dd"
+    },
+    {
+      "file": "img5228.npz",
+      "source_file": "img5228.npz",
+      "source_sha256": "95efd3f1253affb82a5b892e7f9cd6904b0c1fa02f3a07067e36066bc3399a73",
+      "trace_only_sha256": "d4b2e8864af6b99054934c7c8da452181a9c18ee62ab7a07adddf5d6d8ac4813"
+    },
+    {
+      "file": "img5229.npz",
+      "source_file": "img5229.npz",
+      "source_sha256": "27409bed2184b26cb737e5032772a59538b314483ebe1f0ec3f8d711c28c0e93",
+      "trace_only_sha256": "5aa4abf32730bad8ba262c5f952223d27a5079797a7412e134fe9195ce57d585"
+    },
+    {
+      "file": "img5230.npz",
+      "source_file": "img5230.npz",
+      "source_sha256": "50984c794253c510990e9255855e34edfd3d4830ffb992f3412e8e3cb1a03e93",
+      "trace_only_sha256": "c5035f6385543815b62067cc4e9ab261ce8a36839b31868ea7df0f779e830db4"
+    },
+    {
+      "file": "img5231.npz",
+      "source_file": "img5231.npz",
+      "source_sha256": "60d6193e8352d7c705d6271ceb8ec4d65b85899327d8f19032029e9517bff97a",
+      "trace_only_sha256": "78fc8ec7a0e7ebcc97c98c45053f06294384e4c3f792067fe5318383cf560ea6"
+    },
+    {
+      "file": "img5232.npz",
+      "source_file": "img5232.npz",
+      "source_sha256": "6be690b1804e38792176e2510e232254b38c4fdbc06c12921162d110e9a5e826",
+      "trace_only_sha256": "26d36f7923fe9b3833a6ed9c32d8b198c73c2e5172f3775b493c9e8e1d8ae52a"
+    },
+    {
+      "file": "img5233.npz",
+      "source_file": "img5233.npz",
+      "source_sha256": "a534353f571d259d3cdf451f87d0c7d14f72e87c8857848cbd96bf27e4975f05",
+      "trace_only_sha256": "138af11445331b3d3b1e280935049765c5dae73414ebb7240604fd7558a7330a"
+    },
+    {
+      "file": "img5234.npz",
+      "source_file": "img5234.npz",
+      "source_sha256": "2745241ebd06466ebcd3383f837a53eb38a084af00c2fe9d83f05c4dcf056221",
+      "trace_only_sha256": "720b7eae2f7e952c86d97cf44e5526d8c353b82fd426a1623059420c0f73c555"
+    },
+    {
+      "file": "img5235.npz",
+      "source_file": "img5235.npz",
+      "source_sha256": "b1925a982453d4ea1a48cac8788904d9d93de541130743c7980369c6f3ef011e",
+      "trace_only_sha256": "8e8167a2b86c27cff8f97b4fa0e74b4899f0b5f9ccc199bc3f5f60e3951e9d2a"
+    },
+    {
+      "file": "img5236.npz",
+      "source_file": "img5236.npz",
+      "source_sha256": "dff156e5576cfc1b12ef3cbbb5e6deea586b851554de286c5d2c0789063afbab",
+      "trace_only_sha256": "b3236ab13e7416d72da3f4c8562cafcde4bbbf70d834c0f786e26a412296bc34"
+    },
+    {
+      "file": "img5237.npz",
+      "source_file": "img5237.npz",
+      "source_sha256": "fd560cf2eae5424996cfc69ad284c8e5c2c3015c6a837a3da27c5bb3d67063e0",
+      "trace_only_sha256": "db9c41a3ee31e1bf514e2c78f650224f8f65908a2ce5a4fb1c1bbfc72be66138"
+    },
+    {
+      "file": "img5238.npz",
+      "source_file": "img5238.npz",
+      "source_sha256": "df2b086186b134d5bac3702a660992a17764013e425f95edd67c863a883439da",
+      "trace_only_sha256": "d9bed1eae47046aaa1cbaec0dcafee05f7e300d27607b28d50b6b13a3a6e8094"
+    },
+    {
+      "file": "img5239.npz",
+      "source_file": "img5239.npz",
+      "source_sha256": "8d6614f7cbd19fc668aa8229f782fc82fbfd4138b83a9a46f6c1dea093f70872",
+      "trace_only_sha256": "fedf89cfeb7e8b9ec611077fde565436bc8401d46b46aae3623f9353a96354a1"
+    }
+  ],
+  "contains_ground_truth_images": false,
+  "contains_labels": false
+}

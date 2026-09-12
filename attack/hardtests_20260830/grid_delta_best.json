@@ -1,0 +1,306 @@
+{
+  "5m|5m": {
+    "delta": "0.25",
+    "metrics": {
+      "grey_mae_255": 6.293686389923096,
+      "grey_rmse_255": 40.06107711791992,
+      "grey_corr": 0.8727830192454882,
+      "bit_acc": 0.9753188775510204,
+      "foreground_precision": 0.9441608168474792,
+      "foreground_recall": 0.8316469926925238,
+      "foreground_f1": 0.8843395098625224,
+      "foreground_iou": 0.7926600589338334,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.8469381532531784,
+      "pixel_level_distance": 6.293686389923096,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.925,
+      "n_images": 40
+    }
+  },
+  "5m|7p5m": {
+    "delta": "0.15",
+    "metrics": {
+      "grey_mae_255": 13.522480964660645,
+      "grey_rmse_255": 58.72165298461914,
+      "grey_corr": 0.7076394941951437,
+      "bit_acc": 0.9469706632653061,
+      "foreground_precision": 0.9505468378506895,
+      "foreground_recall": 0.561832490163013,
+      "foreground_f1": 0.706235647412118,
+      "foreground_iou": 0.5458765701802294,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.6662278250226129,
+      "pixel_level_distance": 13.522480964660645,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.75,
+      "n_images": 40
+    }
+  },
+  "5m|10m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 28.541135787963867,
+      "grey_rmse_255": 85.3111343383789,
+      "grey_corr": 0.11748599177198477,
+      "bit_acc": 0.8880739795918368,
+      "foreground_precision": 0.6739130434782609,
+      "foreground_recall": 0.026138279932546374,
+      "foreground_f1": 0.05032467532467533,
+      "foreground_iou": 0.025811823480432972,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.2949656792361098,
+      "pixel_level_distance": 28.541135787963867,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.1,
+      "n_images": 40
+    }
+  },
+  "5m|20m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 29.159120559692383,
+      "grey_rmse_255": 86.22978210449219,
+      "grey_corr": 0.04302002916221663,
+      "bit_acc": 0.8856505102040816,
+      "foreground_precision": 0.35714285714285715,
+      "foreground_recall": 0.00983698707138842,
+      "foreground_f1": 0.019146608315098467,
+      "foreground_iou": 0.009665838166252416,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.2831949389671088,
+      "pixel_level_distance": 29.159120559692383,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.15,
+      "n_images": 40
+    }
+  },
+  "7p5m|5m": {
+    "delta": "0.25",
+    "metrics": {
+      "grey_mae_255": 5.6025190353393555,
+      "grey_rmse_255": 37.797386169433594,
+      "grey_corr": 0.8892224649832962,
+      "bit_acc": 0.9780293367346938,
+      "foreground_precision": 0.9183435403907845,
+      "foreground_recall": 0.8850477796514896,
+      "foreground_f1": 0.9013882925432948,
+      "foreground_iou": 0.820479416362689,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.8695542767278962,
+      "pixel_level_distance": 5.6025190353393555,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.975,
+      "n_images": 40
+    }
+  },
+  "7p5m|7p5m": {
+    "delta": "0.15",
+    "metrics": {
+      "grey_mae_255": 4.6104912757873535,
+      "grey_rmse_255": 34.28812026977539,
+      "grey_corr": 0.9083516694762803,
+      "bit_acc": 0.9819196428571428,
+      "foreground_precision": 0.9452217922000595,
+      "foreground_recall": 0.8923552557616639,
+      "foreground_f1": 0.918028046841116,
+      "foreground_iou": 0.8484767504008551,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.898062229762726,
+      "pixel_level_distance": 4.6104912757873535,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.975,
+      "n_images": 40
+    }
+  },
+  "7p5m|10m": {
+    "delta": "0.10",
+    "metrics": {
+      "grey_mae_255": 19.6291446685791,
+      "grey_rmse_255": 70.74907684326172,
+      "grey_corr": 0.5418716669651896,
+      "bit_acc": 0.9230229591836735,
+      "foreground_precision": 0.9175182481751825,
+      "foreground_recall": 0.35328836424957843,
+      "foreground_f1": 0.5101461038961039,
+      "foreground_iou": 0.34241351130482156,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.5110390906691061,
+      "pixel_level_distance": 19.6291446685791,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.5,
+      "n_images": 40
+    }
+  },
+  "7p5m|20m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 29.14285659790039,
+      "grey_rmse_255": 86.20573425292969,
+      "grey_corr": 0.07154096327182524,
+      "bit_acc": 0.8857142857142857,
+      "foreground_precision": 0.4226190476190476,
+      "foreground_recall": 0.019955030916245082,
+      "foreground_f1": 0.0381105743424584,
+      "foreground_iou": 0.019425444596443228,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.28892984028113583,
+      "pixel_level_distance": 29.14285659790039,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.125,
+      "n_images": 40
+    }
+  },
+  "10m|5m": {
+    "delta": "0.10",
+    "metrics": {
+      "grey_mae_255": 8.318399429321289,
+      "grey_rmse_255": 46.056400299072266,
+      "grey_corr": 0.8334905940680251,
+      "bit_acc": 0.9673788265306122,
+      "foreground_precision": 0.8825837609417446,
+      "foreground_recall": 0.8218100056211355,
+      "foreground_f1": 0.8511133750545772,
+      "foreground_iou": 0.740815809475551,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.7973566146605439,
+      "pixel_level_distance": 8.318399429321289,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.975,
+      "n_images": 40
+    }
+  },
+  "10m|7p5m": {
+    "delta": "0.15",
+    "metrics": {
+      "grey_mae_255": 6.066007614135742,
+      "grey_rmse_255": 39.32978439331055,
+      "grey_corr": 0.881807634769797,
+      "bit_acc": 0.9762117346938776,
+      "foreground_precision": 0.894722066254913,
+      "foreground_recall": 0.8957279370432828,
+      "foreground_f1": 0.8952247191011236,
+      "foreground_iou": 0.810322908721078,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.8579205240876601,
+      "pixel_level_distance": 6.066007614135742,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 1.0,
+      "n_images": 40
+    }
+  },
+  "10m|10m": {
+    "delta": "0.06",
+    "metrics": {
+      "grey_mae_255": 6.488839149475098,
+      "grey_rmse_255": 40.67744064331055,
+      "grey_corr": 0.8693165032606422,
+      "bit_acc": 0.9745535714285715,
+      "foreground_precision": 0.9299065420560748,
+      "foreground_recall": 0.8389544688026982,
+      "foreground_f1": 0.8820921985815603,
+      "foreground_iou": 0.789056304520222,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.8520680916513582,
+      "pixel_level_distance": 6.488839149475098,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.95,
+      "n_images": 40
+    }
+  },
+  "10m|20m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 31.753028869628906,
+      "grey_rmse_255": 89.98345184326172,
+      "grey_corr": 0.11245480866935949,
+      "bit_acc": 0.8754783163265306,
+      "foreground_precision": 0.31601272534464475,
+      "foreground_recall": 0.0837549184935357,
+      "foreground_f1": 0.1324150188846923,
+      "foreground_iou": 0.07090173685462765,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.24180142131216828,
+      "pixel_level_distance": 31.753028869628906,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.1,
+      "n_images": 40
+    }
+  },
+  "20m|5m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 46.422035217285156,
+      "grey_rmse_255": 108.80081939697266,
+      "grey_corr": -0.027597009544859764,
+      "bit_acc": 0.817952806122449,
+      "foreground_precision": 0.08426749130266718,
+      "foreground_recall": 0.06127037661607645,
+      "foreground_f1": 0.07095199349064281,
+      "foreground_iou": 0.03678083347393285,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.09127542310658135,
+      "pixel_level_distance": 46.422035217285156,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.05,
+      "n_images": 40
+    }
+  },
+  "20m|7p5m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 58.92809295654297,
+      "grey_rmse_255": 122.58329772949219,
+      "grey_corr": 0.10543936316176541,
+      "bit_acc": 0.7689094387755102,
+      "foreground_precision": 0.18345632400892398,
+      "foreground_recall": 0.3004496908375492,
+      "foreground_f1": 0.2278103356419819,
+      "foreground_iou": 0.12854737854737855,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.1156608205975462,
+      "pixel_level_distance": 58.92809295654297,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.35,
+      "n_images": 40
+    }
+  },
+  "20m|10m": {
+    "delta": "0.25",
+    "metrics": {
+      "grey_mae_255": 47.40592956542969,
+      "grey_rmse_255": 109.94776916503906,
+      "grey_corr": 0.20397808384674113,
+      "bit_acc": 0.814094387755102,
+      "foreground_precision": 0.26499793131981797,
+      "foreground_recall": 0.3600337268128162,
+      "foreground_f1": 0.30529075309818876,
+      "foreground_iou": 0.18014343974124597,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.21928116467917036,
+      "pixel_level_distance": 47.40592956542969,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.3,
+      "n_images": 40
+    }
+  },
+  "20m|20m": {
+    "delta": "0.60",
+    "metrics": {
+      "grey_mae_255": 52.414859771728516,
+      "grey_rmse_255": 115.61051177978516,
+      "grey_corr": 0.24692939538455175,
+      "bit_acc": 0.7944515306122449,
+      "foreground_precision": 0.2699904428161835,
+      "foreground_recall": 0.4763912310286678,
+      "foreground_f1": 0.3446522976819846,
+      "foreground_iou": 0.20820538017442575,
+      "all_zero_bit_acc": 0.8865433673469387,
+      "mssim": 0.2949678872891486,
+      "pixel_level_distance": 52.414859771728516,
+      "recognition_accuracy_original": 1.0,
+      "recognition_accuracy_recovered": 0.25,
+      "n_images": 40
+    }
+  }
+}

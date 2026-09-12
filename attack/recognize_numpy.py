@@ -28,7 +28,17 @@ def sign_pm1(x):
 
 
 class GoldenMLP:
-    def __init__(self, weights_path=DEFAULT_WEIGHTS):
+    def __init__(self, weights_path=None):
+        """Load the binarized recogniser.
+
+        The weights default to the MNIST digit model, but every scoring path
+        below calls GoldenMLP() with no argument, so a Fashion-MNIST run would
+        silently score clothing with a digit classifier and report a number that
+        looks plausible and means nothing. BNN_RECOGNIZER_WEIGHTS overrides the
+        default so the dataset can be switched without touching five call sites.
+        """
+        if weights_path is None:
+            weights_path = os.environ.get("BNN_RECOGNIZER_WEIGHTS", DEFAULT_WEIGHTS)
         import h5py
 
         with h5py.File(os.path.abspath(weights_path), "r") as f:

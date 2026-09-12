@@ -1,0 +1,321 @@
+Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2016.4 (win64) Build 1756540 Mon Jan 23 19:11:23 MST 2017
+| Date         : Fri Sep 11 10:19:22 2026
+| Host         : kaz4n running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -file C:/Users/narut/OneDrive/Desktop/Project/bnn/experiments/rgb_instrumented/build/timing.rpt
+| Design       : cw305_rgb_top
+| Device       : 7a100t-ftg256
+| Speed File   : -2  PRODUCTION 1.16 2016-11-09
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  false
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock
+2. checking constant_clock
+3. checking pulse_width_clock
+4. checking unconstrained_internal_endpoints
+5. checking no_input_delay
+6. checking no_output_delay
+7. checking multiple_clock
+8. checking generated_clocks
+9. checking loops
+10. checking partial_input_delay
+11. checking partial_output_delay
+12. checking latch_loops
+
+1. checking no_clock
+--------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock
+--------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock
+-----------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints
+--------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay
+--------------------------
+ There are 0 input ports with no input delay specified.
+
+ There is 1 input port with no input delay but user has a false path constraint. (MEDIUM)
+
+
+6. checking no_output_delay
+---------------------------
+ There are 0 ports with no output delay specified.
+
+ There are 3 ports with no output delay but user has a false path constraint (MEDIUM)
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock
+--------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks
+----------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops
+-----------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay
+--------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay
+---------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops
+------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      0.541        0.000                      0                  445        0.128        0.000                      0                  445        4.708        0.000                       0                   147  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock    Waveform(ns)       Period(ns)      Frequency(MHz)
+-----    ------------       ----------      --------------
+usb_clk  {0.000 5.208}      10.417          95.997          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+usb_clk             0.541        0.000                      0                  445        0.128        0.000                      0                  445        4.708        0.000                       0                   147  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  usb_clk
+  To Clock:  usb_clk
+
+Setup :            0  Failing Endpoints,  Worst Slack        0.541ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.128ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        4.708ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.541ns  (required time - arrival time)
+  Source:                 capture/trace_memory_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by usb_clk  {rise@0.000ns fall@5.208ns period=10.417ns})
+  Destination:            usb_data[1]
+                            (output port clocked by usb_clk  {rise@0.000ns fall@5.208ns period=10.417ns})
+  Path Group:             usb_clk
+  Path Type:              Max at Slow Process Corner
+  Requirement:            31.251ns  (usb_clk rise@31.251ns - usb_clk rise@0.000ns)
+  Data Path Delay:        9.025ns  (logic 5.621ns (62.280%)  route 3.404ns (37.720%))
+  Logic Levels:           3  (LUT6=2 OBUFT=1)
+  Output Delay:           17.000ns
+  Clock Path Skew:        -4.649ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.000ns = ( 10.417 - 10.417 ) 
+    Source Clock Delay      (SCD):    4.649ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Timing Exception:       MultiCycle Path   Setup -end   3    
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock usb_clk rise edge)    0.000     0.000 r  
+    F5                                                0.000     0.000 r  usb_clk (IN)
+                         net (fo=0)                   0.000     0.000    usb_clk
+    F5                   IBUF (Prop_ibuf_I_O)         1.392     1.392 r  usb_clk_IBUF_inst/O
+                         net (fo=1, routed)           1.717     3.109    usb_clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.081     3.190 r  usb_clock_buffer/O
+                         net (fo=146, routed)         1.459     4.649    capture/CLK
+    RAMB36_X3Y25         RAMB36E1                                     r  capture/trace_memory_reg_0/CLKBWRCLK
+  -------------------------------------------------------------------    -------------------
+    RAMB36_X3Y25         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[1])
+                                                      2.125     6.774 r  capture/trace_memory_reg_0/DOBDO[1]
+                         net (fo=1, routed)           1.012     7.785    frontend/trace_read_data[1]
+    SLICE_X87Y126        LUT6 (Prop_lut6_I0_O)        0.105     7.890 r  frontend/usb_data_IOBUF[1]_inst_i_4/O
+                         net (fo=1, routed)           0.506     8.396    frontend/usb_data_IOBUF[1]_inst_i_4_n_0
+    SLICE_X86Y126        LUT6 (Prop_lut6_I5_O)        0.105     8.501 r  frontend/usb_data_IOBUF[1]_inst_i_1/O
+                         net (fo=1, routed)           1.887    10.388    usb_data_IOBUF[1]_inst/I
+    B6                   OBUFT (Prop_obuft_I_O)       3.286    13.674 r  usb_data_IOBUF[1]_inst/OBUFT/O
+                         net (fo=1, unset)            0.000    13.674    usb_data[1]
+    B6                                                                r  usb_data[1] (INOUT)
+  -------------------------------------------------------------------    -------------------
+
+                         (clock usb_clk rise edge)   31.251    31.251 r  
+                         clock pessimism              0.000    31.251    
+                         clock uncertainty           -0.035    31.216    
+                         output delay               -17.000    14.216    
+  -------------------------------------------------------------------
+                         required time                         14.216    
+                         arrival time                         -13.674    
+  -------------------------------------------------------------------
+                         slack                                  0.541    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.128ns  (arrival time - required time)
+  Source:                 usb_addr[17]
+                            (input port clocked by usb_clk  {rise@0.000ns fall@5.208ns period=10.417ns})
+  Destination:            capture/trace_memory_reg_0/ENBWREN
+                            (rising edge-triggered cell RAMB36E1 clocked by usb_clk  {rise@0.000ns fall@5.208ns period=10.417ns})
+  Path Group:             usb_clk
+  Path Type:              Hold (Min at Slow Process Corner)
+  Requirement:            0.000ns  (usb_clk rise@0.000ns - usb_clk rise@0.000ns)
+  Data Path Delay:        3.017ns  (logic 1.426ns (47.263%)  route 1.591ns (52.737%))
+  Logic Levels:           2  (IBUF=1 LUT4=1)
+  Input Delay:            2.000ns
+  Clock Path Skew:        4.649ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    4.649ns
+    Source Clock Delay      (SCD):    0.000ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock usb_clk rise edge)    0.000     0.000 r  
+                         input delay                  2.000     2.000    
+    C6                                                0.000     2.000 r  usb_addr[17] (IN)
+                         net (fo=0)                   0.000     2.000    usb_addr[17]
+    C6                   IBUF (Prop_ibuf_I_O)         1.342     3.342 r  usb_addr_IBUF[17]_inst/O
+                         net (fo=6, routed)           1.264     4.606    capture/D[15]
+    SLICE_X84Y127        LUT4 (Prop_lut4_I1_O)        0.084     4.690 r  capture/trace_memory_reg_0_ENBWREN_cooolgate_en_gate_9/O
+                         net (fo=1, routed)           0.327     5.017    capture/trace_memory_reg_0_ENBWREN_cooolgate_en_sig_5
+    RAMB36_X3Y25         RAMB36E1                                     r  capture/trace_memory_reg_0/ENBWREN
+  -------------------------------------------------------------------    -------------------
+
+                         (clock usb_clk rise edge)    0.000     0.000 r  
+    F5                                                0.000     0.000 r  usb_clk (IN)
+                         net (fo=0)                   0.000     0.000    usb_clk
+    F5                   IBUF (Prop_ibuf_I_O)         1.392     1.392 r  usb_clk_IBUF_inst/O
+                         net (fo=1, routed)           1.717     3.109    usb_clk_IBUF
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.081     3.190 r  usb_clock_buffer/O
+                         net (fo=146, routed)         1.459     4.649    capture/CLK
+    RAMB36_X3Y25         RAMB36E1                                     r  capture/trace_memory_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     4.649    
+                         clock uncertainty            0.035     4.684    
+    RAMB36_X3Y25         RAMB36E1 (Hold_ramb36e1_CLKBWRCLK_ENBWREN)
+                                                      0.205     4.889    capture/trace_memory_reg_0
+  -------------------------------------------------------------------
+                         required time                         -4.889    
+                         arrival time                           5.017    
+  -------------------------------------------------------------------
+                         slack                                  0.128    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         usb_clk
+Waveform(ns):       { 0.000 5.208 }
+Period(ns):         10.417
+Sources:            { usb_clk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         10.417      7.945      RAMB36_X3Y23   capture/trace_memory_reg_1/CLKARDCLK
+Low Pulse Width   Slow    FDRE/C              n/a            0.500         5.208       4.708      SLICE_X86Y127  last_write_reg/C
+High Pulse Width  Fast    FDRE/C              n/a            0.500         5.208       4.708      SLICE_X84Y123  capture/busy_reg/C
+
+
+

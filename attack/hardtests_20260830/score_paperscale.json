@@ -1,0 +1,18 @@
+{
+  "name": "paperscale_p300_ctrl40",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\paper_results_ctrl40",
+  "metrics": {
+    "bit_acc": 0.9533163265306123,
+    "foreground_precision": 0.9148177496038035,
+    "foreground_recall": 0.6489600899381676,
+    "foreground_f1": 0.7592897073331142,
+    "foreground_iou": 0.6119798568778161,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.7126592399481652,
+    "pixel_level_distance": 11.904336929321289,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.925,
+    "n_images": 40
+  }
+}

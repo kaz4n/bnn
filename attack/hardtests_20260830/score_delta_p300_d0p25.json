@@ -1,0 +1,21 @@
+{
+  "name": "delta_p300_0.25",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\delta_results_p300_d0p25",
+  "metrics": {
+    "grey_mae_255": 4.130739688873291,
+    "grey_rmse_255": 32.455177307128906,
+    "grey_corr": 0.9178640491971447,
+    "bit_acc": 0.9838010204081633,
+    "foreground_precision": 0.9560406698564593,
+    "foreground_recall": 0.8985385047779652,
+    "foreground_f1": 0.9263981454650826,
+    "foreground_iou": 0.8628879892037786,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.9114005351126468,
+    "pixel_level_distance": 4.130739688873291,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 1.0,
+    "n_images": 40
+  }
+}

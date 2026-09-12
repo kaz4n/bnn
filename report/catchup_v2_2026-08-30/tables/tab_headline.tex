@@ -1,0 +1,11 @@
+\begin{tabular}{lrrrrrrrr}
+\hline
+Run & Pixel acc. & All-background & F1 & IoU & MSSIM & Pixel dist. & Recog. & $n$ \\
+\hline
+300 profile images, control evaluation set & 0.953 & 0.887 & 0.759 & 0.612 & 0.713 & 11.9 & 0.93 & 40 \\
+40 profile / 40 evaluation, fresh images & 0.968 & 0.887 & 0.843 & 0.728 & 0.816 & 8.2 & 1.00 & 40 \\
+40 profile / 40 evaluation, earlier run & 0.960 & 0.888 & 0.792 & 0.656 & 0.769 & 10.2 & 0.90 & 40 \\
+Probe mismatch (one-hot template vs trained traces) & 0.811 & 0.888 & 0.119 & 0.063 & 0.094 & 48.1 & 0.20 & 40 \\
+Single hardware repeat (no averaging) & 0.919 & 0.888 & 0.494 & 0.328 & 0.501 & 20.6 & 0.65 & 40 \\
+\hline
+\end{tabular}

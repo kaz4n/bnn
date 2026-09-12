@@ -1,0 +1,132 @@
+{
+  "kind": "cw305_hardware_capture_validation",
+  "created_utc": "2026-08-30T05:21:46Z",
+  "trace_dir": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\host\\traces_wei_scale_500",
+  "capture_kind": "img_files",
+  "passed": true,
+  "issues": [],
+  "warnings": [
+    "missing scope_serial; older captures may not have this",
+    "missing target_serial; older captures may not have this",
+    "missing functional_check object"
+  ],
+  "manifest_summary": {
+    "status": "complete",
+    "trace_source": "cw_lite_analog_sync_x4",
+    "capture_mode": null,
+    "design": "cw305_leakage_top",
+    "chipwhisperer_version": null,
+    "scope_serial": null,
+    "target_serial": null,
+    "bitstream_sha256": "08c0e41e3bba3c24d0a416d9292c7c134bfa426320302212db0bac8b56582112",
+    "adc_locked_initial": null,
+    "adc_locked_final": null,
+    "n_images": null,
+    "n_kernels": 9,
+    "avg": 3,
+    "shuffle_seed": null
+  },
+  "functional_check": null,
+  "sample_files": [
+    {
+      "file": "img0200.npz",
+      "array": "repeats",
+      "stats": {
+        "shape": [
+          9,
+          3,
+          22144
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "mean": -0.009307853161357144,
+        "std": 0.05889588952635459,
+        "min": -0.4462890625,
+        "max": 0.2353515625
+      },
+      "has_image": true,
+      "has_label": true,
+      "trace_source": "cw_lite_analog_sync_x4"
+    },
+    {
+      "file": "img0201.npz",
+      "array": "repeats",
+      "stats": {
+        "shape": [
+          9,
+          3,
+          22144
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "mean": -0.01038236460831711,
+        "std": 0.05964434744167634,
+        "min": -0.4248046875,
+        "max": 0.2158203125
+      },
+      "has_image": true,
+      "has_label": true,
+      "trace_source": "cw_lite_analog_sync_x4"
+    },
+    {
+      "file": "img0202.npz",
+      "array": "repeats",
+      "stats": {
+        "shape": [
+          9,
+          3,
+          22144
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "mean": -0.010958551314167536,
+        "std": 0.058109970280494166,
+        "min": -0.41796875,
+        "max": 0.2021484375
+      },
+      "has_image": true,
+      "has_label": true,
+      "trace_source": "cw_lite_analog_sync_x4"
+    },
+    {
+      "file": "img0203.npz",
+      "array": "repeats",
+      "stats": {
+        "shape": [
+          9,
+          3,
+          22144
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "mean": -0.011036957185647647,
+        "std": 0.056800453637303405,
+        "min": -0.3955078125,
+        "max": 0.18359375
+      },
+      "has_image": true,
+      "has_label": true,
+      "trace_source": "cw_lite_analog_sync_x4"
+    },
+    {
+      "file": "img0204.npz",
+      "array": "repeats",
+      "stats": {
+        "shape": [
+          9,
+          3,
+          22144
+        ],
+        "dtype": "float32",
+        "finite": true,
+        "mean": -0.010957280565089114,
+        "std": 0.056871095925928136,
+        "min": -0.412109375,
+        "max": 0.2001953125
+      },
+      "has_image": true,
+      "has_label": true,
+      "trace_source": "cw_lite_analog_sync_x4"
+    }
+  ]
+}

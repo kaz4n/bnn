@@ -1,0 +1,18 @@
+{
+  "name": "probe_mismatch_onehot_template_vs_trained_traces",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\mismatch_results",
+  "metrics": {
+    "bit_acc": 0.8114477040816327,
+    "foreground_precision": 0.12453066332916145,
+    "foreground_recall": 0.11329348135496727,
+    "foreground_f1": 0.1186465941272917,
+    "foreground_iou": 0.06306449057201712,
+    "all_zero_bit_acc": 0.8879783163265306,
+    "mssim": 0.09378115284437463,
+    "pixel_level_distance": 48.08083724975586,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.2,
+    "n_images": 40
+  }
+}

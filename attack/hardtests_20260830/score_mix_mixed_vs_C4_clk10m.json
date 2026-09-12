@@ -1,0 +1,18 @@
+{
+  "name": "mix_mixed_vs_C4_clk10m",
+  "kind": "active",
+  "results": "C:\\Users\\narut\\OneDrive\\Desktop\\Project\\bnn\\attack\\hardtests_20260830\\mix_results_mixed_vs_C4_clk10m",
+  "metrics": {
+    "bit_acc": 0.8952168367346939,
+    "foreground_precision": 0.5555102040816327,
+    "foreground_recall": 0.38251826869027544,
+    "foreground_f1": 0.45306258322237014,
+    "foreground_iou": 0.29287712502689905,
+    "all_zero_bit_acc": 0.8865433673469387,
+    "mssim": 0.4008084041639298,
+    "pixel_level_distance": 26.719707489013672,
+    "recognition_accuracy_original": 1.0,
+    "recognition_accuracy_recovered": 0.5,
+    "n_images": 40
+  }
+}
