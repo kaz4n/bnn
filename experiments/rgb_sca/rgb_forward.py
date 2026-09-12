@@ -115,7 +115,15 @@ def per_cycle_power(img: np.ndarray, kernel: np.ndarray, dataflow: str = "serial
         # far, resetting at each new output pixel.
         npix = g.shape[0]
         gs = g.reshape(npix * C, K * K)                       # cycle-major
-        acc = np.cumsum(g, axis=1).reshape(npix * C, K * K)[:, -1]
+        # Sum the TAP axis first, then accumulate across channels. The earlier version
+        # was `np.cumsum(g, axis=1).reshape(npix * C, K * K)[:, -1]`, which accumulated
+        # channels but then kept only the LAST TAP of each cycle instead of the tap sum
+        # -- for products 1..27 it produced [9, 27, 54] where the stated model gives
+        # [45, 171, 378]. The RTL (rgb_linebuf_core.sv) was always correct:
+        # `acc <= (chan == 0) ? chan_sum[chan] : acc + chan_sum[chan]`, where chan_sum is
+        # the nine-tap sum. So this was a simulator-only defect; measured hardware
+        # results are unaffected. Found in external review, 12 Sep 2026.
+        acc = g.sum(axis=2).cumsum(axis=1).reshape(npix * C)
         gp = np.zeros_like(gs); gp[1:] = gs[:-1]
         accp = np.zeros_like(acc); accp[1:] = acc[:-1]
         return (_hd(gs, gp).sum(axis=1) + _hd(acc, accp)).astype(np.float64)

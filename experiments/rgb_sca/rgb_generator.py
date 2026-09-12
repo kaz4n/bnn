@@ -131,8 +131,15 @@ def featurize_rgb(traces, manifest, mode="settle"):
 # ---------------------------------------------------------------- metrics
 
 
-def _ssim_map(a, b, data_range=1.0, win=11):
-    """Mean SSIM with the 11-px window used by Wang et al. and by both supplied papers.
+def _ssim_box11(a, b, data_range=1.0, win=11):
+    """Mean SSIM over UNIFORM (box) 11x11 windows -- named for what it is.
+
+    Wang et al.'s reference implementation uses GAUSSIAN weighting, so this is a defined
+    SSIM variant, not the canonical metric, and values are not directly comparable to
+    library scores. Renamed from `_ssim_map` after external review flagged the mismatch
+    between the name and the description. All reported MSSIM figures in this project use
+    this box variant; the relative comparisons between arms are unaffected because every
+    arm is scored identically.
 
     The window is clamped to the image when the image is smaller than 11 px (small
     synthetic cases in the tests), since sliding_window_view raises rather than degrading
@@ -191,7 +198,7 @@ def rgb_metrics(rec01, truth01):
         "chroma_mae": [cb_mae, cr_mae],
         "chroma_over_luma": float((cb_mae + cr_mae) / 2.0 / max(y_mae, 1e-9)),
         "mssim_per_channel": [
-            float(np.mean([_ssim_map(r, t) for r, t in zip(rec01[:, c], truth01[:, c])]))
+            float(np.mean([_ssim_box11(r, t) for r, t in zip(rec01[:, c], truth01[:, c])]))
             for c in range(3)],
         "corr_per_channel": [
             float(np.corrcoef(rec01[:, c].ravel(), truth01[:, c].ravel())[0, 1])
@@ -199,7 +206,7 @@ def rgb_metrics(rec01, truth01):
     }
 
 
-def channel_permutation_check(rec01, truth01, perm=(2, 1, 0)):
+def channel_permutation_check(rec01, truth01, perm=(2, 1, 0), prior01=None):
     """Score against channel-swapped truth.
 
     If the error does not RISE relative to the correct pairing, the reconstruction is not
@@ -208,7 +215,7 @@ def channel_permutation_check(rec01, truth01, perm=(2, 1, 0)):
     """
     correct = rgb_metrics(rec01, truth01)["mae_pooled"]
     swapped = rgb_metrics(rec01, np.asarray(truth01)[:, list(perm)])["mae_pooled"]
-    return {
+    out = {
         "mae_correct_pairing": correct,
         "mae_swapped_pairing": swapped,
         "swap_penalty": float(swapped - correct),
@@ -216,6 +223,22 @@ def channel_permutation_check(rec01, truth01, perm=(2, 1, 0)):
         "interpretation": ("swap_penalty near zero means channel identity was NOT "
                            "recovered, regardless of how good the pooled score looks"),
     }
+    # A POSITIVE swap penalty is not by itself evidence of measurement-derived colour.
+    # An input-independent constant predictor incurs one too whenever the dataset's
+    # channel distributions differ: on CIFAR the mean image alone scores +1.04, which is
+    # two thirds of the +1.58 the natural-group reconstruction scores. So the informative
+    # quantity is the EXCESS over the no-input prior. Raised by external review,
+    # 12 September 2026.
+    if prior01 is not None:
+        pc = rgb_metrics(prior01, truth01)["mae_pooled"]
+        ps = rgb_metrics(prior01, np.asarray(truth01)[:, list(perm)])["mae_pooled"]
+        out["prior_swap_penalty"] = float(ps - pc)
+        out["prior_swap_penalty_ratio"] = float(ps / max(pc, 1e-9))
+        out["excess_swap_penalty_over_prior"] = float((swapped - correct) - (ps - pc))
+        out["interpretation"] += ("; compare against prior_swap_penalty -- only "
+                                  "excess_swap_penalty_over_prior is attributable to "
+                                  "the measurement")
+    return out
 
 
 # ---------------------------------------------------------------- model
@@ -387,17 +410,29 @@ def save_reconstructions(recs, out_dir, mode, n_show=12, seed=0):
 # ---------------------------------------------------------------- arms
 
 
-def make_arm_features(feats, arm, rng):
+def make_arm_features(feats, arm, rng, tr=None, te=None):
     """Transform the input features for one control arm. Targets are never touched.
 
     `prior_only` is NOT handled here -- it is computed analytically in train_arm, because
     a degenerate all-identical input cannot be standardized or BatchNormed. See the module
     docstring.
+
+    SHUFFLING RESPECTS THE SPLIT. An earlier version permuted rows across the WHOLE
+    dataset, so a test row could receive a training row's features -- in a 2,000-row
+    reproduction, 185 held-out rows moved to training positions. The control's job is to
+    break the trace/image association, not to move data across the partition, so each
+    partition is now permuted independently. Found in external review, 12 Sep 2026.
     """
     if arm == "trace":
         return feats
     if arm == "shuffled":
-        return feats[rng.permutation(len(feats))]
+        out = feats.copy()
+        if tr is None or te is None:
+            return feats[rng.permutation(len(feats))]
+        for part in (np.asarray(tr), np.asarray(te)):
+            if len(part) > 1:
+                out[part] = feats[part][rng.permutation(len(part))]
+        return out
     if arm == "prior_only":
         raise ValueError("prior_only is computed analytically; see analytic_prior()")
     raise ValueError(f"unknown arm {arm}")
@@ -429,10 +464,16 @@ def train_arm(feats, images, arm, args, torch, nn, rng):
                  "method": "analytic_training_mean", **rgb_metrics(rec, truth)},
                 rec, truth, te)
 
-    x = make_arm_features(feats, arm, rng).astype(np.float32)
+    x = make_arm_features(feats, arm, rng, tr=tr, te=te).astype(np.float32)
     mu, sd = x[tr].mean(0), x[tr].std(0) + 1e-8
     x = (x - mu) / sd
 
+    # Seed torch too. The requested seed previously reached only the NumPy split, so
+    # model initialization and batch permutation were unseeded and a rerun at "seed=0"
+    # was not reproducible -- which made small cross-mode differences uninterpretable.
+    # Full determinism still depends on platform, threading and library version; see
+    # https://docs.pytorch.org/docs/stable/notes/randomness.html
+    torch.manual_seed(args.seed)
     dev = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = build_rgb_model(x.shape[1], images.shape[-1], torch, nn).to(dev)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
@@ -467,7 +508,8 @@ def train_arm(feats, images, arm, args, torch, nn, rng):
     out = {"arm": arm, "n_train": int(len(tr)), "n_test": int(len(te)),
            **rgb_metrics(rec, truth)}
     if arm == "trace":
-        out["channel_permutation"] = channel_permutation_check(rec, truth)
+        out["channel_permutation"] = channel_permutation_check(
+            rec, truth, prior01=analytic_prior(y[tr], len(te)))
     return out, rec, truth, te
 
 

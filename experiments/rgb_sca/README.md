@@ -470,10 +470,27 @@ Capture: `host/traces_rgb_full` · Analysis: `results/hardware_20260912`
 +9.53 / 0.462. The image grid shows recognizable garment silhouettes recovered from
 physically measured power.
 
-**2. Colour is not recovered.** Chroma advantage is negative in all four cells and the
-channel-permutation ratio is at or below 1.0 — scoring against channel-swapped truth is no
-worse than the correct pairing. With random per-image tints, chroma is unpredictable from
-structure or prior, so this is a controlled negative, not a modelling artifact.
+**2. Colour is not recovered.** Chroma advantage is negative in **five of six** cells
+(summed/natural shows a small **positive** Cb advantage of +0.25), and on the **control**
+group — the only group that reconstructs at all — the channel-permutation ratio is
+0.985–0.998, i.e. scoring against channel-swapped truth is no worse than the correct
+pairing. On the natural group the ratio exceeds 1.0 (1.026–1.031), but that group does
+not reconstruct, so the ratio is not evidence of colour recovery there.
+
+With random per-image tints, chroma is unpredictable from structure or prior, so this is
+a controlled negative, not a modelling artifact.
+
+> **Corrected 12 September 2026.** This paragraph previously read "negative in all four
+> cells" and "ratio is at or below 1.0", contradicting the table directly above it and
+> the underlying JSON. External review caught it. The conclusion — faithful colour
+> recovery is unestablished — is unchanged, but the supporting description was wrong and
+> overstated.
+>
+> A further caveat from the same review: a positive swap penalty is **not** by itself
+> evidence of measurement-derived colour, because an input-independent constant predictor
+> also incurs one when the dataset's channel distributions differ. `rgb_generator.py` now
+> reports `prior_swap_penalty` and `excess_swap_penalty_over_prior` alongside it; only the
+> excess is attributable to the measurement.
 
 **3. Natural photographs fail** — worse than predicting the mean image (MSSIM 0.05). The
 grayscale-CIFAR control established this is scene complexity, not colour.

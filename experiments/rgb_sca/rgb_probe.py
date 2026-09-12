@@ -171,7 +171,8 @@ def _scores(pred: np.ndarray, truth: np.ndarray) -> dict:
 
 def recovery_probe(images: np.ndarray, kernels: np.ndarray, dataflow: str,
                    train_frac: float = 0.7, alpha: float = 1e3, context: int = 1,
-                   noise: float = 0.0, seed: int = 0) -> dict:
+                   noise: float = 0.0, seed: int = 0,
+                   scene_id: np.ndarray | None = None) -> dict:
     """Linear recovery of per-channel pixel values, against two controls.
 
     The split is by IMAGE, never by pixel: pixels from one image are highly correlated,
@@ -182,11 +183,28 @@ def recovery_probe(images: np.ndarray, kernels: np.ndarray, dataflow: str,
     """
     N = len(images)
     rng = np.random.default_rng(seed)
-    order = rng.permutation(N)
-    n_tr = max(1, int(round(train_frac * N)))
-    tr_imgs, te_imgs = set(order[:n_tr].tolist()), set(order[n_tr:].tolist())
+
+    # Split on SOURCE SCENE when one is supplied. Augmented copies of a scene are not
+    # independent samples of it, so splitting by array position leaks the held-out scenes
+    # into training and the probe measures memorization rather than generalization.
+    if scene_id is None:
+        scene_id = np.arange(N)
+    scene_id = np.asarray(scene_id)
+    scenes = np.unique(scene_id)
+    if len(scenes) < 2:
+        raise ValueError(
+            f"need at least 2 distinct source scenes to hold one out; got {len(scenes)}. "
+            "Augmented copies of one scene cannot form a held-out set.")
+    sorder = rng.permutation(len(scenes))
+    n_sc_tr = max(1, min(len(scenes) - 1, int(round(train_frac * len(scenes)))))
+    tr_scenes = set(scenes[sorder[:n_sc_tr]].tolist())
+    tr_imgs = {i for i in range(N) if scene_id[i] in tr_scenes}
+    te_imgs = set(range(N)) - tr_imgs
     if not te_imgs:
-        raise ValueError("need at least 2 images for a held-out split")
+        raise ValueError("held-out set is empty after scene-disjoint splitting")
+    assert not (set(scene_id[list(tr_imgs)].tolist())
+                & set(scene_id[list(te_imgs)].tolist())),         "train and test share a source scene"
+    n_tr = len(tr_imgs)
 
     X, Y, ids = build_dataset(images, kernels, dataflow, context, noise, seed)
     tr = np.isin(ids, list(tr_imgs))
@@ -216,6 +234,9 @@ def recovery_probe(images: np.ndarray, kernels: np.ndarray, dataflow: str,
         "dataflow": dataflow,
         "n_images": int(N),
         "n_train_images": int(n_tr),
+        "n_scenes": int(len(scenes)),
+        "n_train_scenes": int(n_sc_tr),
+        "split": "scene-disjoint",
         "n_kernels": int(len(kernels)),
         "noise": float(noise),
         "trace": trace_scores,

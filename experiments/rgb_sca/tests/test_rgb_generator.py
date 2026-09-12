@@ -258,3 +258,61 @@ def test_end_to_end_on_simulated_traces_controls_behave():
     assert len(res["trace"]["mae_per_channel"]) == 3
     assert "channel_permutation" in res["trace"]
     assert "chroma_advantage" in res["summary"]
+
+
+def test_prior_swap_penalty_is_actually_computed_when_prior_supplied():
+    """Regression: the prior branch must run, not be silently ignored.
+
+    The first attempt at this feature added `prior01` to the signature but never
+    replaced the function body. The parameter was accepted and discarded, and the
+    reporting code used dict.get(..., 0) -- so it printed a confident 0.000 for every
+    cell and hid the failure completely. Assert the keys EXIST rather than defaulting.
+    """
+    rng = np.random.default_rng(31)
+    truth = rng.random((40, 3, 8, 8))
+    truth[:, 0] += 0.3                       # give the channels different distributions
+    truth = np.clip(truth, 0, 1)
+    prior = G.analytic_prior(truth[:30], len(truth))
+    cp = G.channel_permutation_check(truth, truth, prior01=prior)
+    for k in ("prior_swap_penalty", "prior_swap_penalty_ratio",
+              "excess_swap_penalty_over_prior"):
+        assert k in cp, f"{k} missing -- the prior branch did not run"
+    assert cp["prior_swap_penalty"] > 0, "channel-asymmetric data must penalise the prior"
+    assert cp["excess_swap_penalty_over_prior"] == pytest.approx(
+        cp["swap_penalty"] - cp["prior_swap_penalty"], rel=1e-9)
+
+
+def test_prior_swap_penalty_absent_when_no_prior_given():
+    truth = np.random.default_rng(32).random((10, 3, 8, 8))
+    cp = G.channel_permutation_check(truth, truth)
+    assert "prior_swap_penalty" not in cp
+
+
+def test_channel_symmetric_prior_has_no_swap_penalty():
+    """A channel-symmetric predictor is swap-invariant by construction.
+
+    True for the tinted controls (random per-channel tints equalise the channel means),
+    which is why that group shows ~0 -- correct, not a bug. The check must stay for
+    datasets like CIFAR where the prior is NOT symmetric.
+    """
+    rng = np.random.default_rng(33)
+    y = rng.random((20, 8, 8))
+    truth = np.stack([y, y, y], axis=1)
+    prior = G.analytic_prior(truth[:15], len(truth))
+    cp = G.channel_permutation_check(truth, truth, prior01=prior)
+    assert cp["prior_swap_penalty"] == pytest.approx(0.0, abs=1e-9)
+
+
+def test_shuffled_arm_respects_the_partition():
+    """Shuffling must not move rows across the train/test boundary."""
+    rng = np.random.default_rng(34)
+    feats = rng.random((50, 4))
+    tr, te = np.arange(0, 40), np.arange(40, 50)
+    out = G.make_arm_features(feats, "shuffled", rng, tr=tr, te=te)
+    # every shuffled test row must still originate from a test row
+    te_rows = {tuple(r) for r in feats[te]}
+    for r in out[te]:
+        assert tuple(r) in te_rows
+    tr_rows = {tuple(r) for r in feats[tr]}
+    for r in out[tr]:
+        assert tuple(r) in tr_rows

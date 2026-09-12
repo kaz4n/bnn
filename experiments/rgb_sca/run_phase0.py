@@ -73,11 +73,20 @@ def load_images(size: int, npz: str | None, n_aug: int, seed: int):
         extra.append(np.roll(src, (int(rng.integers(0, size)), int(rng.integers(0, size))),
                              axis=(1, 2)))
     images = np.concatenate([base, np.stack(extra)]) if extra else base
+    # Carry the ORIGINATING scene id through augmentation. Splitting by array position
+    # put rolled copies of a training scene into the held-out set -- with the documented
+    # 4+16 construction and seed 0, every held-out row came from a scene already seen in
+    # training, so the pilot could not speak to unseen-scene generalization at all.
+    # Found in external review, 12 September 2026.
+    scene_id = np.concatenate([np.arange(len(base)),
+                               np.array([i % len(base) for i in range(len(extra))],
+                                        dtype=int)]) if extra else np.arange(len(base))
     return images, {
         "source_files": [os.path.basename(p) for p in paths],
         "n_independent_scenes": int(len(base)),
         "augmented": int(len(extra)),
         "augmentation": "cyclic roll of a source photo; NOT an independent scene",
+        "scene_id": scene_id.tolist(),
     }
 
 
@@ -141,7 +150,8 @@ def main():
         print(f"\n  {df}")
         for nz in args.noise:
             r = P.recovery_probe(images, kernels, df, alpha=args.alpha,
-                                 context=args.context, noise=nz, seed=args.seed)
+                                 context=args.context, noise=nz, seed=args.seed,
+                                 scene_id=prov.get("scene_id"))
             out["recovery"][df][f"noise_{nz}"] = r
             t = r["trace"]["mae_per_channel"]
             print(f"    noise={nz:<4} trace R{t[0]:6.2f} G{t[1]:6.2f} B{t[2]:6.2f}"

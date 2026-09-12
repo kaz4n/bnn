@@ -27,13 +27,13 @@ power traces with a ChipWhisperer-Lite across three channel dataflows, and evalu
 absent from the prior literature: an analytic prior-only baseline, a shuffled-trace
 control, a channel-permutation penalty, and a luminance/chrominance decomposition.
 We recover recognisable image structure from measured traces (MSSIM $0.565$, MAE
-advantage $+14.02$ over the optimal constant predictor) while recovering
+advantage $+14.19$ over the optimal constant predictor) while recovering
 \emph{no colour whatsoever}. This holds across \emph{all three} channel dataflows---
 accumulator-only, per-product-registered, and channel-serial---so the negative is a
 property of the leakage at this signal-to-noise ratio rather than of one architectural
-choice: chrominance advantage is negative in five of six dataflow$\times$content
-conditions and the channel-permutation ratio never exceeds unity on the group that
-reconstructs.
+choice: chrominance advantage is negative in ten of twelve per-channel measurements,
+and on the group that actually reconstructs the channel-permutation penalty is at or
+below zero once the no-input prior's own penalty is subtracted.
 Because the tinted inputs carry per-image random chroma, this negative cannot be
 explained by a model colourising from the dataset prior. We further show the failure on
 natural photographs is driven by scene complexity rather than colour---grayscale CIFAR-10
@@ -71,6 +71,56 @@ luma/chroma decomposition. None of these appears in the prior work.
 confounds (scene complexity, and colourisation from the prior).
 \item A quantified instrumentation requirement derived from hardware, not modelling.
 \end{enumerate}
+
+\section{Related work}
+
+\paragraph{Input recovery from FPGA accelerator power.} Wei et~al.~\cite{wei2018} attack
+a binarised CNN on a Spartan-6 (SAKURA-G) with an external $2.5$\,GS/s oscilloscope,
+recovering MNIST digits by thresholding per-cycle power into foreground/background
+(\S6) and by a power template over a $3\times3$ patch (\S7), reporting $89.8\%$
+recognition accuracy for a $3\times3$ kernel. Moini et~al.~\cite{moini2021} move the
+measurement on-chip, using TDC sensors on local Xilinx boards and AWS F1 instances, and
+report a maximum normalised cross-correlation of $79\%$ locally and $72\%$ on F1---but
+average thousands of traces per image (their Fashion-MNIST experiment uses $6{,}000$
+runs) and post-process with a high-pass filter and total-variation denoising. Huegle
+et~al.~\cite{huegle2023} replace the hand-built template with a generative CNN trained
+by regression on TDC traces, reach $96.4\%$ recognition on MNIST, and criticise
+\cite{moini2021} precisely for its averaging cost and for not reporting recognition or
+pixel-level metrics.
+
+All three are grayscale, and not incidentally: \cite{wei2018} sets ``input channel to
+1'' (\S6.3) and \cite{huegle2023} reduces ``the input channels to a single channel''
+(\S III-B). \cite{moini2021} evaluates only MNIST and, in a limitations experiment,
+Fashion-MNIST. Wei et~al.\ list multi-channel colour inputs as future work
+(Appendix~B). To our knowledge no published work recovers colour inputs from an FPGA
+accelerator power side-channel, and the recent survey of application-specific power
+side-channel attacks~\cite{sanjaya2024} lists no such entry in its input-recovery
+table.
+
+\paragraph{Colour recovery by other mechanisms.} Maji et~al.~\cite{maji2021} \emph{do}
+recover CIFAR-10 and ImageNet inputs---colour images---reporting exact recovery. The
+mechanism differs in a way that matters here: the platform is a microcontroller
+(ATmega328P, Cortex-M0+, RISC-V) and the channel is principally \emph{timing}, of
+floating-point multiplication and integer-to-float conversion, plus SPA on the
+conditional subtractions inside a fixed-point normalisation divide. Each input operand
+passes through its own instruction, so per-channel values never merge. That is the
+opposite of the situation studied here, where one accumulation absorbs all channels.
+Wang et~al.~\cite{wang2023} reconstruct MRI inputs to a U-Net on an analog
+compute-in-memory accelerator using a GAN; the imagery is grayscale, and we were not
+able to determine from the abstract whether the power data is measured or simulated.
+
+\paragraph{Evaluation practice.} The metrics used above---recognition accuracy, MSSIM,
+pixel-level distance---measure different things, and both foundational papers show it.
+Wei et~al.'s Fig.~8 reports pixel-level distances of $1.65$ and $2.98$, which they
+describe as both close to the original, alongside recognition accuracies of $89.8\%$ and
+$15\%$. Huegle et~al.\ observe the converse (\S V-A): worse pixel-level distance than
+\cite{wei2018} but significantly higher recognition. Neither reports a no-input baseline,
+so neither separates ``recovered the input'' from ``reproduced the dataset''---the gap
+this work's control set addresses. Recent deep-learning side-channel work argues for
+operating on raw traces rather than hand-engineered features~\cite{sanjaya2024}; we
+tested a learned temporal filter against our measured sample window and found it
+\emph{worse} (\S6), which we read as evidence that featurisation is not the binding
+constraint here.
 
 \section{Threat model and setup}
 
@@ -163,16 +213,23 @@ for what the dataset prior supplied.}
 \end{figure}
 
 \paragraph{Structure recovers.} On the control group the generator reaches MSSIM $0.565$
-and an advantage of $+14.02$ MAE over the analytic prior (Table~\ref{tab:hw}), with the
-shuffled arm at the prior. Figure~\ref{fig:grid} shows recognisable garment silhouettes
+and an advantage of $+14.19$ MAE over the analytic prior (Table~\ref{tab:hw}). Figure~\ref{fig:grid} shows recognisable garment silhouettes
 recovered from physically measured power.
 
-\paragraph{Colour does not, in any dataflow.} Chrominance advantage is negative in five
-of six conditions, and on the control group---the only group that reconstructs at all---
-the channel-permutation ratio is $0.985$--$0.998$, i.e.\ scoring against
-channel-swapped truth is \emph{no worse} than the correct pairing. Since the tints are
-random per image, chroma is unpredictable from structure or prior; this is a controlled
-negative, not a modelling artifact.
+\paragraph{Colour does not, in any dataflow.} On the control group---the only group that
+reconstructs at all---the channel-permutation penalty is $-0.23$, $-0.13$ and $+0.07$ for
+summed, parallel and serial: scoring against channel-swapped truth is \emph{no worse}
+than the correct pairing. Since the tints are random per image, chroma is unpredictable
+from structure or prior; this is a controlled negative, not a modelling artifact.
+
+The swap penalty must be read against the no-input prior, not in isolation. A constant
+predictor incurs one whenever the dataset's channel distributions differ: on CIFAR the
+training-mean image alone scores $+1.05$, which accounts for roughly two thirds of the
+$+1.58$ the natural-group reconstruction scores. Table~\ref{tab:hw} therefore reports the
+\emph{excess} over the prior. On the control group the prior's penalty is $+0.005$---the
+random tints equalise the channel means, making the prior swap-invariant by
+construction---so there the raw and excess figures coincide, and both are at or below
+zero.
 
 That it holds across all three dataflows matters. \textsc{Summed} registers only the
 accumulator, \textsc{parallel} registers all 27 products, and \textsc{serial} gives each
@@ -186,11 +243,61 @@ below the prior (MSSIM $0.057$). Running the identical pipeline on CIFAR
 \emph{luminance} gives MSSIM $0.077$---indistinguishable. The limit is scene complexity.
 Notably, neither prior work attempted natural imagery either.
 
-\paragraph{Serial did not help, contradicting simulation.} Zero-noise analysis predicted
-\textsc{serial} to be the most separable dataflow. On hardware it is worse than
-\textsc{summed} ($+11.35$ vs $+14.02$). We report the hardware result. The likely cause
-is that serial spreads identical work over three times the cycles, lowering per-cycle
-signal---an effect a zero-noise probe cannot see.
+\paragraph{Serial did not help, contradicting simulation.} On hardware \textsc{serial} is
+worse than \textsc{summed} and \textsc{parallel} ($+11.73$ vs $+14.19$ and $+14.55$). The
+likely cause is that serial spreads identical work over three times the cycles, lowering
+per-cycle signal.
+
+Our zero-noise simulation had predicted the opposite ordering. That prediction is
+withdrawn: the simulator's serial accumulator was defective (\S\ref{sec:corrections}) and
+the Phase~0 pilot split augmented copies of the same source scenes across train and test,
+so it measured within-scene memorisation rather than generalisation. Correcting both
+inverts the simulated ranking (Table~\ref{tab:phase0}). We report the hardware result and
+treat the simulation as non-predictive for dataflow ranking.
+
+\section{Corrections following external review}
+\label{sec:corrections}
+
+An external review of the repository at commit \texttt{d0eedd4} identified defects that
+change what parts of this work can claim. We record them rather than silently repairing
+them, because two of them invalidate results we had previously reported.
+
+\begin{table}[t]\centering\small
+\caption{Phase~0 linear probe, noise-free, before and after correcting the serial
+accumulator and splitting on source scene. The original ranking does not survive.}
+\label{tab:phase0}
+\input{tables/tab_phase0}
+\end{table}
+
+\paragraph{Serial accumulator (simulator only).} The simulated serial datapath summed
+across channels but retained only the last kernel tap of each cycle: for products
+$1\ldots27$ it produced $[9,27,54]$ where the documented model gives $[45,171,378]$. The
+existing test suite passed throughout, because it verified only that the separately
+computed convolution output was unchanged---never the accumulator itself. The RTL was
+always correct, so no measured result is affected; simulated serial results are.
+
+\paragraph{Source-scene overlap in the Phase~0 pilot.} The pilot built sixteen rolled
+copies of four photographs and split by array position, so every held-out row came from a
+scene already present in training. Splitting on source scene inverts the result
+(Table~\ref{tab:phase0}). With four scenes the corrected pilot is too small to support any
+ranking, and we make none. The hardware evaluation is unaffected: all 2{,}000 rows per
+group are distinct source images, so its row split was already scene-disjoint.
+
+\paragraph{Swap penalty needs a prior reference.} As above, a constant predictor incurs a
+channel-permutation penalty when channel distributions differ. We now report the excess
+over the prior. Notably, our first attempt at this fix added the parameter to the function
+signature without replacing the body; combined with a defaulting accessor in the reporting
+code it printed a confident $0.000$ for every cell. The regression test now asserts that
+the keys exist rather than defaulting.
+
+\paragraph{Smaller repairs.} The shuffled control permuted rows across the whole dataset
+rather than within each partition; PyTorch's generator was never seeded, so a rerun at
+``seed 0'' was not reproducible; the anchor-validation driver selected whichever averaging
+level best matched a fixed $\mathrm{avg}{=}1$ reference, which could mark a mismatched
+simulation predictive; and our SSIM used uniform rather than Gaussian windows and is now
+named \texttt{SSIM\_box11} to avoid implying comparability with library scores. Repairing
+the shuffled control moved the headline advantage from $+14.02$ to $+14.19$, so that
+conclusion is robust to it.
 
 \section{Why: a measured instrumentation requirement}
 
@@ -243,7 +350,8 @@ capture and converts a simulation from suggestive to predictive.
 
 \section{Limitations}
 
-Single device, single bitstream, single deployed kernel. CIFAR-10 at $32\times32$ is not
+The Phase~0 simulation is not predictive of dataflow ranking and we do not use it as
+such. Single device, single bitstream, single deployed kernel. CIFAR-10 at $32\times32$ is not
 representative of all natural imagery. Profiling and evaluation share a distribution, a
 limitation \cite{wei2018} also notes. Our claim is bounded to this line-buffer geometry; all three dataflows were captured,
 but a systolic or output-stationary accelerator may leak differently. The $10\times$ SNR projection for a faster oscilloscope is an
@@ -277,7 +385,14 @@ Side-Channel Attacks on BNN Accelerators in Remote FPGAs.'' IEEE JETCAS 11(2):35
 2021.
 \bibitem{maji2021} S.~Maji, U.~Banerjee, A.~P.~Chandrakasan. ``Leaky Nets: Recovering
 Embedded Neural Network Models and Inputs through Simple Power and Timing
-Side-Channels.'' IEEE IoT-J, 2021.
+Side-Channels---Attacks and Defenses.'' IEEE Internet of Things Journal, 2021.
+arXiv:2103.14739.
+\bibitem{wang2023} Z.~Wang, Y.~Wu, Y.~Park, S.~Yoo, X.~Wang, J.~K.~Eshraghian, W.~D.~Lu.
+``PowerGAN: A Machine Learning Approach for Power Side-Channel Attack on Compute-in-Memory
+Accelerators.'' Advanced Intelligent Systems 5(12):2300313, 2023.
+\bibitem{sanjaya2024} S.~Sanjaya, A.~Jayasena, P.~Mishra. ``Application-Specific Power
+Side-Channel Attacks and Countermeasures: A Survey.'' Proceedings of the IEEE (to appear).
+arXiv:2512.23785.
 \bibitem{zhao2017} R.~Zhao et~al. ``Accelerating Binarized Convolutional Neural Networks
 with Software-Programmable FPGAs.'' FPGA 2017.
 \end{thebibliography}

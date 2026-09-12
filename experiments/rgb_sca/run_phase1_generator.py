@@ -183,18 +183,30 @@ def main():
                   f"  prior {res['prior_only']['mae_pooled']:6.2f}"
                   f"  advantage {res['summary']['advantage_over_prior_pooled_mae']:+6.2f}")
 
-        # Validate: does any averaging level reproduce the hardware anchor?
-        best = min(out["grayscale_anchor"].values(),
-                   key=lambda r: abs(r["mssim_mean"] - HW_ANCHOR["mssim"]))
+        # Validate against the MATCHED condition only. An earlier version searched every
+        # averaging level for whichever happened to land closest to the anchor -- but the
+        # anchor is an avg=1 measurement, so a badly mismatched avg=1 simulation could be
+        # declared predictive because avg=50 coincidentally matched. Compare like with
+        # like, and fail loudly when the matching condition is absent.
+        # Found in external review, 12 September 2026.
+        anchor_key = f"avg_{HW_ANCHOR['avg']}"
+        if anchor_key not in out["grayscale_anchor"]:
+            raise SystemExit(
+                f"anchor condition {anchor_key} was not run, so the simulation cannot be "
+                f"validated. The hardware anchor is avg={HW_ANCHOR['avg']}; include it in "
+                "--avg rather than substituting another averaging level.")
+        matched = out["grayscale_anchor"][anchor_key]
         out["anchor_check"] = {
-            "closest_k_eff": best["k_eff"],
-            "sim_mssim": best["mssim_mean"],
+            "matched_condition": anchor_key,
+            "k_eff": matched["k_eff"],
+            "sim_mssim": matched["mssim_mean"],
             "hw_mssim": HW_ANCHOR["mssim"],
-            "abs_gap": abs(best["mssim_mean"] - HW_ANCHOR["mssim"]),
-            "simulation_is_predictive": abs(best["mssim_mean"] - HW_ANCHOR["mssim"]) < 0.15,
-            "reading": ("If simulation_is_predictive is false the RGB numbers below are "
-                        "NOT a usable forecast and must not be used to justify or "
-                        "discourage bench time."),
+            "abs_gap": abs(matched["mssim_mean"] - HW_ANCHOR["mssim"]),
+            "simulation_is_predictive":
+                abs(matched["mssim_mean"] - HW_ANCHOR["mssim"]) < 0.15,
+            "reading": ("Compared at the anchor's own averaging level. Matching averaging "
+                        "is necessary but not sufficient: dataset, split, kernel, training "
+                        "budget and metric definition must also correspond."),
         }
         ac = out["anchor_check"]
         print(f"\n  ANCHOR CHECK: closest simulated MSSIM {ac['sim_mssim']:.3f} vs "

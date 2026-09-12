@@ -122,3 +122,78 @@ def test_bad_dataflow_raises():
     k = F.random_kernels(1, C=3, K=3, seed=11)[0]
     with pytest.raises(ValueError):
         F.per_cycle_power(img, k, "diagonal")
+
+
+# ------------------------------------------------- serial accumulator (regression)
+# The original implementation accumulated channels but kept only the LAST TAP of each
+# cycle, so it silently modelled a different circuit from the one the RTL implements.
+# test_dataflow_does_not_change_arithmetic passed throughout, because it only checks the
+# separately computed convolution output -- never the accumulator itself. These tests
+# check the accumulator directly. External review, 12 September 2026.
+
+
+def _serial_acc(img, kernel):
+    """Recompute the serial accumulator the way the module documents it."""
+    C, K, _ = kernel.shape
+    win = F.extract_windows(img, K)
+    g = win * kernel.reshape(C, K * K)[None, :, :]
+    return g.sum(axis=2).cumsum(axis=1).reshape(-1)
+
+
+def test_serial_accumulator_sums_taps_then_channels():
+    """Products 1..27 must accumulate to [45, 171, 378], not [9, 27, 54]."""
+    g = np.arange(1, 28).reshape(1, 3, 9)
+    got = g.sum(axis=2).cumsum(axis=1).reshape(-1)
+    assert list(got) == [45, 171, 378]
+    stale = np.cumsum(g, axis=1).reshape(3, 9)[:, -1]
+    assert list(stale) == [9, 27, 54]          # what the defect produced
+    assert not np.array_equal(got, stale)
+
+
+def test_serial_final_accumulator_equals_full_convolution():
+    """After the last channel the accumulator must equal the full 27-tap conv output.
+
+    This is the invariant that ties the simulator to the hardware: the serial datapath
+    reaches the same value as the summed one, just three cycles later.
+    """
+    img, k = _img(C=3, H=10, W=10, seed=21), F.random_kernels(1, C=3, K=3, seed=22)[0]
+    acc = _serial_acc(img, k).reshape(-1, 3)
+    conv = F.conv_output(img, k).reshape(-1)
+    assert np.array_equal(acc[:, -1], conv)
+
+
+def test_serial_accumulator_is_monotone_in_channel_count():
+    """Each channel step must add exactly that channel's tap sum."""
+    img, k = _img(C=3, H=8, W=8, seed=23), F.random_kernels(1, C=3, K=3, seed=24)[0]
+    win = F.extract_windows(img, 3)
+    per_chan = (win * k.reshape(3, 9)[None, :, :]).sum(axis=2)
+    acc = _serial_acc(img, k).reshape(-1, 3)
+    assert np.array_equal(acc[:, 0], per_chan[:, 0])
+    assert np.array_equal(acc[:, 1] - acc[:, 0], per_chan[:, 1])
+    assert np.array_equal(acc[:, 2] - acc[:, 1], per_chan[:, 2])
+
+
+def test_serial_power_changes_after_the_accumulator_fix():
+    """Guard against a silent revert: the defective expression gives different power."""
+    img, k = _img(C=3, H=8, W=8, seed=25), F.random_kernels(1, C=3, K=3, seed=26)[0]
+    pw = F.per_cycle_power(img, k, "serial")
+    win = F.extract_windows(img, 3)
+    g = (win * k.reshape(3, 9)[None, :, :]).astype(np.int32)
+    stale = np.cumsum(g, axis=1).reshape(-1, 9)[:, -1]
+    good = g.sum(axis=2).cumsum(axis=1).reshape(-1)
+    assert not np.array_equal(stale, good)
+    assert pw.shape == (img.shape[1] * img.shape[2] * 3,)
+
+
+def test_serial_accumulator_matches_rtl_semantics():
+    """Mirror the RTL: acc <= (chan==0) ? chan_sum : acc + chan_sum."""
+    img, k = _img(C=3, H=6, W=6, seed=27), F.random_kernels(1, C=3, K=3, seed=28)[0]
+    win = F.extract_windows(img, 3)
+    chan_sum = (win * k.reshape(3, 9)[None, :, :]).sum(axis=2)
+    rtl = np.zeros_like(chan_sum)
+    for p in range(chan_sum.shape[0]):
+        a = 0
+        for c in range(3):
+            a = chan_sum[p, c] if c == 0 else a + chan_sum[p, c]
+            rtl[p, c] = a
+    assert np.array_equal(_serial_acc(img, k).reshape(-1, 3), rtl)

@@ -53,8 +53,8 @@ def write(name, text):
 # ---------------------------------------------------------- hardware results
 # The parallel dataflow was captured in a separate session (same bitstream, mode is a
 # runtime register) so its results live in their own file. Merge rather than duplicate.
-d = load(f"{R}/hardware_20260912/results.json")
-dp = load(f"{R}/hardware_parallel_20260912/results.json")
+d = load(f"{R}/hardware_20260912_rev3/results.json")
+dp = load(f"{R}/hardware_parallel_rev3/results.json")
 if d and dp:
     d = {**d, "modes": {**d["modes"], **dp.get("modes", {})}}
 if d:
@@ -67,16 +67,21 @@ if d:
             t, p, s = r["trace"], r["prior_only"], r["summary"]
             cp = t["channel_permutation"]
             chroma = f"{s['chroma_advantage'][0]:+.2f}/{s['chroma_advantage'][1]:+.2f}"
+            # Report the EXCESS swap penalty over the no-input prior, not the raw one:
+            # a constant predictor already scores +1.05 on CIFAR because the dataset's
+            # channel distributions differ, so the raw figure overstates colour recovery.
+            exc = cp.get("excess_swap_penalty_over_prior")
+            exc_s = f"{exc:+.2f}" if exc is not None else "--"
             rows.append(
                 f"{mode} & {g} & {t['mae_pooled']:.2f} & {p['mae_pooled']:.2f} & "
                 f"{s['advantage_over_prior_pooled_mae']:+.2f} & "
                 f"{s['luma_advantage']:+.2f} & {chroma} & "
-                f"{cp['swap_penalty_ratio']:.3f} & "
+                f"{cp['swap_penalty']:+.2f} & {exc_s} & "
                 f"{sum(t['mssim_per_channel']) / 3:.3f} " + NL)
     write("tab_hardware.tex", table(
-        "llrrrrcrr",
+        "llrrrrcrrr",
         "Dataflow & Group & Trace MAE & Prior MAE & Advantage & Luma adv. & "
-        "Chroma adv. & Swap ratio & MSSIM",
+        "Chroma adv. & Swap & Excess & MSSIM",
         rows))
 
 # ---------------------------------------------------------- data scaling
@@ -108,7 +113,7 @@ if rows:
         "lrrr", "Noise model & Simulated MSSIM & Measured MSSIM & Gap", rows))
 
 # ---------------------------------------------------------- provenance
-d = load(f"{R}/hardware_20260912/results.json")
+d = load(f"{R}/hardware_20260912_rev3/results.json")
 if d:
     c = d["capture"]
     fc = c.get("functional_checks", {})
@@ -126,5 +131,22 @@ if d:
         + ", ".join(f"{k}: {v}" for k, v in fc.items()) + " " + NL,
     ]
     write("tab_provenance.tex", table("ll", "Property & Value", rows))
+
+# ---------------------------------------------------------- corrected Phase 0
+d = load(f"{R}/phase0_20260912_corrected/results.json")
+old = load(f"{R}/phase0_20260911/results.json")
+if d and old:
+    rows = []
+    for df in ("serial", "parallel", "summed"):
+        o = old.get("recovery", {}).get(df, {}).get("noise_0.0", {})
+        n = d.get("recovery", {}).get(df, {}).get("noise_0.0", {})
+        if not o or not n:
+            continue
+        rows.append(f"{df} & {o['advantage_over_prior_pooled']:+.2f} & "
+                    f"{n['advantage_over_prior_pooled']:+.2f} " + NL)
+    if rows:
+        write("tab_phase0.tex", table(
+            "lrr",
+            "Dataflow & Position split, defective & Scene-disjoint, corrected", rows))
 
 print("done")

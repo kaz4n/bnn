@@ -1,0 +1,562 @@
+{
+ "kind": "cw305_rgb_hardware_reconstruction",
+ "source": "hardware",
+ "hardware_used": true,
+ "created_utc": "2026-09-12T07:52:29Z",
+ "args": {
+  "trace_dir": "host/traces_rgb_full",
+  "image_set": "host/rgb_capture_images.npz",
+  "modes": [
+   "summed",
+   "serial"
+  ],
+  "groups": [
+   "control",
+   "natural"
+  ],
+  "feature": "settle",
+  "epochs": 30,
+  "batch": 128,
+  "lr": 0.001,
+  "threads": 4,
+  "seed": 0,
+  "out": "experiments/rgb_sca/results/hardware_20260912_rev2"
+ },
+ "modes": {
+  "summed": {
+   "control": {
+    "trace": {
+     "arm": "trace",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      24.970301184014087,
+      22.30916578967466,
+      22.558946643719814
+     ],
+     "psnr_per_channel": [
+      15.787336612864912,
+      16.831951217675307,
+      16.903628992849523
+     ],
+     "mae_pooled": 23.279471205802853,
+     "psnr_pooled": 16.476912185783057,
+     "luma_mae": 19.106211974607483,
+     "chroma_mae": [
+      9.479361948408533,
+      11.004018739943913
+     ],
+     "chroma_over_luma": 0.5360398156258093,
+     "mssim_per_channel": [
+      0.5534321181218236,
+      0.5766090493393886,
+      0.5649084604724942
+     ],
+     "corr_per_channel": [
+      0.7714382651951842,
+      0.7742887178675202,
+      0.7791993639687763
+     ],
+     "channel_permutation": {
+      "mae_correct_pairing": 23.279471205802853,
+      "mae_swapped_pairing": 23.053169526256863,
+      "swap_penalty": -0.22630167954599045,
+      "swap_penalty_ratio": 0.9902789166667334,
+      "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+     }
+    },
+    "prior_only": {
+     "arm": "prior_only",
+     "n_train": 1800,
+     "n_test": 200,
+     "method": "analytic_training_mean",
+     "mae_per_channel": [
+      39.6701886882869,
+      36.059333841107254,
+      36.674338928982046
+     ],
+     "psnr_per_channel": [
+      13.366100068225188,
+      14.217312981253736,
+      14.140107357013816
+     ],
+     "mae_pooled": 37.467953819458735,
+     "psnr_pooled": 13.890505108289172,
+     "luma_mae": 34.98299641529171,
+     "chroma_mae": [
+      9.145868956779443,
+      10.65505875977464
+     ],
+     "chroma_over_luma": 0.28300788590966347,
+     "mssim_per_channel": [
+      0.25266503536184276,
+      0.2663554027457748,
+      0.2663792420201365
+     ],
+     "corr_per_channel": [
+      0.5161651975435559,
+      0.5170526592890942,
+      0.5067658650375001
+     ]
+    },
+    "shuffled": {
+     "arm": "shuffled",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      43.328559909330245,
+      37.84714350963339,
+      39.2514308208441
+     ],
+     "psnr_per_channel": [
+      12.198648265753782,
+      13.301610631396903,
+      13.072092679173759
+     ],
+     "mae_pooled": 40.142378079935916,
+     "psnr_pooled": 12.830941810996912,
+     "luma_mae": 37.6686168902466,
+     "chroma_mae": [
+      9.86250827057647,
+      11.033928599334093
+     ],
+     "chroma_over_luma": 0.2773719689628584,
+     "mssim_per_channel": [
+      0.20149650305216632,
+      0.21405376893193295,
+      0.20834827966067845
+     ],
+     "corr_per_channel": [
+      0.34976631506137074,
+      0.4055484370350022,
+      0.36575214228579667
+     ]
+    },
+    "summary": {
+     "advantage_over_prior_pooled_mae": 14.188482613655882,
+     "advantage_over_prior_per_channel": [
+      14.699887504272812,
+      13.750168051432595,
+      14.115392285262232
+     ],
+     "luma_advantage": 15.876784440684226,
+     "chroma_advantage": [
+      -0.33349299162908963,
+      -0.34895998016927265
+     ],
+     "shuffled_matches_prior": false,
+     "reading": "A positive pooled advantage with near-zero chroma advantage means luminance was recovered and colour came from the prior. Report that as grayscale recovery from an RGB-input accelerator, not as RGB reconstruction."
+    },
+    "images": {
+     "grid": "experiments/rgb_sca/results/hardware_20260912_rev2\\images\\summed\\comparison_control.png",
+     "rows": "original / recovered-from-trace/ prior-only control",
+     "n_shown": 12
+    }
+   },
+   "natural": {
+    "trace": {
+     "arm": "trace",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      57.02633092980568,
+      55.44269164311777,
+      56.741028479443976
+     ],
+     "psnr_per_channel": [
+      11.130747528692062,
+      11.2977210191095,
+      11.033392756942535
+     ],
+     "mae_pooled": 56.40335035078914,
+     "psnr_pooled": 11.152585760490538,
+     "luma_mae": 54.81870260010198,
+     "chroma_mae": [
+      10.161639567939401,
+      9.140455386335482
+     ],
+     "chroma_over_luma": 0.1760539199101638,
+     "mssim_per_channel": [
+      0.06066188112612137,
+      0.08287731320499525,
+      0.08529023796316071
+     ],
+     "corr_per_channel": [
+      0.10151294721593744,
+      0.13828212579247182,
+      0.21124032679591373
+     ],
+     "channel_permutation": {
+      "mae_correct_pairing": 56.40335035078914,
+      "mae_swapped_pairing": 57.98357027574256,
+      "swap_penalty": 1.5802199249534183,
+      "swap_penalty_ratio": 1.0280164195056776,
+      "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+     }
+    },
+    "prior_only": {
+     "arm": "prior_only",
+     "n_train": 1800,
+     "n_test": 200,
+     "method": "analytic_training_mean",
+     "mae_per_channel": [
+      51.37464869242167,
+      50.309889044702004,
+      53.868468082845375
+     ],
+     "psnr_per_channel": [
+      12.280547340381013,
+      12.46362688108172,
+      11.934405883612566
+     ],
+     "mae_pooled": 51.85100193998968,
+     "psnr_pooled": 12.22061769223913,
+     "luma_mae": 49.41026474103288,
+     "chroma_mae": [
+      10.211093000558021,
+      9.048635533563544
+     ],
+     "chroma_over_luma": 0.1948960265145804,
+     "mssim_per_channel": [
+      0.0669765093561115,
+      0.07341393805177893,
+      0.07598406006193877
+     ],
+     "corr_per_channel": [
+      0.06893758111963286,
+      0.11208626977044626,
+      0.1396386485235074
+     ]
+    },
+    "shuffled": {
+     "arm": "shuffled",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      59.07156658791564,
+      57.96002840163969,
+      60.608709125331025
+     ],
+     "psnr_per_channel": [
+      10.962715369832381,
+      11.082189936151705,
+      10.616072903815258
+     ],
+     "mae_pooled": 59.21343470496212,
+     "psnr_pooled": 10.882459545018152,
+     "luma_mae": 57.27443696255308,
+     "chroma_mae": [
+      10.383684890150526,
+      9.084927150209284
+     ],
+     "chroma_over_luma": 0.16995899979853743,
+     "mssim_per_channel": [
+      0.03855230531323532,
+      0.04657621416517417,
+      0.051796849474133516
+     ],
+     "corr_per_channel": [
+      -0.01156019512758976,
+      0.01640292275390587,
+      0.045803557574593645
+     ]
+    },
+    "summary": {
+     "advantage_over_prior_pooled_mae": -4.5523484107994605,
+     "advantage_over_prior_per_channel": [
+      -5.6516822373840085,
+      -5.132802598415765,
+      -2.872560396598601
+     ],
+     "luma_advantage": -5.408437859069096,
+     "chroma_advantage": [
+      0.049453432618619786,
+      -0.0918198527719376
+     ],
+     "shuffled_matches_prior": false,
+     "reading": "A positive pooled advantage with near-zero chroma advantage means luminance was recovered and colour came from the prior. Report that as grayscale recovery from an RGB-input accelerator, not as RGB reconstruction."
+    },
+    "images": {
+     "grid": "experiments/rgb_sca/results/hardware_20260912_rev2\\images\\summed\\comparison_natural.png",
+     "rows": "original / recovered-from-trace/ prior-only control",
+     "n_shown": 12
+    }
+   }
+  },
+  "serial": {
+   "control": {
+    "trace": {
+     "arm": "trace",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      27.294342391948366,
+      24.958802956046235,
+      24.95830404444759
+     ],
+     "psnr_per_channel": [
+      15.163049011527896,
+      16.149627738207045,
+      15.968438634411811
+     ],
+     "mae_pooled": 25.73714979748073,
+     "psnr_pooled": 15.738802938746854,
+     "luma_mae": 20.676600685552597,
+     "chroma_mae": [
+      11.111693983682029,
+      13.051790931149176
+     ],
+     "chroma_over_luma": 0.5843195717300621,
+     "mssim_per_channel": [
+      0.5354515146830282,
+      0.5397649497646616,
+      0.5286749241775739
+     ],
+     "corr_per_channel": [
+      0.7247883815272314,
+      0.7307243285575782,
+      0.7181061873212117
+     ],
+     "channel_permutation": {
+      "mae_correct_pairing": 25.73714979748073,
+      "mae_swapped_pairing": 25.805577061060838,
+      "swap_penalty": 0.06842726358010864,
+      "swap_penalty_ratio": 1.002658696247197,
+      "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+     }
+    },
+    "prior_only": {
+     "arm": "prior_only",
+     "n_train": 1800,
+     "n_test": 200,
+     "method": "analytic_training_mean",
+     "mae_per_channel": [
+      39.6701886882869,
+      36.059333841107254,
+      36.674338928982046
+     ],
+     "psnr_per_channel": [
+      13.366100068225188,
+      14.217312981253736,
+      14.140107357013816
+     ],
+     "mae_pooled": 37.467953819458735,
+     "psnr_pooled": 13.890505108289172,
+     "luma_mae": 34.98299641529171,
+     "chroma_mae": [
+      9.145868956779443,
+      10.65505875977464
+     ],
+     "chroma_over_luma": 0.28300788590966347,
+     "mssim_per_channel": [
+      0.25266503536184276,
+      0.2663554027457748,
+      0.2663792420201365
+     ],
+     "corr_per_channel": [
+      0.5161651975435559,
+      0.5170526592890942,
+      0.5067658650375001
+     ]
+    },
+    "shuffled": {
+     "arm": "shuffled",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      43.537925405284405,
+      38.87449079884519,
+      39.1736579212658
+     ],
+     "psnr_per_channel": [
+      12.130513422915588,
+      13.067417881099544,
+      12.96590649684229
+     ],
+     "mae_pooled": 40.5286913751318,
+     "psnr_pooled": 12.700574420571604,
+     "luma_mae": 37.82343418969025,
+     "chroma_mae": [
+      10.628407597042486,
+      12.863153713956779
+     ],
+     "chroma_over_luma": 0.3105424165503524,
+     "mssim_per_channel": [
+      0.20804187667667798,
+      0.21449437261324306,
+      0.2129296581495774
+     ],
+     "corr_per_channel": [
+      0.3728044925378859,
+      0.38333174324807473,
+      0.36245178330404754
+     ]
+    },
+    "summary": {
+     "advantage_over_prior_pooled_mae": 11.730804021978006,
+     "advantage_over_prior_per_channel": [
+      12.375846296338533,
+      11.10053088506102,
+      11.716034884534455
+     ],
+     "luma_advantage": 14.306395729739112,
+     "chroma_advantage": [
+      -1.9658250269025856,
+      -2.396732171374536
+     ],
+     "shuffled_matches_prior": false,
+     "reading": "A positive pooled advantage with near-zero chroma advantage means luminance was recovered and colour came from the prior. Report that as grayscale recovery from an RGB-input accelerator, not as RGB reconstruction."
+    },
+    "images": {
+     "grid": "experiments/rgb_sca/results/hardware_20260912_rev2\\images\\serial\\comparison_control.png",
+     "rows": "original / recovered-from-trace/ prior-only control",
+     "n_shown": 12
+    }
+   },
+   "natural": {
+    "trace": {
+     "arm": "trace",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      57.52715773147038,
+      55.12035442136498,
+      56.23195467578136
+     ],
+     "psnr_per_channel": [
+      11.116460945726072,
+      11.393752583045876,
+      11.104331547845259
+     ],
+     "mae_pooled": 56.29315560953891,
+     "psnr_pooled": 11.202806421917241,
+     "luma_mae": 54.640466808893386,
+     "chroma_mae": [
+      10.733072116962786,
+      9.49399158508579
+     ],
+     "chroma_over_luma": 0.18509233982931841,
+     "mssim_per_channel": [
+      0.04403371437617921,
+      0.06057153906423359,
+      0.06462806670371873
+     ],
+     "corr_per_channel": [
+      0.1298752332833698,
+      0.18255668741536818,
+      0.2565090907244842
+     ],
+     "channel_permutation": {
+      "mae_correct_pairing": 56.29315560953891,
+      "mae_swapped_pairing": 58.231271391087816,
+      "swap_penalty": 1.938115781548909,
+      "swap_penalty_ratio": 1.034428977387448,
+      "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+     }
+    },
+    "prior_only": {
+     "arm": "prior_only",
+     "n_train": 1800,
+     "n_test": 200,
+     "method": "analytic_training_mean",
+     "mae_per_channel": [
+      51.37464869242167,
+      50.309889044702004,
+      53.868468082845375
+     ],
+     "psnr_per_channel": [
+      12.280547340381013,
+      12.46362688108172,
+      11.934405883612566
+     ],
+     "mae_pooled": 51.85100193998968,
+     "psnr_pooled": 12.22061769223913,
+     "luma_mae": 49.41026474103288,
+     "chroma_mae": [
+      10.211093000558021,
+      9.048635533563544
+     ],
+     "chroma_over_luma": 0.1948960265145804,
+     "mssim_per_channel": [
+      0.0669765093561115,
+      0.07341393805177893,
+      0.07598406006193877
+     ],
+     "corr_per_channel": [
+      0.06893758111963286,
+      0.11208626977044626,
+      0.1396386485235074
+     ]
+    },
+    "shuffled": {
+     "arm": "shuffled",
+     "n_train": 1800,
+     "n_test": 200,
+     "mae_per_channel": [
+      58.00542916508302,
+      57.136300257690934,
+      59.73700899096331
+     ],
+     "psnr_per_channel": [
+      11.055145979406584,
+      11.13656752305377,
+      10.704438029074053
+     ],
+     "mae_pooled": 58.29291280457909,
+     "psnr_pooled": 10.961302440343426,
+     "luma_mae": 56.334148146093916,
+     "chroma_mae": [
+      10.541824215179572,
+      9.262655279600102
+     ],
+     "chroma_over_luma": 0.17577686134012194,
+     "mssim_per_channel": [
+      0.0575646590109006,
+      0.061091539603195306,
+      0.06185797572514648
+     ],
+     "corr_per_channel": [
+      0.0356911486938727,
+      0.046967956187751285,
+      0.05851663733316788
+     ]
+    },
+    "summary": {
+     "advantage_over_prior_pooled_mae": -4.442153669549228,
+     "advantage_over_prior_per_channel": [
+      -6.152509039048709,
+      -4.810465376662975,
+      -2.3634865929359847
+     ],
+     "luma_advantage": -5.230202067860503,
+     "chroma_advantage": [
+      -0.5219791164047649,
+      -0.44535605152224633
+     ],
+     "shuffled_matches_prior": false,
+     "reading": "A positive pooled advantage with near-zero chroma advantage means luminance was recovered and colour came from the prior. Report that as grayscale recovery from an RGB-input accelerator, not as RGB reconstruction."
+    },
+    "images": {
+     "grid": "experiments/rgb_sca/results/hardware_20260912_rev2\\images\\serial\\comparison_natural.png",
+     "rows": "original / recovered-from-trace/ prior-only control",
+     "n_shown": 12
+    }
+   }
+  }
+ },
+ "capture": {
+  "bitstream_sha256": "95b2d4d7cbbfc1d52cb277bfa9d707b2b4073a688dfdf8921a9e1d92c37f157b",
+  "design_signature": "RGBLBUF1",
+  "capture_mode": "live_cw305_chipwhisperer",
+  "avg": 1,
+  "dwell": 8,
+  "samples_per_cycle": 4,
+  "gain_db": 40.0,
+  "fpga_freq_hz": 5000000.0,
+  "kernel_index": 0,
+  "functional_checks": {
+   "summed": 0,
+   "serial": 0
+  }
+ }
+}
