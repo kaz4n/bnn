@@ -18,3 +18,24 @@ build/xsim*/
 *.backup.log
 usage_statistics_webtalk.*
 desktop.ini
+
+# Raw capture traces: 14 GB across 75 directories. Regenerate with
+# host/cw305_rgb_capture.py (or the grey/binary equivalents); the capture manifests
+# and result JSONs that ARE committed record every parameter needed to reproduce them.
+host/traces_*/
+
+# Large simulation intermediates (20 MB each). The hardware reconstruction arrays under
+# results/hardware_* are kept -- those are measured evidence and cannot be regenerated
+# without the bench.
+experiments/rgb_sca/results/colour_fashion*/images/*.npz
+
+# Trained model weights and checkpoints: hundreds of MB, regenerable from the training
+# scripts, and GitHub hard-rejects files over 100 MB.
+training/artifacts/**/*.h5
+training/artifacts/**/*.weights.h5
+**/generator_best.pt
+**/*.pt
+
+# Source datasets: derived from public CIFAR-10 / Fashion-MNIST by the build scripts.
+host/fashion_train.npz
+host/mnist_*.npz

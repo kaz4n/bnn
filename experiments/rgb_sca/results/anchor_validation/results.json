@@ -1,0 +1,70 @@
+{
+ "kind": "rgb_sca_anchor_validation",
+ "source": "simulation_calibrated_to_hardware",
+ "hardware_used": false,
+ "created_utc": "2026-09-11T12:32:38Z",
+ "args": {
+  "n_images": 20000,
+  "epochs": 30,
+  "batch": 128,
+  "lr": 0.001,
+  "k": null,
+  "capture": "host/traces_gfash_noamp_train60k",
+  "threads": 4,
+  "seed": 0,
+  "out": "experiments/rgb_sca/results/anchor_validation"
+ },
+ "k": 2.700700621652472,
+ "calibration_bitstream_sha256": "c52613305bd8bdf882656dfed406e687a36b29e9e5126d28248d3dee36914993",
+ "hardware_anchor": {
+  "mssim": 0.724,
+  "recognition": 0.746,
+  "k": 2.701,
+  "dataset": "fashion-mnist, deployed kernel 0, avg=1"
+ },
+ "simulated": {
+  "mssim_mean": 0.5442113931765741,
+  "arm": "trace",
+  "n_train": 18000,
+  "n_test": 2000,
+  "mae_per_channel": [
+   34.300035220556936,
+   34.29810569725109,
+   34.30332884749608
+  ],
+  "psnr_per_channel": [
+   12.765794978805861,
+   12.764226100176714,
+   12.764333293961784
+  ],
+  "mae_pooled": 34.30048992176804,
+  "psnr_pooled": 12.764784732019702,
+  "luma_mae": 34.29685542964872,
+  "chroma_mae": [
+   0.35828891135718965,
+   0.37968470800631676
+  ],
+  "chroma_over_luma": 0.010758619268715052,
+  "mssim_per_channel": [
+   0.5442829303530394,
+   0.5441427295117537,
+   0.5442085196649293
+  ],
+  "corr_per_channel": [
+   0.7745146864777059,
+   0.7744117215909009,
+   0.774473721398272
+  ],
+  "channel_permutation": {
+   "mae_correct_pairing": 34.30048992176804,
+   "mae_swapped_pairing": 34.30048992176804,
+   "swap_penalty": 0.0,
+   "swap_penalty_ratio": 1.0,
+   "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+  }
+ },
+ "abs_gap": 0.1797886068234259,
+ "simulation_is_predictive": false,
+ "reading": "If simulation_is_predictive is false, any RGB forecast made through this simulation is not usable evidence about bench feasibility.",
+ "elapsed_sec": 1273.9
+}

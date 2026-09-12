@@ -1,0 +1,267 @@
+\documentclass[10pt,conference]{article}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx,xcolor,amsmath,caption,parskip}
+\usepackage[hidelinks]{hyperref}
+
+\title{\bfseries Luminance, Not Colour: A Controlled Study of RGB Input Recovery\\
+from Power Side-Channels on an FPGA CNN Accelerator}
+\author{Tarek Alhafez}
+\date{12 September 2026 --- draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Power side-channel attacks have been shown to recover \emph{grayscale} inputs to FPGA
+convolutional neural network accelerators. Both foundational results---Wei
+et~al.~(ACSAC'18) and Huegle et~al.~(FCCM'23)---deliberately set the first layer to a
+single input channel, so whether colour survives the first-layer accumulation has never
+been tested. We build an RGB first-layer accelerator on a CW305 Artix-7, capture 8{,}022
+power traces with a ChipWhisperer-Lite, and evaluate reconstruction with a control set
+absent from the prior literature: an analytic prior-only baseline, a shuffled-trace
+control, a channel-permutation penalty, and a luminance/chrominance decomposition.
+We recover recognisable image structure from measured traces (MSSIM $0.565$, MAE
+advantage $+14.02$ over the optimal constant predictor) while recovering
+\emph{no colour whatsoever}: chrominance advantage is negative in all four
+dataflow$\times$content conditions and the channel-permutation ratio is at or below unity.
+Because the tinted inputs carry per-image random chroma, this negative cannot be
+explained by a model colourising from the dataset prior. We further show the failure on
+natural photographs is driven by scene complexity rather than colour---grayscale CIFAR-10
+fails identically---and quantify the deficiency: natural-image recovery requires
+$5.8\times$ more signal-to-noise than this bench provides, of which averaging supplies a
+measured $1.70\times$. We report this as \emph{grayscale recovery from an RGB-input
+accelerator}, explicitly not RGB reconstruction, and argue the controls are the
+transferable contribution.
+\end{abstract}
+
+\section{Introduction}
+
+Wei et~al.~\cite{wei2018} recovered MNIST digits from the power consumption of a
+line-buffer CNN accelerator, and Huegle et~al.~\cite{huegle2023} recovered MNIST and
+Fashion-MNIST using a generative CNN trained on on-chip voltage traces. Both are
+grayscale by construction. Wei et~al.\ state their modification explicitly---``input
+channel to 1'' (\S6.3)---and Huegle et~al.\ reduce ``the input channels to a single
+channel'' (\S III-B) because both evaluated datasets are grayscale. Wei et~al.\ name
+multi-channel colour inputs as untested future work (Appendix~B).
+
+The question this leaves open is not cosmetic. A first-layer convolution sums over input
+channels: for a $3\times3$ kernel, 27 input values produce one accumulator value. Whether
+per-channel contributions remain observable is an architecture-dependent property, and
+answering it decides whether the demonstrated privacy risk extends from grayscale
+medical or handwriting imagery to colour photography.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item An RGB first-layer accelerator on CW305 with \emph{no leakage amplifier} and a
+runtime-selectable channel dataflow, so one bitstream measures all conditions.
+\item A control set that separates recovery from dataset memorisation: an analytic
+prior-only baseline, a shuffled-trace control, a channel-permutation penalty, and a
+luma/chroma decomposition. None of these appears in the prior work.
+\item A measured negative on colour under conditions that exclude the two obvious
+confounds (scene complexity, and colourisation from the prior).
+\item A quantified instrumentation requirement derived from hardware, not modelling.
+\end{enumerate}
+
+\section{Threat model and setup}
+
+We assume the adversary knows the accelerator architecture, can profile a comparable
+instance with known images, and reconstructs on a host---the same assumptions as
+\cite{wei2018,huegle2023}. Measurement is external (ChipWhisperer-Lite across the CW305
+shunt), matching \cite{wei2018} rather than the on-chip TDC sensors of \cite{huegle2023}.
+
+\paragraph{Victim.} A $3\times3$ RGB first-layer convolution with binarised $\pm1$
+weights, implemented as a line buffer---the structure Wei et~al.\ identify as ``the
+actual attack target.'' The image is held in block RAM and streamed one RGBX pixel per
+window advance; two delay lines and the $3\times3$ window live in shift registers. The
+design occupies 1{,}511 LUTs ($2.4\%$ of an XC7A100T) with \textbf{no leakage
+amplifier}---a single registered sink, no dedicated toggling lanes. An earlier
+random-access variant that fed 27 taps from distributed RAM required 115\% of the part
+and was discarded.
+
+\paragraph{Dataflow as a runtime variable.} Channel dataflow is selected by register, not
+by bitstream: \textsc{summed} registers only the accumulator, \textsc{parallel} registers
+all 27 products, \textsc{serial} gives each channel its own dwell period. All three
+compute identical outputs; only registered state differs. This is deliberate---on this
+board, reprogramming over a configured FPGA silently fails, and a per-condition rebuild
+previously produced four captures of the same bitstream in unrelated work.
+
+\paragraph{Capture.} $32\times32$ RGB, 8{,}022 traces (4{,}011 per dataflow) at
+$5$\,MHz with $4$ ADC samples per cycle. A full scan exceeds the ChipWhisperer-Lite FIFO,
+so the core scans the whole image---keeping the line buffer coherent---and frames only
+the trigger over a position range; scans are reassembled from 2 segments
+(\textsc{summed}) or 5 (\textsc{serial}). Before any trace is retained the design answers
+a fixed signature page and every mode is checked against a golden convolution on a
+\emph{natural} image; a solid patch would pass trivially without exercising the line
+buffer. Table~\ref{tab:prov} records provenance.
+
+\begin{table}[t]\centering\small
+\caption{Capture provenance. Generated from the result JSON.}
+\label{tab:prov}
+\input{tables/tab_provenance}
+\end{table}
+
+\section{Evaluation protocol}
+
+Three output channels prove nothing: that is a property of the final transposed
+convolution, not of the trace. We therefore run three arms and never report a headline
+number alone.
+
+\textbf{Prior-only} is the training-set mean image, computed analytically. With no
+per-sample input a model can emit only a constant, and the MSE-optimal constant is that
+mean, so training cannot beat it. We stress this because our first implementation
+\emph{trained} this baseline on a constant input: zero feature variance made the network
+untrainable, it scored MAE 122 where the optimum is 54, and it inflated the apparent
+advantage by ${\sim}68$. Any degenerate-input control must be checked against its
+analytic value.
+
+\textbf{Shuffled} pairs real traces with wrong images, preserving all marginals and
+destroying only the association. It should match prior-only.
+
+\textbf{Channel permutation} scores the reconstruction against R$\leftrightarrow$B-swapped
+truth. If the error does not rise, channel identity was not recovered regardless of the
+pooled score.
+
+\textbf{Luma/chroma decomposition.} Natural colour is strongly predictable from luminance
+and semantics, so a model can recover structure and \emph{colourise} it from the training
+prior---scoring well on pooled PSNR while carrying no colour information. We therefore
+report errors per channel and split into $Y$ and $C_bC_r$, never pooled alone.
+
+\paragraph{Content groups.} \emph{Natural}: 2{,}000 CIFAR-10 photographs, untinted.
+\emph{Control}: 2{,}000 Fashion-MNIST images upscaled to $32\times32$ with a
+\textbf{random per-image RGB tint}---spatial difficulty matched to a configuration known
+to reconstruct, while chroma is unpredictable from structure or prior, closing the
+colourisation escape route. \emph{Diagnostic}: solid patches and colour bars, excluded
+from training, exposing any swapped or dead channel. Groups are trained separately;
+pooling would let the easy group carry the hard one.
+
+\section{Results}
+
+\begin{table}[t]\centering\small
+\caption{Reconstruction from measured CW305 traces. MAE in $0$--$255$ units; advantage is
+prior-only minus trace. Swap ratio ${\le}1$ means channel-swapped truth scores no worse.}
+\label{tab:hw}
+\input{tables/tab_hardware}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/comparison_control.png}
+\caption{Recovered RGB from measured power traces. Top: true input. Middle: recovered.
+Bottom: prior-only control. Structure recovers; colour does not. The third row is
+included deliberately---a two-row figure invites the reader to credit the side channel
+for what the dataset prior supplied.}
+\label{fig:grid}
+\end{figure}
+
+\paragraph{Structure recovers.} On the control group the generator reaches MSSIM $0.565$
+and an advantage of $+14.02$ MAE over the analytic prior (Table~\ref{tab:hw}), with the
+shuffled arm at the prior. Figure~\ref{fig:grid} shows recognisable garment silhouettes
+recovered from physically measured power.
+
+\paragraph{Colour does not.} Chrominance advantage is negative in all four conditions and
+the channel-permutation ratio is $0.985$--$1.031$. Since the tints are random per image,
+chroma is unpredictable from structure or prior; this is a controlled negative, not a
+modelling artifact.
+
+\paragraph{Natural photographs fail, and not because of colour.} Natural CIFAR-10 scores
+below the prior (MSSIM $0.057$). Running the identical pipeline on CIFAR
+\emph{luminance} gives MSSIM $0.077$---indistinguishable. The limit is scene complexity.
+Notably, neither prior work attempted natural imagery either.
+
+\paragraph{Serial did not help, contradicting simulation.} Zero-noise analysis predicted
+\textsc{serial} to be the most separable dataflow. On hardware it is worse than
+\textsc{summed} ($+11.35$ vs $+14.02$). We report the hardware result. The likely cause
+is that serial spreads identical work over three times the cycles, lowering per-cycle
+signal---an effect a zero-noise probe cannot see.
+
+\section{Why: a measured instrumentation requirement}
+
+\begin{table}[t]\centering\small
+\caption{Reconstruction quality vs.\ training-set size (MSSIM). Natural is flat.}
+\label{tab:scale}
+\input{tables/tab_scaling}
+\end{table}
+
+We eliminated the non-instrumentation explanations by measurement. Training-set size is
+flat for natural images from 500 to 2{,}000 (Table~\ref{tab:scale}) while the control
+saturates by 500, so the $30\times$ shortfall against \cite{huegle2023}'s 60{,}000 images
+is not the constraint. Averaging $16\times$ yields a measured $1.70\times$ SNR---not the
+$4\times$ that $\sqrt{N}$ predicts---indicating a persistent component. Nine kernels gave
+no chroma gain. Replacing our hand-picked sample window with a learned temporal filter
+scored \emph{worse} (MSSIM $0.540$ vs $0.561$), indicating featurisation is not the
+bottleneck.
+
+The requirement follows from two measurements on the same bench. Natural images measure
+$\rho=0.105$ between the measured feature and the noise-free power model; the control
+group measures $\rho=0.523$ \emph{and demonstrably reconstructs}. Reaching a
+demonstrably-sufficient SNR therefore requires $5.8\times$, of which averaging supplies
+$1.70\times$, leaving $3.4\times$ for instrumentation.
+
+Sampling rate is the specific deficiency. Correlation as a function of ADC samples
+averaged per dwell window peaks at three samples ($\rho=0.333$) and falls to $0.188$ over
+all 32: only ${\sim}3$ samples land on the data-dependent transient, because at
+$105$\,MS/s and a $5$\,MHz clock the transient is sub-cycle. Measured intra-window
+residual autocorrelation leaves ${\sim}14$ effectively independent samples per 32, so
+noise does average down with more samples---there are simply none to average.
+Wei et~al.\ used $2.5$\,GS/s, which their \S5 per-cycle RC curve-fitting requires; at
+${\sim}500$ samples per cycle we estimate ${\sim}10\times$ SNR, above the $3.4\times$
+needed. \emph{This last step is an estimate from measured inputs, not itself measured.}
+
+\section{On simulation fidelity}
+
+\begin{table}[t]\centering\small
+\caption{Simulation replaying a capture whose outcome is known.}
+\label{tab:anchor}
+\input{tables/tab_anchor}
+\end{table}
+
+We validated our bench simulation by replaying a capture whose measured outcome was
+known. Modelling bench noise as i.i.d.\ Gaussian was measurably pessimistic
+(Table~\ref{tab:anchor}). The measured residual is strongly correlated---$+0.59$ at
+lag~1 across windows---and white noise is the hardest case for a learned reconstructor.
+Substituting \emph{real measured residuals} for a parametric model closed 60\% of the
+gap. We recommend this decomposition-and-replay approach generally: it costs one existing
+capture and converts a simulation from suggestive to predictive.
+
+\section{Limitations}
+
+Single device, single bitstream, single deployed kernel. CIFAR-10 at $32\times32$ is not
+representative of all natural imagery. Profiling and evaluation share a distribution, a
+limitation \cite{wei2018} also notes. Our claim is bounded to the \textsc{summed} and
+\textsc{serial} dataflows on this line-buffer geometry; \textsc{parallel} was implemented
+but not captured. The $10\times$ SNR projection for a faster oscilloscope is an
+extrapolation. We have not tested electromagnetic acquisition, which would address
+signal quality but not temporal resolution, since the ADC rate is unchanged.
+
+\section{Conclusion}
+
+We recover recognisable image structure from RGB-accelerator power traces and no colour,
+under controls that exclude both scene complexity and prior-driven colourisation. The
+honest description is \emph{grayscale recovery from an RGB-input accelerator}. This
+reading was pre-registered before the measurements existed, not fitted to them.
+
+We suggest the transferable contribution is the control set rather than the
+reconstruction. Neither foundational paper reports a prior-only baseline, which means
+neither can separate ``recovered the input'' from ``reproduced the dataset.'' Our first
+attempt at that baseline was itself broken in a way that inflated our apparent result
+$68\times$, and only an analytic cross-check caught it. For a field whose headline
+artifact is a convincing image, we think a baseline that a reader can verify in closed
+form is worth more than a sharper picture.
+
+\begin{thebibliography}{9}
+\bibitem{wei2018} L.~Wei, B.~Luo, Y.~Li, Y.~Liu, Q.~Xu. ``I Know What You See: Power
+Side-Channel Attack on Convolutional Neural Network Accelerators.'' ACSAC 2018.
+arXiv:1803.05847v2.
+\bibitem{huegle2023} L.~Huegle, M.~Gotthard, V.~Meyers, J.~Krautter, D.~R.~E.~Gnad,
+M.~B.~Tahoori. ``Power2Picture: Using Generative CNNs for Input Recovery of Neural
+Network Accelerators through Power Side-Channels on FPGAs.'' FCCM 2023, pp.~155--161.
+\bibitem{moini2021} S.~Moini, S.~Tian, D.~Holcomb, J.~Szefer, R.~Tessier. ``Power
+Side-Channel Attacks on BNN Accelerators in Remote FPGAs.'' IEEE JETCAS 11(2):357--370,
+2021.
+\bibitem{maji2021} S.~Maji, U.~Banerjee, A.~P.~Chandrakasan. ``Leaky Nets: Recovering
+Embedded Neural Network Models and Inputs through Simple Power and Timing
+Side-Channels.'' IEEE IoT-J, 2021.
+\bibitem{zhao2017} R.~Zhao et~al. ``Accelerating Binarized Convolutional Neural Networks
+with Software-Programmable FPGAs.'' FPGA 2017.
+\end{thebibliography}
+
+\end{document}

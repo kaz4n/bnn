@@ -1,0 +1,95 @@
+{
+ "kind": "grey_cifar_disambiguation",
+ "source": "simulation_calibrated_to_hardware",
+ "hardware_used": false,
+ "trace": {
+  "arm": "trace",
+  "n_train": 9000,
+  "n_test": 1000,
+  "mae_per_channel": [
+   51.32097213648763,
+   51.313887568011936,
+   51.29795238101907
+  ],
+  "psnr_per_channel": [
+   12.255953419431227,
+   12.255764051198142,
+   12.25843706930566
+  ],
+  "mae_pooled": 51.31093736183955,
+  "psnr_pooled": 12.256718009222007,
+  "luma_mae": 51.311950685423504,
+  "chroma_mae": [
+   0.3476665291171105,
+   0.39327349956027485
+  ],
+  "chroma_over_luma": 0.007219955768392456,
+  "mssim_per_channel": [
+   0.07659500333058836,
+   0.07659069012863529,
+   0.07656695463835973
+  ],
+  "corr_per_channel": [
+   0.11969406392835967,
+   0.1197153070534612,
+   0.12001159465767738
+  ],
+  "channel_permutation": {
+   "mae_correct_pairing": 51.31093736183955,
+   "mae_swapped_pairing": 51.31093736183955,
+   "swap_penalty": 0.0,
+   "swap_penalty_ratio": 1.0,
+   "interpretation": "swap_penalty near zero means channel identity was NOT recovered, regardless of how good the pooled score looks"
+  }
+ },
+ "prior_only": {
+  "arm": "prior_only",
+  "n_train": 9000,
+  "n_test": 1000,
+  "method": "analytic_training_mean",
+  "mae_per_channel": [
+   50.72777392254031,
+   50.72777392254031,
+   50.72777392254031
+  ],
+  "psnr_per_channel": [
+   12.38121942398019,
+   12.38121942398019,
+   12.38121942398019
+  ],
+  "mae_pooled": 50.72777392254031,
+  "psnr_pooled": 12.381219423980191,
+  "luma_mae": 50.72777392254031,
+  "chroma_mae": [
+   3.9934811829470985e-15,
+   5.048496601846243e-15
+  ],
+  "chroma_over_luma": 8.912255639879008e-17,
+  "mssim_per_channel": [
+   0.0714937816459218,
+   0.0714937816459218,
+   0.0714937816459218
+  ],
+  "corr_per_channel": [
+   0.10282264541433997,
+   0.10282264541433997,
+   0.10282264541433997
+  ]
+ },
+ "summary": {
+  "advantage_over_prior_pooled_mae": -0.5831634392992413,
+  "advantage_over_prior_per_channel": [
+   -0.5931982139473249,
+   -0.5861136454716274,
+   -0.5701784584787646
+  ],
+  "luma_advantage": -0.584176762883196,
+  "chroma_advantage": [
+   -0.3476665291171065,
+   -0.3932734995602698
+  ],
+  "shuffled_matches_prior": true,
+  "reading": "A positive pooled advantage with near-zero chroma advantage means luminance was recovered and colour came from the prior. Report that as grayscale recovery from an RGB-input accelerator, not as RGB reconstruction."
+ },
+ "mssim_mean": 0.0765842160325278
+}
