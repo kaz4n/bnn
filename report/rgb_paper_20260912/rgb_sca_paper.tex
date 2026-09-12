@@ -235,7 +235,8 @@ That it holds across all three dataflows matters. \textsc{Summed} registers only
 accumulator, \textsc{parallel} registers all 27 products, and \textsc{serial} gives each
 channel its own dwell period---three genuinely different sets of registered state,
 spanning the plausible design space for this layer. \textsc{Parallel} and \textsc{summed}
-are statistically indistinguishable ($+13.73$ vs $+14.02$). The negative is therefore a
+are statistically indistinguishable (paired difference $-0.36$, 95\% CI
+$[-0.91, +0.16]$; Table~\ref{tab:paired}). The negative is therefore a
 property of the channel at this SNR, not an artifact of one architecture.
 
 \paragraph{Natural photographs fail, and not because of colour.} Natural CIFAR-10 scores
@@ -246,7 +247,8 @@ Notably, neither prior work attempted natural imagery either.
 \paragraph{Serial did not help, contradicting simulation.} On hardware \textsc{serial} is
 worse than \textsc{summed} and \textsc{parallel} ($+11.73$ vs $+14.19$ and $+14.55$). The
 likely cause is that serial spreads identical work over three times the cycles, lowering
-per-cycle signal.
+per-cycle signal. The paired per-image difference resolves this ordering
+(Table~\ref{tab:paired}); \textsc{summed} versus \textsc{parallel} it does not.
 
 Our zero-noise simulation had predicted the opposite ordering. That prediction is
 withdrawn: the simulator's serial accumulator was defective (\S\ref{sec:corrections}) and
@@ -254,6 +256,51 @@ the Phase~0 pilot split augmented copies of the same source scenes across train 
 so it measured within-scene memorisation rather than generalisation. Correcting both
 inverts the simulated ranking (Table~\ref{tab:phase0}). We report the hardware result and
 treat the simulation as non-predictive for dataflow ranking.
+
+\subsection{Uncertainty}
+
+Every figure above is a mean over a 200-image test set, which says nothing about whether
+a difference between two conditions is real. We therefore rescored the frozen
+predictions---no retraining---with the \emph{image} as the unit of analysis.
+
+The unit matters. A $32\times32$ RGB image holds $3{,}072$ values, but they are not
+$3{,}072$ independent observations of the method: neighbouring pixels are correlated and
+all of them share one trace, one scene and one capture. Resampling pixels would shrink
+every interval by roughly $\sqrt{3072}$ and manufacture significance. All intervals below
+are $10{,}000$-sample percentile bootstraps over images.
+
+\begin{table}[t]\centering\small
+\caption{Advantage over the analytic prior with 95\% bootstrap CIs over images.}
+\label{tab:unc}
+\input{tables/tab_uncertainty}
+\end{table}
+
+\begin{table}[t]\centering\small
+\caption{Paired per-image differences between dataflows. The split seed is shared, so
+the test sets match and the comparison is paired; this is checked, not assumed. Pairing
+removes between-image variance, which dominates here because some images are far easier
+than others.}
+\label{tab:paired}
+\input{tables/tab_paired}
+\end{table}
+
+Three consequences (Tables~\ref{tab:unc},~\ref{tab:paired}).
+
+\textbf{The structure result is comfortable.} On the control group the advantage is
+$+14.19$ $[+12.99, +15.35]$ for \textsc{summed}, well clear of zero.
+
+\textbf{The colour negative is now statistically supported, not merely a point
+estimate.} Control-group chrominance advantage is $-0.34$ $[-0.51, -0.18]$ for
+\textsc{summed} and $-2.18$ $[-2.82, -1.57]$ for \textsc{serial}: intervals that exclude
+zero \emph{on the negative side}. The reconstruction is measurably worse than the
+constant predictor at chrominance, not merely no better.
+
+\textbf{One dataflow ordering survives and one does not.} \textsc{Serial} is genuinely
+worse than both others on the control group ($+2.46$ $[+1.60, +3.31]$ against
+\textsc{summed}; $+2.82$ $[+1.94, +3.71]$ against \textsc{parallel}). But
+\textsc{summed} versus \textsc{parallel} is $-0.36$ $[-0.91, +0.16]$---unresolved, so we
+do not rank them. On the natural group no pair is resolved, which is consistent with all
+three failing there for the same reason.
 
 \section{Corrections following external review}
 \label{sec:corrections}

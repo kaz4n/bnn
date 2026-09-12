@@ -167,4 +167,35 @@ if d:
             "Arm & Train MAE & Train MSSIM & Loss start & Loss end & Spread ratio",
             rows))
 
+# ---------------------------------------------------------- uncertainty
+d = load(f"{R}/uncertainty/results.json")
+if d:
+    rows = []
+    for m in ("summed", "parallel", "serial"):
+        for g in ("control", "natural"):
+            c = d["cells"].get(f"{m}/{g}")
+            if not c:
+                continue
+            a, ch = c["advantage"], c["chroma_advantage"]
+            rows.append(
+                f"{m} & {g} & {a['mean']:+.2f} & "
+                f"[{a['ci_low']:+.2f}, {a['ci_high']:+.2f}] & "
+                f"{ch['mean']:+.2f} & "
+                f"[{ch['ci_low']:+.2f}, {ch['ci_high']:+.2f}] " + NL)
+    if rows:
+        write("tab_uncertainty.tex", table(
+            "llrcrc",
+            "Dataflow & Group & Advantage & 95\% CI & Chroma adv. & 95\% CI", rows))
+
+    rows = []
+    for k, v in d.get("paired_dataflow", {}).items():
+        g, pair = k.split("/")
+        a, b = pair.split("_minus_")
+        rows.append(f"{g} & {a} $-$ {b} & {v['mean']:+.2f} & "
+                    f"[{v['ci_low']:+.2f}, {v['ci_high']:+.2f}] & "
+                    f"{'resolved' if v['excludes_zero'] else 'not resolved'} " + NL)
+    if rows:
+        write("tab_paired.tex", table(
+            "llrcl", "Group & Comparison & Difference & 95\% CI & Ordering", rows))
+
 print("done")
