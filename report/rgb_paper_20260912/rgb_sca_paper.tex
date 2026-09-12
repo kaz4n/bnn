@@ -16,14 +16,18 @@ Power side-channel attacks have been shown to recover \emph{grayscale} inputs to
 convolutional neural network accelerators. Both foundational results---Wei
 et~al.~(ACSAC'18) and Huegle et~al.~(FCCM'23)---deliberately set the first layer to a
 single input channel, so whether colour survives the first-layer accumulation has never
-been tested. We build an RGB first-layer accelerator on a CW305 Artix-7, capture 8{,}022
-power traces with a ChipWhisperer-Lite, and evaluate reconstruction with a control set
+been tested. We build an RGB first-layer accelerator on a CW305 Artix-7, capture 12{,}033
+power traces with a ChipWhisperer-Lite across three channel dataflows, and evaluate reconstruction with a control set
 absent from the prior literature: an analytic prior-only baseline, a shuffled-trace
 control, a channel-permutation penalty, and a luminance/chrominance decomposition.
 We recover recognisable image structure from measured traces (MSSIM $0.565$, MAE
 advantage $+14.02$ over the optimal constant predictor) while recovering
-\emph{no colour whatsoever}: chrominance advantage is negative in all four
-dataflow$\times$content conditions and the channel-permutation ratio is at or below unity.
+\emph{no colour whatsoever}. This holds across \emph{all three} channel dataflows---
+accumulator-only, per-product-registered, and channel-serial---so the negative is a
+property of the leakage at this signal-to-noise ratio rather than of one architectural
+choice: chrominance advantage is negative in five of six dataflow$\times$content
+conditions and the channel-permutation ratio never exceeds unity on the group that
+reconstructs.
 Because the tinted inputs carry per-image random chroma, this negative cannot be
 explained by a model colourising from the dataset prior. We further show the failure on
 natural photographs is driven by scene complexity rather than colour---grayscale CIFAR-10
@@ -85,7 +89,7 @@ compute identical outputs; only registered state differs. This is deliberate---o
 board, reprogramming over a configured FPGA silently fails, and a per-condition rebuild
 previously produced four captures of the same bitstream in unrelated work.
 
-\paragraph{Capture.} $32\times32$ RGB, 8{,}022 traces (4{,}011 per dataflow) at
+\paragraph{Capture.} $32\times32$ RGB, 12{,}033 traces (4{,}011 per dataflow) at
 $5$\,MHz with $4$ ADC samples per cycle. A full scan exceeds the ChipWhisperer-Lite FIFO,
 so the core scans the whole image---keeping the line buffer coherent---and frames only
 the trigger over a position range; scans are reassembled from 2 segments
@@ -157,10 +161,19 @@ and an advantage of $+14.02$ MAE over the analytic prior (Table~\ref{tab:hw}), w
 shuffled arm at the prior. Figure~\ref{fig:grid} shows recognisable garment silhouettes
 recovered from physically measured power.
 
-\paragraph{Colour does not.} Chrominance advantage is negative in all four conditions and
-the channel-permutation ratio is $0.985$--$1.031$. Since the tints are random per image,
-chroma is unpredictable from structure or prior; this is a controlled negative, not a
-modelling artifact.
+\paragraph{Colour does not, in any dataflow.} Chrominance advantage is negative in five
+of six conditions, and on the control group---the only group that reconstructs at all---
+the channel-permutation ratio is $0.985$--$0.998$, i.e.\ scoring against
+channel-swapped truth is \emph{no worse} than the correct pairing. Since the tints are
+random per image, chroma is unpredictable from structure or prior; this is a controlled
+negative, not a modelling artifact.
+
+That it holds across all three dataflows matters. \textsc{Summed} registers only the
+accumulator, \textsc{parallel} registers all 27 products, and \textsc{serial} gives each
+channel its own dwell period---three genuinely different sets of registered state,
+spanning the plausible design space for this layer. \textsc{Parallel} and \textsc{summed}
+are statistically indistinguishable ($+13.73$ vs $+14.02$). The negative is therefore a
+property of the channel at this SNR, not an artifact of one architecture.
 
 \paragraph{Natural photographs fail, and not because of colour.} Natural CIFAR-10 scores
 below the prior (MSSIM $0.057$). Running the identical pipeline on CIFAR
@@ -226,9 +239,8 @@ capture and converts a simulation from suggestive to predictive.
 
 Single device, single bitstream, single deployed kernel. CIFAR-10 at $32\times32$ is not
 representative of all natural imagery. Profiling and evaluation share a distribution, a
-limitation \cite{wei2018} also notes. Our claim is bounded to the \textsc{summed} and
-\textsc{serial} dataflows on this line-buffer geometry; \textsc{parallel} was implemented
-but not captured. The $10\times$ SNR projection for a faster oscilloscope is an
+limitation \cite{wei2018} also notes. Our claim is bounded to this line-buffer geometry; all three dataflows were captured,
+but a systolic or output-stationary accelerator may leak differently. The $10\times$ SNR projection for a faster oscilloscope is an
 extrapolation. We have not tested electromagnetic acquisition, which would address
 signal quality but not temporal resolution, since the ADC rate is unchanged.
 

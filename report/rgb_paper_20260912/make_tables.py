@@ -51,10 +51,15 @@ def write(name, text):
 
 
 # ---------------------------------------------------------- hardware results
+# The parallel dataflow was captured in a separate session (same bitstream, mode is a
+# runtime register) so its results live in their own file. Merge rather than duplicate.
 d = load(f"{R}/hardware_20260912/results.json")
+dp = load(f"{R}/hardware_parallel_20260912/results.json")
+if d and dp:
+    d = {**d, "modes": {**d["modes"], **dp.get("modes", {})}}
 if d:
     rows = []
-    for mode in ("summed", "serial"):
+    for mode in ("summed", "parallel", "serial"):
         for g in ("control", "natural"):
             r = d["modes"].get(mode, {}).get(g)
             if not r:
