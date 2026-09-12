@@ -28,20 +28,28 @@ absent from the prior literature: an analytic prior-only baseline, a shuffled-tr
 control, a channel-permutation penalty, and a luminance/chrominance decomposition.
 We recover recognisable image structure from measured traces (MSSIM $0.565$, MAE
 advantage $+14.19$ over the optimal constant predictor) while recovering
-\emph{no colour whatsoever}. This holds across \emph{all three} channel dataflows---
+\emph{no colour}. This holds across \emph{all three} channel dataflows---
 accumulator-only, per-product-registered, and channel-serial---so the negative is a
 property of the leakage at this signal-to-noise ratio rather than of one architectural
 choice: chrominance advantage is negative in ten of twelve per-channel measurements,
 and on the group that actually reconstructs the channel-permutation penalty is at or
 below zero once the no-input prior's own penalty is subtracted.
+Rather than report a pooled point score, we decompose recovery into per-task
+split-conformal bounds calibrated against that same no-input prior. This bounds the
+negative instead of merely asserting it. Luminance sets are $20$--$53\%$ tighter than
+the prior in all three dataflows and stay below it under every re-split of the
+calibration set. No chrominance interval separates from the prior in any of six
+population-by-dataflow cells: the tightest runs from $7\%$ tighter to $16\%$ looser, and
+under channel-serial chrominance is resolvably \emph{worse}.
 Because the tinted inputs carry per-image random chroma, this negative cannot be
 explained by a model colourising from the dataset prior. We further show the failure on
 natural photographs is driven by scene complexity rather than colour---grayscale CIFAR-10
 fails identically---and quantify the deficiency: natural-image recovery requires
 $5.8\times$ more signal-to-noise than this bench provides, of which averaging supplies a
 measured $1.70\times$. We report this as \emph{grayscale recovery from an RGB-input
-accelerator}, explicitly not RGB reconstruction, and argue the controls are the
-transferable contribution.
+accelerator}, explicitly not RGB reconstruction, and argue the controls and the
+calibrated per-task reporting are the transferable contribution. The calibrated
+analysis is retrospective and labelled as such.
 \end{abstract}
 
 \section{Introduction}
@@ -70,6 +78,11 @@ luma/chroma decomposition. None of these appears in the prior work.
 \item A measured negative on colour under conditions that exclude the two obvious
 confounds (scene complexity, and colourisation from the prior).
 \item A quantified instrumentation requirement derived from hardware, not modelling.
+\item A per-task calibrated reporting formulation (\S\ref{sec:calibrated}) that
+converts a pooled point score into bounds that can be withheld task by task, each
+against the no-input prior calibrated identically. It is what turns ``no colour'' from
+an assertion into a measured ceiling, and it reports how much of its own verdict table
+is an artifact of the calibration split.
 \end{enumerate}
 
 \section{Related work}
@@ -221,6 +234,8 @@ reconstructs at all---the channel-permutation penalty is $-0.23$, $-0.13$ and $+
 summed, parallel and serial: scoring against channel-swapped truth is \emph{no worse}
 than the correct pairing. Since the tints are random per image, chroma is unpredictable
 from structure or prior; this is a controlled negative, not a modelling artifact.
+\S\ref{sec:calibrated} puts a number on how large any residual colour recovery could
+be and still be consistent with these measurements.
 
 The swap penalty must be read against the no-input prior, not in isolation. A constant
 predictor incurs one whenever the dataset's channel distributions differ: on CIFAR the
@@ -242,7 +257,10 @@ property of the channel at this SNR, not an artifact of one architecture.
 \paragraph{Natural photographs fail, and not because of colour.} Natural CIFAR-10 scores
 below the prior (MSSIM $0.057$). Running the identical pipeline on CIFAR
 \emph{luminance} gives MSSIM $0.077$---indistinguishable. The limit is scene complexity.
-Notably, neither prior work attempted natural imagery either.
+The calibrated analysis corroborates this from a second direction: natural-group
+luminance is supported in $5\%$ of re-splits, and $8\times8$ block-averaged luminance---
+the easiest target a reconstructor has---scores \emph{worse} still, in every dataflow
+(\S\ref{sec:calibrated}). Notably, neither prior work attempted natural imagery either.
 
 \paragraph{Serial did not help, contradicting simulation.} On hardware \textsc{serial} is
 worse than \textsc{summed} and \textsc{parallel} ($+11.73$ vs $+14.19$ and $+14.55$). The
@@ -258,6 +276,7 @@ inverts the simulated ranking (Table~\ref{tab:phase0}). We report the hardware r
 treat the simulation as non-predictive for dataflow ranking.
 
 \subsection{Uncertainty}
+\label{sec:unc}
 
 Every figure above is a mean over a 200-image test set, which says nothing about whether
 a difference between two conditions is real. We therefore rescored the frozen
@@ -293,7 +312,10 @@ $+14.19$ $[+12.99, +15.35]$ for \textsc{summed}, well clear of zero.
 estimate.} Control-group chrominance advantage is $-0.34$ $[-0.51, -0.18]$ for
 \textsc{summed} and $-2.18$ $[-2.82, -1.57]$ for \textsc{serial}: intervals that exclude
 zero \emph{on the negative side}. The reconstruction is measurably worse than the
-constant predictor at chrominance, not merely no better.
+constant predictor at \emph{mean}
+chrominance error, not merely no better. This is a statement about the mean; at the
+$90$th percentile the two are indistinguishable (\S\ref{sec:calibrated}). We keep both
+and do not let the weaker one borrow the strength of the stronger.
 
 \textbf{One dataflow ordering survives and one does not.} \textsc{Serial} is genuinely
 worse than both others on the control group ($+2.46$ $[+1.60, +3.31]$ against
@@ -301,6 +323,116 @@ worse than both others on the control group ($+2.46$ $[+1.60, +3.31]$ against
 \textsc{summed} versus \textsc{parallel} is $-0.36$ $[-0.91, +0.16]$---unresolved, so we
 do not rank them. On the natural group no pair is resolved, which is consistent with all
 three failing there for the same reason.
+
+\subsection{Calibrated per-task validation}
+\label{sec:calibrated}
+
+Everything above reports a mean. A mean answers ``how well on average,'' which is not the
+question a defender asks: they ask what can be bounded for a \emph{new} image, and for
+which property of it. We therefore rescored the frozen predictions a second time,
+decomposing the pooled score into separate tasks and attaching a calibrated error bound
+to each. Nothing was retrained, no trace was reloaded, and no predicted pixel changed---
+only the reporting formulation.
+
+\paragraph{Method.} For a task $h_t$ the per-example score is
+$e_{i,t} = (255/d_t)\lVert h_t(\hat{x}_i) - h_t(x_i)\rVert_1$, in the same $0$--$255$
+units as every MAE above. Split-conformal calibration on a scene-disjoint half gives a
+radius $q_t = e_{(k),t}$ with $k = \lceil (n+1)(1-\alpha)\rceil$, covering a new
+exchangeable example's task error with probability at least $1-\alpha$. Primary tasks are
+full-resolution $Y$, $C_b$ and $C_r$, kept separate because averaging $C_b$ with $C_r$
+can hide one channel improving while the other degrades. An $8\times8$ area-averaged $Y$
+is a secondary diagnostic and never a fidelity claim: a method can score well on block
+means and be wrong at every pixel. We use $\alpha = 0.10$ \emph{per task}; three 90\%
+statements are not a joint 90\% statement and we do not combine them. The analytic prior
+is calibrated by the identical protocol, because a radius alone is uninterpretable---a
+radius of $255$ covers every image. A task is supported only if its interval covers
+\emph{and} is tighter than the prior's.
+
+\paragraph{Recovering what each row denoted.} This was a prerequisite, not a formality.
+The exports store group-local row positions, not source identifiers, and equal positions
+in two dataflows do not imply equal images. We recovered identity twice independently---
+by replaying the selection arithmetic, and by hashing each exported reference image
+against the capture set---and required the two to agree. They agree on all $1{,}200$
+rows, with no failed hash lookup and no collision among the $4{,}011$ captured images.
+
+\begin{table}[t]\centering\small
+\caption{Calibrated per-task bounds, $\alpha=0.10$ each, $100$ calibration and $100$
+assessment scenes per cell. \emph{Ratio} is the radius divided by the analytic prior's;
+below $1$ means a tighter set than no input at all. \emph{Splits} is the fraction of $20$
+re-splits in which the task would be supported, and $\star$ marks rows whose ratio stayed
+below $1$ in \emph{every} re-split. Only those three rows support a claim.}
+\label{tab:calibrated}
+\input{tables/tab_calibrated}
+\end{table}
+
+\paragraph{Luminance is supported, in every dataflow.} The control-group $Y$ radius is
+$32.1$ against the prior's $51.8$ for \textsc{summed}, $27.4$ for \textsc{parallel} and
+$35.4$ for \textsc{serial} (Table~\ref{tab:calibrated})---ratios of $0.62$, $0.53$ and
+$0.68$. As an operational statement: $90\%$ of new control images have luminance error at
+most ${\sim}32$ units, where a no-input adversary must accept ${\sim}52$. These are the
+only three rows in the table whose ratio interval stays below $1$ across every re-split.
+
+\paragraph{Chrominance never separates from the prior, in any dataflow.} In all six
+population-by-dataflow cells the chroma ratio interval includes $1$. We state the
+declared rule's own output rather than only the conclusion we draw from it: at the
+primary seed that rule marks a chroma task supported in four of the six cells---$C_b$
+under \textsc{summed}-natural, \textsc{parallel}-control and \textsc{serial}-natural,
+and both chroma tasks under \textsc{parallel}-natural. Every one of them passes on a
+margin under five percent (ratios $0.951$ to $0.997$), which its interval cannot
+separate from zero, and none carries a $\star$. We report them as unsupported and flag the rule, rather than
+suppressing four verdicts that a reader recomputing the table would find. The contrast with
+luma is best read from the intervals themselves rather than one side of them: control
+luma lies between $20\%$ and $53\%$ tighter than the no-input prior, while control $C_b$
+under \textsc{summed} lies between $5\%$ tighter and $11\%$ looser, and $C_r$ between
+$7\%$ tighter and $16\%$ looser. Under \textsc{serial} the chroma sets are resolvably
+\emph{worse}: $C_r$ has ratio $1.37$ with interval $[1.04, 1.63]$, entirely above $1$,
+and neither chroma task is supported in a single one of the $20$ re-splits.
+
+This agrees in direction with the mean-advantage result of \S\ref{sec:unc} but is a
+weaker statement, and we do not let it pass for the stronger one. The two measure
+different functionals. The bootstrap there compares \emph{mean} chroma error, where the
+reconstruction is resolvably worse than the constant predictor ($-0.34$ $[-0.51,
+-0.18]$); the ratio here compares the \emph{90th-percentile} error, where reconstruction
+and prior are indistinguishable ($1.007$ $[0.95, 1.11]$). Both say no colour was
+recovered; only the first says the attempt actively hurt.
+
+\paragraph{Natural photographs fail on structure, and the coarse task confirms it.}
+Natural-group $Y$ is supported in $5\%$ of re-splits under all three dataflows, at ratios
+of $1.065$, $1.043$ and $1.052$---no better than emitting the dataset mean. The secondary
+coarse task corroborates this independently and for free: $8\times8$ block-averaged $Y$
+scores \emph{worse} than full resolution in every dataflow ($1.105$, $1.084$, $1.099$).
+Coarse structure is the easiest thing a reconstructor can recover, so a method that
+cannot beat the prior even on block means is not partially succeeding at fine detail. It
+is contributing nothing.
+
+\paragraph{The verdict is split-sensitive, and we report the sensitivity.} A table of
+verdicts from one partition invites reading six findings where there are not six. Two
+cases make the point. Control $C_b$ is supported in $15\%$ of re-splits under
+\textsc{summed} and $50\%$ under \textsc{parallel}---the same task and population,
+decided by the partition. Conversely, \textsc{parallel} control $Y$ has the tightest
+ratio in the entire table ($0.530$) yet fails the declared rule at the primary seed,
+because its realised coverage landed at $0.83$; it is supported in $90\%$ of re-splits.
+We therefore treat the $\star$ column---ratio below $1$ under every re-split---as what
+supports a claim, and a high support fraction alone as insufficient: natural $C_b$ is
+supported in $80\%$ of re-splits on a margin of about $2\%$, which the interval cannot
+separate from zero.
+
+\paragraph{The calibration itself checks out.} Mean realised coverage across
+\input{tables/val_ncells}\unskip{} cell--task combinations and $20$ re-splits is
+\input{tables/val_coverage}\unskip{}, against the $k/(n+1) =
+\input{tables/val_coverage_expected}\unskip{}$ expected for $k=91$, $n=100$. Had coverage
+sat materially below that, the calibration and assessment halves would not be
+exchangeable, and no arithmetic downstream would repair it.
+
+\paragraph{Status of this analysis.} It is retrospective and we label it so. These
+assessment rows are the same held-out examples that informed the corrections in
+\S\ref{sec:corrections} and the claims above, and re-splitting previously inspected data
+does not make it fresh: neither the frozen predictor nor the task definitions were chosen
+independently of these cases. The coverage figures are therefore exploratory evidence
+about the reporting formulation, not a prospective guarantee. Two components---the
+interval on the radius ratio, and the re-split sweep---were added after seeing the first
+output and are reported as post-hoc. The protocol fixed beforehand covers \textsc{summed}
+only; the other two dataflows were run under the identical protocol as an extension.
 
 \section{Corrections following external review}
 \label{sec:corrections}
@@ -437,15 +569,35 @@ but a systolic or output-stationary accelerator may leak differently. The $10\ti
 extrapolation. We have not tested electromagnetic acquisition, which would address
 signal quality but not temporal resolution, since the ADC rate is unchanged.
 
+The calibrated analysis of \S\ref{sec:calibrated} carries its own limits. It is
+retrospective: its assessment examples are the same rows that informed earlier claims
+here, so its coverage figures are exploratory evidence about the reporting formulation
+and not a prospective guarantee, which would need examples with a clean usage history.
+Its guarantee is marginal, not conditional---it bounds task error at the stated rate
+over the population and says nothing about any individual image, nor about a subgroup
+chosen after the fact. The per-task levels are separate, so the table must not be read
+as a joint statement. All captures come from one session, and no session variable
+exists in these artifacts, so cross-session transport cannot be assessed at all. Scene
+and source image coincide in this dataset, which is a property of this capture rather
+than a general one: re-photographed or augmented variants would break the assumption
+that makes the split disjoint.
+
 \section{Conclusion}
 
 We recover recognisable image structure from RGB-accelerator power traces and no colour,
 under controls that exclude both scene complexity and prior-driven colourisation. The
-honest description is \emph{grayscale recovery from an RGB-input accelerator}. This
+honest description is \emph{grayscale recovery from an RGB-input accelerator}. That
 reading was pre-registered before the measurements existed, not fitted to them.
 
-We suggest the transferable contribution is the control set rather than the
-reconstruction. Neither foundational paper reports a prior-only baseline, which means
+The pre-registration covers the reading, not the calibrated reformulation that now
+bounds it. \S\ref{sec:calibrated} was written after the measurements and rescores rows
+already inspected; its coverage figures are exploratory, and we mark them so wherever
+they appear. What it adds is not a new measurement but a stricter accounting of the
+existing one---per-task, against a baseline calibrated the same way, with the
+sensitivity of each verdict to the calibration split reported beside it.
+
+We suggest the transferable contributions are the control set and this reporting
+formulation, rather than the reconstruction. Neither foundational paper reports a prior-only baseline, which means
 neither can separate ``recovered the input'' from ``reproduced the dataset.'' Our first
 attempt at that baseline was itself broken in a way that inflated our apparent result
 $68\times$, and only an analytic cross-check caught it. For a field whose headline

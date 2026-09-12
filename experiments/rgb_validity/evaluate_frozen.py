@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import time
 
@@ -115,6 +116,15 @@ def seed_stability(batch, alpha, frac_cal, seeds):
             "n_seeds": len(seeds),
             "fraction_of_seeds_useful": (float(np.mean(useful)) if useful else None),
             "coverage_min_max": [float(np.min(covs)), float(np.max(covs))],
+            # Mean realized coverage. The conformal radius is the kth of n calibration
+            # scores, so coverage is Beta(k, n-k+1) with mean k/(n+1) -- 0.901 for
+            # k=91, n=100. A mean materially below that across many re-splits would
+            # indicate the calibration and assessment halves are not exchangeable,
+            # which no amount of correct arithmetic downstream would repair.
+            "coverage_mean": float(np.mean(covs)),
+            "coverage_expected_beta_mean": float(
+                math.ceil((len(batch.scene_id) * frac_cal + 1) * (1 - alpha))
+                / (len(batch.scene_id) * frac_cal + 1)),
             "ratio_min_max": ([float(np.nanmin(ratios)), float(np.nanmax(ratios))]
                               if ratios else None),
             "stable": (None if not useful else bool(np.mean(useful) in (0.0, 1.0))),

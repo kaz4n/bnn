@@ -198,4 +198,60 @@ if d:
         write("tab_paired.tex", table(
             "llrcl", "Group & Comparison & Difference & 95\% CI & Ordering", rows))
 
+# ---------------------------------------------------------- calibrated validation
+# One table, deliberately. Splitting the verdict from its split-stability would let a
+# reader quote "established" without seeing that it flips on a different partition,
+# which is the selective reading this whole analysis exists to prevent.
+V = "experiments/rgb_validity/results/frozen_pilot_all"
+d = load(f"{V}/results.json")
+if d:
+    rows = []
+    for mode in ("summed", "parallel", "serial"):
+        for g in ("control", "natural"):
+            c = d["cells"].get(f"{mode}/{g}")
+            if not c:
+                continue
+            for t, tl in (("Y", "Y"), ("Cb", "C_b"), ("Cr", "C_r")):
+                e = c["tasks"].get(t)
+                if not e:
+                    continue
+                ru = e.get("post_hoc_ratio_uncertainty") or {}
+                st = c.get("post_hoc_seed_stability", {}).get(t, {})
+                ci = ru.get("ratio_ci_95")
+                ci_s = f"[{ci[0]:.2f}, {ci[1]:.2f}]" if ci else "--"
+                fr = st.get("fraction_of_seeds_useful")
+                # Mark the rows whose ratio interval lies wholly below 1 across every
+                # re-split. That, not the verdict column, is what supports a claim.
+                mark = r"$\star$" if st.get("ratio_range_excludes_one") else ""
+                rows.append(
+                    f"{mode} & {g} & ${tl}$ & {e['calibration']['radius']:.1f} & "
+                    f"{e['prior']['calibration']['radius']:.1f} & "
+                    f"{e['radius_ratio_vs_prior']:.3f} & {ci_s} & "
+                    f"{e['coverage']['coverage']:.2f} & "
+                    f"{fr * 100:.0f}\% {mark} " + NL)
+        rows.append(r"\hline")
+    if rows and rows[-1] == r"\hline":
+        rows.pop()
+    write("tab_calibrated.tex", table(
+        "lllrrrcrr",
+        "Dataflow & Group & Task & Radius & Prior & Ratio & 95\% CI & Cover & Splits",
+        rows))
+
+    # Aggregate validity check: is the conformal machinery actually delivering its
+    # nominal rate on this data? If realized coverage sat well below k/(n+1), the
+    # calibration and assessment halves would not be exchangeable and nothing in the
+    # table above would mean what it says.
+    import numpy as _np
+    cov, exp = [], None
+    for c in d["cells"].values():
+        for r in c.get("post_hoc_seed_stability", {}).values():
+            cov.append(r["coverage_mean"])
+            exp = r["coverage_expected_beta_mean"]
+    if cov:
+        open(os.path.join(OUT, "val_coverage.tex"), "w").write(
+            f"{_np.mean(cov):.4f}")
+        open(os.path.join(OUT, "val_coverage_expected.tex"), "w").write(f"{exp:.4f}")
+        open(os.path.join(OUT, "val_ncells.tex"), "w").write(str(len(cov)))
+        print(f"  wrote val_coverage.tex ({_np.mean(cov):.4f} vs {exp:.4f})")
+
 print("done")
