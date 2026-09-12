@@ -39,3 +39,8 @@ training/artifacts/**/*.weights.h5
 # Source datasets: derived from public CIFAR-10 / Fashion-MNIST by the build scripts.
 host/fashion_train.npz
 host/mnist_*.npz
+
+# LaTeX build intermediates
+*.aux
+*.out
+report/**/*.log
