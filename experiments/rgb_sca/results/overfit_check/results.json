@@ -1,0 +1,163 @@
+{
+ "kind": "rgb_sca_overfit_functionality_check",
+ "source": "hardware_traces_plus_synthetic_control",
+ "hardware_used": false,
+ "created_utc": "2026-09-12T11:09:25Z",
+ "args": {
+  "trace_dir": "host/traces_rgb_full",
+  "mode": "summed",
+  "image_set": "host/rgb_capture_images.npz",
+  "n": 8,
+  "epochs": 400,
+  "lr": 0.001,
+  "threads": 4,
+  "seed": 0,
+  "out": "experiments/rgb_sca/results/overfit_check"
+ },
+ "note": "Memorising a few images is a FUNCTIONALITY test. It cannot distinguish poor generalization from an uninformative input, and is not evidence of reconstruction.",
+ "arms": {
+  "synthetic": {
+   "train_mae": 7.597487253885049,
+   "train_mssim": 0.9840389115892164,
+   "loss_curve": [
+    {
+     "epoch": 0,
+     "loss": 0.28517234325408936
+    },
+    {
+     "epoch": 50,
+     "loss": 0.005796958226710558
+    },
+    {
+     "epoch": 100,
+     "loss": 0.0010702426079660654
+    },
+    {
+     "epoch": 150,
+     "loss": 0.000327896123053506
+    },
+    {
+     "epoch": 200,
+     "loss": 0.00013146258424967527
+    },
+    {
+     "epoch": 250,
+     "loss": 6.330088945105672e-05
+    },
+    {
+     "epoch": 300,
+     "loss": 3.430238211876713e-05
+    },
+    {
+     "epoch": 350,
+     "loss": 2.0253639377187937e-05
+    },
+    {
+     "epoch": 399,
+     "loss": 1.293402510782471e-05
+    }
+   ],
+   "final_grad_norm": 7.924754754640162e-05,
+   "prediction_spread_255": 54.16196060180664,
+   "truth_spread_255": 60.17416000366211,
+   "spread_ratio": 0.900086691671482
+  },
+  "control": {
+   "train_mae": 9.69890387399289,
+   "train_mssim": 0.9157597127128305,
+   "loss_curve": [
+    {
+     "epoch": 0,
+     "loss": 0.3824942708015442
+    },
+    {
+     "epoch": 50,
+     "loss": 0.005680378060787916
+    },
+    {
+     "epoch": 100,
+     "loss": 0.0014248037477955222
+    },
+    {
+     "epoch": 150,
+     "loss": 0.000673603150062263
+    },
+    {
+     "epoch": 200,
+     "loss": 0.00040014562546275556
+    },
+    {
+     "epoch": 250,
+     "loss": 0.00026953915948979557
+    },
+    {
+     "epoch": 300,
+     "loss": 0.00019629960297606885
+    },
+    {
+     "epoch": 350,
+     "loss": 0.00015050872752908617
+    },
+    {
+     "epoch": 399,
+     "loss": 0.0001202040002681315
+    }
+   ],
+   "final_grad_norm": 0.0004828411329071969,
+   "prediction_spread_255": 34.06593704223633,
+   "truth_spread_255": 42.338199615478516,
+   "spread_ratio": 0.8046146825237719
+  },
+  "natural": {
+   "train_mae": 7.149670929476599,
+   "train_mssim": 0.9862532326971275,
+   "loss_curve": [
+    {
+     "epoch": 0,
+     "loss": 0.2872805595397949
+    },
+    {
+     "epoch": 50,
+     "loss": 0.005828187335282564
+    },
+    {
+     "epoch": 100,
+     "loss": 0.001103684538975358
+    },
+    {
+     "epoch": 150,
+     "loss": 0.0003374545485712588
+    },
+    {
+     "epoch": 200,
+     "loss": 0.00013779173605144024
+    },
+    {
+     "epoch": 250,
+     "loss": 6.656760524492711e-05
+    },
+    {
+     "epoch": 300,
+     "loss": 3.57679818989709e-05
+    },
+    {
+     "epoch": 350,
+     "loss": 2.0989356926293112e-05
+    },
+    {
+     "epoch": 399,
+     "loss": 1.3338907592697069e-05
+    }
+   ],
+   "final_grad_norm": 7.96551612438634e-05,
+   "prediction_spread_255": 55.01133728027344,
+   "truth_spread_255": 60.17416000366211,
+   "spread_ratio": 0.9142019976170092
+  }
+ },
+ "verdict": {
+  "pipeline_can_fit_a_learnable_mapping": true,
+  "pipeline_can_memorise_natural_traces": true,
+  "reading": "synthetic fits + natural fits -> pipeline is functional; the held-out failure is generalization or input information, which this test does not separate. synthetic fits + natural does NOT -> the natural features carry too little information to memorise even 8 samples. synthetic fails -> implementation/optimization defect; nothing downstream is interpretable."
+ }
+}

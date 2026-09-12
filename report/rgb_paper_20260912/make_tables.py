@@ -149,4 +149,22 @@ if d and old:
             "lrr",
             "Dataflow & Position split, defective & Scene-disjoint, corrected", rows))
 
+# ---------------------------------------------------------- overfit functionality
+d = load(f"{R}/overfit_check/results.json")
+if d:
+    rows = []
+    for name in ("synthetic", "control", "natural"):
+        a = d["arms"].get(name)
+        if not a:
+            continue
+        c = a["loss_curve"]
+        rows.append(f"{name} & {a['train_mae']:.2f} & {a['train_mssim']:.3f} & "
+                    f"{c[0]['loss']:.3f} & {c[-1]['loss']:.4f} & "
+                    f"{a['spread_ratio']:.2f} " + NL)
+    if rows:
+        write("tab_overfit.tex", table(
+            "lrrrrr",
+            "Arm & Train MAE & Train MSSIM & Loss start & Loss end & Spread ratio",
+            rows))
+
 print("done")

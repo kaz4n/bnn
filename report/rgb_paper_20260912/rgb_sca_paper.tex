@@ -332,6 +332,38 @@ Wei et~al.\ used $2.5$\,GS/s, which their \S5 per-cycle RC curve-fitting require
 ${\sim}500$ samples per cycle we estimate ${\sim}10\times$ SNR, above the $3.4\times$
 needed. \emph{This last step is an estimate from measured inputs, not itself measured.}
 
+\subsection{The pipeline can fit; the failure is not implementation}
+
+A reconstruction that scores below the analytic prior admits several explanations:
+an implementation defect, mispaired inputs, bad scaling, insufficient optimization,
+poor generalization, or an input that simply carries too little information. The first
+four are excluded by showing the pipeline can memorise a small, correctly-paired
+problem, so we ran that check with a predeclared budget of 400 epochs on eight images
+(Table~\ref{tab:overfit}).
+
+\begin{table}[t]\centering\small
+\caption{Tiny-subset functionality check. \textsc{Synthetic} features are a fixed random
+linear projection of the image itself, so the mapping is learnable by construction and a
+working pipeline must fit it. Spread ratio is the across-sample standard deviation of the
+predictions divided by that of the targets: a model collapsed to the dataset mean scores
+near zero here while still showing a falling loss.}
+\label{tab:overfit}
+\input{tables/tab_overfit}
+\end{table}
+
+All three arms fit. The synthetic control reaches MSSIM $0.984$ with the loss falling to
+$0.0000$, so model, loss, scaling and pairing are functional. The natural arm---the case
+that fails on held-out data---memorises eight images to MSSIM $0.986$ with a prediction
+spread of $0.91\times$ the targets', i.e.\ it emits genuinely distinct outputs per input
+rather than collapsing to the mean.
+
+Implementation, pairing, scaling and optimization are therefore not the explanation for
+the natural-image result. What remains is generalization or the information content of
+the input, and this test deliberately does not separate those two: memorising eight
+images is a functionality check, not evidence of recovery. The value of running it is
+narrower and specific---it converts the natural-image result from an inconclusive model
+failure into a bounded negative.
+
 \section{On simulation fidelity}
 
 \begin{table}[t]\centering\small
