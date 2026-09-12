@@ -1,0 +1,983 @@
+{
+ "kind": "rgb_validity_frozen_pilot",
+ "status": "RETROSPECTIVE AND EXPLORATORY -- not a prospective coverage guarantee; these assessment rows were previously inspected",
+ "hardware_used": false,
+ "retrained": false,
+ "predictions_modified": false,
+ "created_utc": "2026-09-12T13:15:46Z",
+ "protocol": {
+  "alpha_per_task": 0.1,
+  "joint_guarantee_across_tasks": false,
+  "split": "scene-disjoint",
+  "frac_cal": 0.5,
+  "seed": 0,
+  "populations_pooled": false,
+  "tasks_primary": [
+   "Y",
+   "Cb",
+   "Cr"
+  ],
+  "tasks_secondary": [
+   "Y_coarse8"
+  ]
+ },
+ "cells": {
+  "summed/control": {
+   "n": 200,
+   "n_cal": 100,
+   "n_assess": 100,
+   "split": {
+    "kind": "scene-disjoint",
+    "seed": 0,
+    "frac_cal": 0.5,
+    "calibration_scene_ids": [
+     1391,
+     1644,
+     485,
+     946,
+     1637,
+     1886,
+     347,
+     1747,
+     935,
+     1707,
+     1337,
+     889,
+     631,
+     1328,
+     556,
+     506,
+     1191,
+     905,
+     52,
+     854,
+     1533,
+     83,
+     989,
+     509,
+     1811,
+     109,
+     431,
+     1532,
+     820,
+     1751,
+     809,
+     1581,
+     1612,
+     1453,
+     638,
+     376,
+     1501,
+     1742,
+     1872,
+     1422,
+     1097,
+     146,
+     960,
+     1043,
+     1629,
+     1984,
+     1968,
+     1258,
+     1604,
+     917,
+     1608,
+     1670,
+     1860,
+     1478,
+     1106,
+     23,
+     368,
+     1176,
+     31,
+     474,
+     1084,
+     1269,
+     1325,
+     454,
+     1634,
+     1601,
+     1146,
+     1393,
+     812,
+     683,
+     1002,
+     88,
+     1700,
+     296,
+     1279,
+     1282,
+     1818,
+     524,
+     1385,
+     1013,
+     744,
+     188,
+     1523,
+     1203,
+     776,
+     1497,
+     1677,
+     1950,
+     972,
+     1305,
+     1023,
+     290,
+     1915,
+     1780,
+     1830,
+     249,
+     745,
+     1221,
+     1592,
+     1475
+    ],
+    "assessment_scene_ids": [
+     1957,
+     1247,
+     1960,
+     1826,
+     481,
+     694,
+     865,
+     1400,
+     1109,
+     1893,
+     456,
+     578,
+     843,
+     760,
+     396,
+     224,
+     1344,
+     676,
+     430,
+     461,
+     941,
+     1369,
+     1370,
+     1848,
+     1884,
+     653,
+     1360,
+     303,
+     1294,
+     695,
+     371,
+     1564,
+     1546,
+     1177,
+     204,
+     1680,
+     337,
+     1671,
+     361,
+     1806,
+     1580,
+     568,
+     841,
+     687,
+     79,
+     393,
+     1600,
+     903,
+     1804,
+     945,
+     583,
+     1980,
+     883,
+     1808,
+     1244,
+     1098,
+     1776,
+     1669,
+     1302,
+     787,
+     102,
+     682,
+     1134,
+     533,
+     1527,
+     427,
+     1660,
+     1234,
+     346,
+     1837,
+     1040,
+     528,
+     81,
+     875,
+     666,
+     155,
+     365,
+     1466,
+     316,
+     300,
+     623,
+     764,
+     156,
+     308,
+     1989,
+     1972,
+     1332,
+     1823,
+     1789,
+     142,
+     959,
+     569,
+     870,
+     1041,
+     1201,
+     1104,
+     1733,
+     646,
+     1623,
+     1181
+    ]
+   },
+   "source_audit": {
+    "routes_agree": true,
+    "hash_lookup_misses": 0,
+    "hash_collisions_in_capture_set": 0,
+    "verdict": "identity established by two independent routes"
+   },
+   "artifact_hashes": {
+    "truth": "0fc0bf3ec3b933d4",
+    "prediction": "eef8b629106df7b3",
+    "prior": "37c47ccc79c1d195"
+   },
+   "n_prediction_values_outside_unit_interval": 0,
+   "has_prior_baseline": true,
+   "tasks": {
+    "Y": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 32.12285001372673,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 90,
+      "coverage": 0.9,
+      "wilson_95": [
+       0.8256343384741059,
+       0.9447708629469292
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 19.249590233340186,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 51.758851286251705,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 91,
+       "coverage": 0.91,
+       "wilson_95": [
+        0.8377378714521683,
+        0.9519274600043929
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 34.7952390401264
+     },
+     "tighter_than_prior": true,
+     "radius_ratio_vs_prior": 0.6206252498934278,
+     "useful": true,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.5265940135995794,
+       0.8021045835965538
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": true,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Cb": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 21.36635651246337,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 89,
+      "coverage": 0.89,
+      "wilson_95": [
+       0.8136870349479304,
+       0.9374580364375789
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 9.815696637286146,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 21.21909110003708,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 90,
+       "coverage": 0.9,
+       "wilson_95": [
+        0.8256343384741059,
+        0.9447708629469292
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 9.507793295129234
+     },
+     "tighter_than_prior": false,
+     "radius_ratio_vs_prior": 1.0069402318757203,
+     "useful": false,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.9452581114356056,
+       1.1088545533989764
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Cr": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 23.78445539033625,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 86,
+      "coverage": 0.86,
+      "wilson_95": [
+       0.7786281178683738,
+       0.9147365634105578
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 11.535763437865015,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 22.527281385681388,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 85,
+       "coverage": 0.85,
+       "wilson_95": [
+        0.7671644040694882,
+        0.9069401471739175
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 11.330931836442574
+     },
+     "tighter_than_prior": false,
+     "radius_ratio_vs_prior": 1.0558067342051287,
+     "useful": false,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.934481046205685,
+       1.1580879880170565
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Y_coarse8": {
+     "primary": false,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 27.618510036393655,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 89,
+      "coverage": 0.89,
+      "wilson_95": [
+       0.8136870349479304,
+       0.9374580364375789
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 15.48020453176996,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 44.11894372624322,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 89,
+       "coverage": 0.89,
+       "wilson_95": [
+        0.8136870349479304,
+        0.9374580364375789
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 29.56851171713427
+     },
+     "tighter_than_prior": true,
+     "radius_ratio_vs_prior": 0.6260011619445316,
+     "useful": true,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.49823426739059945,
+       0.7849922464465128
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": true,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    }
+   }
+  },
+  "summed/natural": {
+   "n": 200,
+   "n_cal": 100,
+   "n_assess": 100,
+   "split": {
+    "kind": "scene-disjoint",
+    "seed": 0,
+    "frac_cal": 0.5,
+    "calibration_scene_ids": [
+     3391,
+     3644,
+     2485,
+     2946,
+     3637,
+     3886,
+     2347,
+     3747,
+     2935,
+     3707,
+     3337,
+     2889,
+     2631,
+     3328,
+     2556,
+     2506,
+     3191,
+     2905,
+     2052,
+     2854,
+     3533,
+     2083,
+     2989,
+     2509,
+     3811,
+     2109,
+     2431,
+     3532,
+     2820,
+     3751,
+     2809,
+     3581,
+     3612,
+     3453,
+     2638,
+     2376,
+     3501,
+     3742,
+     3872,
+     3422,
+     3097,
+     2146,
+     2960,
+     3043,
+     3629,
+     3984,
+     3968,
+     3258,
+     3604,
+     2917,
+     3608,
+     3670,
+     3860,
+     3478,
+     3106,
+     2023,
+     2368,
+     3176,
+     2031,
+     2474,
+     3084,
+     3269,
+     3325,
+     2454,
+     3634,
+     3601,
+     3146,
+     3393,
+     2812,
+     2683,
+     3002,
+     2088,
+     3700,
+     2296,
+     3279,
+     3282,
+     3818,
+     2524,
+     3385,
+     3013,
+     2744,
+     2188,
+     3523,
+     3203,
+     2776,
+     3497,
+     3677,
+     3950,
+     2972,
+     3305,
+     3023,
+     2290,
+     3915,
+     3780,
+     3830,
+     2249,
+     2745,
+     3221,
+     3592,
+     3475
+    ],
+    "assessment_scene_ids": [
+     3957,
+     3247,
+     3960,
+     3826,
+     2481,
+     2694,
+     2865,
+     3400,
+     3109,
+     3893,
+     2456,
+     2578,
+     2843,
+     2760,
+     2396,
+     2224,
+     3344,
+     2676,
+     2430,
+     2461,
+     2941,
+     3369,
+     3370,
+     3848,
+     3884,
+     2653,
+     3360,
+     2303,
+     3294,
+     2695,
+     2371,
+     3564,
+     3546,
+     3177,
+     2204,
+     3680,
+     2337,
+     3671,
+     2361,
+     3806,
+     3580,
+     2568,
+     2841,
+     2687,
+     2079,
+     2393,
+     3600,
+     2903,
+     3804,
+     2945,
+     2583,
+     3980,
+     2883,
+     3808,
+     3244,
+     3098,
+     3776,
+     3669,
+     3302,
+     2787,
+     2102,
+     2682,
+     3134,
+     2533,
+     3527,
+     2427,
+     3660,
+     3234,
+     2346,
+     3837,
+     3040,
+     2528,
+     2081,
+     2875,
+     2666,
+     2155,
+     2365,
+     3466,
+     2316,
+     2300,
+     2623,
+     2764,
+     2156,
+     2308,
+     3989,
+     3972,
+     3332,
+     3823,
+     3789,
+     2142,
+     2959,
+     2569,
+     2870,
+     3041,
+     3201,
+     3104,
+     3733,
+     2646,
+     3623,
+     3181
+    ]
+   },
+   "source_audit": {
+    "routes_agree": true,
+    "hash_lookup_misses": 0,
+    "hash_collisions_in_capture_set": 0,
+    "verdict": "identity established by two independent routes"
+   },
+   "artifact_hashes": {
+    "truth": "1735ef9770a830f8",
+    "prediction": "dbc2677cdf5ca1b3",
+    "prior": "f6441597baa623b9"
+   },
+   "n_prediction_values_outside_unit_interval": 0,
+   "has_prior_baseline": true,
+   "tasks": {
+    "Y": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 77.33535086516584,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 87,
+      "coverage": 0.87,
+      "wilson_95": [
+       0.7901964855774672,
+       0.9224283257369903
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 54.20538002257,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 72.60917123311788,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 92,
+       "coverage": 0.92,
+       "wilson_95": [
+        0.8500189229701844,
+        0.9589065385219027
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 49.328440266360374
+     },
+     "tighter_than_prior": false,
+     "radius_ratio_vs_prior": 1.0650906703903031,
+     "useful": false,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.8996476082125725,
+       1.174216191392769
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Cb": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 17.62527278182894,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 90,
+      "coverage": 0.9,
+      "wilson_95": [
+       0.8256343384741059,
+       0.9447708629469292
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 10.054976196764514,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 17.95684176082959,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 91,
+       "coverage": 0.91,
+       "wilson_95": [
+        0.8377378714521683,
+        0.9519274600043929
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 10.28940100542495
+     },
+     "tighter_than_prior": true,
+     "radius_ratio_vs_prior": 0.9815352285542815,
+     "useful": true,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.792733345222808,
+       1.0976915538440302
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Cr": {
+     "primary": true,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 14.770810136912012,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 81,
+      "coverage": 0.81,
+      "wilson_95": [
+       0.722211546186536,
+       0.8748524849147664
+      ],
+      "target": 0.9,
+      "materially_undercovers": true,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 9.835868413781233,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 15.03740037517708,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 85,
+       "coverage": 0.85,
+       "wilson_95": [
+        0.7671644040694882,
+        0.9069401471739175
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 9.830274815722435
+     },
+     "tighter_than_prior": true,
+     "radius_ratio_vs_prior": 0.9822715209003052,
+     "useful": false,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.8416621869063877,
+       1.096795383747967
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    },
+    "Y_coarse8": {
+     "primary": false,
+     "calibration": {
+      "n_cal": 100,
+      "alpha": 0.1,
+      "k": 91,
+      "radius": 70.88590313252243,
+      "finite": true,
+      "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+     },
+     "coverage": {
+      "n_assess": 100,
+      "covered": 86,
+      "coverage": 0.86,
+      "wilson_95": [
+       0.7786281178683738,
+       0.9147365634105578
+      ],
+      "target": 0.9,
+      "materially_undercovers": false,
+      "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+     },
+     "assess_mean_error_255": 49.3340566586898,
+     "prior": {
+      "calibration": {
+       "n_cal": 100,
+       "alpha": 0.1,
+       "k": 91,
+       "radius": 64.16307339254257,
+       "finite": true,
+       "note": "kth smallest of 100 calibration scores, k=ceil((n+1)(1-alpha))"
+      },
+      "coverage": {
+       "n_assess": 100,
+       "covered": 89,
+       "coverage": 0.89,
+       "wilson_95": [
+        0.8136870349479304,
+        0.9374580364375789
+       ],
+       "target": 0.9,
+       "materially_undercovers": false,
+       "note": "Wilson interval treats assessment examples as independent. That holds here only because each is a distinct source scene; with repeated views of one scene it would be too narrow."
+      },
+      "assess_mean_error_255": 43.71229721513763
+     },
+     "tighter_than_prior": false,
+     "radius_ratio_vs_prior": 1.1047772399998723,
+     "useful": false,
+     "post_hoc_ratio_uncertainty": {
+      "ratio_ci_95": [
+       0.9008471838676718,
+       1.2389067756134549
+      ],
+      "n_boot": 2000,
+      "resolvably_tighter": false,
+      "note": "resolvably_tighter=False means the ratio interval spans 1.0: the declared point comparison decided this cell on a margin the data cannot resolve"
+     }
+    }
+   }
+  }
+ },
+ "blocked": [],
+ "verdicts": {
+  "summed/control": {
+   "established_primary_tasks": [
+    "Y"
+   ],
+   "withheld_primary_tasks": [
+    "Cb",
+    "Cr"
+   ],
+   "established_on_a_margin_the_data_cannot_resolve": [],
+   "reading": "Established = the calibrated set covered on scene-disjoint assessment examples AND was tighter than the no-input prior's, in the retrospective sense declared at the top of this file. Withheld tasks are NOT shown to be impossible -- they are unsupported by these frozen outputs under this protocol."
+  },
+  "summed/natural": {
+   "established_primary_tasks": [
+    "Cb"
+   ],
+   "withheld_primary_tasks": [
+    "Y",
+    "Cr"
+   ],
+   "established_on_a_margin_the_data_cannot_resolve": [
+    "Cb"
+   ],
+   "reading": "Established = the calibrated set covered on scene-disjoint assessment examples AND was tighter than the no-input prior's, in the retrospective sense declared at the top of this file. Withheld tasks are NOT shown to be impossible -- they are unsupported by these frozen outputs under this protocol."
+  }
+ }
+}

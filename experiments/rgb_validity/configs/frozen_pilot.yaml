@@ -1,0 +1,54 @@
+# Declared protocol for the frozen-prediction pilot.
+#
+# Written BEFORE running the evaluation and committed alongside its results, so the
+# analysis choices can be checked against what was declared rather than reconstructed
+# from what was reported. Every field here is passed to evaluate_frozen.py verbatim.
+#
+# STATUS: retrospective and exploratory. The assessment rows below are the same held-out
+# examples that informed earlier corrections and paper claims in this repository. A fresh
+# split does not make previously inspected data fresh, so this cannot establish a
+# prospective coverage guarantee -- only whether the reporting formulation holds up on
+# the evidence already in hand.
+
+status: retrospective_exploratory
+prospective_guarantee: false
+
+populations:
+  # Minimum viable experiment: one dataflow. Natural and control are never pooled --
+  # they differ in difficulty by roughly 5x in correlation, so a pooled score is a
+  # mixture whose value depends on the mix ratio rather than on the method.
+  modes: [summed]
+  groups: [control, natural]
+
+tasks:
+  primary: [Y, Cb, Cr]        # each reported and withheld independently
+  secondary: [Y_coarse8]      # coarse-structure diagnostic, never a fidelity claim
+
+calibration:
+  alpha: 0.10                 # PER TASK. Three 90% statements are not a joint 90%.
+  joint_across_tasks: false
+  split: scene_disjoint
+  frac_cal: 0.5
+  seed: 0
+
+baseline:
+  # The analytic mean-image prior, calibrated by the identical protocol. Without it a
+  # radius is uninterpretable: a radius of 255 covers every image and means nothing.
+  source: exported_prior_only_array
+  required_for_usefulness: true
+
+decision_rule:
+  # Fixed in advance and applied mechanically, so a task cannot be promoted after
+  # seeing that it scored well.
+  established: coverage_held AND radius_tighter_than_prior
+  withheld: everything_else
+  withheld_does_not_mean: impossible
+
+known_limitations:
+  - Assessment rows were previously inspected; coverage here is exploratory.
+  - Marginal coverage only. Nothing is claimed about any individual image or about a
+    subgroup selected after the fact.
+  - Single capture session. No session variable exists in these artifacts, so
+    cross-session transport cannot be assessed at all.
+  - Scene equals source row in this dataset. That is a property of this capture, not a
+    general truth; re-photographed or augmented variants would break it.
