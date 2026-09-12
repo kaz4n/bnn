@@ -18,6 +18,17 @@ populations:
   # they differ in difficulty by roughly 5x in correlation, so a pooled score is a
   # mixture whose value depends on the mix ratio rather than on the method.
   modes: [summed]
+  # Declared first, and left unedited so it stays visible as the minimum viable
+  # experiment. The extension below was run AFTER the summed result was seen, holding
+  # tasks, alpha, split rule and baseline fixed -- it widens the population set, it does
+  # not select a favourable subset.
+  #
+  # Two result directories, and both are kept on purpose. results/frozen_pilot/ is the
+  # output of the declared run above and is the pre-registration artifact; deleting it
+  # would leave only the widened experiment on disk. results/frozen_pilot_all/ holds the
+  # declared cells plus the extension and is what the paper tables read. The summed
+  # cells are byte-identical between the two, which is also a reproducibility check.
+  modes_extension: [parallel, serial]
   groups: [control, natural]
 
 tasks:
@@ -46,6 +57,12 @@ decision_rule:
 
 known_limitations:
   - Assessment rows were previously inspected; coverage here is exploratory.
+  - The parallel and serial dataflows were added after the declared summed-only run,
+    under the identical protocol. The paper reports them as an extension, not as
+    pre-declared.
+  - Two diagnostics are post-hoc: the bootstrap interval on the radius ratio, and the
+    20-seed re-split sweep. Both were added after seeing the first output. Neither
+    changes the declared decision rule, whose verdicts are reported as computed.
   - Marginal coverage only. Nothing is claimed about any individual image or about a
     subgroup selected after the fact.
   - Single capture session. No session variable exists in these artifacts, so
